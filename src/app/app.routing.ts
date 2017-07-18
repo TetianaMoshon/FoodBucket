@@ -1,6 +1,6 @@
 import { Routes, RouterModule} from '@angular/router';
 import { ModuleWithProviders} from '@angular/core';
-import {HomeComponent} from './components/home/home.component';
+import {HomeComponent} from './components/home/home.page.component';
 import {IngredientsComponent} from './components/ingredients/ingredients.component';
 
 const appRoutes: Routes = [
