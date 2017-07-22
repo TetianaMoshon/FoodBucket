@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { ModalModule } from 'ngx-bootstrap/modal';
+
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.page.component';
 import { IngredientsComponent } from './components/ingredients/ingredients.component';
@@ -15,6 +17,7 @@ import {appRouting} from './app.routing';
     CategoryComponent
   ],
   imports: [
+    ModalModule.forRoot(),
     BrowserModule,
     appRouting
   ],
