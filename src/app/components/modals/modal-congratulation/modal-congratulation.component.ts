@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BsModalRef } from 'ngx-bootstrap/modal/modal-options.class';
 
 @Component({
   selector: 'app-modal-congratulation',
@@ -6,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./modal-congratulation.component.css']
 })
 export class ModalCongratulationComponent implements OnInit {
-
-  constructor() { }
+  public title = 'Congratulation modal window';
+  constructor(public bsModalRef: BsModalRef) { }
 
   ngOnInit() {
   }
