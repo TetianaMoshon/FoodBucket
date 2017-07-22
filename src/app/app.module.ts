@@ -8,13 +8,15 @@ import { HomeComponent } from './components/home/home.page.component';
 import { IngredientsComponent } from './components/ingredients/ingredients.component';
 import { CategoryComponent } from './components/category/category.component';
 import {appRouting} from './app.routing';
+import { ModalCongratulationComponent } from './components/modals/modal-congratulation/modal-congratulation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     IngredientsComponent,
-    CategoryComponent
+    CategoryComponent,
+    ModalCongratulationComponent
   ],
   imports: [
     ModalModule.forRoot(),
