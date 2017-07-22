@@ -18,6 +18,9 @@ import { ModalCongratulationComponent } from './components/modals/modal-congratu
     CategoryComponent,
     ModalCongratulationComponent
   ],
+  entryComponents: [
+    ModalCongratulationComponent
+  ],
   imports: [
     ModalModule.forRoot(),
     BrowserModule,
