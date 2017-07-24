@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { BsModalService } from 'ngx-bootstrap/modal';
+
+import { ModalCongratulationComponent } from '../modals/modal-congratulation/modal-congratulation.component';
 
 @Component({
   selector: 'app-home-page',
@@ -7,7 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(private modalService: BsModalService) { }
+
+  public openModalCongratulation() {
+    this.modalService.show(ModalCongratulationComponent);
+  }
 
   ngOnInit() {
   }
