@@ -8,3 +8,8 @@ img {
     padding-left: 2px;
     padding-right: 0px;
 }
+@media (max-width: 768px) {
+    .col {
+        width: 100%;
+    }
+}

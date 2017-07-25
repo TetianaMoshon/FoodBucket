@@ -1,7 +1,7 @@
 <carousel>
     <slide *ngFor="let item of ArrayOfSlidesToDisplay; let i = index">
         <div class="container">
-            <div class="row justify-content-md-center">
+            <div class="row">
                 <div class="col col-sm-4">
                     <!--<img class="img-responsive" src="assets/images/nature/{{((i * 3) + 1) % quantityOfPhotos }}.jpg" alt="{{((i * numberOfPhotosInSliderRow) + 1) % quantityOfPhotos }} slide"> -->
                     <img class="img-responsive" src="{{ListOfImageLinks[((i * 3) + 1) % quantityOfPhotos]}}" alt="{{((i * numberOfPhotosInSliderRow) + 1) % quantityOfPhotos }} slide">
