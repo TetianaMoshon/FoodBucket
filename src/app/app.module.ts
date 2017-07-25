@@ -9,6 +9,7 @@ import { IngredientsComponent } from './components/ingredients/ingredients.compo
 import { CategoryComponent } from './components/category/category.component';
 import {appRouting} from './app.routing';
 import { ModalCongratulationComponent } from './components/modals/modal-congratulation/modal-congratulation.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ModalCongratulationComponent } from './components/modals/modal-congratu
     HomeComponent,
     IngredientsComponent,
     CategoryComponent,
-    ModalCongratulationComponent
+    ModalCongratulationComponent,
+    FooterComponent
   ],
   entryComponents: [
     ModalCongratulationComponent

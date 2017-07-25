@@ -1,0 +1,100 @@
+/*FOOTER CONTENT*/
+img.logo-footer {
+    width: 55px;
+    margin-top: 50px;
+}
+
+div.service-block, div.aboutus-block {
+    float: left;
+    margin: 20px 15px 40px 0px;
+    width: 150px;
+}
+
+div.footer-content li {
+    border-top: 2px solid gray;
+    list-style-type: none;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+div.footer-content ul {
+    padding-left: 0px;
+}
+
+div.footer-content p, div.footer-socials p {
+    font-size: 16px;
+}
+
+/*FOOTER SOCIALS*/
+div.footer-socials {
+    margin-top: 20px;
+    width: 100%;
+}
+
+div.footer-socials a.facebook {
+    background: url("../../../assets/icons/Group 14.svg") no-repeat;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin-right: 7px;
+    background-size: 30px 30px;
+}
+
+div.footer-socials a.instagram {
+    background: url("../../../assets/icons/Group 2.svg") no-repeat;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin-right: 7px;
+    background-size: 30px 30px;
+}
+
+div.footer-socials a.twitter {
+    background: url("../../../assets/icons/Group 10.svg") no-repeat;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    margin-right: 7px;
+    background-size: 30px 30px;
+    color: #dddddd;
+}
+
+div.socials-container {
+    width: 128px;
+    margin-top: 15px;
+}
+
+div.center-text-soc {
+    width: 55px;
+}
+
+@media only screen and (max-width: 991px) {
+
+
+
+    div.service-block, div.aboutus-block {
+        position: relative;
+        left: 10%;
+    }
+
+
+}
+
+
+@media only screen and (max-width: 768px) {
+    div.service-block, div.aboutus-block {
+        position: relative;
+        left: 10%;
+    }
+
+
+    div.service-block, div.aboutus-block {
+        width: 110px;
+    }
+
+    img.logo-footer {
+        display: none;
+    }
+}
+
+
