@@ -3,7 +3,8 @@
         <div class="container">
             <div class="row justify-content-md-center">
                 <div class="col col-sm-4">
-                    <img class="img-responsive" src="assets/images/nature/{{((i * 3) + 1) % quantityOfPhotos }}.jpg" alt="{{((i * numberOfPhotosInSliderRow) + 1) % quantityOfPhotos }} slide">
+                    <!--<img class="img-responsive" src="assets/images/nature/{{((i * 3) + 1) % quantityOfPhotos }}.jpg" alt="{{((i * numberOfPhotosInSliderRow) + 1) % quantityOfPhotos }} slide"> -->
+                    <img class="img-responsive" src="{{ListOfImageLinks[((i * 3) + 1) % quantityOfPhotos]}}" alt="{{((i * numberOfPhotosInSliderRow) + 1) % quantityOfPhotos }} slide">
                     <div class="carousel-caption">
                         <h3>Promotion</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -12,7 +13,8 @@
 
 
                 <div class="col col-sm-4">
-                    <img class="img-responsive" src="assets/images/nature/{{((i * 3) + 2) % quantityOfPhotos }}.jpg" alt="{{((i * numberOfPhotosInSliderRow) + 2) % quantityOfPhotos }} slide">
+                    <!--<img class="img-responsive" src="assets/images/nature/{{ ((i * 3) + 2) % quantityOfPhotos }}.jpg" alt="{{((i * numberOfPhotosInSliderRow) + 2) % quantityOfPhotos }} slide"> -->
+                    <img class="img-responsive" src="{{ListOfImageLinks[((i * 3) + 2) % quantityOfPhotos]}}" alt="{{((i * numberOfPhotosInSliderRow) + 2) % quantityOfPhotos }} slide">
                     <div class="carousel-caption">
                         <h3>Promotion</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -21,7 +23,8 @@
 
 
                 <div class="col col-sm-4">
-                    <img class="img-responsive" src="assets/images/nature/{{((i * 3) + 3) % quantityOfPhotos }}.jpg" alt="{{((i * numberOfPhotosInSliderRow) + 3) % quantityOfPhotos }} slide">
+                    <!--<img class="img-responsive" src="assets/images/nature/{{ ((i * 3) + 3) % quantityOfPhotos }}.jpg" alt="{{((i * numberOfPhotosInSliderRow) + 2) % quantityOfPhotos }} slide"> -->
+                    <img class="img-responsive" src="{{ListOfImageLinks[((i * 3) + 3) % quantityOfPhotos]}}" alt="{{((i * numberOfPhotosInSliderRow) + 3) % quantityOfPhotos }} slide">
                     <div class="carousel-caption">
                         <h3>Promotion</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
@@ -32,7 +35,11 @@
 
         </div>
 
+
+
     </slide>
 
 
 </carousel>
+
+<p *ngFor="let url of ListOfImageLinks"></p>
