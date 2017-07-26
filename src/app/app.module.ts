@@ -10,6 +10,7 @@ import {appRouting} from './app.routing';
 import { ModalCongratulationComponent } from './components/modals/modal-congratulation/modal-congratulation.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { MenuComponent } from './components/home/menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { FooterComponent } from './components/footer/footer.component';
     CategoryComponent,
     ModalCongratulationComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    MenuComponent
   ],
   entryComponents: [
     ModalCongratulationComponent

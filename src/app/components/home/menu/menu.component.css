@@ -1,0 +1,50 @@
+.our-menu h2 {
+    text-align: center;
+}
+
+.dishes-group {
+    margin-top: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.dishes-group__item {
+    margin-bottom: 50px;
+    width: 350px;
+    box-sizing: border-box;
+    background-color: #f8f8f8;
+}
+
+.dishes-group__item:hover {
+    cursor: pointer;
+}
+
+img {
+    width: 350px;
+    height: 200px;
+}
+
+.info {
+    position: relative;
+    padding: 5px 10px;
+}
+
+button {
+    margin-top: 40px;
+    margin-bottom: 60px;
+}
+
+.info .icon {
+    position: absolute;
+    top: 30px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background: url("../../../../assets/icons/apple.svg") no-repeat;
+    background-size: contain;
+}
+
+.info h3 span {
+    color: #a3a3ac;
+}
