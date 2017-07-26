@@ -1,0 +1,14 @@
+.account-image{
+	width: 150px;
+	height: 150px;
+	border: 1px solid gray;
+	background-image: url(../../../../assets/account.jpg);
+	background-size: cover;
+	float: right;
+	margin-bottom: 20px;
+}
+.captcha{
+	height: 83px;
+	background-image: url(../../../../assets/captcha.png);
+	background-size: cover;
+}
