@@ -10,6 +10,7 @@ import { CategoryComponent } from './components/category/category.component';
 import {appRouting} from './app.routing';
 import { ModalCongratulationComponent } from './components/modals/modal-congratulation/modal-congratulation.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { TopComponent } from './components/home/top/top.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { FooterComponent } from './components/footer/footer.component';
     IngredientsComponent,
     CategoryComponent,
     ModalCongratulationComponent,
-    FooterComponent
+    FooterComponent,
+    TopComponent
   ],
   entryComponents: [
     ModalCongratulationComponent
