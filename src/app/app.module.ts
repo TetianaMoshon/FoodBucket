@@ -10,6 +10,7 @@ import {appRouting} from './app.routing';
 import { ModalCongratulationComponent } from './components/modals/modal-congratulation/modal-congratulation.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { LoginComponent } from './components/modals/login/login.component';
 
 @NgModule({
   declarations: [
@@ -18,11 +19,13 @@ import { FooterComponent } from './components/footer/footer.component';
     IngredientsComponent,
     CategoryComponent,
     ModalCongratulationComponent,
-    NavbarComponent,
-    FooterComponent
+      LoginComponent,
+      NavbarComponent,
+      FooterComponent
   ],
   entryComponents: [
-    ModalCongratulationComponent
+    ModalCongratulationComponent,
+      LoginComponent
   ],
   imports: [
       ModalModule.forRoot(),
