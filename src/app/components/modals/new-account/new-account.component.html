@@ -1,0 +1,55 @@
+<div class="modal-header">
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+
+    <h4 class="modal-title text-center">{{title}}</h4> 
+</div>
+
+<div class="modal-body">
+    <form>
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="form-group">
+                    <label for="firstName">First name *</label>
+                    <input type="text" class="form-control" id="firstName" aria-describedby="emailHelp" placeholder="First name" required>
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Last name *</label>
+                    <input type="text" class="form-control" id="lastName" placeholder="Last Name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" class="form-control" id="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password *</label>
+                    <input type="password" class="form-control" id="password" placeholder="Password" required>
+                </div>
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" class="form-control" id="city" placeholder="City">
+                </div>
+                <div class="form-group">
+                    <label for="lastName">Adress</label>
+                    <input type="text" class="form-control" id="adress" placeholder="Adress">
+                </div>
+                <div class="form-group">
+                    <div class="captcha"></div>
+                    <label for="lastName">CAPTCHA</label>
+                    <input type="text" class="form-control" placeholder="Captcha">
+                </div>
+            </div>
+       
+            <div class="col-xs-6">
+                <div class="account-image"></div>
+                <input type="file" name="photo" multiple accept="image/*,image/jpeg">
+            </div>
+        </div>
+        <div class="text-center">
+            <button type="button" class="btn btn-primary btn-lg" (click)="bsModalRef.hide()">Save changes</button>
+            <button type="button" class="btn btn-primary btn-lg" (click)="bsModalRef.hide()">Cancel</button>
+        </div>
+    </form>
+</div>
+
