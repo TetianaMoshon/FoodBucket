@@ -11,6 +11,7 @@ import { ModalCongratulationComponent } from './components/modals/modal-congratu
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LoginComponent } from './components/modals/login/login.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { LoginComponent } from './components/modals/login/login.component';
     ModalCongratulationComponent,
       LoginComponent,
       NavbarComponent,
-      FooterComponent
+      FooterComponent,
+      CheckoutComponent
   ],
   entryComponents: [
     ModalCongratulationComponent,
