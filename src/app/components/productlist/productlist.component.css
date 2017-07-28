@@ -1,0 +1,21 @@
+@font-face {
+    font-family: "AbrilFatface";
+    src: url("../../../assets/fonts/AbrilFatface-Regular.ttf");
+}
+@font-face {
+    font-family: "Oswald";
+    src: url("/../../../assets/fonts/Oswald-Regular.ttf");
+}
+@font-face {
+    font-family: "Roboto";
+    src: url("/../../../assets/fonts/Roboto-Regular.ttf");
+}
+.thumbnail{
+    margin-top: 20px;
+}
+.product-desc h3{
+    font-family: Oswald;
+}
+.product-desc p{
+    font-family: Roboto;
+}
