@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default navbar-foodbucket">
+<nav class="navbar navbar-default navbar-foodbucket navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" (click)="isCollapsed = !isCollapsed">
@@ -16,10 +16,10 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a routerLink="/login" routerLinkActive="active" (click)="isCollapsed = true">Log In</a></li>
-                <li><a routerLink="/sighup" routerLinkActive="active" (click)="isCollapsed = true">Sign In</a></li>
+                <li><a routerLink="/login" routerLinkActive="active" (click)="isCollapsed = true" (click)="openLoginModal();">Log In</a></li>
+                <li><a routerLink="/sighup" routerLinkActive="active" (click)="isCollapsed = true" (click)="openNewAccount();">Sign up</a></li>
             </ul>
-            <form class="navbar-form navbar-left">
+            <form class="navbar-form navbar-right">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search">
                     <div class="input-group-btn">

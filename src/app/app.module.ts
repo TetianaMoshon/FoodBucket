@@ -11,6 +11,9 @@ import { ModalCongratulationComponent } from './components/modals/modal-congratu
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { MenuComponent } from './components/home/menu/menu.component';
+import { LoginComponent } from './components/modals/login/login.component';
+import { NewAccountComponent } from './components/modals/new-account/new-account.component';
+
 
 @NgModule({
   declarations: [
@@ -21,10 +24,16 @@ import { MenuComponent } from './components/home/menu/menu.component';
     ModalCongratulationComponent,
     NavbarComponent,
     FooterComponent,
-    MenuComponent
+    MenuComponent,
+      LoginComponent,
+      NavbarComponent,
+      FooterComponent,
+      NewAccountComponent
   ],
   entryComponents: [
-    ModalCongratulationComponent
+      ModalCongratulationComponent,
+      LoginComponent,
+      NewAccountComponent
   ],
   imports: [
       ModalModule.forRoot(),
