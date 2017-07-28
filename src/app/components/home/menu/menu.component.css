@@ -1,17 +1,19 @@
+.our-menu {
+    width: 100%;
+}
+
 .our-menu h2 {
+    margin-bottom: 40px;
     text-align: center;
 }
 
 .dishes-group {
     margin-top: 50px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
 }
 
 .dishes-group__item {
-    margin-bottom: 50px;
-    width: 350px;
+    margin:0 auto 50px;
+    width: 70%;
     box-sizing: border-box;
     background-color: #f8f8f8;
 }
@@ -20,9 +22,13 @@
     cursor: pointer;
 }
 
+.dishes-group__item div{
+    margin: 0 auto;
+}
+
 img {
-    width: 350px;
-    height: 200px;
+    width: 100%;
+    height: auto;
 }
 
 .info {
@@ -37,7 +43,7 @@ button {
 
 .info .icon {
     position: absolute;
-    top: 30px;
+    top: 40px;
     right: 10px;
     width: 30px;
     height: 30px;
