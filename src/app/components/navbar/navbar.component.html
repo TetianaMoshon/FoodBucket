@@ -15,6 +15,11 @@
                 <li><a routerLink="/category" routerLinkActive="active" (click)="isCollapsed = true">Category</a></li>
             </ul>
 
+            <ul class="nav navbar-nav navbar-right">
+                <li><a (click)="openLoginModal();isCollapsed = true" >Log In / Register</a></li>
+                <!--<li><a  (click)="openNewAccount();isCollapsed = true" >Sign Up</a></li>-->
+                <li><a routerLink="/checkout" routerLinkActive="active" (click)="isCollapsed = true">Checkout</a> </li>
+            </ul>
             <form class="navbar-form navbar-right">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search">

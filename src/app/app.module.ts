@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { AppComponent } from './app.component';
@@ -14,7 +13,8 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { TopComponent } from './components/home/top/top.component';
 import { LoginComponent } from './components/modals/login/login.component';
-
+import { NewAccountComponent } from './components/modals/new-account/new-account.component';
+import { CheckoutComponent } from './components/checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -28,11 +28,14 @@ import { LoginComponent } from './components/modals/login/login.component';
     TopComponent,
       LoginComponent,
       NavbarComponent,
-
+      FooterComponent,
+      NewAccountComponent,
+      CheckoutComponent,
   ],
   entryComponents: [
-    ModalCongratulationComponent,
-      LoginComponent
+      ModalCongratulationComponent,
+      LoginComponent,
+      NewAccountComponent
   ],
   imports: [
       ModalModule.forRoot(),
