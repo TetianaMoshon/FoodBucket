@@ -1,11 +1,17 @@
-<div class="row">
+<div *ngIf="isVisibleFull" class="full-screen-map">
+	<button (click)="closeFullMap();" class="close-button close pull-right">&times;</button>
+	<agm-map [latitude]="lat" [longitude]="lng">
+	  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+	</agm-map>
+</div>
+<div class="row" *ngIf="isVisible">
 	<div class="col-xs-12 col-sm-6 our_office">
 		<h2>Our Office</h2>
-		<div class="map">
+		
 			<agm-map [latitude]="lat" [longitude]="lng">
 			  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
 			</agm-map>
-		</div>
+		<a (click)="openFullMap();">Full screen</a>
 		<p><span class="glyphicon glyphicon glyphicon-time"></span> delivery@mail.com</p>
 		<p><span class="glyphicon glyphicon-phone-alt"></span> 8-888-8888</p>
 		<p><span class="glyphicon glyphicon-time"></span> 8.00-22.00</p>

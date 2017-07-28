@@ -1,3 +1,6 @@
+a{
+	color: white;
+}
 .our_office{
 	background-color: #14A9BA;
 	color:white;
@@ -22,4 +25,20 @@
 
 agm-map {
   height: 300px;
+}
+
+.full-screen-map agm-map{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    z-index: 2000;
+}
+.full-screen-map .close-button{
+	position: absolute;
+	top:0;
+	z-index: 2001;
+	color:#14A9BA;
+	font-size: 40px;
+ 	border: 1px solid #14A9BA;
 }

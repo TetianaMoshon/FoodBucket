@@ -12,7 +12,18 @@ export class AboutusComponent implements OnInit {
 
   ngOnInit() {
   }
+  isVisibleFull:boolean = false;
+  isVisible:boolean = true;
   title: string = 'Our office';
   lat: number = 50.454660;
   lng: number = 30.52380;
+  
+  openFullMap(){
+  	this.isVisibleFull = true;
+  	this.isVisible = false;
+  }
+  closeFullMap(){
+  	this.isVisibleFull = false;
+  	this.isVisible = true;
+  }
 }
