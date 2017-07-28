@@ -2,6 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+
+import { AgmCoreModule } from '@agm/core';
+
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.page.component';
 import { IngredientsComponent } from './components/ingredients/ingredients.component';
@@ -12,6 +15,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { LoginComponent } from './components/modals/login/login.component';
 import { NewAccountComponent } from './components/modals/new-account/new-account.component';
+import { AboutusComponent } from './components/aboutus/aboutus.component';
 
 
 @NgModule({
@@ -24,7 +28,8 @@ import { NewAccountComponent } from './components/modals/new-account/new-account
       LoginComponent,
       NavbarComponent,
       FooterComponent,
-      NewAccountComponent
+      NewAccountComponent,
+      AboutusComponent
   ],
   entryComponents: [
       ModalCongratulationComponent,
@@ -35,7 +40,10 @@ import { NewAccountComponent } from './components/modals/new-account/new-account
       ModalModule.forRoot(),
       BrowserModule,
       CollapseModule,
-      appRouting
+      appRouting,
+      AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyDgXQMgwN1IOu9c6ZyHjqiVzaB9JXhIoTA'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

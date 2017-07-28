@@ -1,0 +1,25 @@
+.our_office{
+	background-color: #14A9BA;
+	color:white;
+	padding-left: 20px;
+}
+.our_office p{
+	padding:10px 0 0 25px;
+	}
+.contact_mass{
+	color: #14A9BA;
+}
+.contact_mass label{
+	padding-top: 10px;
+}
+.send_button{
+	padding-top: 20px;
+}
+.send_button button{
+	background-color: #14A9BA;
+	border-color: #14A9BA;
+}
+
+agm-map {
+  height: 300px;
+}

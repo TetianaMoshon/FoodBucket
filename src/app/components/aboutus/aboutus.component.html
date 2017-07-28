@@ -1,0 +1,30 @@
+<div class="row">
+	<div class="col-xs-12 col-sm-6 our_office">
+		<h2>Our Office</h2>
+		<div class="map">
+			<agm-map [latitude]="lat" [longitude]="lng">
+			  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+			</agm-map>
+		</div>
+		<p><span class="glyphicon glyphicon glyphicon-time"></span> delivery@mail.com</p>
+		<p><span class="glyphicon glyphicon-phone-alt"></span> 8-888-8888</p>
+		<p><span class="glyphicon glyphicon-time"></span> 8.00-22.00</p>
+	</div>
+	<div class="col-xs-12 col-sm-6 contact_mass">
+		<h3>Contact us</h3>
+		<form>
+			<label>Email:</label>
+			<input type="mail" class="form-control"  placeholder="You contact mail" required>
+			<label>Name:</label>
+			<input type="text" class="form-control" placeholder="First name" required>
+			<label>Last name:</label>
+			<input type="text" class="form-control" placeholder="Last name" required>
+			<label>Detail:</label>
+			<textarea class="form-control" placeholder="Add your massage..."></textarea>
+			
+			<div class="text-center send_button">
+				<button type="button" class="btn btn-primary">Send message</button>
+			</div>
+		</form>
+	</div>
+</div>
