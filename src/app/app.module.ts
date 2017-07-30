@@ -13,6 +13,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { LoginComponent } from './components/modals/login/login.component';
 import { NewAccountComponent } from './components/modals/new-account/new-account.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
+import { SliderComponent } from './components/slider/slider.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
       FooterComponent,
       NewAccountComponent,
       CheckoutComponent,
+      SliderComponent,
   ],
   entryComponents: [
       ModalCongratulationComponent,
