@@ -1,45 +1,71 @@
-<carousel>
-    <slide *ngFor="let item of ArrayOfSlidesToDisplay; let i = index">
-        <div class="container">
-            <div class="row">
-                <div class="col col-sm-4">
-                    <!--<img class="img-responsive" src="assets/images/nature/{{((i * 3) + 1) % quantityOfPhotos }}.jpg" alt="{{((i * numberOfPhotosInSliderRow) + 1) % quantityOfPhotos }} slide"> -->
-                    <img class="img-responsive" src="{{ListOfImageLinks[((i * 3) + 1) % quantityOfPhotos]}}" alt="{{((i * numberOfPhotosInSliderRow) + 1) % quantityOfPhotos }} slide">
-                    <div class="carousel-caption">
-                        <h3>Promotion</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </div>
+<div class="container"  (window:resize)="onResize($event)">
+    <div class="row">
+
+        <div *ngIf="FullScreenView">
+
+            <div class="col-lg-4">
+                <a class="left carousel-control" (click)="changeImageSourceByPressingLeftArrow()"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                <img class="img-responsive" src="{{sourceForFirstImage}}" alt="{{sourceForFirstImage}} slide">
+                <div class="carousel-caption">
+                    <h3>Promotion {{((this.initialSourceForSecondImage))}}</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                 </div>
-
-
-                <div class="col col-sm-4">
-                    <!--<img class="img-responsive" src="assets/images/nature/{{ ((i * 3) + 2) % quantityOfPhotos }}.jpg" alt="{{((i * numberOfPhotosInSliderRow) + 2) % quantityOfPhotos }} slide"> -->
-                    <img class="img-responsive" src="{{ListOfImageLinks[((i * 3) + 2) % quantityOfPhotos]}}" alt="{{((i * numberOfPhotosInSliderRow) + 2) % quantityOfPhotos }} slide">
-                    <div class="carousel-caption">
-                        <h3>Promotion</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </div>
-                </div>
-
-
-                <div class="col col-sm-4">
-                    <!--<img class="img-responsive" src="assets/images/nature/{{ ((i * 3) + 3) % quantityOfPhotos }}.jpg" alt="{{((i * numberOfPhotosInSliderRow) + 2) % quantityOfPhotos }} slide"> -->
-                    <img class="img-responsive" src="{{ListOfImageLinks[((i * 3) + 3) % quantityOfPhotos]}}" alt="{{((i * numberOfPhotosInSliderRow) + 3) % quantityOfPhotos }} slide">
-                    <div class="carousel-caption">
-                        <h3>Promotion</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                    </div>
-                </div>
-
             </div>
 
+            <div class="col-lg-4">
+                <img class="img-responsive" src="{{sourceForSecondImage}}" alt="{{sourceForSecondImage}} slide">
+                <div class="carousel-caption">
+                    <h3>Promotion {{((this.initialSourceForThirdImage))}}</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <img class="img-responsive" src="{{sourceForThirdImage}}" alt="{{sourceForThirdImage}} slide">
+                <div class="carousel-caption">
+                    <h3>Promotion {{((this.initialSourceForThirdImage + this.counter)) % this.quantityOfPhotos}}</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <a class="right carousel-control" (click)="changeImageSourceByPressingRightArrow()"><i class="glyphicon glyphicon-chevron-right"></i></a>
+            </div>
         </div>
 
 
+        <div *ngIf="PartialView">
+            <div class="col-sm-6">
+                <img class="img-responsive" src="{{sourceForSecondImage}}" alt="{{sourceForSecondImage}} slide">
+                <div class="carousel-caption">
+                    <h3>Promotion {{((this.initialSourceForThirdImage))}}</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <a class="left carousel-control" (click)="changeImageSourceByPressingLeftArrow()"><i class="glyphicon glyphicon-chevron-left"></i></a>
+            </div>
 
-    </slide>
+            <div class="col-sm-6">
+                <a class="right carousel-control" (click)="changeImageSourceByPressingRightArrow()"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                <img class="img-responsive" src="{{sourceForThirdImage}}" alt="{{sourceForThirdImage}} slide">
+                <div class="carousel-caption">
+                    <h3>Promotion {{((this.initialSourceForThirdImage + this.counter)) % this.quantityOfPhotos}}</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+            </div>
+        </div>
 
 
-</carousel>
+        <div *ngIf="OneImageView">
 
-<p *ngFor="let url of ListOfImageLinks"></p>
+            <div class="col-sm-6">
+                <a class="right carousel-control" (click)="changeImageSourceByPressingRightArrow()"><i class="glyphicon glyphicon-chevron-right"></i></a>
+
+                <img class="img-responsive" src="{{sourceForThirdImage}}" alt="{{sourceForThirdImage}} slide">
+                <a class="left carousel-control" (click)="changeImageSourceByPressingLeftArrow()"><i class="glyphicon glyphicon-chevron-left"></i></a>
+
+                <div class="carousel-caption">
+                    <h3>Promotion {{((this.initialSourceForThirdImage + this.counter)) % this.quantityOfPhotos}}</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
