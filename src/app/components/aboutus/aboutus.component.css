@@ -1,23 +1,29 @@
 a{
 	color: white;
 }
+
 .our_office{
 	background-color: #14A9BA;
 	color:white;
 	padding-left: 30px;
 }
+
 .our_office p{
 	padding:10px 0 0 25px;
-	}
+}
+
 .contact_mass{
 	color: #14A9BA;
 }
+
 .contact_mass label{
 	padding-top: 10px;
 }
+
 .send_button{
 	padding-top: 20px;
 }
+
 .send_button button{
 	background-color: #14A9BA;
 	border-color: #14A9BA;
@@ -34,6 +40,7 @@ agm-map {
     top: 0;
     z-index: 2000;
 }
+
 .full-screen-map .close-button{
 	position: absolute;
 	top:10px;
@@ -44,6 +51,7 @@ agm-map {
 	font-size: 30px;
  	border: none;
 }
+
 .full-screen{
 	color: #14A9BA;
     position: absolute;
