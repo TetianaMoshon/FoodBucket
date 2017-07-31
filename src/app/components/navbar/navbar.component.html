@@ -11,20 +11,21 @@
         <div id="navbar" class="navbar-collapse collapse" [collapse]="isCollapsed">
             <ul class="nav navbar-nav">
                 <li><a routerLink="/" routerLinkActive="active">Home</a></li>
-                <li><a routerLink="/ingredients" routerLinkActive="active" (click)="isCollapsed = true">Ingredients</a></li>
                 <li><a routerLink="/category" routerLinkActive="active" (click)="isCollapsed = true">Category</a></li>
+                <li><a routerLink="/aboutus" routerLinkActive="active" (click)="isCollapsed = true">About Us</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
+                <li><a (click)="isCollapsed = true" class="bucket"></a> </li>
                 <li><a (click)="openLoginModal();isCollapsed = true" >Log In / Register</a></li>
                 <!--<li><a  (click)="openNewAccount();isCollapsed = true" >Sign Up</a></li>-->
-                <li><a routerLink="/checkout" routerLinkActive="active" (click)="isCollapsed = true">Checkout</a> </li>
+
             </ul>
             <form class="navbar-form navbar-right">
                 <div class="input-group">
                     <input type="text" class="form-control" placeholder="Search">
                     <div class="input-group-btn">
-                        <button class="btn btn-default" type="submit" routerLink="/sighup" routerLinkActive="active">
+                        <button class="btn btn-default" type="submit" routerLink="/signup" routerLinkActive="active">
                             <i class="glyphicon glyphicon-search"></i>
                         </button>
                     </div>
