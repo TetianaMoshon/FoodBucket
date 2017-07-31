@@ -19,3 +19,118 @@
 .product-desc p{
     font-family: Roboto;
 }
+
+.collapsing {
+    display:none;
+}
+
+.sub-menu{
+    background-color: #14A9BA;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+.sub-menu li a{
+    color: #fff;
+    font-family: Oswald;
+    font-size: 18px;
+}
+.sub-menu li a:hover{
+    background-color: #5ac2ce;
+}
+.nav>.nav-item {
+    border-left: 1px solid #e8e8e8;
+}
+
+.btn-group{
+    font-family: Roboto;
+    color: #fff;
+    margin-top: 35px;
+}
+.category-tag-item{
+    /*margin-right: 10px;*/
+}
+#top-product{
+    background-color: #e8aa14;
+}
+#new-product{
+    background-color: #64D678;
+}
+#spicy-product{
+    background-color: #E85013;
+}
+.right{
+    float: right!important;
+    width: auto;
+    padding-top: 0;
+    height: auto;
+}
+.category-tag-item{
+    margin-right: 10px;
+}
+.sort-product-tags{
+    margin-top: 25px;
+}
+.search-box{
+    margin-top: 25px;
+    width: 25%;
+}
+.sort-product-tags .label_row{
+    display:inline-block;vertical-align:middle
+}
+.sort-product-tags .label{
+    margin-right:0.75rem
+}
+.sort-product-tags .label:last-child{
+    margin-right:0
+}
+.label {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+    width: 47px;
+    height: 40px;
+    background: url(../../../assets/images/sprite.png) no-repeat;
+    cursor: pointer;
+    text-decoration: none;
+    transition: none;
+}
+.label.blue {
+    background-position: -146px -50px;
+}
+.label.green {
+    background-position: -196px -50px;
+}
+.label.orange {
+    background-position: -246px -50px;
+}
+.label.yellow {
+    background-position: -146px -50px;
+}
+.label .text {
+    font-size: 10px;
+    line-height: 32px;
+    color: #fff;
+    text-transform: uppercase;
+}
+@media (max-width: 990px){
+    .search-box{
+        width: 30%;
+    }
+}
+@media (max-width: 900px){
+    /*.product-list-header .col-xs-4, .product-list-header .col-xs-8 {*/
+        /*width: 100%;*/
+    /*}*/
+    .sort-product-tags{
+        width: 50%;
+    }
+    .search-box{
+        width: 100%;
+    }
+}
+@media (max-width: 499px){
+    .sort-product-tags{
+        width: 100%;
+    }
+}

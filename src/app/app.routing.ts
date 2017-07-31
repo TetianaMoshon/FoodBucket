@@ -11,9 +11,9 @@ const appRoutes: Routes = [
   { path: '', component: HomeComponent},
   { path: 'ingredients', component: IngredientsComponent},
   { path: 'category', component: CategoryComponent},
-  { path: 'productlist', component: ProductlistComponent},
+  { path: 'category/productlist', component: ProductlistComponent},
   { path: 'category', component: CategoryComponent},
-    {path:'checkout', component: CheckoutComponent}
+  {path:'checkout', component: CheckoutComponent}
 
 ];
 
