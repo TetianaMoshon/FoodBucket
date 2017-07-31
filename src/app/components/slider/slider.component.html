@@ -1,0 +1,71 @@
+<div class="container"  (window:resize)="onResize($event)">
+    <div class="row">
+
+        <div *ngIf="FullScreenView">
+
+            <div class="col-lg-4">
+                <a class="left carousel-control" (click)="changeImageSourceByPressingLeftArrow()"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                <img class="img-responsive" src="{{sourceForFirstImage}}" alt="{{sourceForFirstImage}} slide">
+                <div class="carousel-caption">
+                    <h3>Promotion {{((this.initialSourceForSecondImage))}}</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <img class="img-responsive" src="{{sourceForSecondImage}}" alt="{{sourceForSecondImage}} slide">
+                <div class="carousel-caption">
+                    <h3>Promotion {{((this.initialSourceForThirdImage))}}</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <img class="img-responsive" src="{{sourceForThirdImage}}" alt="{{sourceForThirdImage}} slide">
+                <div class="carousel-caption">
+                    <h3>Promotion {{((this.initialSourceForThirdImage + this.counter)) % this.quantityOfPhotos}}</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <a class="right carousel-control" (click)="changeImageSourceByPressingRightArrow()"><i class="glyphicon glyphicon-chevron-right"></i></a>
+            </div>
+        </div>
+
+
+        <div *ngIf="PartialView">
+            <div class="col-sm-6">
+                <img class="img-responsive" src="{{sourceForSecondImage}}" alt="{{sourceForSecondImage}} slide">
+                <div class="carousel-caption">
+                    <h3>Promotion {{((this.initialSourceForThirdImage))}}</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <a class="left carousel-control" (click)="changeImageSourceByPressingLeftArrow()"><i class="glyphicon glyphicon-chevron-left"></i></a>
+            </div>
+
+            <div class="col-sm-6">
+                <a class="right carousel-control" (click)="changeImageSourceByPressingRightArrow()"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                <img class="img-responsive" src="{{sourceForThirdImage}}" alt="{{sourceForThirdImage}} slide">
+                <div class="carousel-caption">
+                    <h3>Promotion {{((this.initialSourceForThirdImage + this.counter)) % this.quantityOfPhotos}}</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+            </div>
+        </div>
+
+
+        <div *ngIf="OneImageView">
+
+            <div class="col-sm-6">
+                <a class="right carousel-control" (click)="changeImageSourceByPressingRightArrow()"><i class="glyphicon glyphicon-chevron-right"></i></a>
+
+                <img class="img-responsive" src="{{sourceForThirdImage}}" alt="{{sourceForThirdImage}} slide">
+                <a class="left carousel-control" (click)="changeImageSourceByPressingLeftArrow()"><i class="glyphicon glyphicon-chevron-left"></i></a>
+
+                <div class="carousel-caption">
+                    <h3>Promotion {{((this.initialSourceForThirdImage + this.counter)) % this.quantityOfPhotos}}</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
