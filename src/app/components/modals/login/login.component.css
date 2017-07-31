@@ -1,0 +1,8 @@
+.nomargin {
+    margin: 0;
+    padding-bottom: 20px;
+}
+.omb_btn-facebook {background: #3b5998; color: white;}
+.omb_btn-twitter {background: #00aced;color: white;}
+.omb_btn-google {background: #dc4a38;color: white;}
+.social_logo-size {height: 30px; width: 30px;}

@@ -1,0 +1,36 @@
+<nav class="navbar navbar-default navbar-foodbucket navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" (click)="isCollapsed = !isCollapsed">
+                <span class="icon-bar"> </span>
+                <span class="icon-bar"> </span>
+                <span class="icon-bar"> </span>
+            </button>
+            <a class="navbar-brand" href="'#'">FoodBucket</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse" [collapse]="isCollapsed">
+            <ul class="nav navbar-nav">
+                <li><a routerLink="/" routerLinkActive="active">Home</a></li>
+                <li><a routerLink="/ingredients" routerLinkActive="active" (click)="isCollapsed = true">Ingredients</a></li>
+                <li><a routerLink="/category" routerLinkActive="active" (click)="isCollapsed = true">Category</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a (click)="openLoginModal();isCollapsed = true" >Log In / Register</a></li>
+                <!--<li><a  (click)="openNewAccount();isCollapsed = true" >Sign Up</a></li>-->
+                <li><a routerLink="/checkout" routerLinkActive="active" (click)="isCollapsed = true">Checkout</a> </li>
+            </ul>
+            <form class="navbar-form navbar-right">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search">
+                    <div class="input-group-btn">
+                        <button class="btn btn-default" type="submit" routerLink="/sighup" routerLinkActive="active">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</nav>
