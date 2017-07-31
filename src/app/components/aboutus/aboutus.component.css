@@ -4,7 +4,7 @@ a{
 .our_office{
 	background-color: #14A9BA;
 	color:white;
-	padding-left: 20px;
+	padding-left: 30px;
 }
 .our_office p{
 	padding:10px 0 0 25px;
@@ -36,9 +36,19 @@ agm-map {
 }
 .full-screen-map .close-button{
 	position: absolute;
-	top:0;
+	top:10px;
+	right: 29px;
 	z-index: 2001;
 	color:#14A9BA;
-	font-size: 40px;
- 	border: 1px solid #14A9BA;
+	opacity: 1;
+	font-size: 30px;
+ 	border: none;
+}
+.full-screen{
+	color: #14A9BA;
+    position: absolute;
+    top: 79px;
+    right: 29px;
+    font-size: 25px;
+    text-decoration-line: none;
 }

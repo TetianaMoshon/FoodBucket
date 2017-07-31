@@ -1,5 +1,5 @@
 <div *ngIf="isVisibleFull" class="full-screen-map">
-	<button (click)="closeFullMap();" class="close-button close pull-right">&times;</button>
+	<button (click)="closeFullMap();" class="close-button close pull-right glyphicon glyphicon-remove-circle"></button>
 	<agm-map [latitude]="lat" [longitude]="lng">
 	  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
 	</agm-map>
@@ -11,7 +11,7 @@
 			<agm-map [latitude]="lat" [longitude]="lng">
 			  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
 			</agm-map>
-		<a (click)="openFullMap();">Full screen</a>
+		<a class="glyphicon glyphicon-move full-screen"(click)="openFullMap();"></a>
 		<p><span class="glyphicon glyphicon glyphicon-time"></span> delivery@mail.com</p>
 		<p><span class="glyphicon glyphicon-phone-alt"></span> 8-888-8888</p>
 		<p><span class="glyphicon glyphicon-time"></span> 8.00-22.00</p>
