@@ -11,7 +11,6 @@ import {appRouting} from './app.routing';
 import { ModalCongratulationComponent } from './components/modals/modal-congratulation/modal-congratulation.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { TopComponent } from './components/home/top/top.component';
 import { LoginComponent } from './components/modals/login/login.component';
 import { NewAccountComponent } from './components/modals/new-account/new-account.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
@@ -25,7 +24,6 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
     ProductlistComponent,
     ModalCongratulationComponent,
     FooterComponent,
-    TopComponent,
       LoginComponent,
       NavbarComponent,
       FooterComponent,
