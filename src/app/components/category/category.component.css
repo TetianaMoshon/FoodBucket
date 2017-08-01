@@ -1,9 +1,10 @@
-.categories {
-    padding: 100px 0;
-}
+/*.categories {*/
+    /*padding: 100px 0;*/
+/*}*/
 
 .categories .categories__title {
     margin-top: 10px;
+    font-family: Oswald;
 }
 
 .categories .categories__list {
@@ -18,6 +19,7 @@
 }
 
 .category-item > a {
+    font-family: Roboto;
     display: block;
     height: 70px;
     padding: 15px;

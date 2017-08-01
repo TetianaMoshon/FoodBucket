@@ -1,5 +1,9 @@
 
 /*FOOTER CONTENT*/
+a {
+    cursor: pointer;
+}
+
 img.logo-footer {
     width: 55px;
     margin-top: 50px;

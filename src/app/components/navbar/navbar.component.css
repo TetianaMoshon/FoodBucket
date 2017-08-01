@@ -12,6 +12,10 @@ span.bucket:hover .cls-3, span.bucket-mobile:hover .cls-3 {
     fill: #727272;
 }
 
+span.bucket:focus, span.bucket-mobile:focus {
+    outline: none;
+}
+
 span.bucket-mobile {
     display: none;
 }
