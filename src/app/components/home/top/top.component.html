@@ -7,35 +7,13 @@
             <button class="btn btn-primary top-rated-details center-block">Check out details</button>
         </div>
         <div class="col-md-6">
-            <div id="myCarousel" class="carousel slide">
-                <!-- Carousel indicators -->
-                <ol class="carousel-indicators">
-                    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                    <li data-target="#myCarousel" data-slide-to="1"></li>
-                    <li data-target="#myCarousel" data-slide-to="2"></li>
-                </ol>
-                <!-- Wrapper for carousel items -->
-                <div class="carousel-inner">
-                    <div class="item active">
-                        <figure>
-                            <img src="../../../../assets/images/strawberry-pancakes.jpg" class="img-responsive center-block" alt="First Slide">
-                            <figcaption class="text-center">Pancakes With Strawberries</figcaption>
-                        </figure>
-                    </div>
-                    <div class="item">
-                        <figure>
-                            <img src="../../../../assets/images/cake-pops.jpg" class="img-responsive center-block" alt="Second Slide">
-                            <figcaption class="text-center">Red Velvet Cake Pops</figcaption>
-                        </figure>
-                    </div>
-                    <div class="item">
-                        <figure>
-                            <img src="../../../../assets/images/cherry-streusel-cheesecake.jpg" class="img-responsive center-block" alt="Third Slide">
-                            <figcaption class="text-center">Cherry Streusel Cheesecake</figcaption>
-                        </figure>
-                    </div>
-                </div>
+
+            <div>
+                <a class="left carousel-control carousel-control-left" (click)="changeImageSourceByPressingLeftArrow()"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                <img class="img-responsive center-block" src="{{sourceForPreviousImage}}" alt="{{sourceForPreviousImage}} slide">
+                <a class="right carousel-control carousel-control-right" (click)="changeImageSourceByPressingRightArrow()"><i class="glyphicon glyphicon-chevron-right"></i></a>
             </div>
+
         </div>
     </div>
 </div>
