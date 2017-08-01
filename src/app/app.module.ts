@@ -21,6 +21,7 @@ import { AboutusComponent } from './components/aboutus/aboutus.component';
 
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { SliderComponent } from './components/slider/slider.component';
+import { TopComponent } from './components/home/top/top.component';
 import { AdminMainComponent } from './components/adminmain/adminmain.component';
 import { AdminnavbarComponent } from './components/adminnavbar/adminnavbar.component';
 import { AdmincategoriesComponent } from './components/admincategories/admincategories.component';
@@ -51,6 +52,7 @@ import { AdminAnalyticsComponent } from './components/admin-analytics/admin-anal
       NewAccountComponent,
       CheckoutComponent,
       SliderComponent,
+      TopComponent,
       AdminMainComponent,
       AdminnavbarComponent,
       AdmincategoriesComponent,
