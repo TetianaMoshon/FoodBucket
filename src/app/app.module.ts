@@ -22,6 +22,15 @@ import { AboutusComponent } from './components/aboutus/aboutus.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { SliderComponent } from './components/slider/slider.component';
 import { TopComponent } from './components/home/top/top.component';
+import { AdminMainComponent } from './components/adminmain/adminmain.component';
+import { AdminnavbarComponent } from './components/adminnavbar/adminnavbar.component';
+import { AdmincategoriesComponent } from './components/admincategories/admincategories.component';
+import { AdminProductListComponent } from './components/admin-product-list/admin-product-list.component';
+import { AdminIngredientsComponent } from './components/admin-ingredients/admin-ingredients.component';
+import { AdminOrdersComponent } from './components/admin-orders/admin-orders.component';
+import { AdminUsersComponent } from './components/admin-users/admin-users.component';
+import { AdminCommentsComponent } from './components/admin-comments/admin-comments.component';
+import { AdminAnalyticsComponent } from './components/admin-analytics/admin-analytics.component';
 
 @NgModule({
   declarations: [
@@ -31,15 +40,28 @@ import { TopComponent } from './components/home/top/top.component';
     CategoryComponent,
     ProductlistComponent,
     ModalCongratulationComponent,
-    NavbarComponent,
-    FooterComponent,
-    TopComponent,
-    MenuComponent,
       LoginComponent,
+      NavbarComponent,
+      FooterComponent,
       NewAccountComponent,
       AboutusComponent,
+      NavbarComponent,
+      FooterComponent,
+      MenuComponent,
+      LoginComponent,
+      NewAccountComponent,
       CheckoutComponent,
       SliderComponent,
+      TopComponent,
+      AdminMainComponent,
+      AdminnavbarComponent,
+      AdmincategoriesComponent,
+      AdminProductListComponent,
+      AdminIngredientsComponent,
+      AdminOrdersComponent,
+      AdminUsersComponent,
+      AdminCommentsComponent,
+      AdminAnalyticsComponent,
   ],
   entryComponents: [
       ModalCongratulationComponent,
