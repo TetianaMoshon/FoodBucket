@@ -2,20 +2,30 @@ a{
 	color: white;
 }
 
+.row {
+ margin-right: 0;
+}
+
 .our_office{
 	background-color: #14A9BA;
 	color:white;
 	padding-left: 30px;
+    font-family: Roboto;
 }
-
+.our_office h2{
+    font-family: Oswald;
+}
 .our_office p{
 	padding:10px 0 0 25px;
 }
 
 .contact_mass{
 	color: #14A9BA;
+    font-family: Roboto;
 }
-
+.contact_mass h3{
+    font-family: Oswald;
+}
 .contact_mass label{
 	padding-top: 10px;
 }

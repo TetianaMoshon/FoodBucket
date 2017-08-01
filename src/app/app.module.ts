@@ -31,15 +31,17 @@ import { AdminOrdersComponent } from './components/admin-orders/admin-orders.com
 import { AdminUsersComponent } from './components/admin-users/admin-users.component';
 import { AdminCommentsComponent } from './components/admin-comments/admin-comments.component';
 import { AdminAnalyticsComponent } from './components/admin-analytics/admin-analytics.component';
+import { CongratulationComponent } from './components/modals/congratulation/congratulation.component';
+import { ForgotPassComponent } from './components/modals/forgot-pass/forgot-pass.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HomeComponent,
-    IngredientsComponent,
-    CategoryComponent,
-    ProductlistComponent,
-    ModalCongratulationComponent,
+      AppComponent,
+      HomeComponent,
+      IngredientsComponent,
+      CategoryComponent,
+      ProductlistComponent,
+      ModalCongratulationComponent,
       LoginComponent,
       NavbarComponent,
       FooterComponent,
@@ -62,11 +64,15 @@ import { AdminAnalyticsComponent } from './components/admin-analytics/admin-anal
       AdminUsersComponent,
       AdminCommentsComponent,
       AdminAnalyticsComponent,
+      CongratulationComponent,
+      ForgotPassComponent,
   ],
   entryComponents: [
       ModalCongratulationComponent,
       LoginComponent,
-      NewAccountComponent
+      NewAccountComponent,
+      CongratulationComponent,
+      ForgotPassComponent,
   ],
   imports: [
       ModalModule.forRoot(),
