@@ -28,19 +28,17 @@ export class SliderComponent implements OnInit {
 
 
     ListOfImageLinks: string [] = [
-        'http://2.bp.blogspot.com/-CmBgofK7QzU/TVj3u3N1h2I/AAAAAAAADN8/OszBhGvvXRU/s640/tumblr_lg7h9gpbtP1qap9qio1_500.jpeg',
-        'https://shadikdaily.files.wordpress.com/2012/04/all-black-500x500.jpg',
-        'http://inspirationfeed.com/wp-content/uploads/2010/06/Evolution_by_will_yen-500x500.png',
-        'http://smhttp.64097.nexcesscdn.net/80544EA/dfcontent/wp-content/uploads/2012/08/Pitshark.jpg',
-        'http://farm4.staticflickr.com/3137/2698866948_f273755a09_z.jpg?zz=1',
-        'https://farm6.staticflickr.com/5348/8412115396_eb91d09339.jpg',
-        'https://farm6.staticflickr.com/5112/6970631088_f8a396cc6a.jpg',
-        'http://www.newcastlewildflower.com.au/wp-content/uploads/2013/05/9fkUCY02te7bqobeZzdT9SEio1_500.jpg',
-        'https://farm9.staticflickr.com/8644/16517781789_6ed90c5678.jpg',
-        'https://farm4.staticflickr.com/3937/15437546888_6a6f608e9c.jpg',
-        'http://ftpmirror.your.org/pub/wikimedia/images/wikipedia/fi/e/ec/The_Catalyst.png',
-        'http://orig07.deviantart.net/b7df/f/2010/265/b/4/pink_and_blue_clouds_500x500_by_prodigy42-d2zaii3.jpg',
-        'http://www.neatorama.com/wp-content/uploads/2011/10/punch-500x500.jpg'
+       'https://www.bzl.co/story/Delicious-Food-Sandwich-friedclams-1480470367.png',
+        'https://1.bp.blogspot.com/-BFHNsu-lK9M/VxtLPQXpowI/AAAAAAAAABU/Y2gPcR24ABYl9fzBimby6jO_P6H-GCgWwCLcB/s640/Allgauer%2527s-Restaurant-Chicago-food.jpg',
+        'http://www.westmarkhotels.com/wp-content/uploads/HAP-Westmark-Food-Fairbanks-600x300.jpg',
+        'https://www.stack3d.com/wp-content/uploads/2016/08/questketoone.jpg',
+        'http://2momsintheraw.com/wp-content/uploads/2017/03/2.jpg',
+        'http://simplybarbaramckay.com/wp-content/uploads/2017/03/unnamed-600x300.jpg',
+        'http://keepitrelax.com/wp-content/uploads/2014/06/cherry-cake-1-718x404-600x300.jpg',
+        'https://irp-cdn.multiscreensite.com/edf87f6a/dms3rep/multi/mobile/6ee3572971854827b083fdcf02acebd9-600x300.dm.edit_rf3aco.jpg',
+        'http://brewskibar.com.au/img/home/menu-panel-600b.jpg',
+        'http://ameripackfoods.com/wp-content/uploads/2017/04/APF_BLAZIN_SHRIMP_PRODUCT_IMG_17_SM.jpg'
+
     ];
 
     constructor() {}

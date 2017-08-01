@@ -2,11 +2,29 @@ a {
     cursor: pointer;
 }
 
-a.bucket {
-    background: url(../../../assets/icons/bucket-icon.svg) no-repeat;
+span.bucket{
     display: inline-block;
-    width: 30px;
-    height: 30px;
     margin-top: 7px;
-    background-size: 30px 30px;
+    cursor: pointer;
+}
+
+span.bucket:hover .cls-3, span.bucket-mobile:hover .cls-3 {
+    fill: #727272;
+}
+
+span.bucket-mobile {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    span.bucket-mobile {
+        position: absolute;
+        right: 80px;
+        display: inline-block;
+        margin-top: 7px;
+    }
+
+    span.bucket {
+        display: none;
+    }
 }
