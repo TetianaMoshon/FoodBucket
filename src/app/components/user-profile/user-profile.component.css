@@ -1,0 +1,13 @@
+.user-profile > div {
+    outline: 1px solid red;
+}
+
+.navigation {
+    margin: 0 auto;
+    width: 70%;
+}
+
+.content {
+    margin: 0 auto;
+    width: 70%;
+}

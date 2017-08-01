@@ -15,6 +15,7 @@ import { LoginComponent } from './components/modals/login/login.component';
 import { NewAccountComponent } from './components/modals/new-account/new-account.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { SliderComponent } from './components/slider/slider.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -26,12 +27,13 @@ import { SliderComponent } from './components/slider/slider.component';
     NavbarComponent,
     FooterComponent,
     MenuComponent,
-      LoginComponent,
-      NavbarComponent,
-      FooterComponent,
-      NewAccountComponent,
-      CheckoutComponent,
-      SliderComponent,
+    LoginComponent,
+    NavbarComponent,
+    FooterComponent,
+    NewAccountComponent,
+    CheckoutComponent,
+    SliderComponent,
+    UserProfileComponent,
   ],
   entryComponents: [
       ModalCongratulationComponent,
