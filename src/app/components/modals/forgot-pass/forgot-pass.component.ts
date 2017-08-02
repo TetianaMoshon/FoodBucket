@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal/modal-options.class';
+import { BsModalService } from 'ngx-bootstrap/modal';
+
+import  {ConfirmationComponent} from "../confirmation/confirmation.component";
 
 @Component({
   selector: 'app-forgot-pass',
@@ -9,9 +12,13 @@ import { BsModalRef } from 'ngx-bootstrap/modal/modal-options.class';
 export class ForgotPassComponent implements OnInit {
 
     public title = 'Password recovering!';
-  constructor(public bsModalRef: BsModalRef) { }
+    constructor(public bsModalRef: BsModalRef, private modalService: BsModalService) { }
 
-  ngOnInit() {
-  }
+    public openConfirm() {
+        this.modalService.show(ConfirmationComponent);
+    }
+
+    ngOnInit() {
+    }
 
 }
