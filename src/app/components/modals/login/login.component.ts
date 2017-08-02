@@ -12,6 +12,7 @@ import  {ForgotPassComponent} from "../forgot-pass/forgot-pass.component";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
     public title = 'Login to Foodbucket';
     constructor(public bsModalRef: BsModalRef, private modalService: BsModalService) { }
 
