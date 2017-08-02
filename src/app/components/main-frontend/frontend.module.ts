@@ -17,7 +17,6 @@ import { MenuComponent } from '../home/menu/menu.component';
 import { LoginComponent } from '../modals/login/login.component';
 import { NewAccountComponent } from '../modals/new-account/new-account.component';
 import { AboutusComponent } from '../aboutus/aboutus.component';
-import {MainFrontendComponent} from "./main-frontend.component";
 import { CheckoutComponent } from '../checkout/checkout.component';
 import { SliderComponent } from '../slider/slider.component';
 import { TopComponent } from '../home/top/top.component';
@@ -25,7 +24,6 @@ import { TopComponent } from '../home/top/top.component';
 
 @NgModule({
     declarations: [
-        MainFrontendComponent,
         HomeComponent,
         IngredientsComponent,
         CategoryComponent,
@@ -61,6 +59,6 @@ import { TopComponent } from '../home/top/top.component';
         })
     ],
     providers: [],
-    bootstrap: [MainFrontendComponent]
+    bootstrap: []
 })
 export class MainFrontendModule { }

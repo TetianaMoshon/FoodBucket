@@ -11,14 +11,19 @@ import {AdminUsersComponent} from "../admin-users/admin-users.component";
 
 
 const backendRoutes: Routes = [
-    {path:'admin', component: AdminMainComponent},
-    {path:'admin/orders', component: AdminOrdersComponent},
-    {path:'admin/productlist', component: AdminProductListComponent},
-    {path:'admin/comments', component: AdminCommentsComponent},
-    {path:'admin/users', component: AdminUsersComponent},
-    {path:'admin/categories', component: AdmincategoriesComponent},
-    {path:'admin/analytics', component: AdminAnalyticsComponent},
-    {path:'admin/ingredients', component: AdminIngredientsComponent},
+    {path:'admin',
+        component: AdminMainComponent,
+        children: [
+            {path:'orders', component: AdminOrdersComponent},
+            {path:'productlist', component: AdminProductListComponent},
+            {path:'comments', component: AdminCommentsComponent},
+            {path:'users', component: AdminUsersComponent},
+            {path:'categories', component: AdmincategoriesComponent},
+            {path:'analytics', component: AdminAnalyticsComponent},
+            {path:'ingredients', component: AdminIngredientsComponent},
+        ]
+    },
+
 
 ];
 

@@ -15,10 +15,8 @@ import {AdminProductListComponent} from "../admin-product-list/admin-product-lis
 import {AdminUsersComponent} from "../admin-users/admin-users.component";
 import {backendRouting} from "./backend.routing";
 import { AdminnavbarComponent } from '../adminnavbar/adminnavbar.component';
-import {MainBackendComponent} from "./main-backend.component";
 @NgModule({
     declarations: [
-        MainBackendComponent,
         AdminMainComponent,
         AdminnavbarComponent,
         AdmincategoriesComponent,
@@ -42,6 +40,6 @@ import {MainBackendComponent} from "./main-backend.component";
         })
     ],
     providers: [],
-    bootstrap: [MainBackendComponent]
+    bootstrap: []
 })
 export class MainBackendModule { }
