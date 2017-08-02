@@ -1,3 +1,34 @@
 a {
     cursor: pointer;
 }
+
+span.bucket{
+    display: inline-block;
+    margin-top: 7px;
+    cursor: pointer;
+}
+
+span.bucket:hover .cls-3, span.bucket-mobile:hover .cls-3 {
+    fill: #727272;
+}
+
+span.bucket:focus, span.bucket-mobile:focus {
+    outline: none;
+}
+
+span.bucket-mobile {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    span.bucket-mobile {
+        position: absolute;
+        right: 80px;
+        display: inline-block;
+        margin-top: 7px;
+    }
+
+    span.bucket {
+        display: none;
+    }
+}

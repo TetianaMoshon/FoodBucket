@@ -1,4 +1,9 @@
+
 /*FOOTER CONTENT*/
+a {
+    cursor: pointer;
+}
+
 img.logo-footer {
     width: 55px;
     margin-top: 50px;
@@ -17,19 +22,30 @@ div.footer-content li {
     padding-bottom: 3px;
 }
 
+.footer-content a {
+    font-family: Roboto;
+    font-size: 15px;
+}
+
 div.footer-content ul {
     padding-left: 0px;
 }
 
 div.footer-content p, div.footer-socials p {
-    font-size: 16px;
+    font-size: 18px;
+    font-family: Oswald;
 }
+
+
+
 
 /*FOOTER SOCIALS*/
 div.footer-socials {
     margin-top: 20px;
     width: 100%;
 }
+
+
 
 div.footer-socials a.facebook {
     background: url("../../../assets/icons/Group 14.svg") no-repeat;
@@ -57,6 +73,21 @@ div.footer-socials a.twitter {
     margin-right: 7px;
     background-size: 30px 30px;
     color: #dddddd;
+}
+
+a.soc-name {
+    display: inline-block;
+    font-family: Roboto;
+    font-size: 14px;
+    color: #000;
+    cursor: pointer;
+    position: relative;
+    bottom: 7px;
+}
+
+.socials-container ul {
+    padding: 0;
+    list-style-type: none;
 }
 
 div.socials-container {

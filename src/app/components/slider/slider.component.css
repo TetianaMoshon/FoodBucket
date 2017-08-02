@@ -1,3 +1,16 @@
 .img-responsive {
     margin: 0 auto;
 }
+
+div.carousel-caption p {
+    font-family: Roboto;
+    font-size: 17px;
+}
+
+div.carousel-caption h3 {
+    font-family: Oswald;
+}
+
+div.slider {
+    margin-bottom: 60px;
+}
