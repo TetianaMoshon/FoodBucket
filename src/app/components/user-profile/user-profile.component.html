@@ -12,9 +12,8 @@
             <div class="profile row">
                 <h3 class="title">NAME LASTNAME</h3>
                 <div class="row">
-
                     <div class="col-md-4">
-                        <img src="" alt="Name Lastname" class="img-thumbnail profile-img">
+                        <img src="../../../assets/images/user-avatar-min.jpg" alt="Name Lastname" class="img-thumbnail profile-img">
                         <div class="profile__achievements">
                             <div class="achievements--italian"></div>
                             <div class="achievements--sugar"></div>
@@ -22,46 +21,69 @@
                         </div>
                     </div>
                     <div class="col-md-8">
-                        <div class="profile__personal">
-                            <p contenteditable="true">А вслед за этим на Тортуге наступили
-                                дни кипучей деятельности: суда оснащались в дальний поход,
-                                заготавливалось мясо и другие продукты, грузились различные
-                                запасы, необходимые для военных действий.</p>
+                        <div class="personal">
+                            <address>
+                                <div class="city">
+                                    <span>CITY</span>
+                                    <p contenteditable="true">KYIV<span class="glyphicon glyphicon-pencil"></span></p>
+                                </div>
+                                <div class="street">
+                                    <span>STREET</span>
+                                    <p contenteditable="true">Leiptsyzka<span class="glyphicon glyphicon-pencil"></span></p>
+                                </div>
+                                <div class="building">
+                                    <span>BUILDING NUMBER</span>
+                                    <p contenteditable="true">13<span class="glyphicon glyphicon-pencil"></span></p>
+                                </div>
+                                <div class="floor">
+                                    <span>FLOOR</span>
+                                    <p contenteditable="true">15<span class="glyphicon glyphicon-pencil"></span></p>
+                                </div>
+                                <div class="apartment">
+                                    <span>APARTMENT NUMBER</span>
+                                    <p contenteditable="true">134<span class="glyphicon glyphicon-pencil"></span></p>
+                                </div>
+                            </address>
+                            <div class="about">
+                                <p contenteditable="true">Like health food<span class="glyphicon glyphicon-pencil"></span></p>
+                            </div>
                         </div>
                     </div>
                 </div>
 
 
             </div>
+
             <div class="orders container">
                 <h3 class="title">ORDERS</h3>
                 <table class="table table-bordered table-hover table-striped">
                     <tr>
                         <th>#</th>
                         <th>Dish</th>
-                        <th>Data</th>
+                        <th>Date</th>
                         <th>Address</th>
                     </tr>
                     <tr>
-                        <td>1</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td class="order-number">1</td>
+                        <td class="order-name">Pasta</td>
+                        <td class="order-date"></td>
+                        <td class="order-address"></td>
                     </tr>
                     <tr>
-                        <td>2</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td class="order-number">2</td>
+                        <td class="order-name">Pizza</td>
+                        <td class="order-date"></td>
+                        <td class="order-address"></td>
                     </tr>
                     <tr>
-                        <td>3</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td class="order-number">3</td>
+                        <td class="order-name">Cake</td>
+                        <td class="order-date"></td>
+                        <td class="order-address"></td>
                     </tr>
                 </table>
             </div>
+
             <div class="favorite container">
                 <h3 class="title">FAVORITES</h3>
                 <div class="row center-block">
@@ -109,7 +131,7 @@
                     </div>
                     <div class="col-md-3">
                         <div class="favorite-item thumbnail">
-                            <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/20140501-DSC_0027.jpg?w=2210&quality=50" alt="dish-name" class="img-thumbnail dish-image">
+                            <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/20140501-DSC_0027.jpg?w=2210&quality=50" alt="dish-name" class="dish-image">
                             <a  routerLink="/category/productlist" routerLinkActive="active" class="dish-name">path to dish</a>
                         </div>
                     </div>
