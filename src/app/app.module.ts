@@ -7,11 +7,19 @@ import {MainFrontendComponent} from './components/main-frontend/main-frontend.co
 import {MainBackendComponent} from './components/main-backend/main-backend.component';
 import {MainFrontendModule} from "./components/main-frontend/frontend.module";
 import {MainBackendModule} from "./components/main-backend/backend.module";
+import {NavbarComponent} from "./components/navbar/navbar.component";
+import {FooterComponent} from "./components/footer/footer.component";
+import {AppComponent} from "./app.component";
+import {BsModalRef, CollapseModule, ModalModule} from "ngx-bootstrap";
 
 @NgModule({
   declarations: [
       MainFrontendComponent,
       MainBackendComponent,
+      AppComponent,
+      FooterComponent,
+      NavbarComponent,
+
   ],
   entryComponents: [
   ],
@@ -19,11 +27,12 @@ import {MainBackendModule} from "./components/main-backend/backend.module";
       appRouting,
       MainFrontendModule,
       MainBackendModule,
+      CollapseModule,
       AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDgXQMgwN1IOu9c6ZyHjqiVzaB9JXhIoTA'
     })
   ],
   providers: [],
-  bootstrap: [MainFrontendComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
