@@ -1,28 +1,120 @@
 <div class="user-profile container">
     <h2>ACCOUNT</h2>
     <div class="row">
-        <div class="col-md-6">
-            <div class="navigation btn-group-vertical">
-                <button class="btn">Personal information</button>
-                <button class="btn">Orders</button>
-                <button class="btn">Favorites</button>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="profile">
-                <div class="profile__image">
-                    <h3>Name Lastname</h3>
-                    <img src="" alt="">
+        <!--<div class="">-->
+            <!--<ul class="nav nav-pills nav-justified">-->
+                <!--<li class="active"><a href="">Personal information</a></li>-->
+                <!--<li><a href="">Orders</a></li>-->
+                <!--<li><a href="">Favorites</a></li>-->
+            <!--</ul>-->
+        <!--</div>-->
+        <div>
+            <div class="profile row">
+                <h3 class="title">NAME LASTNAME</h3>
+                <div class="row">
+
+                    <div class="col-md-4">
+                        <img src="" alt="Name Lastname" class="img-thumbnail profile-img">
+                        <div class="profile__achievements">
+                            <div class="achievements--italian"></div>
+                            <div class="achievements--sugar"></div>
+                            <div class="achievements--fish"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="profile__personal">
+                            <p contenteditable="true">А вслед за этим на Тортуге наступили
+                                дни кипучей деятельности: суда оснащались в дальний поход,
+                                заготавливалось мясо и другие продукты, грузились различные
+                                запасы, необходимые для военных действий.</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="profile__achievements">
-                    <div class="achievements--italian"></div>
-                    <div class="achievements--sugar"></div>
-                    <div class="achievements--fish"></div>
-                </div>
-                <div class="profile__personal"></div>
+
+
             </div>
-            <div class="orders"></div>
-            <div class="favorites"></div>
+            <div class="orders container">
+                <h3 class="title">ORDERS</h3>
+                <table class="table table-bordered table-hover table-striped">
+                    <tr>
+                        <th>#</th>
+                        <th>Dish</th>
+                        <th>Data</th>
+                        <th>Address</th>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="favorite container">
+                <h3 class="title">FAVORITES</h3>
+                <div class="row center-block">
+                    <div class="col-md-3">
+                        <div class="favorite-item thumbnail">
+                            <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/HNCK5673.jpg?w=2210&quality=50" alt="dish-name" class="dish-image">
+                            <a routerLink="/category/productlist" routerLinkActive="active" class="dish-name">path to dish</a>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="favorite-item thumbnail">
+                            <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/HNCK5716.jpg?w=2210&quality=50" alt="dish-name" class="dish-image">
+                            <a routerLink="/category/productlist" routerLinkActive="active" class="dish-name">path to dish</a>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="favorite-item thumbnail">
+                            <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/foodiesfeed.com_DSC_0004.jpg?w=2210&quality=50" alt="dish-name" class="dish-image">
+                            <a routerLink="/category/productlist" routerLinkActive="active" class="dish-name">path to dish</a>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="favorite-item thumbnail">
+                            <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/20140314-DSC_0138.jpg?w=2210&quality=50" alt="dish-name" class="dish-image">
+                            <a routerLink="/category/productlist" routerLinkActive="active" class="dish-name">path to dish</a>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="favorite-item thumbnail">
+                            <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/HNCK5640.jpg?w=2210&quality=50" alt="dish-name" class="dish-image">
+                            <a routerLink="/category/productlist" routerLinkActive="active" class="dish-name">path to dish</a>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="favorite-item thumbnail">
+                            <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/HNCK2050.jpg?w=2210&quality=50" alt="dish-name" class="dish-image">
+                            <a routerLink="/category/productlist" routerLinkActive="active" class="dish-name">path to dish</a>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="favorite-item thumbnail">
+                            <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/HNCK4575.jpg?w=2210&quality=50" alt="dish-name" class="dish-image">
+                            <a routerLink="/category/productlist" routerLinkActive="active" class="dish-name">path to dish</a>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="favorite-item thumbnail">
+                            <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/20140501-DSC_0027.jpg?w=2210&quality=50" alt="dish-name" class="img-thumbnail dish-image">
+                            <a  routerLink="/category/productlist" routerLinkActive="active" class="dish-name">path to dish</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
