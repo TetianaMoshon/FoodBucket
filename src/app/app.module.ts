@@ -31,6 +31,8 @@ import { AdminOrdersComponent } from './components/admin-orders/admin-orders.com
 import { AdminUsersComponent } from './components/admin-users/admin-users.component';
 import { AdminCommentsComponent } from './components/admin-comments/admin-comments.component';
 import { AdminAnalyticsComponent } from './components/admin-analytics/admin-analytics.component';
+import { CartBoxComponent } from './components/modals/cart/cart-box/cart-box.component';
+import { CartItemComponent } from './components/modals/cart/cart-item/cart-item.component';
 
 @NgModule({
   declarations: [
@@ -62,11 +64,14 @@ import { AdminAnalyticsComponent } from './components/admin-analytics/admin-anal
       AdminUsersComponent,
       AdminCommentsComponent,
       AdminAnalyticsComponent,
+      CartBoxComponent,
+      CartItemComponent,
   ],
   entryComponents: [
       ModalCongratulationComponent,
       LoginComponent,
-      NewAccountComponent
+      NewAccountComponent,
+      CartBoxComponent,
   ],
   imports: [
       ModalModule.forRoot(),

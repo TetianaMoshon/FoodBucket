@@ -1,0 +1,43 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" (click)="bsModalRef.hide()">&times;</button>
+    <h4 class="modal-title text-center" >{{title}}</h4>
+</div>
+<div class="colorOfBackground modal-body">
+    <div class="scrollable">
+        <app-cart-item></app-cart-item>
+        <!--<ul *ngFor="let information of arrayOfDishNamesAndPrices" class="list-group">-->
+            <!--<li class="list-group-item">-->
+                <!--<app-cart-item-->
+                    <!--[info]="information"-->
+                    <!--(ItemWasDeleted)="renewArray($event)"-->
+                    <!--(moneyToPayForADish)="calculateTotalPriceToPay($event)"-->
+                <!--&gt;</app-cart-item> </li>-->
+        <!--</ul>-->
+    </div>
+
+
+
+    <div class="total_amount">
+        <div class="container-1">
+
+            <div class="box-1">Total amount to pay</div>
+            <div class="box-2">{{ totalPriceOfAllDishes | currency:'USD':'true' }}</div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-3">
+                <button class="btn btn-default btn-block"(click)="bsModalRef.hide()">Continue Shopping</button>
+            </div>
+            <div class="col-xs-3">
+                <button type="button" class="btn btn-success btn-block">Go to Checkout</button>
+            </div>
+        </div>
+    </div>
+</div>
