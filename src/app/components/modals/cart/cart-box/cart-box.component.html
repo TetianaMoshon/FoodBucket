@@ -4,40 +4,41 @@
 </div>
 <div class="colorOfBackground modal-body">
     <div class="scrollable">
-        <app-cart-item></app-cart-item>
-        <!--<ul *ngFor="let information of arrayOfDishNamesAndPrices" class="list-group">-->
-            <!--<li class="list-group-item">-->
-                <!--<app-cart-item-->
-                    <!--[info]="information"-->
-                    <!--(ItemWasDeleted)="renewArray($event)"-->
-                    <!--(moneyToPayForADish)="calculateTotalPriceToPay($event)"-->
-                <!--&gt;</app-cart-item> </li>-->
-        <!--</ul>-->
+        <ul *ngFor="let information of arrayOfDishNamesAndPrices" class="list-group">
+            <li class="list-group-item">
+                <app-cart-item
+                    [info]="information"
+                    (ItemWasDeleted)="renewArray($event)"
+                    (moneyToPayForADish)="calculateTotalPriceToPay($event)"
+                ></app-cart-item> </li>
+        </ul>
     </div>
 
-
+</div>
 
     <div class="total_amount">
-        <div class="container-1">
+        <div class="container">
+            <div class="row">
+                <div class="box-1 col-xs-3">Total amount to pay</div>
+                <div class="box-2 col-xs-3">{{ totalPriceOfAllDishes | currency:'USD':'true' }}</div>
 
-            <div class="box-1">Total amount to pay</div>
-            <div class="box-2">{{ totalPriceOfAllDishes | currency:'USD':'true' }}</div>
-
-        </div>
+            </div>
     </div>
 </div>
 
 
 
 <div class="modal-footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-3">
-                <button class="btn btn-default btn-block"(click)="bsModalRef.hide()">Continue Shopping</button>
-            </div>
-            <div class="col-xs-3">
-                <button type="button" class="btn btn-success btn-block">Go to Checkout</button>
-            </div>
-        </div>
-    </div>
+
+
+
+                <button class="btn btn-default buttonShopping buttonFontSize"(click)="bsModalRef.hide()">Continue Shopping</button>
+
+
+                <button type="button" class="btn btn-success buttonCheckout buttonFontSize"
+                (click)="hideAndRoute()"
+                >Go to Checkout</button>
+
+
+
 </div>

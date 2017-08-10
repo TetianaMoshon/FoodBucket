@@ -16,17 +16,19 @@ export class NavbarComponent implements OnInit {
     isCollapsed = true;
     constructor(private modalService: BsModalService) { }
 
-	  public openNewAccount() {
+    ngOnInit() {
+    }
+
+    public openNewAccount() {
 	        this.modalService.show(NewAccountComponent);
-	    }
-	    public openLoginModal() {
-	        this.modalService.show(LoginComponent);
-	    }
-        public openCartModal() {
-            this.modalService.show(CartBoxComponent);
-        }
-  ngOnInit() {
-  }
+    }
+    public openLoginModal() {
+        this.modalService.show(LoginComponent);
+    }
+    public openCartModal() {
+        this.modalService.show(CartBoxComponent);
+    }
+
 
 
 }
