@@ -78,6 +78,7 @@ ul .nav {
     opacity: 0;
     border-radius: 2%;
     color: #51AB60;
+    text-shadow: -1px 0px 1px #555659;
     text-decoration: none;
     font-weight: bold;
     transition: opacity .4s ease-in-out, color .25s ease-in-out;
@@ -104,6 +105,11 @@ ul .nav {
     font-weight: bold;
 }
 
-.personal p span{
+.personal p+span{
+    font-size: 10px;
+}
+
+.personal p+span:hover {
+    cursor: pointer;
     font-size: 10px;
 }
