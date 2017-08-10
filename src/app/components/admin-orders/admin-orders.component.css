@@ -1,0 +1,13 @@
+.details-icon {
+    width: 25px;
+    height: 25px;
+}
+.padding-top {
+    padding-top:20px;
+}
+@media (max-width: 991px) {
+    .padding-top {
+        padding-top: 0;
+        padding-bottom:20px;
+    }
+}
