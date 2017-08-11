@@ -31,6 +31,7 @@ import { AdminOrdersComponent } from './components/admin-orders/admin-orders.com
 import { AdminUsersComponent } from './components/admin-users/admin-users.component';
 import { AdminCommentsComponent } from './components/admin-comments/admin-comments.component';
 import { AdminAnalyticsComponent } from './components/admin-analytics/admin-analytics.component';
+import {PagerService} from "./services/pagination.service";
 
 @NgModule({
   declarations: [
@@ -77,7 +78,7 @@ import { AdminAnalyticsComponent } from './components/admin-analytics/admin-anal
       apiKey: 'AIzaSyDgXQMgwN1IOu9c6ZyHjqiVzaB9JXhIoTA'
     })
   ],
-  providers: [],
+  providers: [PagerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
