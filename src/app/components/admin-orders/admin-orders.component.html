@@ -26,25 +26,23 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let rowData of array; let i=index">
-            <td *ngIf="i<5" style ="word-break:break-all;">{{rowData.date}}</td>
-            <td *ngIf="i<5" style ="word-break:break-all;">{{rowData.id}}</td>
-            <td *ngIf="i<5" style ="word-break:break-all;">{{rowData.name}}</td>
-            <td *ngIf="i<5" style ="word-break:break-all;">{{rowData.food}}</td>
-            <td *ngIf="i<5" style ="word-break:break-all;">{{rowData.tel}}</td>
-            <td *ngIf="i<5" style ="word-break:break-all;">{{rowData.price}}</td>
-            <td *ngIf="i<5" style ="word-break:break-all;">{{rowData.status}}</td>
-            <td *ngIf="i<5" style ="word-break:break-all;" class="text-center"><img class="details-icon" src="../../../assets/images/Ambox_question.svg"/></td>
+        <tr *ngFor="let rowData of pagedItems;">
+            <td  style ="word-break:break-all;">{{rowData.date}}</td>
+            <td  style ="word-break:break-all;">{{rowData.id}}</td>
+            <td  style ="word-break:break-all;">{{rowData.name}}</td>
+            <td  style ="word-break:break-all;">{{rowData.food}}</td>
+            <td  style ="word-break:break-all;">{{rowData.tel}}</td>
+            <td  style ="word-break:break-all;">{{rowData.price}}</td>
+            <td  style ="word-break:break-all;">{{rowData.status}}</td>
+            <td  style ="word-break:break-all;" class="text-center"><img class="details-icon" src="../../../assets/images/Ambox_question.svg"/></td>
         </tr>
         </tbody>
     </table>
     <div class="row text-center">
-        <ul class="pagination">
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
+        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                <a (click)="setPage(page)">{{page}}</a>
+            </li>
         </ul>
     </div>
 
