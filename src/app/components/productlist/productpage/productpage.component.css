@@ -1,0 +1,14 @@
+.fruits {
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 300px;
+}
+.you-will-get {
+    margin-left: 5%;
+}
+.border-fruits {
+    border: 2px double black;
+    background: white;
+    padding: 5px;
+}
+

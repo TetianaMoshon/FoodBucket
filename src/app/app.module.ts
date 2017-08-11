@@ -31,6 +31,7 @@ import { AdminOrdersComponent } from './components/admin-orders/admin-orders.com
 import { AdminUsersComponent } from './components/admin-users/admin-users.component';
 import { AdminCommentsComponent } from './components/admin-comments/admin-comments.component';
 import { AdminAnalyticsComponent } from './components/admin-analytics/admin-analytics.component';
+import { ProductpageComponent } from './components/productlist/productpage/productpage.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +63,7 @@ import { AdminAnalyticsComponent } from './components/admin-analytics/admin-anal
       AdminUsersComponent,
       AdminCommentsComponent,
       AdminAnalyticsComponent,
+      ProductpageComponent,
   ],
   entryComponents: [
       ModalCongratulationComponent,
