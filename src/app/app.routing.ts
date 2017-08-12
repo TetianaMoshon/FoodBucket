@@ -4,7 +4,7 @@ import {HomeComponent} from './components/home/home.page.component';
 import {IngredientsComponent} from './components/ingredients/ingredients.component';
 import {CategoryComponent} from './components/category/category.component';
 import {AboutusComponent} from './components/aboutus/aboutus.component';
-import {ProductlistComponent} from "./components/productlist/productlist.component";
+import {ProductlistComponent} from './components/productlist/productlist.component';
 import {CheckoutComponent} from "./components/checkout/checkout.component";
 import {AdminMainComponent} from "./components/adminmain/adminmain.component";
 import {AdminAnalyticsComponent} from "./components/admin-analytics/admin-analytics.component";
@@ -14,6 +14,7 @@ import {AdminIngredientsComponent} from "./components/admin-ingredients/admin-in
 import {AdminOrdersComponent} from "./components/admin-orders/admin-orders.component";
 import {AdminProductListComponent} from "./components/admin-product-list/admin-product-list.component";
 import {AdminUsersComponent} from "./components/admin-users/admin-users.component";
+import {ProductpageComponent} from './components/productlist/productpage/productpage.component';
 
 
 const appRoutes: Routes = [
@@ -32,6 +33,7 @@ const appRoutes: Routes = [
     {path:'admin/categories', component: AdmincategoriesComponent},
     {path:'admin/analytics', component: AdminAnalyticsComponent},
     {path:'admin/ingredients', component: AdminIngredientsComponent},
+    {path:'category/productlist/productpage', component: ProductpageComponent},
 
 ];
 
