@@ -6,7 +6,8 @@ h2, h3{
     font-family: Oswald;
 }
 .row {
- margin-right: 0;
+    margin-right: 0;
+    border: 2px solid #14A9BA;
 }
 
 .our_office{
@@ -69,6 +70,7 @@ agm-map {
 .full-screen{
 	color: #14A9BA;
     position: absolute;
+    top: 29px;
     right: 29px;
     font-size: 25px;
     text-decoration-line: none;
