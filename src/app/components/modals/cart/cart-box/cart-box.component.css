@@ -15,10 +15,16 @@
 .scrollable{
     height:350px;
     overflow-y: scroll;
-
+    overflow-x: hidden;
 }
-.scrollable::-webkit-scrollbar {
-    display: none;
+/*.scrollable::-webkit-scrollbar {*/
+    /*display: none;*/
+/*}*/
+
+.phraseToShow {
+    margin: 200px auto;
+    font-family: Roboto;
+    font-size: 1.6em;
 }
 
 .modal-footer button{
