@@ -9,6 +9,19 @@ import { Component, OnInit } from '@angular/core';
 export class UserProfileComponent implements OnInit {
   constructor() { }
 
+  changeEditability(event) {
+     event.currentTarget.parentElement.setAttribute('contenteditable', 'true');
+     event.currentTarget.parentElement.focus();
+  }
+
+  showAchievements(event) {
+      event.currentTarget.nextElementSibling = "block";
+  }
+
+  hideAchievements(event) {
+      event.currentTarget.nextElementSibling.style.display = "none";
+  }
+
   ngOnInit() {
   }
 }
