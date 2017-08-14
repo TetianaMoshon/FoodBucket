@@ -4,7 +4,7 @@ import {HomeComponent} from './components/home/home.page.component';
 import {IngredientsComponent} from './components/ingredients/ingredients.component';
 import {CategoryComponent} from './components/category/category.component';
 import {AboutusComponent} from './components/aboutus/aboutus.component';
-import {ProductlistComponent} from "./components/productlist/productlist.component";
+import {ProductlistComponent} from './components/productlist/productlist.component';
 import {CheckoutComponent} from "./components/checkout/checkout.component";
 import {UserProfileComponent} from "./components/user-profile/user-profile.component";
 import {AdminMainComponent} from "./components/adminmain/adminmain.component";
@@ -15,17 +15,18 @@ import {AdminIngredientsComponent} from "./components/admin-ingredients/admin-in
 import {AdminOrdersComponent} from "./components/admin-orders/admin-orders.component";
 import {AdminProductListComponent} from "./components/admin-product-list/admin-product-list.component";
 import {AdminUsersComponent} from "./components/admin-users/admin-users.component";
+import {ProductpageComponent} from './components/productlist/productpage/productpage.component';
 
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent},
-  { path: 'ingredients', component: IngredientsComponent},
-  { path: 'category', component: CategoryComponent},
-  { path:'checkout', component: CheckoutComponent},
-  { path:'profile', component: UserProfileComponent},
-  { path: 'aboutus', component: AboutusComponent},
-  { path: 'category', component: CategoryComponent},
-  { path: 'category/productlist', component: ProductlistComponent},
+    { path: '', component: HomeComponent},
+    { path: 'ingredients', component: IngredientsComponent},
+    { path: 'category', component: CategoryComponent},
+    { path:'checkout', component: CheckoutComponent},
+    { path:'profile', component: UserProfileComponent},
+    { path: 'aboutus', component: AboutusComponent},
+    { path: 'category', component: CategoryComponent},
+    { path: 'category/productlist', component: ProductlistComponent},
     {path:'checkout', component: CheckoutComponent},
     {path:'admin', component: AdminMainComponent},
     {path:'admin/orders', component: AdminOrdersComponent},
@@ -35,6 +36,8 @@ const appRoutes: Routes = [
     {path:'admin/categories', component: AdmincategoriesComponent},
     {path:'admin/analytics', component: AdminAnalyticsComponent},
     {path:'admin/ingredients', component: AdminIngredientsComponent},
+    {path:'category/productlist/productpage', component: ProductpageComponent},
+
 ];
 
 export  const appRouting: ModuleWithProviders = RouterModule.forRoot(appRoutes);

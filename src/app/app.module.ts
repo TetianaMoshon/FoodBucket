@@ -18,7 +18,6 @@ import { MenuComponent } from './components/home/menu/menu.component';
 import { LoginComponent } from './components/modals/login/login.component';
 import { NewAccountComponent } from './components/modals/new-account/new-account.component';
 import { AboutusComponent } from './components/aboutus/aboutus.component';
-
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { SliderComponent } from './components/slider/slider.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
@@ -32,15 +31,16 @@ import { AdminOrdersComponent } from './components/admin-orders/admin-orders.com
 import { AdminUsersComponent } from './components/admin-users/admin-users.component';
 import { AdminCommentsComponent } from './components/admin-comments/admin-comments.component';
 import { AdminAnalyticsComponent } from './components/admin-analytics/admin-analytics.component';
+import { ProductpageComponent } from './components/productlist/productpage/productpage.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HomeComponent,
-    IngredientsComponent,
-    CategoryComponent,
-    ProductlistComponent,
-    ModalCongratulationComponent,
+      AppComponent,
+      HomeComponent,
+      IngredientsComponent,
+      CategoryComponent,
+      ProductlistComponent,
+      ModalCongratulationComponent,
       LoginComponent,
       NavbarComponent,
       FooterComponent,
@@ -63,16 +63,8 @@ import { AdminAnalyticsComponent } from './components/admin-analytics/admin-anal
       AdminUsersComponent,
       AdminCommentsComponent,
       AdminAnalyticsComponent,
-    NavbarComponent,
-    FooterComponent,
-    MenuComponent,
-    LoginComponent,
-    NavbarComponent,
-    FooterComponent,
-    NewAccountComponent,
-    CheckoutComponent,
-    SliderComponent,
-    UserProfileComponent,
+      ProductpageComponent,
+      UserProfileComponent
   ],
   entryComponents: [
       ModalCongratulationComponent,
