@@ -1,5 +1,5 @@
 import { Component, OnInit,  TemplateRef } from '@angular/core';
-import {BsModalRef, BsModalService} from "ngx-bootstrap";
+import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 import {Router} from '@angular/router';
 
 @Component({
