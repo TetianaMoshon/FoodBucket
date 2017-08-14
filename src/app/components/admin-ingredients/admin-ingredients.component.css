@@ -1,0 +1,102 @@
+.no-gutter {
+    padding-right:0;
+    padding-left:0;
+}
+
+.left-margin {
+    margin-left: 0px;
+}
+
+.bottom-line {
+    border-bottom: 1px solid gray;
+    margin: 20px 0px;
+}
+
+h1.ingredients_header {
+    margin-bottom: 5px;
+    font-family: Oswald;
+}
+
+.left-margin .buttons-ingredients {
+    margin: 15px;
+    padding: 10px 20px;
+    font-family: Oswald;
+}
+
+.left-margin .add-ingredient {
+    margin: 15px 0px;
+}
+
+
+/*Search input*/
+.left-margin .navbar-form {
+    margin: 15px 0px;
+}
+
+.left-margin .btn-search {
+    padding: 10px;
+}
+
+.left-margin .form-control {
+    height: 42px;
+}
+
+/*Ingredients Table*/
+.ingredients-table thead {
+    background-color: #cfcfd8;
+}
+
+.ingredients-table th {
+    font-family: Oswald;
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+.ingredients-table td {
+    text-align: center;
+    padding-top: 22px;
+}
+
+.ingredients-table .buttons-ingredients {
+    margin: 0px 5px;
+}
+
+
+/*Upload Image*/
+.upload_file_container{
+    width:55px;
+    height:40px;
+    position:relative;
+    background: url("http://shoutslogans.com/wp-content/themes/portfolio-press-smaller-featured-images-in-archives/images/placeholder-thumbnail.gif") 100% 100% no-repeat;
+    background-size: contain;
+}
+
+.upload_file_container input{
+    width: 55px;
+    height: 62px;
+    opacity: 0;
+    position: absolute;
+    left: 0px;
+    top: -23px;
+    cursor: pointer;  }
+
+/*Sorting icons*/
+.glyphicon {
+    cursor: pointer;
+}
+
+.glyphicon-triangle-top:active {
+
+}
+
+.glyphicon-triangle-top {
+    position: relative;
+    left: -17px;
+    display: none;
+}
+
+
+
+
+
