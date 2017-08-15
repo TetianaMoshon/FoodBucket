@@ -12,7 +12,9 @@
     "e2e": "ng e2e",
     "nodebuild": "ng build && node server.js",
     "swagger-codegen": "java -jar api/swagger-codegen-cli.jar generate -i api/swagger/swagger.yaml -l nodejs-server -o api/ -Dservice",
-    "swagger-edit": "swagger project edit"
+    "swagger-edit": "swagger project edit",
+    "windows-codegen":"get_codegen.bat",
+    "linux-codegen":"bash get_codegen.sh"
   },
   "private": true,
   "dependencies": {
@@ -31,7 +33,6 @@
     "axios": "^0.16.2",
     "body-parser": "^1.17.2",
     "bootstrap": "^3.3.7",
-    "connect": "^3.2.0",
     "core-js": "^2.4.1",
     "cors": "^2.8.4",
     "express": "^4.15.3",
