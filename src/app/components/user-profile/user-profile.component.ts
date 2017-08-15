@@ -15,13 +15,12 @@ export class UserProfileComponent implements OnInit {
   }
 
   showAchievements(event) {
-      event.currentTarget.nextElementSibling = "block";
-  }
-
-  hideAchievements(event) {
-      event.currentTarget.nextElementSibling.style.display = "none";
+     let elem = event.currentTarget.nextElementSibling;
+      elem.classList.toggle('is-show');
   }
 
   ngOnInit() {
   }
+
+
 }

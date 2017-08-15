@@ -1,3 +1,18 @@
+@keyframes rotation {
+    0% {
+        transform: rotate(30deg);
+    }
+
+    50% {
+        transform: rotate(40deg);
+    }
+
+    100% {
+        transform: rotate(50deg);
+    }
+
+}
+
 .user-profile th {
     font-family: "Oswald";
 }
@@ -112,17 +127,54 @@ img {
 }
 
 .profile__achievements img {
+    position: relative;
+    z-index: 3;
     display: inline-block;
     width: 35px;
     height: 35px;
 }
 
 .achievements {
-    width: 200px;
-    height: 300px;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    transition: all linear 0.2s;
+    transform-origin: 5% 0% ;
+    width: 0px;
+    height: 0px;
     border-radius: 50%;
+    background-color: green;
+}
+
+.is-show {
+    width: 300px;
+    height: 300px;
+    background-color: red;
+    border-radius: 50%;
+    transform: translateX(5);
+    /*transform:  rotate(-45deg);*/
+    /*сделать через перемещение*/
+    transform-origin: 5% 0% ;
+    transition: all ease-in-out 0.5s;
+    /*animation: rotation .3s ease-in-out;*/
+}
+.profile__achievements {
+    position: relative;
 }
 
 .profile__achievements img:hover {
     background-color: red;
+}
+
+.achievements div {
+    margin: 0 auto;
+    width: 95%;
+}
+
+.achievements div div {
+    width: 5%;
+    height: 5%;
+    border-radius: 50%;
+    background-color: blue;
 }
