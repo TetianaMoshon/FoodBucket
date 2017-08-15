@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
+    "test": "ng test --browser Chrome",
     "test-ci": "ng test single-run true --watch=false --browser PhantomJS",
     "lint": "ng lint",
     "e2e": "ng e2e",

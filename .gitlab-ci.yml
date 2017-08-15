@@ -1,0 +1,102 @@
+.release-only: &release-only
+  only:
+    - master
+    - STAGE
+
+.develop-only: &develop-only
+  only:
+    - STAGE
+    - develop
+
+.dev-cache-pull: &dev-cache-pull
+  cache:
+    key: "$CI_PROJECT_ID"
+    paths:
+    - node_modules/
+    policy: pull
+
+stages:
+  - lint
+  - test
+  - build
+  - package
+  - api_docs
+
+run_tslint:
+  tags:
+    - ita
+  stage: lint
+  cache:
+    key: "$CI_PROJECT_ID"
+    paths:
+    - node_modules/
+  script:
+    - npm install
+    - npm run lint
+
+unit_test:
+  tags:
+    - ita
+  stage: test
+  <<: *dev-cache-pull
+  script:
+    - npm run test-ci
+
+generate_api:
+  tags:
+    - ita
+  stage: build
+  before_script:
+    - chmod u+x ./get_codegen.sh
+  script:
+    - npm run linux-codegen $CODEGEN_URL
+    - npm run swagger-codegen
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - api/controllers/
+      - api/utils/
+  <<: *release-only
+
+build_angular:
+  tags:
+    - ita
+  stage: build
+  <<: *dev-cache-pull
+  script:
+    - npm run build
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - dist/
+  <<: *release-only
+
+pack_container:
+  tags:
+    - container
+  stage: package
+  dependencies:
+    - generate_api
+    - build_angular
+  before_script:
+    - if [ "$CI_COMMIT_REF_NAME" != "master" ]; then export IMAGE_TAG=$(echo -en $CI_COMMIT_REF_NAME | tr -c '[:alnum:]_.-' '-'); else export IMAGE_TAG="latest";fi
+    - docker login -u "gitlab-ci-token" -p "$CI_JOB_TOKEN" $CI_REGISTRY
+  script:
+    - docker build -t "$CI_REGISTRY_IMAGE:$IMAGE_TAG" .
+    - docker push "$CI_REGISTRY_IMAGE:$IMAGE_TAG"
+  after_script:
+    - docker volume ls -qf dangling=true | xargs -r docker volume rm
+    - docker rm $(docker ps -qa --no-trunc --filter "status=exited")
+  <<: *release-only
+
+pages:
+  tags:
+    - ita
+  stage: api_docs
+  script:
+    - cp api/swagger/swagger.yaml public/
+  artifacts:
+    paths:
+      - public
+  when: always
+  <<: *develop-only
