@@ -55,7 +55,7 @@
         </div>
         <div class="col-md-6 col-sm-6">
             <div class="thumbnail">
-                <div class="fruits border-fruits">
+                <div class="scrollable border-fruits">
                     <div class="row text-center">
                         <div class="col-md-4 col-sm-6 col-xs-6">
                             <figure>
@@ -134,10 +134,10 @@
             </div>
             <div class="text-center">
                 <button class="button-details"  (click)="show = !show">
-                    <span class="under-line"><p>Details<p></p></span>
+                    <span class="under-line"><p class="details-p__big-text">Details<p></p></span>
                 </button>
                 <div *ngIf="show">
-                    <p> Some details </p>
+                    <p class="details-p__big-text"> Some details </p>
                 </div>
             </div>
             <div class="row button-padding">

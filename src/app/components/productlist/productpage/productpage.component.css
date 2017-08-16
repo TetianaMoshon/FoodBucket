@@ -1,10 +1,18 @@
-.fruits {
+.scrollable {
     overflow-y: scroll;
     overflow-x: hidden;
     height: 300px;
 }
+.scrollable::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    background-color: grey;
+}
 .you-will-get {
     margin-left: 5%;
+}
+.details-p__big-text{
+    font-size: 16px;
 }
 .border-fruits {
     border: none;
@@ -25,7 +33,7 @@
     background-image: none;
 }
 .button-padding{
-    padding-top: 50px;
+    padding: 50px 15px 0 15px;
 }
 .under-line {
     text-decoration: underline;
@@ -48,6 +56,9 @@ table {
 }
 p {
     font-family: Roboto;
+}
+.product-price {
+    font-size: 20px;
 }
 @media (max-width: 760px) {
     .button-padding{
