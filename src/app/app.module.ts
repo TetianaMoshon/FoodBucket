@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
-
 import { AgmCoreModule } from '@agm/core';
 
 import { AppComponent } from './app.component';
@@ -31,6 +30,9 @@ import { AdminOrdersComponent } from './components/admin-orders/admin-orders.com
 import { AdminUsersComponent } from './components/admin-users/admin-users.component';
 import { AdminCommentsComponent } from './components/admin-comments/admin-comments.component';
 import { AdminAnalyticsComponent } from './components/admin-analytics/admin-analytics.component';
+import { CongratulationComponent } from './components/modals/congratulation/congratulation.component';
+import { ForgotPassComponent } from './components/modals/forgot-pass/forgot-pass.component';
+import { ConfirmationComponent } from './components/modals/confirmation/confirmation.component';
 import { ProductpageComponent } from './components/productlist/productpage/productpage.component';
 
 @NgModule({
@@ -63,13 +65,19 @@ import { ProductpageComponent } from './components/productlist/productpage/produ
       AdminUsersComponent,
       AdminCommentsComponent,
       AdminAnalyticsComponent,
+      CongratulationComponent,
+      ForgotPassComponent,
+      ConfirmationComponent,
       ProductpageComponent,
       UserProfileComponent
   ],
   entryComponents: [
       ModalCongratulationComponent,
       LoginComponent,
-      NewAccountComponent
+      NewAccountComponent,
+      CongratulationComponent,
+      ForgotPassComponent,
+      ConfirmationComponent,
   ],
   imports: [
       ModalModule.forRoot(),
