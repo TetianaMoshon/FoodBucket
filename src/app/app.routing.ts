@@ -15,6 +15,7 @@ import {AdminOrdersComponent} from "./components/admin-orders/admin-orders.compo
 import {AdminProductListComponent} from "./components/admin-product-list/admin-product-list.component";
 import {AdminUsersComponent} from "./components/admin-users/admin-users.component";
 import {ProductpageComponent} from './components/productlist/productpage/productpage.component';
+import { AdminProductPageComponent } from './components/admin-product-list/admin-product-page/admin-product-page.component';
 
 
 const appRoutes: Routes = [
@@ -28,12 +29,13 @@ const appRoutes: Routes = [
     {path:'admin', component: AdminMainComponent},
     {path:'admin/orders', component: AdminOrdersComponent},
     {path:'admin/productlist', component: AdminProductListComponent},
+    {path:'admin/productlist/productpage', component: AdminProductPageComponent},
     {path:'admin/comments', component: AdminCommentsComponent},
     {path:'admin/users', component: AdminUsersComponent},
     {path:'admin/categories', component: AdmincategoriesComponent},
     {path:'admin/analytics', component: AdminAnalyticsComponent},
     {path:'admin/ingredients', component: AdminIngredientsComponent},
-    {path:'category/productlist/productpage', component: ProductpageComponent},
+    {path:'admin/productlist/productpage', component: ProductpageComponent},
 
 ];
 

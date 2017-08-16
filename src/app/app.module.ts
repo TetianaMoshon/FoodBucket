@@ -33,6 +33,9 @@ import { CongratulationComponent } from './components/modals/congratulation/cong
 import { ForgotPassComponent } from './components/modals/forgot-pass/forgot-pass.component';
 import { ConfirmationComponent } from './components/modals/confirmation/confirmation.component';
 import { ProductpageComponent } from './components/productlist/productpage/productpage.component';
+import { AdminProductPageComponent } from './components/admin-product-list/admin-product-page/admin-product-page.component';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { TabsModule } from 'ngx-bootstrap';
 
 @NgModule({
   declarations: [
@@ -68,6 +71,7 @@ import { ProductpageComponent } from './components/productlist/productpage/produ
       ForgotPassComponent,
       ConfirmationComponent,
       ProductpageComponent,
+      AdminProductPageComponent,
   ],
   entryComponents: [
       ModalCongratulationComponent,
@@ -84,7 +88,9 @@ import { ProductpageComponent } from './components/productlist/productpage/produ
       appRouting,
       AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDgXQMgwN1IOu9c6ZyHjqiVzaB9JXhIoTA'
-    })
+    }),
+      Ng2SmartTableModule,
+      [TabsModule.forRoot()]
   ],
   providers: [],
   bootstrap: [AppComponent]

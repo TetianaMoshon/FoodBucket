@@ -1,0 +1,26 @@
+.container-fluid{
+    border: groove;
+    max-width: 960px;
+}
+hr{
+    margin-top: 0;
+}
+.action-buttons{
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+h2{
+    font-family: Oswald;
+}
+tabset{
+    font-family: Roboto;
+}
+tab{
+    margin-top: 20px;
+}
+.form-group{
+    margin-top: 20px;
+}
+.table-wrap{
+    margin-bottom: 10px;
+}
