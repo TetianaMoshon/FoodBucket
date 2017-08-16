@@ -1,23 +1,9 @@
-@keyframes rotation {
-    0% {
-        transform: rotate(30deg);
-    }
-
-    50% {
-        transform: rotate(40deg);
-    }
-
-    100% {
-        transform: rotate(50deg);
-    }
-
-}
-
 .user-profile th {
     font-family: "Oswald";
 }
 
 .orders .order-number {
+    width: 10px;
     font-family: "Roboto";
 }
 
@@ -26,18 +12,13 @@
     font-weight: bold;
 }
 
-.navigation {
-    margin: 0 auto;
-    width: 70%;
-}
-
 .content {
     margin: 0 auto;
     width: 70%;
 }
 
 .title {
-    margin-bottom: 20px;
+    margin-bottom: 25px;
     text-align: left;
     font-family: "Oswald";
 }
@@ -58,6 +39,117 @@ img {
     height: 200px;
 }
 
+.personal div {
+    width: auto;
+}
+
+.personal p {
+    display: inline-block;
+    font-family: 'Roboto';
+}
+
+.personal span {
+    font-weight: bold;
+}
+
+.personal p span {
+    margin-left: 5px;
+    font-size: 10px;
+}
+
+.personal p span:hover {
+    cursor: pointer;
+    font-size: 10px;
+}
+
+.profile__achievements  {
+    margin-top: 20px;
+}
+
+.profile__achievements img {
+    display: inline-block;
+    margin-right: 7px;
+    box-sizing: border-box;
+    width: 35px;
+    height: 35px;
+    vertical-align: middle;
+    transition: padding 0.3s ease-in;
+}
+
+.profile__achievements > img:hover {
+    padding: 5px;
+    background-color: rgba(228, 255, 26, 0.35);
+    cursor: pointer;
+}
+
+.profile__achievements img.active {
+    padding: 5px;
+    box-sizing: border-box;
+    background-color: rgba(228, 255, 26, 0.35);
+}
+
+.achievements {
+    display: inline-block;
+    transition: all linear 0.2s;
+    transform-origin: 5% 0%;
+}
+
+.is-show {
+    transform: translateX(5);
+    transform-origin: 5% 0% ;
+    transition: all ease-in-out 0.5s;
+}
+
+.achievements div {
+    display: inline-block;
+    width: 0px;
+    height: 0px;
+    border-radius: 50%;
+    transition: all ease-in-out 0.5s;
+}
+
+.achievements div {
+    display: inline-block;
+    margin-right: 5px;
+    width: 0px;
+    height: 0px;
+    border-radius: 50%;
+    transition: width ease-in-out 0.4s, margin-right linear .35s;
+    background-color: rgba(27, 231, 255, .7);
+}
+
+.achievements :nth-child(2n) {
+    background-color: rgba(110, 235, 131, .7);
+}
+
+.achievements :nth-child(3n) {
+    background-color: rgba(255, 87, 20, .7);
+}
+
+.is-show div {
+    display: inline-block;
+    width: 33px;
+    height: 33px;
+    border-radius: 50%;
+    transition: width ease-in-out 0.3s, background-color ease-in-out 0.4s, transform ease-in-out 0.5s;
+}
+
+.is-show div:hover {
+    cursor: pointer;
+    transform: rotateY(180deg);
+}
+
+.achievements div img {
+    opacity: 0;
+    height: 30px;
+    width: 30px;
+}
+
+.is-show div img {
+    opacity: 1;
+}
+
+
 .dish-image {
     margin: 0 auto;
     box-sizing: border-box;
@@ -76,16 +168,16 @@ img {
     top: 60%;
     right: 10%;
     z-index: 2;
-    text-align: center;
     box-sizing: border-box;
     font-family: Oswald;
     font-size: 18px;
-    opacity: 0;
+    text-align: center;
     border-radius: 2%;
-    color: #51AB60;
+    font-weight: bold;
     text-shadow: -1px 0px 2px #555659;
     text-decoration: none;
-    font-weight: bold;
+    opacity: 0;
+    color: #51AB60;
     transition: opacity .4s ease-in-out, color .25s ease-in-out;
 }
 
@@ -102,90 +194,5 @@ img {
     color: #E85013;
     text-shadow: none;
 }
-.personal div {
-    width: auto;
-}
 
-.personal p {
-    display: inline-block;
-    font-family: 'Roboto';
-}
 
-.personal span {
-    /*font-family: 'Roboto';*/
-    font-weight: bold;
-}
-
-.personal p span {
-    margin-left: 5px;
-    font-size: 10px;
-}
-
-.personal p span:hover {
-    cursor: pointer;
-    font-size: 10px;
-}
-
-.profile__achievements img {
-    display: inline-block;
-    width: 32px;
-    height: 32px;
-    vertical-align: middle;
-}
-
-.achievements {
-    display: inline-block;
-    transition: all linear 0.2s;
-    transform-origin: 5% 0%;
-}
-
-.is-show {
-    transform: translateX(5);
-    transform-origin: 5% 0% ;
-    transition: all ease-in-out 0.5s;
-}
-
-.profile__achievements > img:hover {
-    padding: 1px;
-    border: 1px solid grey;
-    border-radius: 50%;
-    cursor: pointer;
- }
-
-.profile__achievements > img.active {
-    padding: 1px;
-    border: 1px solid grey;
-    border-radius: 50%;
-}
-
-.achievements div {
-    display: inline-block;
-    width: 0px;
-    height: 0px;
-    border-radius: 50%;
-    transition: all ease-in-out 0.5s;
-}
-
-.achievements div {
-    display: inline-block;
-    width: 0px;
-    height: 0px;
-    border-radius: 50%;
-    transition: all ease-in-out 0.5s;
-}
-
-.is-show div {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    transition: all ease-in-out 0.5s;
-}
-
-.achievements div img {
-    opacity: 0;
-}
-
-.is-show div img {
-    opacity: 1;
-}
