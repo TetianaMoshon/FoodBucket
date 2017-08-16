@@ -149,7 +149,9 @@ img {
     opacity: 1;
 }
 
-
+.favorite {
+    margin-bottom: 50px;
+}
 .dish-image {
     margin: 0 auto;
     box-sizing: border-box;
