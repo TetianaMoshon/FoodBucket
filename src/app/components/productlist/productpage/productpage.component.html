@@ -133,20 +133,21 @@
                 </div>
             </div>
             <div class="text-center">
-                <accordion>
-                    <accordion-group heading="Details" panelClass="customClass">
-                        Recipe details
-                    </accordion-group>
-                </accordion>
+                <button class="button-details"  (click)="show = !show">
+                    <span class="under-line"><p>Details<p></p></span>
+                </button>
+                <div *ngIf="show">
+                    <p> Some details </p>
+                </div>
             </div>
             <div class="row button-padding">
-                <p class="text-right text-font">Price 99$</p>
-                <p class="text-right text-font">Total 99$</p>
-                <p class="text-right text-font">Economy 00$</p>
-                <button class="btn btn-md btn-primary to-cart-btn pull-right">
+                    <p class="text-right text-font product-price">Price 99$</p>
+                    <p class="text-right text-font product-price">Total 99$</p>
+                    <p class="text-right text-font product-price">Economy 00$</p>
+                <button class="btn btn-md btn-primary to-cart-btn pull-right custom-cart-button">
                     <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add to cart
                 </button>
-                <button class="btn btn-md btn-primary">
+                <button class="btn btn-md btn-primary custom-buy-button">
                     <span class="glyphicon glyphicon-usd" aria-hidden="true"></span> Buy now!
                 </button>
             </div>

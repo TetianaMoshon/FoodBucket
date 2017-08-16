@@ -24,21 +24,43 @@
 .carousel-control.left, .carousel-control.right{
     background-image: none;
 }
-.panel.customClass {
-    border: none;
-    box-shadow: none;
-}
-.panel{
-    border: none;
-    box-shadow: none;
-
-}
-.panel-heading+.panel-collapse>.panel-body {
-    border-top: 0;
-}
 .button-padding{
-    padding-top: 28px;
+    padding-top: 50px;
 }
-.img-responsive {
-    height: 300px;
+.under-line {
+    text-decoration: underline;
+    color: blue;
 }
+.button-details{
+    background-color: white;
+    color: black;
+    border: none;
+    outline: none;
+}
+h1 {
+    font-family: Oswald;
+}
+h3 {
+    font-family: Oswald;
+}
+table {
+    font-family: Roboto;
+}
+p {
+    font-family: Roboto;
+}
+@media (max-width: 760px) {
+    .button-padding{
+        padding-top: 40px;
+    }
+    .product-price {
+        text-align: center;
+    }
+    .custom-cart-button {
+        margin-right: 30px;
+    }
+    .custom-buy-button {
+        margin-left: 30px;
+    }
+}
+

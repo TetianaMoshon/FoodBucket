@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AccordionModule } from "ngx-bootstrap"
 
 @Component({
   selector: 'app-productpage',
@@ -7,6 +6,8 @@ import { AccordionModule } from "ngx-bootstrap"
   styleUrls: ['./productpage.component.css']
 })
 export class ProductpageComponent implements OnInit {
+
+    show = false;
 
     quantityOfPhotos: number;
 

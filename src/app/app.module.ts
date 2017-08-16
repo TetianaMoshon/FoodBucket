@@ -29,7 +29,6 @@ import { AdminUsersComponent } from './components/admin-users/admin-users.compon
 import { AdminCommentsComponent } from './components/admin-comments/admin-comments.component';
 import { AdminAnalyticsComponent } from './components/admin-analytics/admin-analytics.component';
 import { ProductpageComponent } from './components/productlist/productpage/productpage.component';
-import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 @NgModule({
   declarations: [
@@ -73,7 +72,6 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
       BrowserModule,
       CollapseModule,
       appRouting,
-      AccordionModule.forRoot(),
       AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDgXQMgwN1IOu9c6ZyHjqiVzaB9JXhIoTA'
     })
