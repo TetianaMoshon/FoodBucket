@@ -7,11 +7,38 @@
     margin-left: 5%;
 }
 .border-fruits {
-    border: 2px double black;
+    border: none;
     background: white;
     padding: 5px;
 }
 .text-font{
     font-size: 16px
 }
+.ingredients-margin {
+    margin-bottom: 0;
+    margin-top: 35px;
+}
+.color-gold {
+    color: #FFD700;
+}
+.carousel-control.left, .carousel-control.right{
+    background-image: none;
+}
+.panel.customClass {
+    border: none;
+    box-shadow: none;
+}
+.panel{
+    border: none;
+    box-shadow: none;
 
+}
+.panel-heading+.panel-collapse>.panel-body {
+    border-top: 0;
+}
+.button-padding{
+    padding-top: 28px;
+}
+.img-responsive {
+    height: 300px;
+}

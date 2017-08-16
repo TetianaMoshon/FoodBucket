@@ -2,9 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
-
 import { AgmCoreModule } from '@agm/core';
-
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.page.component';
 import { IngredientsComponent } from './components/ingredients/ingredients.component';
@@ -18,7 +16,6 @@ import { MenuComponent } from './components/home/menu/menu.component';
 import { LoginComponent } from './components/modals/login/login.component';
 import { NewAccountComponent } from './components/modals/new-account/new-account.component';
 import { AboutusComponent } from './components/aboutus/aboutus.component';
-
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { SliderComponent } from './components/slider/slider.component';
 import { TopComponent } from './components/home/top/top.component';
@@ -32,6 +29,7 @@ import { AdminUsersComponent } from './components/admin-users/admin-users.compon
 import { AdminCommentsComponent } from './components/admin-comments/admin-comments.component';
 import { AdminAnalyticsComponent } from './components/admin-analytics/admin-analytics.component';
 import { ProductpageComponent } from './components/productlist/productpage/productpage.component';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 @NgModule({
   declarations: [
@@ -75,6 +73,7 @@ import { ProductpageComponent } from './components/productlist/productpage/produ
       BrowserModule,
       CollapseModule,
       appRouting,
+      AccordionModule.forRoot(),
       AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDgXQMgwN1IOu9c6ZyHjqiVzaB9JXhIoTA'
     })
