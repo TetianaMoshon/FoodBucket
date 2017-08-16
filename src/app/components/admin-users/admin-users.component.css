@@ -103,3 +103,6 @@ h2{
     min-width: 600px;
     overflow-x: auto;
 }
+.ng2-smart-action a{
+    width: 500px;
+}
