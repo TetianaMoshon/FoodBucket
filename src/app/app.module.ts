@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+
 
 import { AgmCoreModule } from '@agm/core';
 
@@ -32,6 +34,7 @@ import { AdminUsersComponent } from './components/admin-users/admin-users.compon
 import { AdminCommentsComponent } from './components/admin-comments/admin-comments.component';
 import { AdminAnalyticsComponent } from './components/admin-analytics/admin-analytics.component';
 import { ProductpageComponent } from './components/productlist/productpage/productpage.component';
+import {ImageRenderComponent} from './components/admin-ingredients/image-render.component';
 
 @NgModule({
   declarations: [
@@ -64,17 +67,20 @@ import { ProductpageComponent } from './components/productlist/productpage/produ
       AdminCommentsComponent,
       AdminAnalyticsComponent,
       ProductpageComponent,
+      ImageRenderComponent,
   ],
   entryComponents: [
       ModalCongratulationComponent,
       LoginComponent,
-      NewAccountComponent
+      NewAccountComponent,
+      ImageRenderComponent,
   ],
   imports: [
       ModalModule.forRoot(),
       BrowserModule,
       CollapseModule,
       appRouting,
+      Ng2SmartTableModule,
       AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDgXQMgwN1IOu9c6ZyHjqiVzaB9JXhIoTA'
     })
