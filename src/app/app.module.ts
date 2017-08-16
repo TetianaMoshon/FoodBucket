@@ -33,6 +33,7 @@ import { AdminCommentsComponent } from './components/admin-comments/admin-commen
 import { AdminAnalyticsComponent } from './components/admin-analytics/admin-analytics.component';
 import { CartBoxComponent } from './components/modals/cart/cart-box/cart-box.component';
 import { CartItemComponent } from './components/modals/cart/cart-item/cart-item.component';
+import { ProductpageComponent } from './components/productlist/productpage/productpage.component';
 
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 @NgModule({
@@ -67,6 +68,7 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
       AdminAnalyticsComponent,
       CartBoxComponent,
       CartItemComponent,
+      ProductpageComponent,
   ],
   entryComponents: [
       ModalCongratulationComponent,
