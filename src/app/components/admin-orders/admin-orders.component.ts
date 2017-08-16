@@ -6,6 +6,7 @@ import {PagerService} from "../../services/pagination.service";
   styleUrls: ['./admin-orders.component.css']
 })
 export class AdminOrdersComponent implements OnInit {
+    showHide: boolean;
 array = [{
     "date": "27/05/2015",
     "id": "1",
@@ -189,7 +190,9 @@ array = [{
 pager: any = {};
 pagedItems: any[];
 
-  constructor(private pagerService:PagerService) { }
+  constructor(private pagerService:PagerService) {
+      this.showHide = false;
+  }
 
   ngOnInit() {
     this.setPage(1);
@@ -202,4 +205,7 @@ setPage(page:number) {
       this.pager = this.pagerService.getPager(this.array.length,page);
       this.pagedItems = this.array.slice(this.pager.startIndex, this.pager.endIndex + 1);
 }
+    changeShowStatus(){
+        this.showHide = !this.showHide;
+    }
 }

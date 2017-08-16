@@ -26,16 +26,24 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let rowData of pagedItems;">
-            <td  style ="word-break:break-all;">{{rowData.date}}</td>
-            <td  style ="word-break:break-all;">{{rowData.id}}</td>
-            <td  style ="word-break:break-all;">{{rowData.name}}</td>
-            <td  style ="word-break:break-all;">{{rowData.food}}</td>
-            <td  style ="word-break:break-all;">{{rowData.tel}}</td>
-            <td  style ="word-break:break-all;">{{rowData.price}}</td>
-            <td  style ="word-break:break-all;">{{rowData.status}}</td>
-            <td  style ="word-break:break-all;" class="text-center"><img class="details-icon" src="../../../assets/images/Ambox_question.svg"/></td>
+        <ng-container *ngFor="let rowData of pagedItems;let i = index;" [attr.data-index]="i">
+        <tr class="word-break">
+            <td class="text-center">
+                <button *ngIf="rowData.expanded" ng-click="rowData.expanded = false">-</button>
+                <button *ngIf="!rowData.expanded" ng-click="rowData.expanded = true">+</button>
+            </td>
+            <td>{{rowData.date}}</td>
+            <td>{{rowData.id}}</td>
+            <td>{{rowData.name}}</td>
+            <td>{{rowData.food}}</td>
+            <td>{{rowData.tel}}</td>
+            <td>{{rowData.price}}</td>
+            <td>{{rowData.status}}</td>
         </tr>
+        <tr *ngIf="rowData.expanded">
+            <td>{{rowData.id}}</td>
+        </tr>
+        </ng-container>
         </tbody>
     </table>
     <div class="row text-center">
