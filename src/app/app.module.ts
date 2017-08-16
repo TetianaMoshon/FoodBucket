@@ -32,6 +32,7 @@ import { AdminAnalyticsComponent } from './components/admin-analytics/admin-anal
 import { CongratulationComponent } from './components/modals/congratulation/congratulation.component';
 import { ForgotPassComponent } from './components/modals/forgot-pass/forgot-pass.component';
 import { ConfirmationComponent } from './components/modals/confirmation/confirmation.component';
+import { ProductpageComponent } from './components/productlist/productpage/productpage.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +67,7 @@ import { ConfirmationComponent } from './components/modals/confirmation/confirma
       CongratulationComponent,
       ForgotPassComponent,
       ConfirmationComponent,
+      ProductpageComponent,
   ],
   entryComponents: [
       ModalCongratulationComponent,
