@@ -127,54 +127,65 @@ img {
 }
 
 .profile__achievements img {
-    position: relative;
-    z-index: 3;
     display: inline-block;
-    width: 35px;
-    height: 35px;
+    width: 32px;
+    height: 32px;
+    vertical-align: middle;
 }
 
 .achievements {
-    position: absolute;
-    z-index: 1;
-    top: 0;
-    left: 0;
+    display: inline-block;
     transition: all linear 0.2s;
-    transform-origin: 5% 0% ;
-    width: 0px;
-    height: 0px;
-    border-radius: 50%;
-    background-color: green;
+    transform-origin: 5% 0%;
 }
 
 .is-show {
-    width: 300px;
-    height: 300px;
-    background-color: red;
-    border-radius: 50%;
     transform: translateX(5);
-    /*transform:  rotate(-45deg);*/
-    /*сделать через перемещение*/
     transform-origin: 5% 0% ;
     transition: all ease-in-out 0.5s;
-    /*animation: rotation .3s ease-in-out;*/
-}
-.profile__achievements {
-    position: relative;
 }
 
-.profile__achievements img:hover {
-    background-color: red;
+.profile__achievements > img:hover {
+    padding: 1px;
+    border: 1px solid grey;
+    border-radius: 50%;
+    cursor: pointer;
+ }
+
+.profile__achievements > img.active {
+    padding: 1px;
+    border: 1px solid grey;
+    border-radius: 50%;
 }
 
 .achievements div {
-    margin: 0 auto;
-    width: 95%;
+    display: inline-block;
+    width: 0px;
+    height: 0px;
+    border-radius: 50%;
+    transition: all ease-in-out 0.5s;
 }
 
-.achievements div div {
-    width: 5%;
-    height: 5%;
+.achievements div {
+    display: inline-block;
+    width: 0px;
+    height: 0px;
     border-radius: 50%;
-    background-color: blue;
+    transition: all ease-in-out 0.5s;
+}
+
+.is-show div {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    transition: all ease-in-out 0.5s;
+}
+
+.achievements div img {
+    opacity: 0;
+}
+
+.is-show div img {
+    opacity: 1;
 }

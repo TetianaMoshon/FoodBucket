@@ -16,7 +16,8 @@ export class UserProfileComponent implements OnInit {
 
   showAchievements(event) {
      let elem = event.currentTarget.nextElementSibling;
-      elem.classList.toggle('is-show');
+     elem.classList.toggle('is-show');
+     event.currentTarget.classList.toggle('active');
   }
 
   ngOnInit() {
