@@ -1,78 +1,9 @@
-<div class="container">
+<div class="table-container">
+    <app-adminnavbar></app-adminnavbar>
+
     <h2>Users</h2>
     <hr/>
-    <div class="row">
-        <div class="col-sm-9">
-            <div class="input-group input-group-lg input-search">
-                <input type="text" class="form-control" placeholder="Search...">
-                <span class="input-group-btn">
-                    <button class="btn btn-default" type="button">Search</button>
-                </span>
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <button>Delete selected</button>
-            <button>Add new user</button>
-        </div>
-    </div>
-
-    <div class="table-responsive">
-        <table class="table">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th>
-                    <div class="checkbox">
-                        <input type="checkbox" value="">
-                    </div>
-                </th>
-                <th>Name</th>
-                <th>Surname</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>City</th>
-                <th>Adress</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>1</td>
-                <td>
-                    <div class="checkbox">
-                        <input type="checkbox" value="">
-                    </div>
-                </td>
-                <td>Ivan</td>
-                <td>Petrov</td>
-                <td>i.petrov@gmail.com</td>
-                <td>0500800200</td>
-                <td>Poltava</td>
-                <td>Peremogy 25, kv 15</td>
-                <td>
-                    <a>Edit</a>
-                    <a>Delete</a>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td>
-                    <div class="checkbox">
-                        <input type="checkbox" value="">
-                    </div>
-                </td>
-                <td>Ivan</td>
-                <td>Petrov</td>
-                <td>i.petrov@gmail.com</td>
-                <td>0500800200</td>
-                <td>Poltava</td>
-                <td>Peremogy 25, kv 15</td>
-                <td>
-                    <a>Edit</a>
-                    <a>Delete</a>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+    <div class="table-wrap">
+        <ng2-smart-table [settings]="settings" [source]="data"></ng2-smart-table>
     </div>
 </div>

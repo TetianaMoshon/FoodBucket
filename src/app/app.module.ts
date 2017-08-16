@@ -34,6 +34,7 @@ import { AdminAnalyticsComponent } from './components/admin-analytics/admin-anal
 import { CartBoxComponent } from './components/modals/cart/cart-box/cart-box.component';
 import { CartItemComponent } from './components/modals/cart/cart-item/cart-item.component';
 
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 @NgModule({
   declarations: [
     AppComponent,
@@ -80,7 +81,8 @@ import { CartItemComponent } from './components/modals/cart/cart-item/cart-item.
       appRouting,
       AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDgXQMgwN1IOu9c6ZyHjqiVzaB9JXhIoTA'
-    })
+    }),
+      Ng2SmartTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
