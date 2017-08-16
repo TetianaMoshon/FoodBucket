@@ -42,7 +42,6 @@ export class AdminUsersComponent implements OnInit {
             adress:{
                 title:'Adress'
             },
-
         }
     };
 
