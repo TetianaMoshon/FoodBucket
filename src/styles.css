@@ -159,3 +159,7 @@ body { padding-top: 50px; }
 .table-wrap ng2-smart-table table tbody tr:hover {
     background-color: rgb(240, 241, 235);
 }
+.main-wrap{
+    position: relative;
+}
+
