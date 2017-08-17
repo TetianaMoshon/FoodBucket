@@ -37,9 +37,9 @@
     "cors": "^2.8.4",
     "express": "^4.15.3",
     "jquery": "^3.2.1",
-    "ng2-smart-table": "^1.2.1",
-    "ngx-bootstrap": "^1.8.1",
     "js-yaml": "^3.3.0",
+    "ng2-smart-table": "^1.2.1",
+    "ngx-bootstrap": "^1.8.0",
     "rxjs": "^5.1.0",
     "swagger-tools": "0.10.1",
     "zone.js": "^0.8.4"

@@ -1,20 +1,16 @@
-<div *ngIf="isVisibleFull" class="full-screen-map">
-	<button (click)="closeFullMap();" class="close-button">Close</button>
-	<agm-map [latitude]="lat" [longitude]="lng">
-	  <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
-	</agm-map>
-</div>
 <div class="container">
     <h2>About us</h2>
-    <div class="row" *ngIf="isVisible">
+
+    <div class="row">
         <div class="col-xs-12 col-sm-6 our_office">
-            <agm-map [latitude]="lat" [longitude]="lng">
+
+            <agm-map [latitude]="lat" [longitude]="lng" [fullscreenControl]="true">
               <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
             </agm-map>
-            <a class="glyphicon glyphicon-move full-screen" (click)="openFullMap();"></a>
-            <p><span class="glyphicon glyphicon glyphicon-time"></span> delivery@mail.com</p>
-            <p><span class="glyphicon glyphicon-phone-alt"></span> 8-888-8888</p>
-            <p><span class="glyphicon glyphicon-time"></span> 8.00-22.00</p>
+
+            <p><span class="glyphicon glyphicon glyphicon-time"></span> {{email}}</p>
+            <p><span class="glyphicon glyphicon-phone-alt"></span> {{phone}}</p>
+            <p><span class="glyphicon glyphicon-time"></span> {{time}}</p>
         </div>
 
         <div class="col-xs-12 col-sm-6 contact_mass">
@@ -22,10 +18,13 @@
             <form>
                 <label>Email:</label>
                 <input type="mail" class="form-control"  placeholder="You contact mail" required>
+
                 <label>Name:</label>
                 <input type="text" class="form-control" placeholder="First name" required>
+
                 <label>Last name:</label>
                 <input type="text" class="form-control" placeholder="Last name" required>
+
                 <label>Detail:</label>
                 <textarea class="form-control" placeholder="Add your massage..."></textarea>
 

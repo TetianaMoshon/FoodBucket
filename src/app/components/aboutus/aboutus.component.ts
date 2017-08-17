@@ -7,23 +7,18 @@ import { NguiMapComponent } from '@ngui/map';
   styleUrls: ['./aboutus.component.css']
 })
 export class AboutusComponent implements OnInit {
-    isVisibleFull: boolean = false;
-    isVisible: boolean = true;
-    title: string = 'Our office';
-    lat: number = 50.454660;
-    lng: number = 30.52380;
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  openFullMap() {
-      this.isVisibleFull = true;
-      this.isVisible = false;
-  }
-  closeFullMap() {
-      this.isVisibleFull = false;
-      this.isVisible = true;
-  }
+  title: string = 'Our office';
+  email:string = "foodbucket@gmail.com";
+  phone:string = "8-888-888-888";
+  time:string = "8.00-22.00";
+
+  lat: number = 50.454660;
+  lng: number = 30.52380;
+
 }
