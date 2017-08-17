@@ -41,3 +41,10 @@ testem.log
 .DS_Store
 Thumbs.db
 package-lock.json
+
+# Swagger stuff
+api/swagger-codegen-cli.jar
+download.vbs
+
+api/controllers
+api/utils/writer.js
