@@ -1,15 +1,15 @@
 import { TestBed, inject } from '@angular/core/testing';
 
-import { PaginationService } from './pagination.service';
+import { PagerService } from './pagination.service';
 
 describe('PaginationService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [PaginationService]
+      providers: [PagerService]
     });
   });
 
-  it('should be created', inject([PaginationService], (service: PaginationService) => {
+  it('should be created', inject([PagerService], (service: PagerService) => {
     expect(service).toBeTruthy();
   }));
 });
