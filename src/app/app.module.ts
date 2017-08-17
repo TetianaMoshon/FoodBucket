@@ -16,6 +16,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { MenuComponent } from './components/home/menu/menu.component';
 import { LoginComponent } from './components/modals/login/login.component';
 import { NewAccountComponent } from './components/modals/new-account/new-account.component';
+
 import { AboutusComponent } from './components/aboutus/aboutus.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { SliderComponent } from './components/slider/slider.component';
@@ -37,6 +38,9 @@ import { ConfirmationComponent } from './components/modals/confirmation/confirma
 import { ProductpageComponent } from './components/productlist/productpage/productpage.component';
 
 import { Ng2SmartTableModule } from 'ng2-smart-table';
+
+import { FormsModule } from '@angular/forms';
+
 @NgModule({
   declarations: [
       AppComponent,
@@ -88,6 +92,7 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
       ModalModule.forRoot(),
       BrowserModule,
       CollapseModule,
+      FormsModule,
       appRouting,
       AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDgXQMgwN1IOu9c6ZyHjqiVzaB9JXhIoTA'
