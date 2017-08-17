@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { AgmCoreModule } from '@agm/core';
+import { ChartsModule } from 'ng2-charts';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.page.component';
@@ -84,7 +85,8 @@ import { ProductpageComponent } from './components/productlist/productpage/produ
       appRouting,
       AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDgXQMgwN1IOu9c6ZyHjqiVzaB9JXhIoTA'
-    })
+    }),
+      ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

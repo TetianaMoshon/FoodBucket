@@ -1,0 +1,21 @@
+div div {
+    outline: 1px solid red;
+}
+
+.title {
+    font-family:'Roboto';
+    font-size: 24px;
+    text-transform: uppercase;
+}
+
+.total div {
+    height: 150px;
+}
+
+.charts div {
+    height: 250px;
+}
+
+.additional div {
+    height: 250px;
+}
