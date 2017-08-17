@@ -20,7 +20,7 @@
             </label>
         </div>
         <div class="text-center">
-            <button type="button" class="btn btn-primary btn-lg">Sign In</button>
+            <button type="button" class="btn btn-primary btn-lg" (click)="openCongratulation();">Sign In</button>
         </div>
     </form>
     <h4 class="text-center">Or log in using...</h4>
@@ -32,7 +32,7 @@
         </div>
         <div class="col-xs-4 col-sm-4">
             <a href="#" class="btn btn-lg btn-block omb_btn-twitter">
-                <img src="../../../../assets/Twitter_bird_logo_2012.svg" class="social_logo-size">
+                    <img src="../../../../assets/Twitter_bird_logo_2012.svg" class="social_logo-size">
             </a>
         </div>
         <div class="col-xs-4 col-sm-4">
@@ -43,7 +43,7 @@
     </div>
 </div>
 <div class="modal-footer">
-    <div class="text-center"><a href="#">Forgot your password?</a></div>
-    <div class="text-center" (click)="openNewAccount();"><a href="#">Don't have an account? Sign up now!</a></div>
+    <div class="text-center" (click)="openForgotPass();"><a>Forgot your password?</a></div>
+    <div class="text-center" (click)="openNewAccount();"><a>Don't have an account? Sign up now!</a></div>
 </div>
 

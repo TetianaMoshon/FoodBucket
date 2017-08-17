@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
-
 import { AgmCoreModule } from '@agm/core';
 
 import { AppComponent } from './app.component';
@@ -18,7 +17,6 @@ import { MenuComponent } from './components/home/menu/menu.component';
 import { LoginComponent } from './components/modals/login/login.component';
 import { NewAccountComponent } from './components/modals/new-account/new-account.component';
 import { AboutusComponent } from './components/aboutus/aboutus.component';
-
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { SliderComponent } from './components/slider/slider.component';
 import { TopComponent } from './components/home/top/top.component';
@@ -31,17 +29,21 @@ import { AdminOrdersComponent } from './components/admin-orders/admin-orders.com
 import { AdminUsersComponent } from './components/admin-users/admin-users.component';
 import { AdminCommentsComponent } from './components/admin-comments/admin-comments.component';
 import { AdminAnalyticsComponent } from './components/admin-analytics/admin-analytics.component';
+import { CongratulationComponent } from './components/modals/congratulation/congratulation.component';
+import { ForgotPassComponent } from './components/modals/forgot-pass/forgot-pass.component';
+import { ConfirmationComponent } from './components/modals/confirmation/confirmation.component';
+import { ProductpageComponent } from './components/productlist/productpage/productpage.component';
 import { CartBoxComponent } from './components/modals/cart/cart-box/cart-box.component';
 import { CartItemComponent } from './components/modals/cart/cart-item/cart-item.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HomeComponent,
-    IngredientsComponent,
-    CategoryComponent,
-    ProductlistComponent,
-    ModalCongratulationComponent,
+      AppComponent,
+      HomeComponent,
+      IngredientsComponent,
+      CategoryComponent,
+      ProductlistComponent,
+      ModalCongratulationComponent,
       LoginComponent,
       NavbarComponent,
       FooterComponent,
@@ -64,6 +66,10 @@ import { CartItemComponent } from './components/modals/cart/cart-item/cart-item.
       AdminUsersComponent,
       AdminCommentsComponent,
       AdminAnalyticsComponent,
+      CongratulationComponent,
+      ForgotPassComponent,
+      ConfirmationComponent,
+      ProductpageComponent,
       CartBoxComponent,
       CartItemComponent,
   ],
@@ -71,6 +77,9 @@ import { CartItemComponent } from './components/modals/cart/cart-item/cart-item.
       ModalCongratulationComponent,
       LoginComponent,
       NewAccountComponent,
+      CongratulationComponent,
+      ForgotPassComponent,
+      ConfirmationComponent,
       CartBoxComponent,
   ],
   imports: [

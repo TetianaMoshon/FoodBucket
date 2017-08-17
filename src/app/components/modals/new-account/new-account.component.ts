@@ -11,7 +11,6 @@ export class NewAccountComponent implements OnInit {
 	public title = 'Create Your Account';
   	constructor(public bsModalRef: BsModalRef) { }
 
-  	
 	ngOnInit() {
 
 	}
