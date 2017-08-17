@@ -1,6 +1,25 @@
-.details-icon {
-    width: 25px;
-    height: 25px;
+thead {
+    background-color: #cfcfd8;
+    font-size: 17px;
+    font-family: Oswald, sans-serif;
+    border: 1px solid gray;
+}
+thead th {
+    border: 1px solid gray;
+}
+td {
+    vertical-align: middle;
+    font-size: 14px;
+    border: 1px solid rgba(86, 86, 86, 0.18);
+    padding: 15px 0;
+}
+hr {
+    margin-top:0;
+    border-top: 1px solid gray;
+
+}
+.pagination {
+    padding-left:15px;
 }
 .padding-top {
     padding-top:20px;
@@ -8,9 +27,7 @@
 .word-break {
     word-break: break-all;
 }
-.hidden-row {
-    display: none;
-}
+
 @media (max-width: 991px) {
     .padding-top {
         padding-top: 0;

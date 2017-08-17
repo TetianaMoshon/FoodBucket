@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {PagerService} from "../../services/pagination.service";
+
+
 @Component({
   selector: 'app-admin-orders',
   templateUrl: './admin-orders.component.html',
@@ -205,7 +207,4 @@ setPage(page:number) {
       this.pager = this.pagerService.getPager(this.array.length,page);
       this.pagedItems = this.array.slice(this.pager.startIndex, this.pager.endIndex + 1);
 }
-    changeShowStatus(){
-        this.showHide = !this.showHide;
-    }
 }
