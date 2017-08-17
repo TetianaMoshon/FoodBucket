@@ -1,0 +1,119 @@
+<app-adminnavbar></app-adminnavbar>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-xs-5">
+            <h2>Product page</h2>
+        </div>
+        <div class="col-xs-7 btn-group">
+            <div class="pull-right action-buttons">
+                <a class="btn btn-success" routerLink="/admin/productlist" routerLinkActive="active">Save</a>
+                <a class="btn btn-danger" routerLink="/admin/productlist" routerLinkActive="active">Back</a>
+            </div>
+        </div>
+    </div>
+    <!--<hr>-->
+    <div class="row">
+        <div class="col-md-12">
+            <tabset>
+                <tab heading="General">
+                    <form>
+                        <div class="form-group">
+                            <label for="usr">Name:</label>
+                            <input type="text" class="form-control" id="usr">
+                        </div>
+                        <div class="form-group">
+                            <label for="descr">Description:</label>
+                            <input type="text" class="form-control" id="descr">
+                        </div>
+                        <div class="form-group">
+                            <label>Image:</label>
+                            <input type="file" name="photo" multiple accept="image/*,image/jpeg">
+                        </div>
+                        <div class="form-group">
+                            <label for="price">Price:</label>
+                            <input type="text" class="form-control" id="price">
+                        </div>
+                        <div class="form-group">
+                            <label for="category">Category:</label>
+                            <select class="form-control" id="category">
+                                <option>Meat</option>
+                                <option>Fish</option>
+                                <option>Salads</option>
+                                <option>Desserts</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="recommended">Recommended:</label>
+                            <input type="text" class="form-control" id="recommended">
+                        </div>
+                        <div class="form-group">
+                            <label for="recommended">Special offer:</label>
+                            <table class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th>Quantity</th>
+                                    <th>Discount price</th>
+                                    <th>Beginning date</th>
+                                    <th>Ending date</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td><input type="number" class="form-control"></td>
+                                    <td><input type="number" class="form-control"></td>
+                                    <td><input type="date" class="form-control"></td>
+                                    <td><input type="date" class="form-control"></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="form-group">
+                            <label for="status">Status:</label>
+                            <select class="form-control" id="status">
+                                <option>Published</option>
+                                <option>Unpublished</option>
+                            </select>
+                        </div>
+                    </form>
+                </tab>
+                <tab heading="Data">
+                    <form>
+                        <div class="form-group">
+                            <label for="caloriicty">Caloricity:</label>
+                            <input type="text" class="form-control" id="caloriicty">
+                        </div>
+                        <div class="form-group">
+                            <label for="serv-size">Serving size:</label>
+                            <input type="text" class="form-control" id="serv-size">
+                        </div>
+                        <div class="form-group">
+                            <label for="difficulty">Difficulty:</label>
+                            <select class="form-control" id="difficulty">
+                                <option>Low</option>
+                                <option>Medium</option>
+                                <option>High</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="spice-level">Spice level:</label>
+                            <select class="form-control" id="spice-level">
+                                <option>Normal</option>
+                                <option>Medium spicy</option>
+                                <option>High spicy</option>
+                            </select>
+                        </div>
+                    </form>
+                </tab>
+                <tab heading="Ingredients">
+                    <div class="main-wrap">
+                        <div class="table-wrap">
+                            <ng2-smart-table [settings]="settings" [source]="data"></ng2-smart-table>
+                        </div>
+                    </div>
+                </tab>
+
+            </tabset>
+        </div>
+    </div>
+</div>
