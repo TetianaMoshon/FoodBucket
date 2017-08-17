@@ -7,17 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminProductPageComponent implements OnInit {
 
-  constructor() { }
-
-  ngOnInit() {
-  }
     settings = {
         selectMode: 'multi',
-        actions:{
+        actions: {
             position: 'right'
         },
-        pager:{
-            display:true
+        pager: {
+            display: true
         },
         columns: {
             name: {
@@ -51,4 +47,10 @@ export class AdminProductPageComponent implements OnInit {
             measure: 'g',
         },
     ];
+
+  constructor() { }
+
+  ngOnInit() {
+  }
+
 }
