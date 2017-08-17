@@ -11,35 +11,34 @@ export class AdminnavbarComponent implements OnInit {
 
   ngOnInit() {
       document.addEventListener( 'DOMContentLoaded', function () {
-          let sidebarToggle = document.getElementsByClassName("sidebar-toggle") as HTMLCollectionOf<HTMLElement>;
-          let body = document.querySelector('body');
+          const sidebarToggle = document.getElementsByClassName('sidebar-toggle') as HTMLCollectionOf<HTMLElement>;
+          const body = document.querySelector('body');
           body.style.paddingTop = '50px';
-          if(innerWidth >=768){body.style.paddingLeft='200px';} else {body.style.paddingLeft='0px';}
-          window.addEventListener("resize", resizeFunction);
+          if (innerWidth >= 768) {body.style.paddingLeft = '200px'; } else {body.style.paddingLeft = '0px'; }
+          window.addEventListener('resize', resizeFunction);
           function resizeFunction() {
-              if (innerWidth >=768) {
-                  sidebarToggle[0].style.left="200px";
-                  body.style.paddingLeft="200px";
-              }else{
-                  sidebarToggle[0].style.left="-200px";
-                  body.style.paddingLeft="0px";
+              if (innerWidth >= 768) {
+                  sidebarToggle[0].style.left = '200px';
+                  body.style.paddingLeft = '200px';
+              }else {
+                  sidebarToggle[0].style.left = '-200px';
+                  body.style.paddingLeft = '0px';
               }
 
           }
-          let toggleButton = document.getElementById('menu-toggle');
+          const toggleButton = document.getElementById('menu-toggle');
           toggleButton.addEventListener('click', function (e) {
               e.preventDefault();
-              let elem = document.getElementById("sidebar-wrapper");
-              let left = window.getComputedStyle(elem,null).getPropertyValue("left");
-              if(left == "200px"){
-                  sidebarToggle[0].style.left="-200px";
-                  body.style.paddingLeft='0px';
+              const elem = document.getElementById('sidebar-wrapper');
+              const left = window.getComputedStyle(elem, null).getPropertyValue('left');
+              if (left === '200px') {
+                  sidebarToggle[0].style.left = '-200px';
+                  body.style.paddingLeft = '0px';
+              } else if (left === '-200px') {
+                  sidebarToggle[0].style.left = '200px';
+                  body.style.paddingLeft = '200px';
               }
-              else if(left == "-200px"){
-                  sidebarToggle[0].style.left="200px";
-                  body.style.paddingLeft='200px';
-              }
-          })
+          });
       }, false );
 
   }
