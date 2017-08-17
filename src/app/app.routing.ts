@@ -36,6 +36,7 @@ const appRoutes: Routes = [
     {path:'admin/analytics', component: AdminAnalyticsComponent},
     {path:'admin/ingredients', component: AdminIngredientsComponent},
     {path:'admin/productlist/productpage', component: ProductpageComponent},
+    {path: 'category/productlist/productpage', component: ProductpageComponent},
 
 ];
 

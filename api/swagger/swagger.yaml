@@ -1,0 +1,496 @@
+swagger: "2.0"
+info:
+  version: "0.0.1"
+  title: FoodBucket
+  description: This is a server API for FoodBucket project
+  termsOfService: http://foodbucket.com/terms/
+  contact:
+    name: Foodbucket API support team
+    url: http://foodbucket.com/support
+    email: support@foodbucket.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+# during dev, should point to your local machine
+host: localhost:3000
+# basePath prefixes all resource paths
+basePath: /api
+schemes:
+  # tip: remove http to make production-grade
+  - http
+# format of bodies a client can send (Content-Type)
+consumes:
+  - application/json
+# format of the responses to the client (Accepts)
+produces:
+  - application/json
+paths:
+# root path
+  /products:
+    get:
+      x-swagger-router-controller: Product
+      operationId: getAllProducts
+      tags:
+      - "product"
+      produces:
+      - application/json
+      parameters:
+        - name: category_id
+          in: query
+          description: returns products only from specified category
+          required: false
+          type: array
+          items:
+            type: string
+          collectionFormat: multi
+        - name: isActive
+          in: query
+          description: returns active products
+          required: false
+          type: boolean
+        - name: offset
+          in: query
+          description: start position for quering from DB
+          required: true
+          type: integer
+          format: int32
+          minimum: 0
+          default: 0
+        - name: limit
+          in: query
+          description: number of items to query from DB
+          required: true
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 50
+          default: 20
+      responses:
+        200:
+          description: Successful products response
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Product"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+  /product/{id}:
+    get:
+      x-swagger-router-controller: Product
+      operationId: findProductById
+      tags:
+      - "product"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the product to get
+        required: true
+        type: integer
+        format: int64
+      responses:
+        200:
+          description: Product response
+          schema:
+            $ref: "#/definitions/Product"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+  /categories:
+    get:
+      x-swagger-router-controller: Category
+      operationId: getAllCategories
+      tags:
+      - "category"
+      produces:
+      - application/json
+      parameters:
+        - name: isActive
+          in: query
+          description: returns active categories
+          required: false
+          type: boolean
+        - name: offset
+          in: query
+          description: start position for quering from DB
+          required: true
+          type: integer
+          format: int32
+          minimum: 0
+          default: 0
+        - name: limit
+          in: query
+          description: number of items to query from DB
+          required: true
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 27
+          default: 9
+      responses:
+        200:
+          description: Successful categories response
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Category"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+  /category/{id}:
+    get:
+      x-swagger-router-controller: Category
+      operationId: findCategoryById
+      tags:
+      - "category"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the category to get
+        required: true
+        type: integer
+        format: int64
+      responses:
+        200:
+          description: Category response
+          schema:
+            $ref: "#/definitions/Category"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+  /ingredient/{id}:
+    get:
+      x-swagger-router-controller: Ingredient
+      operationId: findIngredientById
+      tags:
+      - "ingredient"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the ingredient to get
+        required: true
+        type: integer
+        format: int64
+      responses:
+        200:
+          description: Ingredient response
+          schema:
+            $ref: "#/definitions/Ingredient"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+  /promotion:
+    get:
+      x-swagger-router-controller: Promotion
+      operationId: getPromotion
+      tags:
+      - "promotion"
+      produces:
+      - application/json
+      responses:
+        200:
+          description: List of promotions
+          schema:
+            $ref: "#/definitions/Promotion"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+  /toprated:
+    get:
+      x-swagger-router-controller: Toprated
+      operationId: getToprated
+      tags:
+      - "toprated"
+      produces:
+      - application/json
+      responses:
+        200:
+          description: List of toprated
+          schema:
+            $ref: "#/definitions/Toprated"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+  /contacts:
+    post:
+      x-swagger-router-controller: Contacts
+      operationId: sendMessage
+      tags:
+      - "contacts"
+      consumes:
+      - application/json
+      summary: Send message
+      description: |
+        This endpoint allows to send message.
+      parameters:
+      - in: body
+        name: body
+        description: Contacts/message object
+        required: true
+        schema:
+          $ref: '#/definitions/Contacts'
+      responses:
+        200:
+          description: Existing message was found and updated
+          schema:
+            $ref: '#/definitions/Contacts'
+        201:
+          description: Contacts/message added
+          schema:
+            $ref: '#/definitions/Contacts'
+        400:
+          description: Invalid input
+  /auth/login:
+    post:
+      x-swagger-router-controller: Auth
+      operationId: login
+      tags:
+      - "auth"
+      consumes:
+      - application/json
+      summary: Login operation
+      description: |
+        This endpoint allows to login.
+      parameters:
+      - in: body
+        name: body
+        description: Login object
+        required: true
+        schema:
+          $ref: '#/definitions/Login'
+      responses:
+        200:
+          description: Existing login was found and updated
+          schema:
+            $ref: '#/definitions/Login'
+        201:
+          description: Accepted
+          schema:
+            $ref: '#/definitions/Login'
+        400:
+          description: Invalid input
+  /auth/register:
+    post:
+      x-swagger-router-controller: Auth
+      operationId: register
+      tags:
+      - "auth"
+      consumes:
+      - application/json
+      summary: Register operation
+      description: |
+        This endpoint allows to register.
+      parameters:
+      - in: body
+        name: body
+        description: Register object
+        required: true
+        schema:
+          $ref: '#/definitions/Register'
+      responses:
+        200:
+          description: Existing registration was found and updated
+          schema:
+            $ref: '#/definitions/Register'
+        201:
+          description: Accepted
+          schema:
+            $ref: '#/definitions/Register'
+        400:
+          description: Invalid input
+  /swagger:
+    x-swagger-pipe: swagger_raw
+# complex objects have schema definitions
+definitions:
+  Product:
+    type: object
+    required:
+      - image
+      - price
+      - title
+      - description
+    properties:
+      id:
+        type: integer
+        format: int64
+        minimum: 1
+      image:
+        type: string
+      price:
+        type: integer
+        format: int64
+      title:
+        type: string
+      description:
+        type: string
+      ingredients:
+        type: array
+        minimum: 1
+        items:
+          $ref: '#/definitions/Ingredient'
+      productInfo:
+        type: array
+        items:
+          $ref: '#/definitions/ProductInfo'
+  Category:
+    type: object
+    required:
+      - image
+      - title
+      - description
+    properties:
+      category_id:
+        type: integer
+        format: int64
+      image:
+        type: string
+      title:
+        type: string
+      description:
+        type: string
+  Ingredient:
+    type: object
+    required:
+      - image
+      - title
+      - description
+    properties:
+      ingredient_id:
+        type: integer
+        format: int64
+      image:
+        type: string
+      title:
+        type: string
+      description:
+        type: string
+  ProductInfo:
+    type: object
+    required:
+      - calories
+    properties:
+      product_info_id:
+        type: integer
+        format: int64
+      calories:
+        type: integer
+        format: int64
+  Promotion:
+    type: object
+    required:
+      - image
+      - title
+      - description
+      - products
+    properties:
+      promotion_id:
+        type: integer
+      image:
+        type: string
+      title:
+        type: string
+      description:
+        type: string
+      products:
+        type: array
+        minimum: 1
+        items:
+           $ref: '#/definitions/Product'
+  Toprated:
+    type: object
+    required:
+      - title
+      - description
+      - products
+    properties:
+      toprated_id:
+        type: integer
+      title:
+        type: string
+      description:
+        type: string
+      products:
+        type: array
+        minimum: 1
+        items:
+           $ref: '#/definitions/Product'
+  Contacts:
+    type: object
+    required:
+      - email
+      - name
+    properties:
+      id:
+        type: integer
+        format: int64
+        minimum: 1
+      email:
+        type: string
+      name:
+        type: string
+      lastName:
+        type: string
+      details:
+        type: string
+  Login:
+    type: object
+    required:
+      - email
+      - password
+    properties:
+      id:
+        type: integer
+        format: int64
+        minimum: 1
+      email:
+        type: string
+      password:
+        type: string
+      remember:
+        type: boolean
+  Register:
+    type: object
+    required:
+      - email
+      - password
+    properties:
+      id:
+        type: integer
+        format: int64
+        minimum: 1
+      email:
+        type: string
+      password:
+        type: string
+      firstName:
+        type: string
+      lastName:
+        type: string
+      city:
+        type: string
+      address:
+        type: string
+  Error:
+    type: object
+    required:
+      - code
+      - message
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string
