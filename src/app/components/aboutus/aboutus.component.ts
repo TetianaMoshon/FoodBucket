@@ -7,23 +7,23 @@ import { NguiMapComponent } from '@ngui/map';
   styleUrls: ['./aboutus.component.css']
 })
 export class AboutusComponent implements OnInit {
+    isVisibleFull: boolean = false;
+    isVisible: boolean = true;
+    title: string = 'Our office';
+    lat: number = 50.454660;
+    lng: number = 30.52380;
 
   constructor() { }
 
   ngOnInit() {
   }
-  isVisibleFull:boolean = false;
-  isVisible:boolean = true;
-  title: string = 'Our office';
-  lat: number = 50.454660;
-  lng: number = 30.52380;
-  
-  openFullMap(){
-  	this.isVisibleFull = true;
-  	this.isVisible = false;
+
+  openFullMap() {
+      this.isVisibleFull = true;
+      this.isVisible = false;
   }
-  closeFullMap(){
-  	this.isVisibleFull = false;
-  	this.isVisible = true;
+  closeFullMap() {
+      this.isVisibleFull = false;
+      this.isVisible = true;
   }
 }
