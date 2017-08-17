@@ -4,6 +4,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { AgmCoreModule } from '@agm/core';
 
+import { FormsModule } from '@angular/forms';
+
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.page.component';
 import { IngredientsComponent } from './components/ingredients/ingredients.component';
@@ -36,10 +38,9 @@ import { CongratulationComponent } from './components/modals/congratulation/cong
 import { ForgotPassComponent } from './components/modals/forgot-pass/forgot-pass.component';
 import { ConfirmationComponent } from './components/modals/confirmation/confirmation.component';
 import { ProductpageComponent } from './components/productlist/productpage/productpage.component';
-
+import { AdminProductPageComponent } from './components/admin-product-list/admin-product-page/admin-product-page.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-
-import { FormsModule } from '@angular/forms';
+import { TabsModule } from 'ngx-bootstrap';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { FormsModule } from '@angular/forms';
       ForgotPassComponent,
       ConfirmationComponent,
       ProductpageComponent,
+      AdminProductPageComponent,
   ],
   entryComponents: [
       ModalCongratulationComponent,
@@ -98,8 +100,10 @@ import { FormsModule } from '@angular/forms';
       apiKey: 'AIzaSyDgXQMgwN1IOu9c6ZyHjqiVzaB9JXhIoTA'
     }),
       Ng2SmartTableModule,
+      [TabsModule.forRoot()]
+
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

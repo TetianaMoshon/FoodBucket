@@ -17,7 +17,7 @@
                            pattern="[a-zA-Z][a-zA-Z ]+"
                            [(ngModel)]="model.name" name="name"
                            #name="ngModel" >
-                    <div [hidden]="name.valid || name.pristine" class="alert alert-danger">
+                    <div [hidden]="name.valid || name.pristine" class="alert-danger">
                         <div [hidden]="!name.hasError('required')">Name is required</div>
                         <div [hidden]="!name.hasError('pattern')">Only alphabetsallowed</div>
                     </div>
@@ -29,7 +29,7 @@
                            pattern="[a-zA-Z][a-zA-Z ]+"
                            [(ngModel)]="model.surname" name="surname"
                            #surname="ngModel" >
-                    <div [hidden]="surname.valid || surname.pristine" class="alert alert-danger">
+                    <div [hidden]="surname.valid || surname.pristine" class="alert-danger">
                         <div [hidden]="!surname.hasError('required')">Surname is required</div>
                         <div [hidden]="!surname.hasError('pattern')">Only alphabetsallowed</div>
                     </div>
@@ -41,7 +41,7 @@
                            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
                            [(ngModel)]="model.email" name="email"
                            #email="ngModel" >
-                    <div [hidden]="email.valid || email.pristine" class="alert alert-danger">
+                    <div [hidden]="email.valid || email.pristine" class="alert-danger">
                         <div [hidden]="!email.hasError('required')">Email is required</div>
                         <div [hidden]="!email.hasError('pattern')">Email format should be <small><b>joe@abc.com</b></small></div>
                     </div>
@@ -52,7 +52,7 @@
                            required
                            [(ngModel)]="model.password" name="password"
                            #password="ngModel" >
-                    <div [hidden]="password.valid || password.pristine" class="alert alert-danger">
+                    <div [hidden]="password.valid || password.pristine" class="alert-danger">
                         <div [hidden]="!password.hasError('required')">Email is required</div>
                         <div [hidden]="!password.hasError('pattern')">Email format should be <small><b>joe@abc.com</b></small></div>
                     </div>
