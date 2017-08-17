@@ -34,7 +34,7 @@ body { padding-top: 50px; }
 .table-wrap ng2-smart-table table tr th {
     font-family: Oswald;
     text-align: center;
-    font-size: 17px;
+    font-size: 19px;
     border: 1px solid gray;
 }
 
@@ -63,6 +63,7 @@ body { padding-top: 50px; }
 .table-wrap ng2-smart-table table tr input-editor input.form-control {
     width: 90%;
     margin: auto;
+    font-family: Roboto;
 }
 
 .table-wrap ng2-smart-table table tr th a {
@@ -77,10 +78,14 @@ body { padding-top: 50px; }
 .table-wrap ng2-smart-table table tr td {
     text-align: center;
     vertical-align: middle;
-    font-size: 14px;
-    border: 1px solid rgba(86, 86, 86, 0.18);
-    /*padding: 15px 0px;*/
+    font-size: 16px;
+    border: 1px solid rgb(193, 193, 193);
+    padding: 15px 0px;
     font-family: Roboto;
+}
+
+.table-wrap ng2-smart-table table {
+    border: 1px solid rgba(86, 86, 86, 0.18);
 }
 
 .table-wrap ng2-smart-table table tr td.ng2-smart-actions {
@@ -187,7 +192,7 @@ body { padding-top: 50px; }
 }
 
 .table-wrap ng2-smart-table table tbody tr:hover {
-    background-color: rgb(240, 241, 235);
+    background-color: rgb(219, 219, 228);
 }
 
 

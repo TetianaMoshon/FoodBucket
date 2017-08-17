@@ -23,7 +23,6 @@ export class AdminIngredientsComponent implements OnInit {
         add: {
             addButtonContent: 'Add',
         },
-        selectMode: 'multi',
         columns: {
             ingredient_item: {
                 title: 'Ingredients',

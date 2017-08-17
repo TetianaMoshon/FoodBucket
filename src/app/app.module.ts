@@ -3,8 +3,6 @@ import { NgModule } from '@angular/core';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
-
-
 import { AgmCoreModule } from '@agm/core';
 
 import { AppComponent } from './app.component';
