@@ -1,0 +1,42 @@
+thead {
+    background-color: #cfcfd8;
+    font-size: 17px;
+    font-family: Oswald, sans-serif;
+    border: 1px solid gray;
+}
+thead th {
+    border: 1px solid gray;
+}
+td.gray-border {
+    vertical-align: middle;
+    font-size: 14px;
+    border: 1px solid rgb(193, 193, 193);
+    padding: 15px 0;
+}
+td.nohover:hover {
+    background: white;
+}
+hr {
+    margin-top:0;
+    border-top: 1px solid gray;
+
+}
+tbody tr:hover {
+    background-color: rgb(219, 219, 228);
+}
+.cursor-pointer {
+    cursor: pointer;
+}
+.pagination {
+    padding-left:15px;
+}
+.padding-top {
+    padding-top:20px;
+}
+
+@media (max-width: 991px) {
+    .padding-top {
+        padding-top: 0;
+        padding-bottom:20px;
+    }
+}
