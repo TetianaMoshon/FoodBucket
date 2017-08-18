@@ -21,6 +21,7 @@ stages:
   - build
   - package
   - api_docs
+  - deploy
 
 run_tslint:
   tags:
@@ -88,6 +89,24 @@ pack_container:
     - docker volume ls -qf dangling=true | xargs -r docker volume rm
     - docker rm $(docker ps -qa --no-trunc --filter "status=exited")
   <<: *release-only
+
+deploy_to_aws:
+  tags:
+    - docker
+    - container
+  stage: deploy
+  image: python:3-alpine
+  before_script:
+    - apk add --update curl
+    - curl -o /usr/local/bin/ecs-cli https://s3.amazonaws.com/amazon-ecs-cli/ecs-cli-linux-amd64-latest
+    - chmod +x /usr/local/bin/ecs-cli
+    - chmod +x generate_config.sh
+  script:
+    - sh generate_config.sh $USERNAME $PASSWORD $DATABASE
+    - ecs-cli configure --region $AWS_DEFAULT_REGION --access-key $AWS_ACCESS_KEY_ID --secret-key $AWS_SECRET_ACCESS_KEY --cluster foodbucket
+    - ecs-cli compose --project-name food-bucket --file docker-compose.yml service up --target-group-arn $AWS_TARGET_GROUP_ARN --container-name foodbucket --container-port 80 --role ecsServiceRole
+  only:
+    - master
 
 pages:
   tags:
