@@ -29,21 +29,21 @@
         <tbody>
         <ng-container *ngFor="let order of pagedItems;let i = index;" [attr.data-index]="i">
         <tr class="word-break">
-            <td class="text-center">{{order.date}}</td>
-            <td class="text-center">{{order.id}}</td>
-            <td class="text-center">{{order.name}}</td>
-            <td class="text-center">{{order.food}}</td>
-            <td class="text-center">{{order.tel}}</td>
-            <td class="text-center">{{order.price}}</td>
-            <td class="text-center">{{order.status}}</td>
-            <td class="text-center">
+            <td class="gray-border  text-center">{{order.date}}</td>
+            <td class="gray-border text-center">{{order.id}}</td>
+            <td class="gray-border text-center">{{order.name}}</td>
+            <td class="gray-border text-center">{{order.food}}</td>
+            <td class="gray-border text-center">{{order.tel}}</td>
+            <td class="gray-border text-center">{{order.price}}</td>
+            <td class="gray-border text-center">{{order.status}}</td>
+            <td class="gray-border text-center">
                 <button class="btn btn-primary" *ngIf="order.expanded" (click)="order.expanded = false">Close</button>
                 <button class="btn btn-primary" *ngIf="!order.expanded" (click)="order.expanded = true">Details</button>
             </td>
         </tr>
         <tr *ngIf="order.expanded">
-            <td colspan="8">
-                <div class="row">
+            <td class="gray-border nohover" colspan="8">
+                <div class="container-fluid">
                     <div class="col-md-4 text-center">
                         <h3 class="text-center">Name and surname</h3>
                         <p>Vasiliy Pupkin</p>
@@ -69,13 +69,13 @@
     <div class="row text-left">
         <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
             <li [ngClass]="{disabled:pager.currentPage === 1}">
-                <a (click)="setPage(1)">«</a>
+                <a class="cursor-pointer" (click)="setPage(1)">«</a>
             </li>
             <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-                <a (click)="setPage(page)">{{page}}</a>
+                <a class="cursor-pointer" (click)="setPage(page)">{{page}}</a>
             </li>
             <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-                <a (click)="setPage(pager.totalPages)">»</a>
+                <a class="cursor-pointer" (click)="setPage(pager.totalPages)">»</a>
             </li>
         </ul>
     </div>

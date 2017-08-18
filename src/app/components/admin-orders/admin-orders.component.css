@@ -7,16 +7,25 @@ thead {
 thead th {
     border: 1px solid gray;
 }
-td {
+td.gray-border {
     vertical-align: middle;
     font-size: 14px;
-    border: 1px solid rgba(86, 86, 86, 0.18);
+    border: 1px solid rgb(193, 193, 193);
     padding: 15px 0;
+}
+td.nohover:hover {
+    background: white;
 }
 hr {
     margin-top:0;
     border-top: 1px solid gray;
 
+}
+tr:hover {
+    background-color: rgb(219, 219, 228);
+}
+.cursor-pointer {
+    cursor: pointer;
 }
 .pagination {
     padding-left:15px;
@@ -27,7 +36,6 @@ hr {
 .word-break {
     word-break: break-all;
 }
-
 @media (max-width: 991px) {
     .padding-top {
         padding-top: 0;
