@@ -5,7 +5,6 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { AgmCoreModule } from '@agm/core';
 
 import { FormsModule } from '@angular/forms';
-
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.page.component';
 import { IngredientsComponent } from './components/ingredients/ingredients.component';
@@ -18,7 +17,6 @@ import { FooterComponent } from './components/footer/footer.component';
 import { MenuComponent } from './components/home/menu/menu.component';
 import { LoginComponent } from './components/modals/login/login.component';
 import { NewAccountComponent } from './components/modals/new-account/new-account.component';
-
 import { AboutusComponent } from './components/aboutus/aboutus.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { SliderComponent } from './components/slider/slider.component';
@@ -41,6 +39,7 @@ import { ProductpageComponent } from './components/productlist/productpage/produ
 import { AdminProductPageComponent } from './components/admin-product-list/admin-product-page/admin-product-page.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { TabsModule } from 'ngx-bootstrap';
+import {PagerService} from "./services/pagination.service";
 
 @NgModule({
   declarations: [
@@ -103,7 +102,7 @@ import { TabsModule } from 'ngx-bootstrap';
       [TabsModule.forRoot()]
 
   ],
-  providers: [],
-  bootstrap: [AppComponent],
+  providers: [PagerService],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
