@@ -20,13 +20,15 @@ import { AdminProductPageComponent } from './components/admin-product-list/admin
 
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent},
-  { path: 'ingredients', component: IngredientsComponent},
-  { path: 'category', component: CategoryComponent},
-  { path: 'aboutus', component: AboutusComponent},
-  { path: 'category', component: CategoryComponent},
-  { path: 'category/productlist', component: ProductlistComponent},
-  { path: 'checkout', component: CheckoutComponent},
+  { path: '', children:[
+      { path: 'ingredients', component: IngredientsComponent},
+      { path: 'category', children:[
+          {path:'',component: CategoryComponent},
+          { path: 'productlist', component: ProductlistComponent},
+      ]},
+      { path: 'aboutus', component: AboutusComponent},
+      { path: 'checkout', component: CheckoutComponent},
+  ]},
   { path: 'admin', component: AdminMainComponent},
   { path: 'admin/orders', component: AdminOrdersComponent},
   { path: 'admin/productlist', component: AdminProductListComponent},
