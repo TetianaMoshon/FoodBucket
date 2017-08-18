@@ -33,9 +33,7 @@ tbody tr:hover {
 .padding-top {
     padding-top:20px;
 }
-.word-break {
-    word-break: break-all;
-}
+
 @media (max-width: 991px) {
     .padding-top {
         padding-top: 0;

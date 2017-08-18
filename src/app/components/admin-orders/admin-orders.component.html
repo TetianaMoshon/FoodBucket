@@ -28,7 +28,7 @@
         </thead>
         <tbody>
         <ng-container *ngFor="let order of pagedItems;let i = index;" [attr.data-index]="i">
-        <tr class="word-break">
+        <tr>
             <td class="gray-border  text-center">{{order.date}}</td>
             <td class="gray-border text-center">{{order.id}}</td>
             <td class="gray-border text-center">{{order.name}}</td>
