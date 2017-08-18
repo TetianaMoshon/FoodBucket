@@ -31,8 +31,8 @@ export class CartItemComponent implements OnInit {
     }
 
     minusClicked(id: number) {
-        if (this.amountOfDishesOrdered <= 0) {
-            this.amountOfDishesOrdered = 0;
+        if (this.amountOfDishesOrdered <= 1) {
+            this.amountOfDishesOrdered = 1;
         }else {
             --this.amountOfDishesOrdered;
         }
