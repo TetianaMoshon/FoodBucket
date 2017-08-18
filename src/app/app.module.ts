@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { AgmCoreModule } from '@agm/core';
+
+import { FormsModule } from '@angular/forms';
+
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.page.component';
 import { IngredientsComponent } from './components/ingredients/ingredients.component';
@@ -28,16 +31,24 @@ import { AdminOrdersComponent } from './components/admin-orders/admin-orders.com
 import { AdminUsersComponent } from './components/admin-users/admin-users.component';
 import { AdminCommentsComponent } from './components/admin-comments/admin-comments.component';
 import { AdminAnalyticsComponent } from './components/admin-analytics/admin-analytics.component';
+import { CartBoxComponent } from './components/modals/cart/cart-box/cart-box.component';
+import { CartItemComponent } from './components/modals/cart/cart-item/cart-item.component';
+import { CongratulationComponent } from './components/modals/congratulation/congratulation.component';
+import { ForgotPassComponent } from './components/modals/forgot-pass/forgot-pass.component';
+import { ConfirmationComponent } from './components/modals/confirmation/confirmation.component';
 import { ProductpageComponent } from './components/productlist/productpage/productpage.component';
+import { AdminProductPageComponent } from './components/admin-product-list/admin-product-page/admin-product-page.component';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { TabsModule } from 'ngx-bootstrap';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HomeComponent,
-    IngredientsComponent,
-    CategoryComponent,
-    ProductlistComponent,
-    ModalCongratulationComponent,
+      AppComponent,
+      HomeComponent,
+      IngredientsComponent,
+      CategoryComponent,
+      ProductlistComponent,
+      ModalCongratulationComponent,
       LoginComponent,
       NavbarComponent,
       FooterComponent,
@@ -60,23 +71,38 @@ import { ProductpageComponent } from './components/productlist/productpage/produ
       AdminUsersComponent,
       AdminCommentsComponent,
       AdminAnalyticsComponent,
+      CartBoxComponent,
+      CartItemComponent,
+      CongratulationComponent,
+      ForgotPassComponent,
+      ConfirmationComponent,
       ProductpageComponent,
+      AdminProductPageComponent,
   ],
   entryComponents: [
       ModalCongratulationComponent,
       LoginComponent,
-      NewAccountComponent
+      NewAccountComponent,
+      CartBoxComponent,
+      NewAccountComponent,
+      CongratulationComponent,
+      ForgotPassComponent,
+      ConfirmationComponent,
   ],
   imports: [
       ModalModule.forRoot(),
       BrowserModule,
       CollapseModule,
+      FormsModule,
       appRouting,
       AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDgXQMgwN1IOu9c6ZyHjqiVzaB9JXhIoTA'
-    })
+    }),
+      Ng2SmartTableModule,
+      [TabsModule.forRoot()]
+
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
