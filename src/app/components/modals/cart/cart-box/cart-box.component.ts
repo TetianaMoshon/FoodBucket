@@ -13,6 +13,7 @@ export class CartBoxComponent implements OnInit {
     totalPriceOfAllDishes: number;
 
     cancelPrice = false;
+    showAPhrase = false;
 
 
     arrayOfDishNamesAndPrices = [
@@ -55,7 +56,9 @@ export class CartBoxComponent implements OnInit {
         for (let i = 0; i < this.arrayOfDishNamesAndPrices.length; i++) {
             if (this.arrayOfDishNamesAndPrices[i].id === id) {
                 this.arrayOfDishNamesAndPrices.splice(i, 1);
+                if (this.arrayOfDishNamesAndPrices.length === 0) {this.showAPhrase = true; }
             }
+
         }
 
 
