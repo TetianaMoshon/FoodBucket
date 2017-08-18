@@ -24,5 +24,279 @@ body { padding-top: 50px; }
     font-weight: normal;
     font-style: normal;
 }
+.scrollable::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+    background-color: #F5F5F5;
+    border-radius: 10px;
+}
+.scrollable::-webkit-scrollbar
+{
+    width: 10px;
+    background-color: #F5F5F5;
+}
 
+
+.table-wrap ng2-smart-table thead {
+    background-color: #cfcfd8;
+}
+.table-wrap ng2-smart-table table tr th {
+    font-family: Oswald;
+    text-align: center;
+    font-size: 17px;
+    border: 1px solid gray;
+}
+.table-wrap ng2-smart-table table tr th  input[type="checkbox"] {
+    position: relative;
+    right: 10px;
+    width: 15px;
+}
+.table-wrap ng2-smart-table table tr td  input.form-control[type="checkbox"] {
+    height: 14px;
+}
+.table-wrap ng2-smart-table table tr td  input.form-control[type="checkbox"]:focus {
+    box-shadow: none;
+    border: none;
+}
+.table-wrap ng2-smart-table table tr th  input[type="checkbox"]::after {
+    content: "All";
+    position: relative;
+    left: 16px;
+    bottom: 3px;
+}
+.table-wrap ng2-smart-table table tr input-editor input.form-control {
+    width: 90%;
+    margin: auto;
+}
+.table-wrap ng2-smart-table table tr th a {
+    color: #000;
+}
+.table-wrap ng2-smart-table table tr th a:hover {
+    color: #707070;
+    text-decoration: none;
+}
+.table-wrap ng2-smart-table table tr td {
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
+    border: 1px solid rgba(86, 86, 86, 0.18);
+    padding: 15px 0px;
+    font-family: Roboto;
+}
+.table-wrap ng2-smart-table table tr td.ng2-smart-actions {
+    min-width: 200px;
+}
+.table-wrap ng2-smart-table table tr td.ng2-smart-action-multiple-select {
+    min-width: 20px;
+}
+.table-wrap ng2-smart-table table tr a.ng2-smart-action {
+    border: 1px solid #0a3c59;
+    background: #5b7d96;
+    background: -webkit-gradient(linear, left top, left bottom, from(#65a9d7), to(#7ba1ba));
+    background: -webkit-linear-gradient(top, #65a9d7, #7ba1ba);
+    background: -moz-linear-gradient(top, #65a9d7, #7ba1ba);
+    background: -ms-linear-gradient(top, #65a9d7, #7ba1ba);
+    background: -o-linear-gradient(top, #65a9d7, #7ba1ba);
+    background-image: -ms-linear-gradient(top, #65a9d7 0%, #7ba1ba 100%);
+    padding: 8px 21px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+    -moz-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+    box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+    color: #f8faff;
+    font-size: 14px;
+    font-family: helvetica, serif;
+    text-decoration: none;
+    vertical-align: middle;
+}
+.table-wrap ng2-smart-table table  tr a.ng2-smart-action-delete-delete, a.ng2-smart-action-edit-cancel {
+    background: rgba(171, 62, 38, 0.84);
+}
+.table-wrap ng2-smart-table table  tr a.ng2-smart-action-delete-delete:hover {
+    background: rgba(133, 61, 37, 0.84);
+}
+.table-wrap ng2-smart-table table  tr a.ng2-smart-action-edit-edit {
+    background: #578ebd;
+}
+.table-wrap ng2-smart-table table  tr a.ng2-smart-action-edit-edit:hover {
+    background: #5072a0;
+}
+.table-wrap ng2-smart-table table  tr  a.ng2-smart-action-edit-cancel {
+    background: rgba(171, 62, 38, 0.84);
+    padding: 8px 14px;
+}
+.table-wrap ng2-smart-table table  tr  a.ng2-smart-action-edit-cancel:hover {
+    background: rgba(133, 61, 37, 0.84);
+}
+.table-wrap ng2-smart-table table  tr  a.ng2-smart-action-edit-save {
+    padding: 8px 14px;
+}
+.table-wrap ng2-smart-table table  tr  a.ng2-smart-action-edit-save:hover {
+    background: #3b5263;
+}
+.table-wrap ng2-smart-table table  tr  a.ng2-smart-action-add-create {
+    padding: 8px 14px;
+    background: #578ebd;
+}
+.table-wrap ng2-smart-table table  tr  a.ng2-smart-action-add-create:hover {
+    background: #5072a0;
+}
+.table-wrap ng2-smart-table table  tr  a.ng2-smart-action-add-cancel {
+    padding: 8px 14px;
+    background: rgba(171, 62, 38, 0.84);
+}
+.table-wrap ng2-smart-table table  tr  a.ng2-smart-action-add-cancel:hover {
+    background: rgba(133, 61, 37, 0.84);
+}
+.table-wrap ng2-smart-table-pager li a.ng2-smart-page-link {
+    font-size: 14px;
+}
+.table-wrap ng2-smart-table thead {
+    background-color: #cfcfd8;
+}
+.table-wrap ng2-smart-table table tr th {
+    font-family: Oswald;
+    text-align: center;
+    font-size: 17px;
+    border: 1px solid gray;
+}
+.table-wrap ng2-smart-table table tr th  input[type="checkbox"] {
+    position: relative;
+    right: 10px;
+    width: 15px;
+}
+.table-wrap ng2-smart-table table tr td  input.form-control[type="checkbox"] {
+    height: 14px;
+}
+.table-wrap ng2-smart-table table tr td  input.form-control[type="checkbox"]:focus {
+    box-shadow: none;
+    border: none;
+}
+.table-wrap ng2-smart-table table tr th  input[type="checkbox"]::after {
+    content: "All";
+    position: relative;
+    left: 16px;
+    bottom: 3px;
+}
+.table-wrap ng2-smart-table table tr input-editor input.form-control {
+    width: 90%;
+    margin: auto;
+}
+.table-wrap ng2-smart-table table tr th a {
+    color: #000;
+}
+.table-wrap ng2-smart-table table tr th a:hover {
+    color: #707070;
+    text-decoration: none;
+}
+.table-wrap ng2-smart-table table tr td {
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
+    border: 1px solid rgba(86, 86, 86, 0.18);
+    padding: 15px 0px;
+    font-family: Roboto;
+}
+.table-wrap ng2-smart-table table tr td.ng2-smart-actions {
+    min-width: 200px;
+}
+.table-wrap ng2-smart-table table tr td.ng2-smart-action-multiple-select {
+    min-width: 20px;
+}
+.table-wrap ng2-smart-table table tr a.ng2-smart-action {
+    border: 1px solid #0a3c59;
+    background: #5b7d96;
+    background: -webkit-gradient(linear, left top, left bottom, from(#65a9d7), to(#7ba1ba));
+    background: -webkit-linear-gradient(top, #65a9d7, #7ba1ba);
+    background: -moz-linear-gradient(top, #65a9d7, #7ba1ba);
+    background: -ms-linear-gradient(top, #65a9d7, #7ba1ba);
+    background: -o-linear-gradient(top, #65a9d7, #7ba1ba);
+    background-image: -ms-linear-gradient(top, #65a9d7 0%, #7ba1ba 100%);
+    padding: 8px 21px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+    -moz-box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+    box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
+    color: #f8faff;
+    font-size: 14px;
+    font-family: helvetica, serif;
+    text-decoration: none;
+    vertical-align: middle;
+}
+.table-wrap ng2-smart-table table  tr a.ng2-smart-action-delete-delete, a.ng2-smart-action-edit-cancel {
+    background: rgba(171, 62, 38, 0.84);
+}
+.table-wrap ng2-smart-table table  tr a.ng2-smart-action-delete-delete:hover {
+    background: rgba(133, 61, 37, 0.84);
+}
+.table-wrap ng2-smart-table table  tr a.ng2-smart-action-edit-edit {
+    background: #578ebd;
+}
+.table-wrap ng2-smart-table table  tr a.ng2-smart-action-edit-edit:hover {
+    background: #5072a0;
+}
+.table-wrap ng2-smart-table table  tr  a.ng2-smart-action-edit-cancel {
+    background: rgba(171, 62, 38, 0.84);
+    padding: 8px 14px;
+}
+.table-wrap ng2-smart-table table  tr  a.ng2-smart-action-edit-cancel:hover {
+    background: rgba(133, 61, 37, 0.84);
+}
+.table-wrap ng2-smart-table table  tr  a.ng2-smart-action-edit-save {
+    padding: 8px 14px;
+}
+.table-wrap ng2-smart-table table  tr  a.ng2-smart-action-edit-save:hover {
+    background: #3b5263;
+}
+.table-wrap ng2-smart-table table  tr  a.ng2-smart-action-add-create {
+    padding: 8px 14px;
+    background: #578ebd;
+}
+.table-wrap ng2-smart-table table  tr  a.ng2-smart-action-add-create:hover {
+    background: #5072a0;
+}
+.table-wrap ng2-smart-table table  tr  a.ng2-smart-action-add-cancel {
+    padding: 8px 14px;
+    background: rgba(171, 62, 38, 0.84);
+}
+.table-wrap ng2-smart-table table  tr  a.ng2-smart-action-add-cancel:hover {
+    background: rgba(133, 61, 37, 0.84);
+}
+.table-wrap ng2-smart-table-pager li a.ng2-smart-page-link {
+    font-size: 14px;
+}
+.table-wrap ng2-smart-table-pager li.active {
+    font-size: 14px;
+}
+.table-wrap ng2-smart-table table thead tr.ng2-smart-filters a:hover {
+    border: 1px solid #0a3c59;
+    text-shadow: #1e4158 0 1px 0;
+    background: #284e67;
+    background: -webkit-gradient(linear, left top, left bottom, from(#65a9d7), to(#3e779d));
+    background: -webkit-linear-gradient(top, #65a9d7, #3e779d);
+    background: -moz-linear-gradient(top, #65a9d7, #3e779d);
+    background: -ms-linear-gradient(top, #65a9d7, #3e779d);
+    background: -o-linear-gradient(top, #65a9d7, #3e779d);
+    background-image: -ms-linear-gradient(top, #65a9d7 0%, #3e779d 100%);
+    color: #fff;
+}
+.table-wrap ng2-smart-table table tbody tr:hover {
+    background-color: rgb(240, 241, 235);
+}
+
+.main-wrap{
+    position: relative;
+}
+
+
+.pagination{
+    position: absolute;
+    right: 0;
+    bottom: -60px;
+    z-index: 1000;
+}
 
