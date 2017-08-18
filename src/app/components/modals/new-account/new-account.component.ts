@@ -8,11 +8,11 @@ import { BsModalRef } from 'ngx-bootstrap/modal/modal-options.class';
 })
 export class NewAccountComponent implements OnInit {
 
-	public title = 'Create Your Account';
-  	constructor(public bsModalRef: BsModalRef) { }
+    public title = 'Create Your Account';
+    constructor(public bsModalRef: BsModalRef) { }
 
-	ngOnInit() {
+    ngOnInit() {
 
-	}
+    }
 
 }

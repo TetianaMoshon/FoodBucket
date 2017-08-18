@@ -1,15 +1,30 @@
 .user-profile th {
     font-family: "Oswald";
+    text-align: center;
+}
+
+.user-profile th {
+    font-family: "Oswald";
 }
 
 .orders .order-number {
-    width: 10px;
+    width: 5%;
     font-family: "Roboto";
+    text-align: center;
 }
 
 .orders .order-name {
+    width: 40%;
     font-family: "Roboto";
     font-weight: bold;
+}
+
+.orders .order-date {
+    width: 15%;
+}
+
+.orders .order-address {
+    width: 40%;
 }
 
 .content {
