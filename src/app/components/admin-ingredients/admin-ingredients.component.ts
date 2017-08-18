@@ -21,9 +21,6 @@ export class AdminIngredientsComponent implements OnInit {
             display: true,
             perPage: 5,
         },
-        add: {
-            addButtonContent: 'Add',
-        },
         columns: {
             ingredient_item: {
                 title: 'Ingredients',

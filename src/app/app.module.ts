@@ -41,7 +41,7 @@ import {ImageRenderComponent} from './components/admin-ingredients/image-render.
 import { AdminProductPageComponent } from './components/admin-product-list/admin-product-page/admin-product-page.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { TabsModule } from 'ngx-bootstrap';
-import {PagerService} from "./services/pagination.service";
+import {PagerService} from './services/pagination.service';
 
 @NgModule({
   declarations: [
