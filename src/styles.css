@@ -38,27 +38,6 @@ body { padding-top: 50px; }
     border: 1px solid gray;
 }
 
-.table-wrap ng2-smart-table table tr th  input[type="checkbox"] {
-    position: relative;
-    right: 10px;
-    width: 15px;
-}
-
-.table-wrap ng2-smart-table table tr td  input.form-control[type="checkbox"] {
-    height: 14px;
-}
-
-.table-wrap ng2-smart-table table tr td  input.form-control[type="checkbox"]:focus {
-    box-shadow: none;
-    border: none;
-}
-
-.table-wrap ng2-smart-table table tr th  input[type="checkbox"]::after {
-    content: "All";
-    position: relative;
-    left: 16px;
-    bottom: 3px;
-}
 
 .table-wrap ng2-smart-table table tr input-editor input.form-control {
     width: 90%;
@@ -114,7 +93,7 @@ body { padding-top: 50px; }
     box-shadow: rgba(255,255,255,0.4) 0 1px 0, inset rgba(255,255,255,0.4) 0 1px 0;
     color: #f8faff;
     font-size: 14px;
-    font-family: helvetica, serif;
+    font-family: Roboto, serif;
     text-decoration: none;
     vertical-align: middle;
 }
