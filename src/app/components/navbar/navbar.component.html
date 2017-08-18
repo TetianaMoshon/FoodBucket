@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default navbar-foodbucket navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
-            <span class="bucket-mobile" routerLink="/checkout">
+            <span class="bucket-mobile" (click)="openCartModal()">
                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" width="30" height="30" viewBox="0 0 64 53">
                       <defs>
                         <style>
@@ -33,10 +33,11 @@
                 <li><a routerLink="/" routerLinkActive="active">Home</a></li>
                 <li><a routerLink="/category" routerLinkActive="active" (click)="isCollapsed = true">Category</a></li>
                 <li><a routerLink="/aboutus" routerLinkActive="active" (click)="isCollapsed = true">About Us</a></li>
+
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li><span class="bucket" routerLink="/checkout">
+                <li><span class="bucket" (click)="openCartModal()">
                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" width="30" height="30" viewBox="0 0 64 53">
                       <defs>
                         <style>

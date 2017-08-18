@@ -1,0 +1,175 @@
+.push-down{
+    margin-bottom: 30%;
+}
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 15px;
+}
+
+.box-3 button{
+    margin-left: 65%;
+}
+
+.box-3 div{
+    margin-top: 10%;
+    margin-left: 50%;
+}
+
+.box-1 a img{
+    margin: auto;
+}
+.middleButton:hover {
+    background-color: transparent;
+}
+
+@media (max-width: 1199px) {
+    .box-3 {
+        margin-left: 40px;
+    }
+    .box-2 {
+        margin-left: 40px;
+    }
+}
+@media (max-width: 991px) {
+    .box-3 {
+        margin-left: 70px;
+    }
+    .box-2 {
+        margin-left: 90px;
+    }
+}
+@media (max-width: 767px) {
+    .box-1{
+    width: 150px;
+    }
+    .box-2{
+        width: 150px;
+        margin-left: 14%;
+    }
+    .box-3{
+        width: 150px;
+        margin-left: 14%;
+    }
+}
+@media (max-width: 708px) {
+    .box-1{
+        width: 150px;
+    }
+    .box-2{
+        width: 150px;
+        margin-left: 9%;
+    }
+    .box-3{
+        width: 150px;
+        margin-left: 9%;
+    }
+}
+@media (max-width: 632px) {
+    .box-1{
+        width: 150px;
+        margin-left: 4%;
+    }
+    .box-2{
+        width: 150px;
+        margin-left: 4%;
+    }
+    .box-3{
+        width: 100px;
+    }
+}
+@media (max-width: 565px) {
+    .box-1{
+        width: 150px;
+        margin-left: 3%;
+    }
+    .box-2{
+        width: 150px;
+        margin-left: 3%;
+    }
+    .box-3{
+        width: 100px;
+    }
+}
+@media (max-width: 554px) {
+    .box-1{
+        width: 150px;
+        margin-left: 2%;
+    }
+    .box-2{
+        width: 150px;
+        margin-left: 2%;
+    }
+    .box-3{
+        width: 70px;
+    }
+    .push-down{
+        margin-bottom: 40%;
+    }
+}
+@media (max-width: 509px) {
+    .box-1{
+        width: 90px;
+        margin-left: 1%;
+    }
+    .box-2{
+        width: 150px;
+        margin-left: 1%;
+    }
+    .box-3{
+        width: 30px;
+    }
+    .push-down{
+        margin-bottom: 10px;
+    }
+}
+@media (max-width: 422px) {
+    .box-1{
+        width: 80px;
+        margin-left: 0;
+    }
+    .box-2{
+        width: 150px;
+        margin-left: 0;
+    }
+    .box-3{
+        width: 20px;
+    }
+    .push-down{
+        margin-bottom: 2%;
+    }
+}
+@media (max-width: 364px) {
+    .box-1{
+       display: none;
+    }
+    .box-2{
+        width: 150px;
+        margin-left: 0;
+    }
+    .box-3{
+        width: 10px;
+    }
+    .push-down{
+        margin-bottom: 2%;
+    }
+}
+@media (max-width: 232px) {
+    .box-1{
+        display: none;
+    }
+    .box-2{
+        width: 150px;
+        margin: 1%;
+    }
+    .box-3{
+        width: 10px;
+        margin: 1%;
+    }
+
+}
