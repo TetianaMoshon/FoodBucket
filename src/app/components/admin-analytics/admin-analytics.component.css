@@ -1,6 +1,10 @@
-div div {
-    outline: 1px solid red;
+.analytics {
+    width: 75%;
 }
+
+/*div div {*/
+    /*outline: 1px solid red;*/
+/*}*/
 
 .title {
     font-family:'Roboto';
@@ -8,14 +12,18 @@ div div {
     text-transform: uppercase;
 }
 
-.total div {
-    height: 150px;
+.total .content {
+    line-height: 70px;
 }
 
-.charts div {
-    height: 250px;
+.total .icon {
+    width: 40px;
+    height: 40px;
 }
 
-.additional div {
-    height: 250px;
+.total p {
+    display: inline;
+    font-family: Oswald;
+    font-size: 44px;
+    text-transform: uppercase;
 }
