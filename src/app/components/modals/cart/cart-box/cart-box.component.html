@@ -1,0 +1,44 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" (click)="bsModalRef.hide()">&times;</button>
+    <h4 class="modal-title text-center" >{{title}}</h4>
+</div>
+<div class="colorOfBackground modal-body">
+    <div class="scrollable">
+        <ul *ngFor="let information of arrayOfDishNamesAndPrices" class="list-group">
+            <li class="list-group-item">
+                <app-cart-item
+                    [info]="information"
+                    (ItemWasDeleted)="renewArray($event)"
+                    (moneyToPayForADish)="calculateTotalPriceToPay($event)"
+                ></app-cart-item> </li>
+        </ul>
+    </div>
+
+</div>
+
+    <div class="total_amount">
+        <div class="container">
+            <div class="row">
+                <div class="box-1 col-xs-3">Total amount to pay</div>
+                <div class="box-2 col-xs-3">{{ totalPriceOfAllDishes | currency:'USD':'true' }}</div>
+
+            </div>
+    </div>
+</div>
+
+
+
+<div class="modal-footer">
+
+
+
+                <button class="btn btn-default buttonShopping buttonFontSize"(click)="bsModalRef.hide()">Continue Shopping</button>
+
+
+                <button type="button" class="btn btn-success buttonCheckout buttonFontSize"
+                (click)="hideAndRoute()"
+                >Go to Checkout</button>
+
+
+
+</div>
