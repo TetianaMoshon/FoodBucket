@@ -1,5 +1,7 @@
-h2{
+h1 {
     font-family: Oswald;
+    padding-bottom: 5px;
+    border-bottom: 1px solid gray;
 }
 .table-container{
     margin: 15px;

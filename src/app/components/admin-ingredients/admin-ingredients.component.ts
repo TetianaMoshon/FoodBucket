@@ -14,6 +14,7 @@ export class AdminIngredientsComponent implements OnInit {
         actions: {
             position: 'right',
             delete: 'true',
+            columnTitle: ' ',
         },
 
         pager: {
@@ -78,70 +79,70 @@ export class AdminIngredientsComponent implements OnInit {
     data = [
         {
             ingredient_item: 'Potato',
-            ingredient_measure: '1kg',
+            ingredient_measure: 'kg',
             ingredient_quantity: 300,
             ingredient_price: 200,
             image: '../../../assets/icons/ingredients/vegetables.svg'
         },
         {
             ingredient_item: 'Salmon',
-            ingredient_measure: '500g',
+            ingredient_measure: 'g',
             ingredient_quantity: 105,
             ingredient_price: 45,
             image: '../../../assets/icons/ingredients/fish.svg'
         },
         {
             ingredient_item: 'Shrimp',
-            ingredient_measure: '300g',
+            ingredient_measure: 'g',
             ingredient_quantity: 78,
             ingredient_price: 200,
             image: '../../../assets/icons/ingredients/sea_food.svg'
         },
         {
             ingredient_item: 'Apple',
-            ingredient_measure: '4',
+            ingredient_measure: 'items',
             ingredient_quantity: 105,
             ingredient_price: 78,
             image: '../../../assets/icons/ingredients/fruits.svg'
         },
         {
             ingredient_item: 'Oatmeal',
-            ingredient_measure: '150g',
+            ingredient_measure: 'g',
             ingredient_quantity: 200,
             ingredient_price: 45,
             image: '../../../assets/icons/ingredients/porridge.svg'
         },
         {
             ingredient_item: 'Milk',
-            ingredient_measure: '100ml',
+            ingredient_measure: 'ml',
             ingredient_quantity: 200,
             ingredient_price: 200,
             image: '../../../assets/icons/ingredients/lactic.svg'
         },
         {
             ingredient_item: 'Chicken',
-            ingredient_measure: '200g',
+            ingredient_measure: 'g',
             ingredient_quantity: 45,
             ingredient_price: 78,
             image: '../../../assets/icons/ingredients/meat.svg'
         },
         {
             ingredient_item: 'Water',
-            ingredient_measure: '1l',
+            ingredient_measure: 'ml',
             ingredient_quantity: 105,
             ingredient_price: 45,
             image: '../../../assets/icons/ingredients/liquid.svg'
         },
         {
             ingredient_item: 'Mustard',
-            ingredient_measure: '20g',
+            ingredient_measure: 'g',
             ingredient_quantity: 105,
             ingredient_price: 200,
             image: 'src="../../../assets/icons/ingredients/spices.svg'
         },
         {
             ingredient_item: 'Egg',
-            ingredient_measure: '3',
+            ingredient_measure: 'items',
             ingredient_quantity: 105,
             ingredient_price: 40,
             image: '../../../assets/icons/ingredients/eggs.svg'
