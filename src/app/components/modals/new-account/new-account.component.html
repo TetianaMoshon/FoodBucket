@@ -3,45 +3,73 @@
         <span aria-hidden="true">&times;</span>
     </button>
 
-    <h4 class="modal-title text-center">{{title}}</h4> 
+    <h4 class="modal-title text-center">{{title}}</h4>
 </div>
 
 <div class="modal-body">
-    <form>
+    <form (ngSubmit)="onSubmit()" #userForm="ngForm">
         <div class="row">
-            <div class="col-xs-6">
+            <div class="col-xs-12 col-sm-6">
                 <div class="form-group">
-                    <label for="firstName">First name *</label>
-                    <input type="text" class="form-control" id="firstName" aria-describedby="emailHelp" placeholder="First name" required>
+                    <label for="name">First name *</label>
+                    <input type="text" class="form-control" id="name" placeholder="First name"
+                           required
+                           pattern="[a-zA-Z][a-zA-Z ]+"
+                           [(ngModel)]="model.name" name="name"
+                           #name="ngModel" >
+                    <div [hidden]="name.valid || name.pristine" class="alert-danger">
+                        <div [hidden]="!name.hasError('required')">Name is required</div>
+                        <div [hidden]="!name.hasError('pattern')">Only alphabetsallowed</div>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label for="lastName">Last name *</label>
-                    <input type="text" class="form-control" id="lastName" placeholder="Last Name" required>
+                    <label for="surname">Last name *</label>
+                    <input type="text" class="form-control" id="surname" placeholder="Last name"
+                           required
+                           pattern="[a-zA-Z][a-zA-Z ]+"
+                           [(ngModel)]="model.surname" name="surname"
+                           #surname="ngModel" >
+                    <div [hidden]="surname.valid || surname.pristine" class="alert-danger">
+                        <div [hidden]="!surname.hasError('required')">Surname is required</div>
+                        <div [hidden]="!surname.hasError('pattern')">Only alphabetsallowed</div>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label for="email">Email *</label>
-                    <input type="email" class="form-control" id="email" placeholder="Email" required>
+                    <label for="surname">Email *</label>
+                    <input type="text" class="form-control" id="email" placeholder="Email"
+                           required
+                           pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                           [(ngModel)]="model.email" name="email"
+                           #email="ngModel" >
+                    <div [hidden]="email.valid || email.pristine" class="alert-danger">
+                        <div [hidden]="!email.hasError('required')">Email is required</div>
+                        <div [hidden]="!email.hasError('pattern')">Email format should be <small><b>joe@abc.com</b></small></div>
+                    </div>
                 </div>
                 <div class="form-group">
-                    <label for="password">Password *</label>
-                    <input type="password" class="form-control" id="password" placeholder="Password" required>
+                    <label for="pass">Password *</label>
+                    <input type="text" class="form-control" id="pass" placeholder="Password"
+                           required
+                           [(ngModel)]="model.password" name="password"
+                           #password="ngModel" >
+                    <div [hidden]="password.valid || password.pristine" class="alert-danger">
+                        <div [hidden]="!password.hasError('required')">Email is required</div>
+                        <div [hidden]="!password.hasError('pattern')">Email format should be <small><b>joe@abc.com</b></small></div>
+                    </div>
                 </div>
+
                 <div class="form-group">
                     <label for="city">City</label>
                     <input type="text" class="form-control" id="city" placeholder="City">
                 </div>
                 <div class="form-group">
-                    <label for="lastName">Adress</label>
+                    <label for="adress">Adress</label>
                     <input type="text" class="form-control" id="adress" placeholder="Adress">
                 </div>
-                <div class="form-group">
-                    <div class="captcha"></div>
-                    <label for="lastName">CAPTCHA</label>
-                    <input type="text" class="form-control" placeholder="Captcha">
-                </div>
+
             </div>
-       
-            <div class="col-xs-6">
+
+            <div class="col-xs-12 col-sm-6">
                 <div class="account-image"></div>
                 <input type="file" name="photo" multiple accept="image/*,image/jpeg">
             </div>
