@@ -28,7 +28,8 @@ export class SliderComponent implements OnInit {
 
     ListOfImageLinks: string [] = [
         'https://www.bzl.co/story/Delicious-Food-Sandwich-friedclams-1480470367.png',
-        'https://1.bp.blogspot.com/-BFHNsu-lK9M/VxtLPQXpowI/AAAAAAAAABU/Y2gPcR24ABYl9fzBimby6jO_P6H-GCgWwCLcB/s640/Allgauer%2527s-Restaurant-Chicago-food.jpg',
+        'https://1.bp.blogspot.com/-BFHNsu-lK9M/VxtLPQXpowI/AAAAAAAAABU/Y2gPcR24ABYl9fzBimby6jO_' +
+        'P6H-GCgWwCLcB/s640/Allgauer%2527s-Restaurant-Chicago-food.jpg',
         'http://www.westmarkhotels.com/wp-content/uploads/HAP-Westmark-Food-Fairbanks-600x300.jpg',
         'https://www.stack3d.com/wp-content/uploads/2016/08/questketoone.jpg',
         'http://2momsintheraw.com/wp-content/uploads/2017/03/2.jpg',

@@ -174,7 +174,9 @@ body { padding-top: 50px; }
     background-color: rgb(219, 219, 228);
 }
 
-
+.table-wrap {
+    overflow-x: scroll;
+}
 
 
 

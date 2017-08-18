@@ -1,4 +1,4 @@
-import { Ng2SmartTableComponent } from 'ng2-smart-table/ng2-smart-table.component'
+import { Ng2SmartTableComponent } from 'ng2-smart-table/ng2-smart-table.component';
 import { Component, OnInit } from '@angular/core';
 import {LocalDataSource} from 'ng2-smart-table';
 import {ImageRenderComponent} from './image-render.component';
