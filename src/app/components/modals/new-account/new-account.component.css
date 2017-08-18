@@ -12,3 +12,24 @@
     background: inherit;
     border: none;
 }
+
+.file_upload {
+    position: relative;
+    overflow: hidden;
+    background: #eee;
+    border: 1px solid #ccc;
+    font-size: 30px;
+    line-height: 1;
+    text-align: center;
+    padding: 20px;
+    width: 40px;
+}
+
+.file_upload input[type=file] {
+    position: absolute;
+    top: 0; right: 0;
+    font-size: 200px;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    cursor: pointer;
+}

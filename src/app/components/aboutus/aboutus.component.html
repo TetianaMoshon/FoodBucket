@@ -8,25 +8,46 @@
               <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
             </agm-map>
 
-            <p><span class="glyphicon glyphicon glyphicon-time"></span> {{email}}</p>
+            <p><span class="glyphicon glyphicon glyphicon-envelope"></span> {{our_email}}</p>
             <p><span class="glyphicon glyphicon-phone-alt"></span> {{phone}}</p>
             <p><span class="glyphicon glyphicon-time"></span> {{time}}</p>
         </div>
 
         <div class="col-xs-12 col-sm-6 contact_mass">
             <h3>Contact us</h3>
-            <form>
-                <label>Email:</label>
-                <input type="mail" class="form-control"  placeholder="You contact mail" required>
+            <form #contactForm="ngForm">
+                <label>* Email:</label>
+                <input type="text" class="form-control" id="email" placeholder="Your contact email"
+                       required
+                       pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                       [(ngModel)]="model.email" name="email"
+                       #email="ngModel" >
+                <div [hidden]="email.valid || email.pristine" class="alert-danger">
+                    <div [hidden]="!email.hasError('required')">Email is required</div>
+                    <div [hidden]="!email.hasError('pattern')">Email format should be <small><b>joe@abc.com</b></small></div>
+                </div>
 
-                <label>Name:</label>
-                <input type="text" class="form-control" placeholder="First name" required>
+                <label>* Name:</label>
+                <input type="text" class="form-control" id="name" placeholder="First name"
+                       required
+                       pattern="[a-zA-Z][a-zA-Z ]+"
+                       [(ngModel)]="model.name" name="name"
+                       #name="ngModel" >
+                <div [hidden]="name.valid || name.pristine" class="alert-danger">
+                    <div [hidden]="!name.hasError('required')">Name is required</div>
+                    <div [hidden]="!name.hasError('pattern')">Only alphabetsallowed</div>
+                </div>
 
                 <label>Last name:</label>
-                <input type="text" class="form-control" placeholder="Last name" required>
+                <input type="text" class="form-control" placeholder="Last name">
 
-                <label>Detail:</label>
-                <textarea class="form-control" placeholder="Add your massage..."></textarea>
+                <label>* Detail:</label>
+                <textarea type="text" class="form-control" id="massage" placeholder="Add your massage..."
+                       required
+                       [(ngModel)]="model.massage" name="massage" #massage="ngModel" ></textarea>
+                <div [hidden]="massage.valid || massage.pristine" class="alert-danger">
+                    <div [hidden]="!massage.hasError('required')">Detail field is required</div>
+                </div>
 
                 <div class="text-center send_button">
                     <button type="button" class="btn btn-primary">Send message</button>
