@@ -20,26 +20,30 @@ import { AdminProductPageComponent } from './components/admin-product-list/admin
 
 
 const appRoutes: Routes = [
-  { path: '', children:[
-      { path: 'ingredients', component: IngredientsComponent},
-      { path: 'category', children:[
+  { path: '',component: HomeComponent},
+    { path: 'ingredients', component: IngredientsComponent},
+    { path: 'category', children:[
           {path:'',component: CategoryComponent},
-          { path: 'productlist', component: ProductlistComponent},
+          { path: 'productlist', children:[
+              {path:'',component: ProductlistComponent},
+              { path: 'productpage', component: ProductpageComponent}
+          ]},
       ]},
       { path: 'aboutus', component: AboutusComponent},
       { path: 'checkout', component: CheckoutComponent},
+  { path: 'admin', children:[
+      {path:'',component: AdminMainComponent},
+      { path: 'orders', component: AdminOrdersComponent},
+      { path: 'productlist', children:[
+          {path:'', component: AdminProductListComponent},
+          { path: 'productpage', component: AdminProductPageComponent},
+      ]},
+      { path: 'comments', component: AdminCommentsComponent},
+      { path: 'users', component: AdminUsersComponent},
+      { path: 'categories', component: AdmincategoriesComponent},
+      { path: 'analytics', component: AdminAnalyticsComponent},
+      { path: 'ingredients', component: AdminIngredientsComponent},
   ]},
-  { path: 'admin', component: AdminMainComponent},
-  { path: 'admin/orders', component: AdminOrdersComponent},
-  { path: 'admin/productlist', component: AdminProductListComponent},
-  { path: 'admin/productlist/productpage', component: AdminProductPageComponent},
-  { path: 'admin/comments', component: AdminCommentsComponent},
-  { path: 'admin/users', component: AdminUsersComponent},
-  { path: 'admin/categories', component: AdmincategoriesComponent},
-  { path: 'admin/analytics', component: AdminAnalyticsComponent},
-  { path: 'admin/ingredients', component: AdminIngredientsComponent},
-  { path: 'admin/productlist/productpage', component: ProductpageComponent},
-  { path: 'category/productlist/productpage', component: ProductpageComponent},
 
 ];
 
