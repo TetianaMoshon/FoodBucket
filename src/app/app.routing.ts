@@ -17,7 +17,7 @@ import {AdminProductListComponent} from './components/admin-product-list/admin-p
 import {AdminUsersComponent} from './components/admin-users/admin-users.component';
 import {ProductpageComponent} from './components/productlist/productpage/productpage.component';
 import { AdminProductPageComponent } from './components/admin-product-list/admin-product-page/admin-product-page.component';
-
+import {Error404Component} from "./components/error404/error404.component";
 
 const appRoutes: Routes = [
   { path: '',component: HomeComponent},
@@ -44,7 +44,7 @@ const appRoutes: Routes = [
       { path: 'analytics', component: AdminAnalyticsComponent},
       { path: 'ingredients', component: AdminIngredientsComponent},
   ]},
-
+    {path: "**",component: Error404Component },
 ];
 
 export  const appRouting: ModuleWithProviders = RouterModule.forRoot(appRoutes);

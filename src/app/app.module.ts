@@ -40,6 +40,7 @@ import { TabsModule } from 'ngx-bootstrap';
 import {PagerService} from "./services/pagination.service";
 import { CartBoxComponent } from './components/modals/cart/cart-box/cart-box.component';
 import { CartItemComponent } from './components/modals/cart/cart-item/cart-item.component';
+import { Error404Component } from './components/error404/error404.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +79,7 @@ import { CartItemComponent } from './components/modals/cart/cart-item/cart-item.
       CartBoxComponent,
       CartItemComponent,
       AdminProductPageComponent,
+      Error404Component,
   ],
   entryComponents: [
       ModalCongratulationComponent,
