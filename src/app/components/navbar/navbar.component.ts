@@ -14,7 +14,6 @@ import {CartBoxComponent} from "../modals/cart/cart-box/cart-box.component";
 export class NavbarComponent implements OnInit {
 
     isCollapsed = true;
-    constructor(private modalService: BsModalService) { }
 
     ngOnInit() {
     }
