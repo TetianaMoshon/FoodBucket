@@ -41,6 +41,7 @@ testem.log
 .DS_Store
 Thumbs.db
 package-lock.json
+src/app/services/dist/
 
 # Swagger stuff
 api/swagger-codegen-cli.jar

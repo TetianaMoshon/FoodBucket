@@ -27,6 +27,7 @@
     width: 145px;
     height: 145px;
 }
+
 @media (max-width: 1200px) {
     .category-item > a > img {
         display: block;
@@ -35,10 +36,12 @@
         margin: 0 auto 10px;
     }
 }
+
 @media (max-width: 992px) {
     .category-item > a > img {
         width: 110px;
         height: 110px;
+        margin: 0 auto 10px;
     }
 }
 
