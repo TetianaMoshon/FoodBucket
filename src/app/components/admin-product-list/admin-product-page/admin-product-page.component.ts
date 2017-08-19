@@ -8,7 +8,6 @@ import { Component, OnInit } from '@angular/core';
 export class AdminProductPageComponent implements OnInit {
 
     settings = {
-        selectMode: 'multi',
         actions: {
             position: 'right'
         },

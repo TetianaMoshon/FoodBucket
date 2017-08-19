@@ -287,11 +287,9 @@ body { padding-top: 50px; }
 .table-wrap ng2-smart-table table tbody tr:hover {
     background-color: rgb(240, 241, 235);
 }
-
 .main-wrap{
     position: relative;
 }
-
 
 .pagination{
     position: absolute;
@@ -299,4 +297,30 @@ body { padding-top: 50px; }
     bottom: -60px;
     z-index: 1000;
 }
+/*styles for carousel*/
+.carousel-control{
+    font-size: 24px;
+}
+.carousel-control .glyphicon-chevron-right, .carousel-control .glyphicon-chevron-left{
+    top: 45%;
+}
+.carousel-control.left, .carousel-control.right{
+    background-image: none;
+}
+.carousel-control .glyphicon-chevron-right, .carousel-control .glyphicon-chevron-left{
+    right: 50%;
+}
+.slider .carousel-control .glyphicon{
+    text-shadow: 1px 1px 3px #000000;
+    cursor: pointer;
+}
+.carousel-control{
+    width: 20%;
+}
 
+.modal-title{
+    font-family: Oswald;
+}
+.modal-body, .modal-footer{
+    font-family: Roboto;
+}
