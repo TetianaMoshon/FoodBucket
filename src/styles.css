@@ -45,6 +45,10 @@ body { padding-top: 50px; }
     font-family: Roboto;
 }
 
+.table-wrap ng2-smart-table table thead th input.form-control {
+    padding: .375em .25em!important;
+}
+
 .table-wrap ng2-smart-table table tr th a {
     color: #000;
 }

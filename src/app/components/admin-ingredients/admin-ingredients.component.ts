@@ -16,7 +16,9 @@ export class AdminIngredientsComponent implements OnInit {
             delete: 'true',
             columnTitle: ' ',
         },
-
+        add: {
+            addButtonContent: 'Add'
+        },
         pager: {
             display: true,
             perPage: 5,

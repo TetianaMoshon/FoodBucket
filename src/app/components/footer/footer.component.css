@@ -48,7 +48,7 @@ div.footer-socials {
 
 
 
-div.footer-socials a.facebook {
+a.facebook {
     background: url("../../../assets/icons/Group 14.svg") no-repeat;
     display: inline-block;
     width: 30px;
@@ -57,7 +57,7 @@ div.footer-socials a.facebook {
     background-size: 30px 30px;
 }
 
-div.footer-socials a.instagram {
+a.instagram {
     background: url("../../../assets/icons/Group 2.svg") no-repeat;
     display: inline-block;
     width: 30px;
@@ -66,7 +66,7 @@ div.footer-socials a.instagram {
     background-size: 30px 30px;
 }
 
-div.footer-socials a.twitter {
+a.twitter {
     background: url("../../../assets/icons/Group 10.svg") no-repeat;
     display: inline-block;
     width: 30px;
@@ -128,5 +128,11 @@ div.center-text-soc {
         display: none;
     }
 }
+
+
+
+
+
+
 
 

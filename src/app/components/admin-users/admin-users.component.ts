@@ -15,12 +15,16 @@ export class AdminUsersComponent implements OnInit {
             columnTitle: ' ',
         },
         pager: {
-            display: true
+            display: true,
+            perPage: 5,
+        },
+        add: {
+            addButtonContent: 'Add'
         },
         columns: {
             id: {
                 title: 'ID',
-                width: '5%'
+                width: '6%'
             },
             name: {
                 title: 'Name'

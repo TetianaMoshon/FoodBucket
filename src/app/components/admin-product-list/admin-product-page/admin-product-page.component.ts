@@ -12,6 +12,9 @@ export class AdminProductPageComponent implements OnInit {
             position: 'right',
             columnTitle: ' ',
         },
+        add: {
+            addButtonContent: 'Add'
+        },
         pager: {
             display: true
         },

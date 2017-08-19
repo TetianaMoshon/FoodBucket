@@ -10,3 +10,7 @@ h1 {
     min-width: 600px;
     overflow-x: auto;
 }
+
+:host /deep/ ng2-smart-table table tr td {
+    height: 66px;
+}
