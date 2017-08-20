@@ -8,17 +8,16 @@ import { NguiMapComponent } from '@ngui/map';
 })
 export class AboutusComponent implements OnInit {
 
-  constructor() { }
+  title = 'Our office';
+  email = 'foodbucket@gmail.com';
+  phone = '8-888-888-888';
+  time = '8.00-22.00';
 
-  ngOnInit() {
-  }
+  lat = 50.454660;
+  lng = 30.52380;
 
-  title: string = 'Our office';
-  email:string = "foodbucket@gmail.com";
-  phone:string = "8-888-888-888";
-  time:string = "8.00-22.00";
+    constructor() { }
 
-  lat: number = 50.454660;
-  lng: number = 30.52380;
-
+    ngOnInit() {
+    }
 }
