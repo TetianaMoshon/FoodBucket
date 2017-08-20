@@ -187,8 +187,10 @@ body { padding-top: 50px; }
 .table-wrap ng2-smart-table table tbody tr:hover {
     background-color: rgb(219, 219, 228);
 }
-.main-wrap{
+
+.table-wrap {
     position: relative;
+}
 
 .table-wrap {
     overflow-x: scroll;
