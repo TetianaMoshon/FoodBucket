@@ -24,13 +24,24 @@ body { padding-top: 50px; }
     font-weight: normal;
     font-style: normal;
 }
+.scrollable::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.1);
+    background-color: #F5F5F5;
+    border-radius: 10px;
+}
+.scrollable::-webkit-scrollbar
+{
+    width: 10px;
+    background-color: #F5F5F5;
+}
+
 
 /*Admin Tables */
 
 .table-wrap ng2-smart-table thead {
     background-color: #cfcfd8;
 }
-
 .table-wrap ng2-smart-table table tr th {
     font-family: Oswald;
     text-align: center;
@@ -173,18 +184,41 @@ body { padding-top: 50px; }
     background-image: -ms-linear-gradient(top, #65a9d7 0%, #3e779d 100%);
     color: #fff;
 }
-
 .table-wrap ng2-smart-table table tbody tr:hover {
     background-color: rgb(219, 219, 228);
 }
+.main-wrap{
+    position: relative;
 
 .table-wrap {
     overflow-x: scroll;
 }
 
 
+/*styles for carousel*/
+.carousel-control{
+    font-size: 24px;
+}
+.carousel-control .glyphicon-chevron-right, .carousel-control .glyphicon-chevron-left{
+    top: 45%;
+}
+.carousel-control.left, .carousel-control.right{
+    background-image: none;
+}
+.carousel-control .glyphicon-chevron-right, .carousel-control .glyphicon-chevron-left{
+    right: 50%;
+}
+.slider .carousel-control .glyphicon{
+    text-shadow: 1px 1px 3px #000000;
+    cursor: pointer;
+}
+.carousel-control{
+    width: 20%;
+}
 
-
-
-
-
+.modal-title{
+    font-family: Oswald;
+}
+.modal-body, .modal-footer{
+    font-family: Roboto;
+}
