@@ -1,3 +1,11 @@
-<p>
-  admin-users works!
-</p>
+<div class="table-container">
+    <app-adminnavbar></app-adminnavbar>
+
+    <h1>Users</h1>
+    <hr/>
+    <div class="main-wrap">
+        <div class="table-wrap">
+            <ng2-smart-table [settings]="settings" [source]="data"></ng2-smart-table>
+        </div>
+    </div>
+</div>

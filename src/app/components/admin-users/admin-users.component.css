@@ -1,0 +1,16 @@
+h1 {
+    font-family: Oswald;
+    padding-bottom: 5px;
+    border-bottom: 1px solid gray;
+}
+.table-container{
+    margin: 15px;
+}
+.table-wrap{
+    min-width: 600px;
+    overflow-x: auto;
+}
+
+:host /deep/ ng2-smart-table table tr td {
+    height: 66px;
+}

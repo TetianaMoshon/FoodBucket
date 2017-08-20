@@ -7,8 +7,8 @@
 	float: right;
 	margin-bottom: 20px;
 }
-.captcha{
-	height: 83px;
-	background-image: url(../../../../assets/captcha.png);
-	background-size: cover;
+.alert-danger{
+    color: red;
+    background: inherit;
+    border: none;
 }

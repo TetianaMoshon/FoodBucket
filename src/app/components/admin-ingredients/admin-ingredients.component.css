@@ -1,0 +1,35 @@
+.bottom-line {
+    border-bottom: 1px solid gray;
+    margin: 20px 0px;
+}
+
+.no-gutter {
+    padding: 0;
+}
+
+.margin-row {
+    margin: 20px 0px;
+}
+
+h1.ingredients_header {
+    margin-bottom: 5px;
+    font-family: Oswald;
+}
+
+/*Ingredients Table*/
+:host /deep/ ng2-smart-table table {
+    margin: 20px 0px;
+}
+
+:host /deep/ ng2-smart-table table tr td img {
+    height: 33px;
+}
+
+
+
+
+
+
+
+
+

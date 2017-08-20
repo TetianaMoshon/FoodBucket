@@ -8,22 +8,16 @@ import { NguiMapComponent } from '@ngui/map';
 })
 export class AboutusComponent implements OnInit {
 
-  constructor() { }
+  title = 'Our office';
+  email = 'foodbucket@gmail.com';
+  phone = '8-888-888-888';
+  time = '8.00-22.00';
 
-  ngOnInit() {
-  }
-  isVisibleFull:boolean = false;
-  isVisible:boolean = true;
-  title: string = 'Our office';
-  lat: number = 50.454660;
-  lng: number = 30.52380;
-  
-  openFullMap(){
-  	this.isVisibleFull = true;
-  	this.isVisible = false;
-  }
-  closeFullMap(){
-  	this.isVisibleFull = false;
-  	this.isVisible = true;
-  }
+  lat = 50.454660;
+  lng = 30.52380;
+
+    constructor() { }
+
+    ngOnInit() {
+    }
 }

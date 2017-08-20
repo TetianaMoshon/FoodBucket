@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
-
-import  {LoginComponent} from "../modals/login/login.component";
+import {NewAccountComponent} from '../modals/new-account/new-account.component';
 
 @Component({
   selector: 'app-footer',
@@ -10,10 +9,10 @@ import  {LoginComponent} from "../modals/login/login.component";
 })
 export class FooterComponent implements OnInit {
 
-  constructor(private modalService: BsModalService) {} 
-  	public openLoginModal() {
-	    this.modalService.show(LoginComponent);
-	}
+  constructor(private modalService: BsModalService) {}
+    public openNewAccount() {
+        this.modalService.show(NewAccountComponent);
+    }
 
   ngOnInit() {
   }

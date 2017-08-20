@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="row">
+
+        <div class="box-1 col-xs-2">
+            <a href="#" class="thumbnail">
+                <img class="img-responsive" [src]="info.image">
+            </a>
+        </div>
+
+        <div class="box-2 col-xs-2 text-center">
+            <div class="push-down text-nowrap textBox">{{info.name}}</div>
+
+            <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                <button (click)="minusClicked(info.id)"
+                    type="button" class="btn btn-default"><span class="glyphicon glyphicon-minus"></span></button>
+                <button type="button" class="middleButton btn btn-default">{{amountOfDishesOrdered}}</button>
+                <button (click)="plusClicked(info.id)"
+                        type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button>
+            </div>
+
+        </div>
+
+
+        <div class="box-3 col-xs-2">
+             <button
+                (click)="deleteShoppingItem(info.id)"
+                type="button" class="btn btn-default btn-circle push-down"><i class="glyphicon glyphicon-remove"></i></button>
+            <div class="priceForItems">{{totalPriceOfOneDish | currency:'USD':'true' }}</div>
+        </div>
+
+
+    </div>
+</div>
