@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Color} from "ng2-charts";
 
 @Component({
   selector: 'app-admin-analytics',
@@ -15,52 +16,92 @@ export class AdminAnalyticsComponent implements OnInit {
     }
 
     //Charts
-    public lineChartData:Array<any> = [
-        {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
-        {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'},
-        {data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C'}
+
+    //Chart Orders
+    public chartOrdersData:Array<any> = [
+        {data: [65, 59, 80, 81, 56, 55, 40], label: 'Total'},
+        {data: [28, 48, 40, 19, 86, 27, 90], label: 'Complited'},
+        {data: [18, 48, 77, 9, 100, 27, 40], label: 'Canceled'}
     ];
-    public lineChartLabels:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-    public lineChartOptions:any = {
-        responsive: true,
-        width: '250px'
+    public chartOrdersLabels:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+    public chartOrdersOptions:any = {
+        responsive: true
     };
-    public lineChartColors:Array<any> = [
-        { // grey
-            backgroundColor: 'rgba(148,159,177,0.2)',
-            borderColor: 'rgba(148,159,177,1)',
-            pointBackgroundColor: 'rgba(148,159,177,1)',
+    public chartOrdersColors:Array<any> = [
+        { //Total
+            backgroundColor: 'rgba(27, 231, 255,0.2)',
+            borderColor: '#14a9ba',
+            pointBackgroundColor: '#14a9ba',
             pointBorderColor: '#fff',
             pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+            pointHoverBorderColor: '#14a9ba'
         },
-        { // dark grey
-            backgroundColor: 'rgba(77,83,96,0.2)',
-            borderColor: 'rgba(77,83,96,1)',
-            pointBackgroundColor: 'rgba(77,83,96,1)',
+        { // Complited
+            backgroundColor: 'rgba(110, 235, 131, 0.2)',
+            borderColor: '#51ab60',
+            pointBackgroundColor: '#51ab60',
             pointBorderColor: '#fff',
             pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(77,83,96,1)'
+            pointHoverBorderColor: '#51ab60'
         },
-        { // grey
-            backgroundColor: 'rgba(148,159,177,0.2)',
-            borderColor: 'rgba(148,159,177,1)',
-            pointBackgroundColor: 'rgba(148,159,177,1)',
+        { // Canceled
+            backgroundColor: 'rgba(255, 87, 20, 0.2)',
+            borderColor: '#e85013',
+            pointBackgroundColor: '#e85013',
             pointBorderColor: '#fff',
             pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+            pointHoverBorderColor: '#e85013'
         }
     ];
-    public lineChartLegend:boolean = true;
-    public lineChartType:string = 'line';
+    public chartOrdersLegend:boolean = true;
+    public chartOrdersType:string = 'line';
 
-    // Doughnut1
-    public doughnutGenderLabels:string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
-    public doughnutGenderData:number[] = [350, 450, 100];
+    //Chart Cash
+    public chartCashData:Array<any> = [
+        {data: [65, 59, 80, 81, 56, 55, 40], label: 'Total'},
+        {data: [28, 48, 40, 19, 86, 27, 90], label: 'Promo'}
+    ];
+    public chartCashLabels:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+    public chartCashOptions:any = {
+        responsive: true
+    };
+    public chartCashColors:Array<any> = [
+        { //Total
+            backgroundColor: 'rgba(27, 231, 255,0.2)',
+            borderColor: '#14a9ba',
+            pointBackgroundColor: '#14a9ba',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: '#14a9ba'
+        },
+        { // Complited
+            backgroundColor: 'rgba(110, 235, 131, 0.2)',
+            borderColor: '#51ab60',
+            pointBackgroundColor: '#51ab60',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: '#51ab60'
+        }
+    ];
+    public chartCashLegend:boolean = true;
+    public chartCashType:string = 'line';
+
+    // Doughnut
     public doughnutType:string = 'doughnut';
+    public doughnutColors: any[] = [
+        {
+            backgroundColor: ["#1be7ff", "#6eeb83", "#ff5714"],
+            borderColor: "#fff",
+            hoverBackgroundColor: ["#19D2E8", "#64D678", "#E85013"],
+            hoverBorderColor: "#fff"
+        }];
 
-    // Doughnut2
-    public doughnutCategoryLabels:string[] = ['Download Sales', 'In-Store Sales', 'Mail-Order Sales'];
+    //Gender Doughnut
+    public doughnutGenderData:number[] = [350, 450];
+    public doughnutGenderLabels:string[] = ['Male', 'Female'];
+
+    //Category Doughnut
+    public doughnutCategoryLabels:string[] = ['Fish', 'Meat', 'Vegetarian'];
     public doughnutCategoryData:number[] = [350, 450, 100];
 
     //bar
@@ -68,21 +109,15 @@ export class AdminAnalyticsComponent implements OnInit {
         scaleShowVerticalLines: false,
         responsive: true
     };
-    public barChartLabels:string[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
+    public barChartLabels:string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
     public barChartType:string = 'bar';
     public barChartLegend:boolean = true;
     public barChartData:any[] = [
-        {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
-        {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'}
+        {data: [65, 59, 80, 81, 56, 55, 40], label: 'Usual Orders'},
+        {data: [28, 48, 40, 19, 86, 27, 90], label: 'Promo Orders'}
     ];
-
-    // events
-    public chartClicked(e:any):void {
-        console.log(e);
-    }
-
-    public chartHovered(e:any):void {
-        console.log(e);
-    }
+    public barChartColors: any[] = [
+        { backgroundColor: "#1be7ff", borderColor:"##19D2E8", hoverBackgroundColor: '#19D2E8', hoverBorderColor: '#14A9BA'},
+        {backgroundColor: "#ff5714", borderColor:"#E85013", hoverBackgroundColor: '#E85013', hoverBorderColor: '#BA400F'}];
 }
 
