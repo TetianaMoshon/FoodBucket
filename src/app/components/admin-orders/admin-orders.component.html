@@ -15,20 +15,31 @@
     </div>
     <hr/>
     <table class="table table-bordered">
+        <!--<thead>-->
+        <!--<tr>-->
+            <!--<th class="text-center">Date</th>-->
+            <!--<th class="text-center">ID</th>-->
+            <!--<th class="text-center">Orderer</th>-->
+            <!--<th class="text-center">Order content</th>-->
+            <!--<th class="text-center">Phone number</th>-->
+            <!--<th class="text-center">Price</th>-->
+            <!--<th class="text-center">Status</th>-->
+            <!--<th class="text-center">Details</th>-->
+        <!--</tr>-->
+        <!--</thead>-->
         <thead>
         <tr>
-            <th class="text-center">Date</th>
-            <th class="text-center">ID</th>
-            <th class="text-center">Orderer</th>
-            <th class="text-center">Order content</th>
-            <th class="text-center">Phone number</th>
-            <th class="text-center">Price</th>
-            <th class="text-center">Status</th>
-            <th class="text-center">Details</th>
+            <th><input type="text" name="name" [(ngModel)]="filter.date" placeholder="Date"></th>
+            <th><input type="number" name="id" [(ngModel)]="filter.id" min="1"  step="1" placeholder="Id"></th>
+            <th><input type="text" name="name" [(ngModel)]="filter.name" placeholder="Name"></th>
+            <th><input type="text" name="food" [(ngModel)]="filter.food" placeholder="Content"></th>
+            <th><input type="number" name="tel" [(ngModel)]="filter.tel" placeholder="Tel"></th>
+            <th><input type="number" name="id" [(ngModel)]="filter.price" min="1" placeholder="Price"></th>
+            <th><input type="text" name="name" [(ngModel)]="filter.status" placeholder="Status"></th>
         </tr>
         </thead>
         <tbody>
-        <ng-container *ngFor="let order of pagedItems;let i = index;" [attr.data-index]="i">
+        <ng-container *ngFor="let order of pagedItems  | ordersfilter:filter;">
         <tr>
             <td class="gray-border  text-center">{{order.date}}</td>
             <td class="gray-border text-center">{{order.id}}</td>
