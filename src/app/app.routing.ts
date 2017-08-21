@@ -17,6 +17,7 @@ import {AdminProductListComponent} from './components/admin-product-list/admin-p
 import {AdminUsersComponent} from './components/admin-users/admin-users.component';
 import {ProductpageComponent} from './components/productlist/productpage/productpage.component';
 import { AdminProductPageComponent } from './components/admin-product-list/admin-product-page/admin-product-page.component';
+import {UserProfileComponent} from './components/user-profile/user-profile.component';
 
 
 const appRoutes: Routes = [
@@ -38,7 +39,7 @@ const appRoutes: Routes = [
   { path: 'admin/ingredients', component: AdminIngredientsComponent},
   { path: 'admin/productlist/productpage', component: ProductpageComponent},
   { path: 'category/productlist/productpage', component: ProductpageComponent},
-
+  { path: 'profile', component: UserProfileComponent}
 ];
 
 export  const appRouting: ModuleWithProviders = RouterModule.forRoot(appRoutes);

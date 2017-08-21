@@ -9,7 +9,11 @@ export class AdminProductPageComponent implements OnInit {
 
     settings = {
         actions: {
-            position: 'right'
+            position: 'right',
+            columnTitle: ' ',
+        },
+        add: {
+            addButtonContent: 'Add'
         },
         pager: {
             display: true

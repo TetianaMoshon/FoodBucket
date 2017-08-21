@@ -1,45 +1,55 @@
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-1 col-sm-1 ">
-                <img src="../../../assets/images/logo-bucket-low.png" alt="logo" class="img-responsive center-block logo-footer">
-        </div>
-        <div class="col-md-9 col-sm-6 col-xs-6 footer-content">
-            <div class="service-block">
-                <p>Service</p>
-                <ul>
-                    <li><a (click)="openLoginModal();">Log In</a></li>
-                    <li><a routerLink="/category" routerLinkActive="active">Menu</a></li>
-                    <!--<li><a href="#" routerLink="/topRated">Top Rated</a></li>-->
-                </ul>
-            </div>
-            <div class="aboutus-block">
-                <p>About Us</p>
-                <ul>
-                    <li><a routerLink="/aboutus" routerLinkActive="active">Contacts</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-md-2 col-sm-4 col-xs-6" >
-            <div class="footer-socials">
-               <div class="center-block center-text-soc"><p>Socials</p></div>
-                    <div class="socials-container center-block">
-                        <ul>
-                            <li>
-                                <a href="#" class="facebook center-block"></a>
-                                <a class="soc-name">Facebook</a>
-                            </li>
-                            <li>
-                                <a href="#" class="instagram"></a>
-                                <a class="soc-name">Instagram</a>
-                            </li>
-                            <li>
-                                <a href="#" class="twitter"></a>
-                                <a class="soc-name">Twitter</a>
-                            </li>
-                        </ul>
-
+<footer id="footer-Section">
+    <div class="footer-top-layout">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-10">
+                    <div class="col-sm-2">
+                        <div class="logo-container">
+                            <img src="../../../assets/logo.svg" alt="logo" class="logo">
+                        </div>
                     </div>
+
+                    <div class="col-sm-2 col-sm-5 col-xs-6 first" >
+                        <div class="footer-col-item">
+                            <h4>Navigation</h4>
+                            <ul>
+                                <li><a class="spec-hover" (click)="openNewAccount();">Sign In</a></li>
+                                <li><a class="spec-hover" href="#" routerLink="/category">Category</a></li>
+                                <li><a class="spec-hover" href="#" routerLink="/aboutus">About Us</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 border middle">
+                        <div class="footer-col-item">
+                            <h4>Reach Us</h4>
+                            <div class="item-contact"> <p><span class="link-id">H</span>:<span>8.00 - 22.00</span></p> <p><span class="link-id">P</span>:<span>8-888-888-888</span></p> <p><span class="link-id">E</span>:<span>foodbucket@gmail.com</span></p> </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4 col-sm-5 col-xs-6 last">
+                        <div class="footer-col-item">
+                            <h4>Social Networks</h4>
+                            <div class="socials-container center-block">
+                                <ul class="margin-left">
+                                    <li>
+                                        <a href="#" class="facebook center-block"></a>
+                                        <a class="soc-name spec-hover">Facebook</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="instagram"></a>
+                                        <a class="soc-name spec-hover">Instagram</a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="twitter"></a>
+                                        <a class="soc-name spec-hover">Twitter</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-1"></div>
             </div>
         </div>
     </div>
-</div>
+</footer>
