@@ -6,6 +6,7 @@ thead {
 }
 thead th {
     border: 1px solid gray;
+    vertical-align: middle;
 }
 td.gray-border {
     vertical-align: middle;
@@ -33,7 +34,9 @@ tbody tr:hover {
 .padding-top {
     padding-top:20px;
 }
-
+.input-status {
+    width: 150px;
+}
 @media (max-width: 991px) {
     .padding-top {
         padding-top: 0;
