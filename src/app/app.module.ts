@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { AgmCoreModule } from '@agm/core';
+import { ChartsModule } from 'ng2-charts';
 
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
@@ -40,11 +41,10 @@ import { AdminProductPageComponent } from './components/admin-product-list/admin
 
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { TabsModule } from 'ngx-bootstrap';
-import { ChartsModule } from 'ng2-charts';
-
 import {PagerService} from './services/pagination.service';
 import { CartBoxComponent } from './components/modals/cart/cart-box/cart-box.component';
 import { CartItemComponent } from './components/modals/cart/cart-item/cart-item.component';
+import { Error404Component } from './components/error404/error404.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +84,8 @@ import { CartItemComponent } from './components/modals/cart/cart-item/cart-item.
       CartItemComponent,
       AdminProductPageComponent,
       ImageRenderComponent,
-      UserProfileComponent
+      UserProfileComponent,
+      Error404Component,
   ],
   entryComponents: [
       ModalCongratulationComponent,
@@ -108,6 +109,9 @@ import { CartItemComponent } from './components/modals/cart/cart-item/cart-item.
       Ng2SmartTableModule,
       ChartsModule,
       [TabsModule.forRoot()],
+      [TabsModule.forRoot()],
+      ChartsModule,
+
   ],
   providers: [PagerService],
   bootstrap: [AppComponent]
