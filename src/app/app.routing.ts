@@ -17,6 +17,8 @@ import {AdminProductListComponent} from './components/admin-product-list/admin-p
 import {AdminUsersComponent} from './components/admin-users/admin-users.component';
 import {ProductpageComponent} from './components/productlist/productpage/productpage.component';
 import { AdminProductPageComponent } from './components/admin-product-list/admin-product-page/admin-product-page.component';
+import {UserProfileComponent} from './components/user-profile/user-profile.component';
+
 import {Error404Component} from "./components/error404/error404.component";
 
 const appRoutes: Routes = [
@@ -31,6 +33,7 @@ const appRoutes: Routes = [
       ]},
       { path: 'aboutus', component: AboutusComponent},
       { path: 'checkout', component: CheckoutComponent},
+      { path: 'profile', component: UserProfileComponent},
   { path: 'admin', children:[
       {path:'',component: AdminMainComponent},
       { path: 'orders', component: AdminOrdersComponent},

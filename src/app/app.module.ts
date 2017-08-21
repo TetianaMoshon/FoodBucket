@@ -20,6 +20,7 @@ import { NewAccountComponent } from './components/modals/new-account/new-account
 import { AboutusComponent } from './components/aboutus/aboutus.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { SliderComponent } from './components/slider/slider.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { TopComponent } from './components/home/top/top.component';
 import { AdminMainComponent } from './components/adminmain/adminmain.component';
 import { AdminnavbarComponent } from './components/adminnavbar/adminnavbar.component';
@@ -34,10 +35,11 @@ import { CongratulationComponent } from './components/modals/congratulation/cong
 import { ForgotPassComponent } from './components/modals/forgot-pass/forgot-pass.component';
 import { ConfirmationComponent } from './components/modals/confirmation/confirmation.component';
 import { ProductpageComponent } from './components/productlist/productpage/productpage.component';
+import {ImageRenderComponent} from './components/admin-ingredients/image-render.component';
 import { AdminProductPageComponent } from './components/admin-product-list/admin-product-page/admin-product-page.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { TabsModule } from 'ngx-bootstrap';
-import {PagerService} from "./services/pagination.service";
+import {PagerService} from './services/pagination.service';
 import { CartBoxComponent } from './components/modals/cart/cart-box/cart-box.component';
 import { CartItemComponent } from './components/modals/cart/cart-item/cart-item.component';
 import { Error404Component } from './components/error404/error404.component';
@@ -79,15 +81,18 @@ import { Error404Component } from './components/error404/error404.component';
       CartBoxComponent,
       CartItemComponent,
       AdminProductPageComponent,
+      ImageRenderComponent,
+      UserProfileComponent,
       Error404Component,
   ],
   entryComponents: [
       ModalCongratulationComponent,
       LoginComponent,
-      NewAccountComponent,
       CongratulationComponent,
       ForgotPassComponent,
       ConfirmationComponent,
+      NewAccountComponent,
+      ImageRenderComponent,
       CartBoxComponent,
   ],
   imports: [
