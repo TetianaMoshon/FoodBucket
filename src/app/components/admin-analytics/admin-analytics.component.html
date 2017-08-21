@@ -1,3 +1,118 @@
-<p>
-  admin-analytics works!
-</p>
+<app-adminnavbar></app-adminnavbar>
+<div class="analytics">
+        <div class="total">
+            <div class="row">
+                <div class="order col-sm-6 col-md-3">
+                    <h3 class="title">total order</h3>
+                    <div class="content">
+                        <div class="icon-wrapper">
+                            <img src="/assets/icons/total_order.svg" alt="" class="icon">
+                        </div>
+                        <p>123</p>
+                    </div>
+                </div>
+                <div class="complited-order col-sm-6 col-md-3">
+                    <h3 class="title">complited order</h3>
+                    <div class="content">
+                        <div class="icon-wrapper">
+                            <img src="/assets/icons/complited_order.svg" alt="" class="icon">
+                        </div>
+                        <p>120</p>
+                    </div>
+                </div>
+                <div class="cash-per-day col-sm-6 col-md-3">
+                    <h3 class="title">cash</h3>
+                    <div class="content">
+                        <div class="icon-wrapper">
+                            <img src="/assets/icons/cash.svg" alt="" class="icon">
+                        </div>
+                        <p>45</p>
+                    </div>
+                </div>
+                <div class="users col-sm-6 col-md-3 ">
+                    <h3 class="title">users</h3>
+                    <div class="content">
+                        <div class="icon-wrapper">
+                            <img src="/assets/icons/users.svg" alt="" class="icon">
+                        </div>
+                        <p>45</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="charts">
+            <div class="row">
+                <div class="orders col-sm-12 col-md-6">
+                    <h3 class="title">orders</h3>
+                    <div>
+                        <canvas baseChart
+                                [datasets]="chartOrdersData"
+                                [labels]="chartOrdersLabels"
+                                [options]="chartOrdersOptions"
+                                [colors]="chartOrdersColors"
+                                [legend]="chartOrdersLegend"
+                                [chartType]="chartOrdersType"></canvas>
+                    </div>
+                </div>
+                <div class="cash  col-sm-12 col-md-6">
+                    <h3 class="title">cash</h3>
+                    <div>
+                        <canvas baseChart
+                                [datasets]="chartCashData"
+                                [labels]="chartCashLabels"
+                                [options]="chartCashOptions"
+                                [colors]="chartCashColors"
+                                [legend]="chartCashLegend"
+                                [chartType]="chartCashType"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="additional">
+            <div class="row">
+                <div class="doughnut col-sm-12 col-md-6">
+                    <div class="row">
+                        <div class="gender  col-sm-6 col-md-6">
+                            <h3 class="title">gender</h3>
+                            <div>
+                                <canvas baseChart
+                                        [data]="doughnutGenderData"
+                                        [labels]="doughnutGenderLabels"
+                                        [chartType]="doughnutType"
+                                        [colors]="doughnutColors">
+                                </canvas>
+                            </div>
+                        </div>
+                        <div class="category col-sm-6 col-md-6">
+                            <h3 class="title">categories</h3>
+                            <div>
+                                <canvas baseChart
+                                        [data]="doughnutCategoryData"
+                                        [labels]="doughnutCategoryLabels"
+                                        [chartType]="doughnutType"
+                                [colors]="doughnutColors"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bar  col-sm-12 col-md-6">
+                    <div class="row">
+                        <div class="promotion col-md-12">
+                            <h3 class="title">promo</h3>
+                            <div>
+                                <canvas baseChart
+                                        [datasets]="barChartData"
+                                        [labels]="barChartLabels"
+                                        [options]="barChartOptions"
+                                        [legend]="barChartLegend"
+                                        [chartType]="barChartType"
+                                        [colors]="barChartColors">
+                                </canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+

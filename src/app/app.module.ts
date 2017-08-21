@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { AgmCoreModule } from '@agm/core';
+import { DisqusModule } from 'ngx-disqus';
+import { ChartsModule } from 'ng2-charts';
 
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
@@ -26,6 +28,7 @@ import { AdminMainComponent } from './components/adminmain/adminmain.component';
 import { AdminnavbarComponent } from './components/adminnavbar/adminnavbar.component';
 import { AdmincategoriesComponent } from './components/admincategories/admincategories.component';
 import { AdminProductListComponent } from './components/admin-product-list/admin-product-list.component';
+import { AdminProductListImageComponent } from './components/admin-product-list/admin-product-list-image.component';
 import { AdminIngredientsComponent } from './components/admin-ingredients/admin-ingredients.component';
 import { AdminOrdersComponent } from './components/admin-orders/admin-orders.component';
 import { AdminUsersComponent } from './components/admin-users/admin-users.component';
@@ -37,11 +40,16 @@ import { ConfirmationComponent } from './components/modals/confirmation/confirma
 import { ProductpageComponent } from './components/productlist/productpage/productpage.component';
 import {ImageRenderComponent} from './components/admin-ingredients/image-render.component';
 import { AdminProductPageComponent } from './components/admin-product-list/admin-product-page/admin-product-page.component';
+
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { TabsModule } from 'ngx-bootstrap';
-import {PagerService} from './services/pagination.service';
+import {PagerService} from "./services/pagination.service";
 import { CartBoxComponent } from './components/modals/cart/cart-box/cart-box.component';
 import { CartItemComponent } from './components/modals/cart/cart-item/cart-item.component';
+import { Error404Component } from './components/error404/error404.component';
+import { DisqusComponent } from './components/disqus/disqus.component';
+import { CommentsService } from './services/comments.service';
+import { OrdersFiltersPipe } from './pipes/orders-filters.pipe';
 
 @NgModule({
   declarations: [
@@ -68,6 +76,7 @@ import { CartItemComponent } from './components/modals/cart/cart-item/cart-item.
       AdminnavbarComponent,
       AdmincategoriesComponent,
       AdminProductListComponent,
+      AdminProductListImageComponent,
       AdminIngredientsComponent,
       AdminOrdersComponent,
       AdminUsersComponent,
@@ -80,8 +89,11 @@ import { CartItemComponent } from './components/modals/cart/cart-item/cart-item.
       CartBoxComponent,
       CartItemComponent,
       AdminProductPageComponent,
+      DisqusComponent,
       ImageRenderComponent,
-      UserProfileComponent
+      UserProfileComponent,
+      Error404Component,
+      OrdersFiltersPipe,
   ],
   entryComponents: [
       ModalCongratulationComponent,
@@ -91,6 +103,7 @@ import { CartItemComponent } from './components/modals/cart/cart-item/cart-item.
       ConfirmationComponent,
       NewAccountComponent,
       ImageRenderComponent,
+      AdminProductListImageComponent,
       CartBoxComponent,
   ],
   imports: [
@@ -99,14 +112,15 @@ import { CartItemComponent } from './components/modals/cart/cart-item/cart-item.
       CollapseModule,
       FormsModule,
       appRouting,
+      DisqusModule.forRoot('foodbucket-com-1'),
       AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDgXQMgwN1IOu9c6ZyHjqiVzaB9JXhIoTA'
     }),
       Ng2SmartTableModule,
-      [TabsModule.forRoot()]
-
+      ChartsModule,
+      [TabsModule.forRoot()],
   ],
-  providers: [PagerService],
+  providers: [PagerService, CommentsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

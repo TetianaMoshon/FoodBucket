@@ -22,9 +22,11 @@ export class NavbarComponent implements OnInit {
     public openNewAccount() {
         this.modalService.show(NewAccountComponent);
     }
+
     public openLoginModal() {
         this.modalService.show(LoginComponent);
     }
+
     public openCartModal() {
         this.modalService.show(CartBoxComponent);
     }

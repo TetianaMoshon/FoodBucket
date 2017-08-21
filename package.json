@@ -6,15 +6,15 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test single-run true, --watch",
-    "test-ci": "ng test",
+    "test": "ng test --browser Chrome",
+    "test-ci": "ng test single-run true --watch=false --browser PhantomJS",
     "lint": "ng lint",
     "e2e": "ng e2e",
     "nodebuild": "ng build && node server.js",
     "swagger-codegen": "java -jar api/swagger-codegen-cli.jar generate -i api/swagger/swagger.yaml -l nodejs-server -o api/ -Dservice",
     "swagger-edit": "swagger project edit",
-    "windows-codegen":"get_codegen.bat",
-    "linux-codegen":"bash get_codegen.sh"
+    "windows-codegen": "get_codegen.bat",
+    "linux-codegen": "bash get_codegen.sh"
   },
   "private": true,
   "dependencies": {
@@ -33,16 +33,20 @@
     "axios": "^0.16.2",
     "body-parser": "^1.17.2",
     "bootstrap": "^3.3.7",
+    "chart.js": "^2.6.0",
     "core-js": "^2.4.1",
     "cors": "^2.8.4",
     "express": "^4.15.3",
+    "express-healthcheck": "0.1.0",
+    "intl": "^1.2.5",
     "jquery": "^3.2.1",
-    "ng2-smart-table": "^1.2.1",
-    "ngx-bootstrap": "^1.8.1",
     "js-yaml": "^3.3.0",
-    "ng2-smart-table": "^1.2.1",
     "lodash": "^4.17.4",
+    "ng2-charts": "^1.6.0",
+    "ng2-smart-table": "^1.2.1",
+    "ng2-charts": "^1.6.0",
     "ngx-bootstrap": "^1.8.0",
+    "ngx-disqus": "^2.1.1",
     "rxjs": "^5.1.0",
     "swagger-tools": "0.10.1",
     "zone.js": "^0.8.4"
@@ -64,9 +68,18 @@
     "karma-coverage-istanbul-reporter": "^1.2.1",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "karma-phantomjs-launcher": "^1.0.4",
+    "phantomjs-prebuilt": "^2.1.15",
     "protractor": "~5.1.2",
     "ts-node": "~3.0.4",
     "tslint": "~5.3.2",
     "typescript": "~2.3.3"
+  },
+  "bugs": {
+      "url": "https://gitlab.com/kv026webui/FoodBucket/issues"
+  },
+  "repository": {
+      "type": "git",
+      "url": "git+https://gitlab.com/kv026webui/FoodBucket.git"
   }
 }
