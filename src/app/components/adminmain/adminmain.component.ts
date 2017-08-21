@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Color} from 'ng2-charts';
 
 @Component({
   selector: 'app-adminmain',
@@ -6,28 +7,52 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./adminmain.component.css']
 })
 export class AdminMainComponent implements OnInit {
-    ///chart-bar
-    public barChartOptions:any = {
+    public barChartOptions: any = {
         scaleShowVerticalLines: false,
         responsive: true
     };
-    public barChartLabels:string[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
-    public barChartType:string = 'bar';
-    public barChartLegend:boolean = true;
-
-    public barChartData:any[] = [
-        {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
-        {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'}
+    public doughnutChartLabels: string[] = ['Pastas', 'Apple', 'Salad'];
+    public doughnutChartType = 'doughnut';
+    public doughnutChartData: Array<number> = [35, 45, 10];
+    public colorsEmptyObject: Array<Color> = [{}];
+    public datasets: any[] = [
+        {
+            data: this.doughnutChartData,
+            backgroundColor: [
+                '#E85013',
+                '#64D678',
+                '#19D2E8'
+            ],
+            hoverBackgroundColor: [
+                '#BA400F',
+                '#A6BA13',
+                '#14A9BA'
+            ]
+        }];
+    public lineChartData: Array <any> = [
+        {data: [65, 59, 80, 98], label: 'Orders'},
+        {data: [28, 35, 40, 55], label: 'Users'}
     ];
-
-    //chart-line
-    public lineChartData:Array<any> = [
-        [65, 59, 80, 81, 56, 55, 40],
-        [28, 48, 40, 19, 86, 27, 90]
-    ];
-    public lineChartLabels:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-    public lineChartType:string = 'line';
-
+    public lineChartLabels: Array <any> = ['May', 'June', 'July', 'August'];
+    public lineChartType = 'line';
+    public lineChartLegend = true;
+    public lineChartColors: Array<any> = [
+        {
+            backgroundColor: 'rgba(148,159,177,0)',
+            borderColor: '#BA400F',
+            pointBackgroundColor: '#BA400F',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: '#BA400F'
+        },
+        {
+            backgroundColor: 'rgba(77,83,96,0)',
+            borderColor: '#51AB60',
+            pointBackgroundColor: '#51AB60',
+            pointBorderColor: '#fff',
+            pointHoverBackgroundColor: '#fff',
+            pointHoverBorderColor: '#64D678'
+        }];
     constructor() { }
 
     ngOnInit() {
