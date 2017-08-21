@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { BsModalService } from 'ngx-bootstrap/modal';
 
-import {LoginComponent} from "../modals/login/login.component";
-import {NewAccountComponent} from "../modals/new-account/new-account.component";
-import {CartBoxComponent} from "../modals/cart/cart-box/cart-box.component";
+import {LoginComponent} from '../modals/login/login.component';
+import {NewAccountComponent} from '../modals/new-account/new-account.component';
+import {CartBoxComponent} from '../modals/cart/cart-box/cart-box.component';
 
 
 @Component({
@@ -14,14 +14,13 @@ import {CartBoxComponent} from "../modals/cart/cart-box/cart-box.component";
 export class NavbarComponent implements OnInit {
 
     isCollapsed = true;
-
-    constructor(public modalService: BsModalService) { }
+    constructor(private modalService: BsModalService) { }
 
     ngOnInit() {
     }
 
     public openNewAccount() {
-	        this.modalService.show(NewAccountComponent);
+        this.modalService.show(NewAccountComponent);
     }
 
     public openLoginModal() {

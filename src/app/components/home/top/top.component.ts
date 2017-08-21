@@ -57,8 +57,9 @@ export class TopComponent implements OnInit {
     slideToTheLeft() {
         this.sourceForPreviousImage = this.ListOfImageLinks[this.initialSourceForNextImage];
         this.sourceForNextImage = this.ListOfImageLinks[this.initialSourceForPreviousImage];
-        this.sourceForPreviousImage = this.ListOfImageLinks[ this.initialSourceForPreviousImage === 0  ? this.quantityOfPhotos - this.counter :
-            this.initialSourceForPreviousImage - this.counter
+        this.sourceForPreviousImage = this.ListOfImageLinks[ this.initialSourceForPreviousImage
+        === 0  ? this.quantityOfPhotos - this.counter :
+        this.initialSourceForPreviousImage - this.counter
             ];
 
         this.initialSourceForNextImage = this.initialSourceForPreviousImage;
