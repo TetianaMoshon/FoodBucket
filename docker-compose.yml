@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+  mongo:
+    image: bitnami/mongodb
+    cpu_shares: 100
+    mem_limit: 524288000
+    ports:
+      - "27017"
+    environment:
+      - MONGODB_USERNAME=${USER}
+      - MONGODB_PASSWORD=${PASS}
+      - MONGODB_DATABASE=${DB}
+  foodbucket:
+    image: registry.gitlab.com/kv026webui/foodbucket:latest
+    cpu_shares: 100
+    mem_limit: 268400000
+    ports:
+      - "80:80"
+    links:
+      - mongo
