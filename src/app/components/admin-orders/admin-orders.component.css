@@ -4,8 +4,14 @@ thead {
     font-family: Oswald, sans-serif;
     border: 1px solid gray;
 }
+
+h1 {
+    font-family: Oswald;
+}
+
 thead th {
     border: 1px solid gray;
+    font-size: 19px;
 }
 td.gray-border {
     vertical-align: middle;
@@ -19,8 +25,17 @@ td.nohover:hover {
 hr {
     margin-top:0;
     border-top: 1px solid gray;
-
 }
+
+button.btn-primary {
+    font-family: Roboto;
+}
+
+tbody tr td {
+    font-size: 16px;
+    font-family: Roboto;
+}
+
 tbody tr:hover {
     background-color: rgb(219, 219, 228);
 }

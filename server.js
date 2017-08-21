@@ -6,23 +6,23 @@ const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
 
-var fs = require('fs');
-var cors = require('cors');
+let fs = require('fs');
+let cors = require('cors');
 
-var swaggerTools = require('swagger-tools');
-var jsyaml = require('js-yaml');
-var serverPort = process.env.PORT || '3000';
+let swaggerTools = require('swagger-tools');
+let jsyaml = require('js-yaml');
+let serverPort = process.env.PORT || '3000';
 
 // swaggerRouter configuration
-var options = {
+let options = {
     swaggerUi: path.join(__dirname, '/swagger.json'),
     controllers: path.join(__dirname, '/api/controllers'),
     useStubs: process.env.NODE_ENV === 'development' // Conditionally turn on stubs (mock mode)
 };
 
 // The Swagger document (require it, build it programmatically, fetch it from a URL, ...)
-var spec = fs.readFileSync(path.join(__dirname,'/api/swagger/swagger.yaml'), 'utf8');
-var swaggerDoc = jsyaml.safeLoad(spec);
+let spec = fs.readFileSync(path.join(__dirname,'/api/swagger/swagger.yaml'), 'utf8');
+let swaggerDoc = jsyaml.safeLoad(spec);
 
 const app = express();
 
@@ -50,6 +50,12 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
 
     // Serve the Swagger documents and Swagger UI
     app.use(middleware.swaggerUi());
+    // Required by AWS Container Service to see if the container is alive
+    app.use('/healthcheck', require('express-healthcheck')({
+        healthy: function () {
+            return { everything: 'is ok' };
+        }
+    }));
 
     // Catch all other routes and return the index file
     app.all('*', function(req, res) {
