@@ -44,7 +44,6 @@
     "lodash": "^4.17.4",
     "ng2-charts": "^1.6.0",
     "ng2-smart-table": "^1.2.1",
-    "ng2-charts": "^1.6.0",
     "ngx-bootstrap": "^1.8.0",
     "ngx-disqus": "^2.1.1",
     "rxjs": "^5.1.0",
@@ -76,10 +75,10 @@
     "typescript": "~2.3.3"
   },
   "bugs": {
-      "url": "https://gitlab.com/kv026webui/FoodBucket/issues"
+    "url": "https://gitlab.com/kv026webui/FoodBucket/issues"
   },
   "repository": {
-      "type": "git",
-      "url": "git+https://gitlab.com/kv026webui/FoodBucket.git"
+    "type": "git",
+    "url": "git+https://gitlab.com/kv026webui/FoodBucket.git"
   }
 }

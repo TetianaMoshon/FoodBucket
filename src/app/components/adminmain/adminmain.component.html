@@ -4,28 +4,48 @@
 <div class="wrap">
     <h2>Dashboard</h2>
     <hr/>
-    <div class="row text-center main-info">
+    <div class="row text-center main-wrap">
         <div class="col-xs-12 col-sm-4">
-            <div class="wrap-border">
-                <h3>Orders</h3>
-                <div class="number"><span class="glyphicon glyphicon-usd"></span> 35</div>
+            <div class="wrap-border row orders">
+                <div class="col-xs-12 col-sm-6 wrap_icon">
+                    <span class="glyphicon glyphicon-usd"></span>
+                </div>
+                <div class="number col-xs-12 col-sm-6">
+                    <h3>Orders</h3>
+                    {{orders}}</div>
+            </div>
+            <div class="wrap-border row comments">
+                <div class="col-xs-12 col-sm-6 wrap_icon">
+                    <span class="glyphicon glyphicon-comment"></span>
+                </div>
+                <div class="number  col-xs-12 col-sm-6">
+                    <h3>Comments</h3>
+                    {{comments}}</div>
             </div>
         </div>
         <div class="col-xs-12 col-sm-4">
-            <div class="wrap-border">
-                <h3>Comments</h3>
-                <div class="number"><span class="glyphicon glyphicon-comment"></span> 128</div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-4">
-            <div class="wrap-border">
+            <div class="wrap-charts">
                 <h3>Top products</h3>
                 <div style="display: block;">
-                    <canvas baseChart height="160"
+                    <canvas baseChart height="180"
                             [labels]="doughnutChartLabels"
                             [options]="barChartOptions"
                             [chartType]="doughnutChartType"
                             [datasets]="datasets"
+                            [colors]="colorsEmptyObject"
+                    ></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-4">
+            <div class="wrap-charts">
+                <h3>Top categories</h3>
+                <div style="display: block;">
+                    <canvas baseChart height="180"
+                            [labels]="doughnutChartLabelsCategory"
+                            [options]="barChartOptions"
+                            [chartType]="doughnutChartType"
+                            [datasets]="datasetsCategory"
                             [colors]="colorsEmptyObject"
                             ></canvas>
                 </div>
@@ -33,7 +53,7 @@
         </div>
     </div>
     <div class="row text-center">
-        <div class="col-xs-12 col-sm-8 col-sm-offset-2">
+        <div class="col-xs-12 col-sm-4">
             <h3>Products we will need soon</h3>
             <table class="table products-table">
                 <thead>
@@ -44,31 +64,30 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td>meat</td>
+                    <td>Pork</td>
                     <td>2</td>
                 </tr>
-                <tr><td>onion</td>
+                <tr><td>Onion</td>
                     <td>5</td>
                 </tr>
                 <tr>
-                    <td>apple</td>
+                    <td>Apple</td>
                     <td>9</td>
                 </tr>
                 </tbody>
             </table>
         </div>
-    </div>
-    <div class="row text-center">
-        <div class="col-xs-12 col-sm-8 col-sm-offset-2">
-    <h3>Users</h3>
-        <div class="chart_users">
-            <canvas baseChart
-                    [datasets]="lineChartData"
-                    [labels]="lineChartLabels"
-                    [chartType]="lineChartType"
-                    [legend]="lineChartLegend"
-                    [colors]="lineChartColors"
-                    ></canvas>
+        <div class="col-xs-12 col-sm-8" >
+            <h3>Users</h3>
+            <div class="chart_users">
+                <canvas baseChart
+                        [datasets]="lineChartData"
+                        [labels]="lineChartLabels"
+                        [chartType]="lineChartType"
+                        [legend]="lineChartLegend"
+                        [colors]="lineChartColors"
+                ></canvas>
+            </div>
         </div>
-        </div></div>
+    </div>
 </div>
