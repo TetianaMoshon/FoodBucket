@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { AgmCoreModule } from '@agm/core';
+import { DisqusModule } from 'ngx-disqus';
 import { ChartsModule } from 'ng2-charts';
 
 import { FormsModule } from '@angular/forms';
@@ -40,10 +41,12 @@ import {ImageRenderComponent} from './components/admin-ingredients/image-render.
 import { AdminProductPageComponent } from './components/admin-product-list/admin-product-page/admin-product-page.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { TabsModule } from 'ngx-bootstrap';
-import {PagerService} from './services/pagination.service';
+import {PagerService} from "./services/pagination.service";
 import { CartBoxComponent } from './components/modals/cart/cart-box/cart-box.component';
 import { CartItemComponent } from './components/modals/cart/cart-item/cart-item.component';
 import { Error404Component } from './components/error404/error404.component';
+import { DisqusComponent } from './components/disqus/disqus.component';
+import { CommentsService } from './services/comments.service';
 
 @NgModule({
   declarations: [
@@ -82,6 +85,7 @@ import { Error404Component } from './components/error404/error404.component';
       CartBoxComponent,
       CartItemComponent,
       AdminProductPageComponent,
+      DisqusComponent,
       ImageRenderComponent,
       UserProfileComponent,
       Error404Component,
@@ -102,6 +106,7 @@ import { Error404Component } from './components/error404/error404.component';
       CollapseModule,
       FormsModule,
       appRouting,
+      DisqusModule.forRoot('foodbucket-com-1'),
       AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDgXQMgwN1IOu9c6ZyHjqiVzaB9JXhIoTA'
     }),
@@ -110,7 +115,7 @@ import { Error404Component } from './components/error404/error404.component';
       ChartsModule,
 
   ],
-  providers: [PagerService],
+  providers: [PagerService, CommentsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

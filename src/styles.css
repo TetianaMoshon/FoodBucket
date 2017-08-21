@@ -112,66 +112,51 @@ body { padding-top: 50px; }
     text-decoration: none;
     vertical-align: middle;
 }
-
 .table-wrap ng2-smart-table table  tr a.ng2-smart-action-delete-delete, a.ng2-smart-action-edit-cancel {
     background: rgba(171, 62, 38, 0.84);
 }
-
 .table-wrap ng2-smart-table table  tr a.ng2-smart-action-delete-delete:hover {
     background: rgba(133, 61, 37, 0.84);
 }
-
 .table-wrap ng2-smart-table table  tr a.ng2-smart-action-edit-edit {
     background: #578ebd;
 }
-
 .table-wrap ng2-smart-table table  tr a.ng2-smart-action-edit-edit:hover {
     background: #5072a0;
 }
-
 .table-wrap ng2-smart-table table  tr  a.ng2-smart-action-edit-cancel {
     background: rgba(171, 62, 38, 0.84);
     padding: 8px 14px;
 }
-
 .table-wrap ng2-smart-table table  tr  a.ng2-smart-action-edit-cancel:hover {
     background: rgba(133, 61, 37, 0.84);
 }
-
 .table-wrap ng2-smart-table table  tr  a.ng2-smart-action-edit-save {
     padding: 8px 14px;
 }
-
 .table-wrap ng2-smart-table table  tr  a.ng2-smart-action-edit-save:hover {
     background: #3b5263;
 }
-
 .table-wrap ng2-smart-table table  tr  a.ng2-smart-action-add-create {
     padding: 8px 14px;
     background: #578ebd;
 }
-
 .table-wrap ng2-smart-table table  tr  a.ng2-smart-action-add-create:hover {
     background: #5072a0;
 }
-
 .table-wrap ng2-smart-table table  tr  a.ng2-smart-action-add-cancel {
     padding: 8px 14px;
     background: rgba(171, 62, 38, 0.84);
 }
-
 .table-wrap ng2-smart-table table  tr  a.ng2-smart-action-add-cancel:hover {
     background: rgba(133, 61, 37, 0.84);
 }
-
 .table-wrap ng2-smart-table-pager li a.ng2-smart-page-link {
     font-size: 14px;
 }
-
 .table-wrap ng2-smart-table-pager li.active {
     font-size: 14px;
 }
-
 .table-wrap ng2-smart-table table thead tr.ng2-smart-filters a:hover {
     border: 1px solid #0a3c59;
     text-shadow: #1e4158 0 1px 0;
