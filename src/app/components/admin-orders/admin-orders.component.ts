@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {PagerService} from '../../services/pagination.service';
-
+import {Order} from "../../models/order";
 
 @Component({
   selector: 'app-admin-orders',
@@ -9,189 +9,164 @@ import {PagerService} from '../../services/pagination.service';
 })
 export class AdminOrdersComponent implements OnInit {
     showHide: boolean;
-array = [{
+orders: Order[] = [{
     'date': '27/05/2015',
-    'id': '1',
+    'id': 1,
     'name': 'John',
     'food': 'pizza,pasta,salad',
-    'tel': '0682839534',
-    'price': '13,37$',
+    'tel': 345,
+    'price': 1337 ,
     'status': 'delivered',
 },
     {
         'date': '27/05/2015',
-        'id': '2',
+        'id': 2,
         'name': 'John',
         'food': 'pizza,pasta,salad',
-        'tel': '0682839534',
-        'price': '13,37$',
+        'tel': 345,
+        'price': 1337 ,
         'status': 'delivered',
     },
     {
         'date': '27/05/2015',
-        'id': '3',
+        'id': 3,
         'name': 'John',
         'food': 'pizza,pasta,salad',
-        'tel': '0682839534',
-        'price': '13,37$',
+        'tel': 345,
+        'price': 1337 ,
         'status': 'delivered',
     },
     {
         'date': '27/05/2015',
-        'id': '4',
+        'id': 4,
         'name': 'John',
         'food': 'pizza,pasta,salad',
-        'tel': '0682839534',
-        'price': '13,37$',
+        'tel': 345,
+        'price': 1337 ,
         'status': 'delivered',
     },
     {
         'date': '27/05/2015',
-        'id': '5',
+        'id': 5,
         'name': 'John',
         'food': 'pizza,pasta,salad',
-        'tel': '0682839534',
-        'price': '13,37$',
+        'tel': 345,
+        'price': 1337 ,
         'status': 'delivered',
     },
     {
         'date': '27/05/2015',
-        'id': '6',
+        'id': 6,
         'name': 'John',
         'food': 'pizza,pasta,salad',
-        'tel': '0682839534',
-        'price': '13,37$',
+        'tel': 345,
+        'price': 1337 ,
         'status': 'delivered',
     },
     {
         'date': '27/05/2015',
-        'id': '7',
+        'id': 7,
         'name': 'John',
         'food': 'pizza,pasta,salad',
-        'tel': '0682839534',
-        'price': '13,37$',
+        'tel': 345,
+        'price': 1337 ,
         'status': 'delivered',
     },
     {
         'date': '27/05/2015',
-        'id': '8',
+        'id': 8,
         'name': 'John',
         'food': 'pizza,pasta,salad',
-        'tel': '0682839534',
-        'price': '13,37$',
+        'tel': 345,
+        'price': 1337 ,
         'status': 'delivered',
     },
     {
         'date': '27/05/2015',
-        'id': '9',
+        'id': 9,
         'name': 'John',
         'food': 'pizza,pasta,salad',
-        'tel': '0682839534',
-        'price': '13,37$',
+        'tel': 345,
+        'price': 1337 ,
         'status': 'delivered',
     },
     {
         'date': '27/05/2015',
-        'id': '10',
+        'id': 10,
         'name': 'John',
         'food': 'pizza,pasta,salad',
-        'tel': '0682839534',
-        'price': '13,37$',
+        'tel': 345,
+        'price': 1337 ,
         'status': 'delivered',
     },
     {
         'date': '27/05/2015',
-        'id': '11',
+        'id': 11,
         'name': 'John',
         'food': 'pizza,pasta,salad',
-        'tel': '0682839534',
-        'price': '13,37$',
+        'tel': 345,
+        'price': 1337 ,
         'status': 'delivered',
     },
     {
         'date': '27/05/2015',
-        'id': '12',
+        'id': 12,
         'name': 'John',
         'food': 'pizza,pasta,salad',
-        'tel': '0682839534',
-        'price': '13,37$',
+        'tel': 345,
+        'price': 1337 ,
         'status': 'delivered',
     },
     {
         'date': '27/05/2015',
-        'id': '13',
+        'id': 13,
         'name': 'John',
         'food': 'pizza,pasta,salad',
-        'tel': '0682839534',
-        'price': '13,37$',
+        'tel': 345,
+        'price': 1337 ,
         'status': 'delivered',
     },
     {
         'date': '27/05/2015',
-        'id': '14',
+        'id': 14,
         'name': 'John',
         'food': 'pizza,pasta,salad',
-        'tel': '0682839534',
-        'price': '13,37$',
+        'tel': 345,
+        'price': 1337 ,
         'status': 'delivered',
     },
     {
         'date': '27/05/2015',
-        'id': '15',
+        'id': 15,
         'name': 'John',
         'food': 'pizza,pasta,salad',
-        'tel': '0682839534',
-        'price': '13,37$',
+        'tel': 345,
+        'price': 1337 ,
         'status': 'delivered',
     },
     {
         'date': '27/05/2015',
-        'id': '16',
+        'id': 16,
         'name': 'John',
         'food': 'pizza,pasta,salad',
-        'tel': '0682839534',
-        'price': '13,37$',
+        'tel': 345,
+        'price': 1337 ,
         'status': 'delivered',
     },
     {
         'date': '27/05/2015',
-        'id': '17',
+        'id':17,
         'name': 'John',
         'food': 'pizza,pasta,salad',
-        'tel': '0682839534',
-        'price': '13,37$',
+        'tel': 345,
+        'price': 1337 ,
         'status': 'delivered',
     },
-    {
-        'date': '27/05/2015',
-        'id': '18',
-        'name': 'John',
-        'food': 'pizza,pasta,salad',
-        'tel': '0682839534',
-        'price': '13,37$',
-        'status': 'delivered',
-    },
-    {
-        'date': '27/05/2015',
-        'id': '19',
-        'name': 'John',
-        'food': 'pizza,pasta,salad',
-        'tel': '0682839534',
-        'price': '13,37$',
-        'status': 'delivered',
-    },
-    {
-        'date': '27/05/2015',
-        'id': '20',
-        'name': 'John',
-        'food': 'pizza,pasta,salad',
-        'tel': '0682839534',
-        'price': '13,37$',
-        'status': 'delivered',
-    }];
+
+];
 pager: any = {};
 pagedItems: any[];
-
+filter: Order = new Order();
   constructor(private pagerService: PagerService) {
       this.showHide = false;
   }
@@ -204,7 +179,7 @@ setPage(page: number) {
           return;
       }
 
-      this.pager = this.pagerService.getPager(this.array.length, page);
-      this.pagedItems = this.array.slice(this.pager.startIndex, this.pager.endIndex + 1);
+      this.pager = this.pagerService.getPager(this.orders.length, page);
+      this.pagedItems = this.orders.slice(this.pager.startIndex, this.pager.endIndex + 1);
 }
 }

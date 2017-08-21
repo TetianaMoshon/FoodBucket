@@ -49,6 +49,7 @@ import { CartItemComponent } from './components/modals/cart/cart-item/cart-item.
 import { Error404Component } from './components/error404/error404.component';
 import { DisqusComponent } from './components/disqus/disqus.component';
 import { CommentsService } from './services/comments.service';
+import { OrdersFiltersPipe } from './pipes/orders-filters.pipe';
 
 @NgModule({
   declarations: [
@@ -92,6 +93,7 @@ import { CommentsService } from './services/comments.service';
       ImageRenderComponent,
       UserProfileComponent,
       Error404Component,
+      OrdersFiltersPipe,
   ],
   entryComponents: [
       ModalCongratulationComponent,
