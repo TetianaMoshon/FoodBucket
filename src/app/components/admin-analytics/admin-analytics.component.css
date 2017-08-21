@@ -1,7 +1,6 @@
 .analytics {
     box-sizing: border-box;
     padding: 0 10%;
-    outline: 1px solid red;
 }
 
 .analytics > div {
