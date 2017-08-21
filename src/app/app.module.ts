@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { AgmCoreModule } from '@agm/core';
+import { DisqusModule } from 'ngx-disqus';
 
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
@@ -37,9 +38,12 @@ import { ProductpageComponent } from './components/productlist/productpage/produ
 import { AdminProductPageComponent } from './components/admin-product-list/admin-product-page/admin-product-page.component';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { TabsModule } from 'ngx-bootstrap';
-import {PagerService} from "./services/pagination.service";
 import { CartBoxComponent } from './components/modals/cart/cart-box/cart-box.component';
 import { CartItemComponent } from './components/modals/cart/cart-item/cart-item.component';
+import { DisqusComponent } from './components/disqus/disqus.component';
+
+import {PagerService} from './services/pagination.service';
+import { CommentsService } from './services/comments.service';
 
 @NgModule({
   declarations: [
@@ -78,6 +82,7 @@ import { CartItemComponent } from './components/modals/cart/cart-item/cart-item.
       CartBoxComponent,
       CartItemComponent,
       AdminProductPageComponent,
+      DisqusComponent,
   ],
   entryComponents: [
       ModalCongratulationComponent,
@@ -94,6 +99,7 @@ import { CartItemComponent } from './components/modals/cart/cart-item/cart-item.
       CollapseModule,
       FormsModule,
       appRouting,
+      DisqusModule.forRoot('foodbucket-com-1'),
       AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDgXQMgwN1IOu9c6ZyHjqiVzaB9JXhIoTA'
     }),
@@ -101,7 +107,7 @@ import { CartItemComponent } from './components/modals/cart/cart-item/cart-item.
       [TabsModule.forRoot()]
 
   ],
-  providers: [PagerService],
+  providers: [PagerService, CommentsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
