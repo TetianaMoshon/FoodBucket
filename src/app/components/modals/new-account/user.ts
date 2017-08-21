@@ -1,9 +1,9 @@
-export class User{
+export class User {
 
     constructor(
-        public name:string,
-        public surname:string,
-        public email:string,
-        public password:any,
-    ){}
+        public name: string,
+        public surname: string,
+        public email: string,
+        public password: any,
+    ) {}
 }
