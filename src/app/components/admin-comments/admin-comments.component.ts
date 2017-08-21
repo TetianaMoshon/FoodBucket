@@ -22,7 +22,7 @@ export class AdminCommentsComponent implements OnInit {
         hideSubHeader: true,
         pager: {
             display: true,
-            perPage: 4,
+            perPage: 5,
         },
         columns: {
             comment_id: {

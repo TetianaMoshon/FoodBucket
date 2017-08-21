@@ -291,12 +291,6 @@ body { padding-top: 50px; }
     position: relative;
 }
 
-.pagination{
-    position: absolute;
-    right: 0;
-    bottom: -60px;
-    z-index: 1000;
-}
 /*styles for carousel*/
 .carousel-control{
     font-size: 24px;
