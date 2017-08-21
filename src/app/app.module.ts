@@ -39,6 +39,7 @@ import { ConfirmationComponent } from './components/modals/confirmation/confirma
 import { ProductpageComponent } from './components/productlist/productpage/productpage.component';
 import {ImageRenderComponent} from './components/admin-ingredients/image-render.component';
 import { AdminProductPageComponent } from './components/admin-product-list/admin-product-page/admin-product-page.component';
+
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { TabsModule } from 'ngx-bootstrap';
 import {PagerService} from "./services/pagination.service";
@@ -111,9 +112,8 @@ import { CommentsService } from './services/comments.service';
       apiKey: 'AIzaSyDgXQMgwN1IOu9c6ZyHjqiVzaB9JXhIoTA'
     }),
       Ng2SmartTableModule,
-      [TabsModule.forRoot()],
       ChartsModule,
-
+      [TabsModule.forRoot()],
   ],
   providers: [PagerService, CommentsService],
   bootstrap: [AppComponent]
