@@ -8,19 +8,73 @@
 }
 
 .title {
-    font-family:'Roboto';
+    font-family: Roboto;
     font-size: 20px;
     text-transform: uppercase;
 }
 
+.total {
+    margin-bottom: 25px;
+}
+
 .total .icon {
+    box-sizing: border-box;
     width: 40px;
     height: 40px;
 }
 
+.icon-wrapper {
+    display: inline-block;
+    padding: 10px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #19D2E8;
+}
+
 .total p {
-    display: inline;
+    display: inline-block;
     font-family: Oswald;
     font-size: 44px;
+    line-height: 58px;
+    vertical-align: middle;
     text-transform: uppercase;
+}
+
+.icon-wrapper {
+    display: inline-block;
+    vertical-align: middle;
+    -webkit-transform: perspective(1px) translateZ(0);
+    transform: perspective(1px) translateZ(0);
+    box-shadow: 0 0 1px transparent;
+    position: relative;
+    transition: background-color ease-in .35s, transform linear .3s;
+}
+
+.icon-wrapper:before {
+    position: absolute;
+    z-index: -1;
+    top: calc(50% - 10px);
+    right: 2px;
+    content: '';
+    border-style: solid;
+    border-width: 10px 0 10px 10px;
+    border-color: transparent transparent transparent #19D2E8;
+    transition: border-color ease-in .35s, transform linear .3s;
+}
+
+.icon-wrapper:hover, .icon-wrapper:focus, .icon-wrapper:active {
+    -webkit-transform: translateX(-10px);
+    transform: translateX(-10px);
+    background-color: #1be7ff;
+}
+
+.icon-wrapper:hover:before, .icon-wrapper:focus:before, .icon-wrapper:active:before {
+    -webkit-transform: translateX(10px);
+    transform: translateX(10px);
+    border-color: transparent transparent transparent #1be7ff;
+}
+
+.charts {
+    margin-bottom: 25px;
 }

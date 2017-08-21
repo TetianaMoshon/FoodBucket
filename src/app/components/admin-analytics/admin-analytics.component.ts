@@ -90,9 +90,9 @@ export class AdminAnalyticsComponent implements OnInit {
     public doughnutType:string = 'doughnut';
     public doughnutColors: any[] = [
         {
-            backgroundColor: ["#1be7ff", "#6eeb83", "#ff5714"],
+            backgroundColor:["#19D2E8", "#64D678", "#E85013"],
             borderColor: "#fff",
-            hoverBackgroundColor: ["#19D2E8", "#64D678", "#E85013"],
+            hoverBackgroundColor: ["#1be7ff", "#6eeb83", "#ff5714"],
             hoverBorderColor: "#fff"
         }];
 
@@ -117,7 +117,7 @@ export class AdminAnalyticsComponent implements OnInit {
         {data: [28, 48, 40, 19, 86, 27, 90], label: 'Promo Orders'}
     ];
     public barChartColors: any[] = [
-        { backgroundColor: "#1be7ff", borderColor:"##19D2E8", hoverBackgroundColor: '#19D2E8', hoverBorderColor: '#14A9BA'},
-        {backgroundColor: "#ff5714", borderColor:"#E85013", hoverBackgroundColor: '#E85013', hoverBorderColor: '#BA400F'}];
+        { backgroundColor: '#19D2E8', borderColor:"#19D2E8", hoverBackgroundColor: '#1be7ff', hoverBorderColor: '#14A9BA'},
+        { backgroundColor: '#E85013', borderColor:"#E85013", hoverBackgroundColor: '#ff5714', hoverBorderColor: '#BA400F'}];
 }
 
