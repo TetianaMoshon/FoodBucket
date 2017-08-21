@@ -20,6 +20,7 @@ import { NewAccountComponent } from './components/modals/new-account/new-account
 import { AboutusComponent } from './components/aboutus/aboutus.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { SliderComponent } from './components/slider/slider.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { TopComponent } from './components/home/top/top.component';
 import { AdminMainComponent } from './components/adminmain/adminmain.component';
 import { AdminnavbarComponent } from './components/adminnavbar/adminnavbar.component';
@@ -80,6 +81,7 @@ import { CartItemComponent } from './components/modals/cart/cart-item/cart-item.
       CartItemComponent,
       AdminProductPageComponent,
       ImageRenderComponent,
+      UserProfileComponent
   ],
   entryComponents: [
       ModalCongratulationComponent,
