@@ -109,9 +109,6 @@ import { Error404Component } from './components/error404/error404.component';
       Ng2SmartTableModule,
       ChartsModule,
       [TabsModule.forRoot()],
-      [TabsModule.forRoot()],
-      ChartsModule,
-
   ],
   providers: [PagerService],
   bootstrap: [AppComponent]
