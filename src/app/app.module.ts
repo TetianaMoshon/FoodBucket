@@ -26,6 +26,7 @@ import { AdminMainComponent } from './components/adminmain/adminmain.component';
 import { AdminnavbarComponent } from './components/adminnavbar/adminnavbar.component';
 import { AdmincategoriesComponent } from './components/admincategories/admincategories.component';
 import { AdminProductListComponent } from './components/admin-product-list/admin-product-list.component';
+import { AdminProductListImageComponent } from './components/admin-product-list/admin-product-list-image.component';
 import { AdminIngredientsComponent } from './components/admin-ingredients/admin-ingredients.component';
 import { AdminOrdersComponent } from './components/admin-orders/admin-orders.component';
 import { AdminUsersComponent } from './components/admin-users/admin-users.component';
@@ -68,6 +69,7 @@ import { CartItemComponent } from './components/modals/cart/cart-item/cart-item.
       AdminnavbarComponent,
       AdmincategoriesComponent,
       AdminProductListComponent,
+      AdminProductListImageComponent,
       AdminIngredientsComponent,
       AdminOrdersComponent,
       AdminUsersComponent,
@@ -91,6 +93,7 @@ import { CartItemComponent } from './components/modals/cart/cart-item/cart-item.
       ConfirmationComponent,
       NewAccountComponent,
       ImageRenderComponent,
+      AdminProductListImageComponent,
       CartBoxComponent,
   ],
   imports: [
