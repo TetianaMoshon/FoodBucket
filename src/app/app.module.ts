@@ -42,7 +42,6 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { TabsModule } from 'ngx-bootstrap';
 import { ChartsModule } from 'ng2-charts';
 
-import {PagerService} from "./services/pagination.service";
 import {PagerService} from './services/pagination.service';
 import { CartBoxComponent } from './components/modals/cart/cart-box/cart-box.component';
 import { CartItemComponent } from './components/modals/cart/cart-item/cart-item.component';
