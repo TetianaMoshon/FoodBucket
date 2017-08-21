@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Color} from "ng2-charts";
+import {Color} from 'ng2-charts';
 
 @Component({
   selector: 'app-admin-analytics',
@@ -9,26 +9,20 @@ import {Color} from "ng2-charts";
 
 export class AdminAnalyticsComponent implements OnInit {
 
-    constructor() {
-    }
+    // Charts
 
-    ngOnInit() {
-    }
-
-    //Charts
-
-    //Chart Orders
-    public chartOrdersData:Array<any> = [
+    // Chart Orders
+    public chartOrdersData: Array<any> = [
         {data: [65, 59, 80, 81, 56, 55, 40], label: 'Total'},
         {data: [28, 48, 40, 19, 86, 27, 90], label: 'Complited'},
         {data: [18, 48, 77, 9, 100, 27, 40], label: 'Canceled'}
     ];
-    public chartOrdersLabels:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-    public chartOrdersOptions:any = {
+    public chartOrdersLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+    public chartOrdersOptions: any = {
         responsive: true
     };
-    public chartOrdersColors:Array<any> = [
-        { //Total
+    public chartOrdersColors: Array<any> = [
+        { // Total
             backgroundColor: 'rgba(27, 231, 255,0.2)',
             borderColor: '#14a9ba',
             pointBackgroundColor: '#14a9ba',
@@ -53,20 +47,20 @@ export class AdminAnalyticsComponent implements OnInit {
             pointHoverBorderColor: '#e85013'
         }
     ];
-    public chartOrdersLegend:boolean = true;
-    public chartOrdersType:string = 'line';
+    public chartOrdersLegend = true;
+    public chartOrdersType = 'line';
 
-    //Chart Cash
-    public chartCashData:Array<any> = [
+    // Chart Cash
+    public chartCashData: Array<any> = [
         {data: [65, 59, 80, 81, 56, 55, 40], label: 'Total'},
         {data: [28, 48, 40, 19, 86, 27, 90], label: 'Promo'}
     ];
-    public chartCashLabels:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-    public chartCashOptions:any = {
+    public chartCashLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+    public chartCashOptions: any = {
         responsive: true
     };
-    public chartCashColors:Array<any> = [
-        { //Total
+    public chartCashColors: Array<any> = [
+        { // Total
             backgroundColor: 'rgba(27, 231, 255,0.2)',
             borderColor: '#14a9ba',
             pointBackgroundColor: '#14a9ba',
@@ -83,41 +77,47 @@ export class AdminAnalyticsComponent implements OnInit {
             pointHoverBorderColor: '#51ab60'
         }
     ];
-    public chartCashLegend:boolean = true;
-    public chartCashType:string = 'line';
+    public chartCashLegend = true;
+    public chartCashType = 'line';
 
     // Doughnut
-    public doughnutType:string = 'doughnut';
+    public doughnutType = 'doughnut';
     public doughnutColors: any[] = [
         {
-            backgroundColor:["#19D2E8", "#64D678", "#E85013"],
-            borderColor: "#fff",
-            hoverBackgroundColor: ["#1be7ff", "#6eeb83", "#ff5714"],
-            hoverBorderColor: "#fff"
+            backgroundColor: ['#19D2E8', '#64D678', '#E85013'],
+            borderColor: '#fff',
+            hoverBackgroundColor: ['#1be7ff', '#6eeb83', '#ff5714'],
+            hoverBorderColor: '#fff'
         }];
 
-    //Gender Doughnut
-    public doughnutGenderData:number[] = [350, 450];
-    public doughnutGenderLabels:string[] = ['Male', 'Female'];
+    // Gender Doughnut
+    public doughnutGenderData: number[] = [350, 450];
+    public doughnutGenderLabels: string[] = ['Male', 'Female'];
 
-    //Category Doughnut
-    public doughnutCategoryLabels:string[] = ['Fish', 'Meat', 'Vegetarian'];
-    public doughnutCategoryData:number[] = [350, 450, 100];
+    // Category Doughnut
+    public doughnutCategoryLabels: string[] = ['Fish', 'Meat', 'Vegetarian'];
+    public doughnutCategoryData: number[] = [350, 450, 100];
 
-    //bar
-    public barChartOptions:any = {
+    // Bar
+    public barChartOptions: any = {
         scaleShowVerticalLines: false,
         responsive: true
     };
-    public barChartLabels:string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-    public barChartType:string = 'bar';
-    public barChartLegend:boolean = true;
-    public barChartData:any[] = [
+    public barChartLabels: string[] = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+    public barChartType = 'bar';
+    public barChartLegend = true;
+    public barChartData: any[] = [
         {data: [65, 59, 80, 81, 56, 55, 40], label: 'Usual Orders'},
         {data: [28, 48, 40, 19, 86, 27, 90], label: 'Promo Orders'}
     ];
     public barChartColors: any[] = [
-        { backgroundColor: '#19D2E8', borderColor:"#19D2E8", hoverBackgroundColor: '#1be7ff', hoverBorderColor: '#14A9BA'},
-        { backgroundColor: '#E85013', borderColor:"#E85013", hoverBackgroundColor: '#ff5714', hoverBorderColor: '#BA400F'}];
+        { backgroundColor: '#19D2E8', borderColor: '#19D2E8', hoverBackgroundColor: '#1be7ff', hoverBorderColor: '#14A9BA'},
+        { backgroundColor: '#E85013', borderColor: '#E85013', hoverBackgroundColor: '#ff5714', hoverBorderColor: '#BA400F'}];
+
+    constructor() {
+    }
+
+    ngOnInit() {
+    }
 }
 
