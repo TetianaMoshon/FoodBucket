@@ -18,6 +18,12 @@ export class UserProfileComponent implements OnInit {
      const elem = event.currentTarget.nextElementSibling;
      elem.classList.toggle('is-show');
      event.currentTarget.classList.toggle('active');
+     elem.nextElementSibling.classList.toggle('hide');
+  }
+
+  highlight(event) {
+      const elem = event.currentTarget.nextElementSibling.nextElementSibling;
+      elem.classList.toggle('highlight');
   }
 
   ngOnInit() {

@@ -8,10 +8,10 @@ import { User } from './user';
   styleUrls: ['./new-account.component.css']
 })
 export class NewAccountComponent implements OnInit {
-	public title = 'Create Your Account';
+    public title = 'Create Your Account';
 
-	  constructor(public bsModalRef: BsModalRef) { }
+    constructor(public bsModalRef: BsModalRef) { }
     model = new User('', '', '', '');
-	  ngOnInit() {}
+    ngOnInit() {}
 
 }

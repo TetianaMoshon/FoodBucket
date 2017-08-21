@@ -1,45 +1,15 @@
 .user-profile th {
-    font-family: "Oswald";
+    font-family: Oswald;
     text-align: center;
+    text-transform: uppercase;
 }
 
-.user-profile th {
-    font-family: "Oswald";
+.user-profile tr {
+    border-bottom-color: #333;
 }
 
-.orders .order-number {
-    width: 5%;
-    font-family: "Roboto";
-    text-align: center;
-}
-
-.orders .order-name {
-    width: 40%;
-    font-family: "Roboto";
-    font-weight: bold;
-}
-
-.orders .order-date {
-    width: 15%;
-}
-
-.orders .order-address {
-    width: 40%;
-}
-
-.content {
-    margin: 0 auto;
-    width: 70%;
-}
-
-.title {
-    margin-bottom: 25px;
-    text-align: left;
-    font-family: "Oswald";
-}
-
-.user-profile .order td {
-    font-family: "Roboto";
+.user-profile > div  > div {
+    margin-top: 50px;
 }
 
 img {
@@ -60,25 +30,28 @@ img {
 
 .personal p {
     display: inline-block;
-    font-family: 'Roboto';
+    font-family: Roboto;
 }
 
 .personal span {
     font-weight: bold;
+    text-transform: uppercase;
 }
 
 .personal p span {
     margin-left: 5px;
     font-size: 10px;
+    transition: color ease-in .35s;
 }
 
 .personal p span:hover {
     cursor: pointer;
-    font-size: 10px;
+    color: #51AB60;
 }
 
 .profile__achievements  {
-    margin-top: 20px;
+    position: relative;
+    margin-top: 30px;
 }
 
 .profile__achievements img {
@@ -91,22 +64,39 @@ img {
     transition: padding 0.3s ease-in;
 }
 
-.profile__achievements > img:hover {
-    padding: 5px;
-    background-color: rgba(228, 255, 26, 0.35);
-    cursor: pointer;
-}
-
 .profile__achievements img.active {
     padding: 5px;
     box-sizing: border-box;
     background-color: rgba(228, 255, 26, 0.35);
 }
 
+.profile__achievements > img:hover {
+    padding: 5px;
+    background-color: rgba(228, 255, 26, 0.6);
+    cursor: pointer;
+}
+
+.profile__achievements > img:hover ~ p {
+    border-bottom: 2px solid #6eeb83;
+}
+
+
 .achievements {
     display: inline-block;
     transition: all linear 0.2s;
     transform-origin: 5% 0%;
+}
+
+.achievements-title {
+    position: absolute;
+    top: 30%;
+    left: 20%;
+    font-family: Oswald;
+    text-transform: uppercase;
+}
+
+.achievements-title .hide {
+    width: 0px;
 }
 
 .is-show {
@@ -164,9 +154,51 @@ img {
     opacity: 1;
 }
 
+.orders {
+    margin-top: 30px;
+}
+
+.orders .order-number {
+    width: 5%;
+    font-family: Roboto;
+    text-align: center;
+}
+
+.orders .order-name {
+    width: 40%;
+    font-family: Roboto;
+    font-weight: bold;
+}
+
+.orders .order-date {
+    width: 15%;
+}
+
+.orders .order-address {
+    width: 40%;
+}
+
+.content {
+    margin: 0 auto;
+    width: 70%;
+}
+
+.title {
+    margin-bottom: 30px;
+    text-align: left;
+    font-family: Oswald;
+    text-transform: uppercase;
+}
+
+.user-profile .order td {
+    font-family: Roboto;
+}
+
 .favorite {
+    margin-top: 30px;
     margin-bottom: 50px;
 }
+
 .dish-image {
     margin: 0 auto;
     box-sizing: border-box;
