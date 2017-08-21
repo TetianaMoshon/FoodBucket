@@ -23,7 +23,7 @@
     font-size: 16px
 }
 .ingredients-margin {
-    margin-bottom: 0;
+    margin-bottom: 5px;
     margin-top: 35px;
 }
 .color-gold {
@@ -33,7 +33,11 @@
     background-image: none;
 }
 .button-padding{
-    padding: 50px 15px 0 15px;
+    padding: 50px 15px 20px 15px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
 }
 .under-line {
     text-decoration: underline;
@@ -60,6 +64,25 @@ p {
 .product-price {
     font-size: 20px;
 }
+
+.stickToBottom {
+    position: relative;
+}
+
+.second-block {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    padding: 0px;
+}
+
+@media (max-width: 990px) {
+    i.glyphicon-chevron-left, i.glyphicon-chevron-right {
+        top: 25%;
+    }
+}
+
 @media (max-width: 760px) {
     .button-padding{
         padding-top: 40px;
@@ -72,6 +95,22 @@ p {
     }
     .custom-buy-button {
         margin-left: 30px;
+    }
+
+    .second-block {
+        position: static;
+    }
+
+    .button-padding {
+        position: static;
+    }
+
+    i.glyphicon-chevron-left, i.glyphicon-chevron-right {
+        top: 30%;
+    }
+
+    .ingredients-margin {
+        display: none;
     }
 }
 
