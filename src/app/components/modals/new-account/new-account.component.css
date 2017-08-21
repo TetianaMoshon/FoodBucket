@@ -4,32 +4,40 @@
 	border: 1px solid gray;
 	background-image: url(../../../../assets/account.jpg);
 	background-size: cover;
-	float: right;
-	margin-bottom: 20px;
+	margin: auto;
 }
+
 .alert-danger{
     color: red;
     background: inherit;
     border: none;
 }
 
-.file_upload {
-    position: relative;
-    overflow: hidden;
-    background: #eee;
-    border: 1px solid #ccc;
-    font-size: 30px;
-    line-height: 1;
-    text-align: center;
-    padding: 20px;
-    width: 40px;
+label{
+    color: #00aced;
 }
 
-.file_upload input[type=file] {
+.btn-file {
+    position: relative;
+    overflow: hidden;
+    margin: 20px 75px;
+    color: white;
+    background-color: #00aced;
+    width: 130px;
+}
+
+.btn-file input[type=file] {
     position: absolute;
-    top: 0; right: 0;
-    font-size: 200px;
-    opacity: 0;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
     filter: alpha(opacity=0);
-    cursor: pointer;
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
 }
