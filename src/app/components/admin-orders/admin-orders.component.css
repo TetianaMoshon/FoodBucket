@@ -12,6 +12,7 @@ h1 {
 thead th {
     border: 1px solid gray;
     font-size: 19px;
+    vertical-align: middle;
 }
 td.gray-border {
     vertical-align: middle;
