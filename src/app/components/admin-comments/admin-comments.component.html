@@ -1,3 +1,14 @@
-<p>
-  admin-comments works!
-</p>
+<app-adminnavbar></app-adminnavbar>
+<div class="table-wrap">
+    <div class="container-fluid">
+        <div class="row bottom-line">
+            <div class="col-md-12 no-gutter">
+                <h1 class="comments_header">Comments</h1>
+            </div>
+        </div>
+        <div class="row margin-row getMoreSpace">
+            <ng2-smart-table [settings]="settings" [source]="arrayOfCommentsInfo"></ng2-smart-table>
+        </div>
+    </div>
+</div>
+

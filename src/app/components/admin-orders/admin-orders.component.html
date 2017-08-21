@@ -1,3 +1,84 @@
-<p>
-  admin-orders works!
-</p>
+<app-adminnavbar></app-adminnavbar>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <h1>Orders</h1>
+        </div>
+        <div class="col-md-4 col-md-offset-4 col-sm-4 col-xs-4">
+            <div class="input-group padding-top">
+                <input class="form-control" placeholder="Search for...">
+                <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Go!</button>
+      </span>
+            </div><!-- /input-group -->
+        </div><!-- /.col-lg-6 -->
+    </div>
+    <hr/>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th class="text-center">Date</th>
+            <th class="text-center">ID</th>
+            <th class="text-center">Orderer</th>
+            <th class="text-center">Order content</th>
+            <th class="text-center">Phone number</th>
+            <th class="text-center">Price</th>
+            <th class="text-center">Status</th>
+            <th class="text-center">Details</th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-container *ngFor="let order of pagedItems;let i = index;" [attr.data-index]="i">
+        <tr>
+            <td class="gray-border  text-center">{{order.date}}</td>
+            <td class="gray-border text-center">{{order.id}}</td>
+            <td class="gray-border text-center">{{order.name}}</td>
+            <td class="gray-border text-center">{{order.food}}</td>
+            <td class="gray-border text-center">{{order.tel}}</td>
+            <td class="gray-border text-center">{{order.price}}</td>
+            <td class="gray-border text-center">{{order.status}}</td>
+            <td class="gray-border text-center">
+                <button class="btn btn-primary" *ngIf="order.expanded" (click)="order.expanded = false">Close</button>
+                <button class="btn btn-primary" *ngIf="!order.expanded" (click)="order.expanded = true">Details</button>
+            </td>
+        </tr>
+        <tr *ngIf="order.expanded">
+            <td class="gray-border nohover" colspan="8">
+                <div class="container-fluid">
+                    <div class="col-md-4 text-center">
+                        <h3 class="text-center">Name and surname</h3>
+                        <p>Vasiliy Pupkin</p>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <h3 class="text-center">Delivery address</h3>
+                        <p>Sechenova 48, app. 34</p>
+                    </div>
+                    <div class="col-md-4 text-center">
+                        <h3 class="text-center">Order contents</h3>
+                        <ul class="list-group">
+                            <li class="list-group-item">Pizza <span class="badge">12</span></li>
+                            <li class="list-group-item">Salad <span class="badge">5</span></li>
+                            <li class="list-group-item">Borsch <span class="badge">3</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </ng-container>
+        </tbody>
+    </table>
+    <div class="row text-left">
+        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                <a class="cursor-pointer" (click)="setPage(1)">«</a>
+            </li>
+            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                <a class="cursor-pointer" (click)="setPage(page)">{{page}}</a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a class="cursor-pointer" (click)="setPage(pager.totalPages)">»</a>
+            </li>
+        </ul>
+    </div>
+
+</div>

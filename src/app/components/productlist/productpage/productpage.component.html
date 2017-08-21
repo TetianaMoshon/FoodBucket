@@ -1,12 +1,25 @@
 <div class="container">
     <div class="row text-center">
-        <h1>Dish Name <span class="glyphicon glyphicon-star-empty"></span></h1>
+        <div class="col-md-6 col-sm-6">
+            <h1>Dish Name
+                <a href="" class="icon"><span class="glyphicon glyphicon-star-empty color-gold"></span></a>
+            </h1>
+        </div>
+        <div class="col-md-6 col-sm-6">
+            <div class="text-center ">
+                <h3 class="ingredients-margin">Ingredients:</h3>
+            </div>
+        </div>
     </div>
     <div class="row">
-        <div class="col-md-6 col-sm-6 ">
+         <div class="col-md-6 col-sm-6 ">
             <div class="thumbnail">
                 <figure>
-                <p><img class="img-responsive" src="/assets/images/bistro-shrimp-pasta.jpg" alt=""></p>
+                    <div>
+                        <a class="left carousel-control carousel-control-left" (click)="changeImageSourceByPressingLeftArrow()"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                        <img class="img-responsive center-block" src="{{sourceForPreviousImage}}" alt="{{sourceForPreviousImage}} slide">
+                        <a class="right carousel-control carousel-control-right" (click)="changeImageSourceByPressingRightArrow()"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                    </div>
                 <figcaption>
                     <table class="table table-bordered">
                         <tbody>
@@ -23,7 +36,7 @@
                             <td>00</td>
                         </tr>
                         <tr>
-                            <td>Difficculty</td>
+                            <td>Difficulty</td>
                             <td>00</td>
                         </tr>
                         <tr>
@@ -41,105 +54,103 @@
             </div>
         </div>
         <div class="col-md-6 col-sm-6">
-            <div class="fruits border-fruits">
-                <div class="text-center">
-                    <h3>Ingredients:</h3>
-                </div>
-                <div class="row text-center">
-                    <div class="col-md-4 col-sm-6 col-xs-6">
-                        <figure>
-                            <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                            <figcaption>Apple</figcaption>
-                        </figure>
-                    </div>
-                    <div class="col-md-4 col-sm-6 col-xs-6">
-                        <figure>
-                            <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                            <figcaption>Apple</figcaption>
-                        </figure>
-                    </div>
-                    <div class="col-md-4 col-sm-6 col-xs-6">
-                        <figure>
-                            <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                            <figcaption>Apple</figcaption>
-                        </figure>
-                    </div>
-                    <div class="col-md-4 col-sm-6 col-xs-6">
-                        <figure>
-                            <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                            <figcaption>Apple</figcaption>
-                        </figure>
-                    </div>
-                    <div class="col-md-4 col-sm-6 col-xs-6">
-                        <figure>
-                            <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                            <figcaption>Apple</figcaption>
-                        </figure>
-                    </div>
-                    <div class="col-md-4 col-sm-6 col-xs-6">
-                        <figure>
-                            <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                            <figcaption>Apple</figcaption>
-                        </figure>
-                    </div>
-                    <div class="col-md-4 col-sm-6 col-xs-6">
-                        <figure>
-                            <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                            <figcaption>Apple</figcaption>
-                        </figure>
-                    </div>
-                    <div class="col-md-4 col-sm-6 col-xs-6">
-                        <figure>
-                            <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                            <figcaption>Apple</figcaption>
-                        </figure>
-                    </div>
-                    <div class="col-md-4 col-sm-6 col-xs-6">
-                        <figure>
-                            <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                            <figcaption>Apple</figcaption>
-                        </figure>
-                    </div>
-                    <div class="col-md-4 col-sm-6 col-xs-6">
-                        <figure>
-                            <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                            <figcaption>Apple</figcaption>
-                        </figure>
-                    </div>
-                    <div class="col-md-4 col-sm-6 col-xs-6">
-                        <figure>
-                            <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                            <figcaption>Apple</figcaption>
-                        </figure>
-                    </div>
-                    <div class="col-md-4 col-sm-6 col-xs-6">
-                        <figure>
-                            <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                            <figcaption>Apple</figcaption>
-                        </figure>
+            <div class="thumbnail">
+                <div class="scrollable border-fruits">
+                    <div class="row text-center">
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <figure>
+                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
+                                <figcaption>Apple</figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <figure>
+                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
+                                <figcaption>Apple</figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <figure>
+                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
+                                <figcaption>Apple</figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <figure>
+                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
+                                <figcaption>Apple</figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <figure>
+                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
+                                <figcaption>Apple</figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <figure>
+                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
+                                <figcaption>Apple</figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <figure>
+                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
+                                <figcaption>Apple</figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <figure>
+                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
+                                <figcaption>Apple</figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <figure>
+                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
+                                <figcaption>Apple</figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <figure>
+                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
+                                <figcaption>Apple</figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <figure>
+                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
+                                <figcaption>Apple</figcaption>
+                            </figure>
+                        </div>
+                        <div class="col-md-4 col-sm-6 col-xs-6">
+                            <figure>
+                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
+                                <figcaption>Apple</figcaption>
+                            </figure>
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="text-center">
-                <h3>You will get:</h3>
-                <div class="col-md-4">
-                    <h4>Products set</h4>
-                </div>
-                <div class="col-md-4">
-                    <h4>Detailed recipe</h4>
-                </div>
-                <div class="col-md-4">
-                    <h4>Video recipe</h4>
+                <button class="button-details"  (click)="show = !show">
+                    <span class="under-line"><p class="details-p__big-text">Details<p></p></span>
+                </button>
+                <div *ngIf="show">
+                    <p class="details-p__big-text"> Some details </p>
                 </div>
             </div>
-            <p class="text-right text-font">Price 99$</p>
-            <p class="text-right text-font">Total 99$</p>
-            <p class="text-right text-font">Economy 00$</p>
-            <button class="btn btn-md btn-primary to-cart-btn pull-right">
-                <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add to cart
-            </button>
-            <button class="btn btn-md btn-primary">
-                <span class="glyphicon glyphicon-usd" aria-hidden="true"></span> Buy now!
-            </button>
+            <div class="row button-padding">
+                    <p class="text-right text-font product-price">Price 99$</p>
+                    <p class="text-right text-font product-price">Total 99$</p>
+                    <p class="text-right text-font product-price">Economy 00$</p>
+                <button class="btn btn-md btn-primary to-cart-btn pull-right custom-cart-button">
+                    <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add to cart
+                </button>
+                <button class="btn btn-md btn-primary custom-buy-button">
+                    <span class="glyphicon glyphicon-usd" aria-hidden="true"></span> Buy now!
+                </button>
+            </div>
         </div>
     </div></div>
+<app-disqus></app-disqus>
