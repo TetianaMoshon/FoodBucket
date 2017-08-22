@@ -43,7 +43,7 @@ import { AdminProductPageComponent } from './components/admin-product-list/admin
 
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { TabsModule } from 'ngx-bootstrap';
-import {PagerService} from "./services/pagination.service";
+import {PagerService} from './services/pagination.service';
 import { CartBoxComponent } from './components/modals/cart/cart-box/cart-box.component';
 import { CartItemComponent } from './components/modals/cart/cart-item/cart-item.component';
 import { Error404Component } from './components/error404/error404.component';
@@ -112,6 +112,7 @@ import { OrdersFiltersPipe } from './pipes/orders-filters.pipe';
       CollapseModule,
       FormsModule,
       appRouting,
+      DisqusModule,
       DisqusModule.forRoot('foodbucket-com-1'),
       AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDgXQMgwN1IOu9c6ZyHjqiVzaB9JXhIoTA'

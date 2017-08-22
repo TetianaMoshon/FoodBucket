@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NguiMapComponent } from '@ngui/map';
 
+import { Massage } from './massage';
+
 @Component({
   selector: 'app-aboutus',
   templateUrl: './aboutus.component.html',
@@ -8,16 +10,19 @@ import { NguiMapComponent } from '@ngui/map';
 })
 export class AboutusComponent implements OnInit {
 
-  title = 'Our office';
-  email = 'foodbucket@gmail.com';
-  phone = '8-888-888-888';
-  time = '8.00-22.00';
+  constructor() { }
 
-  lat = 50.454660;
-  lng = 30.52380;
+  model = new Massage('', '', '', '');
 
-    constructor() { }
+  ngOnInit() {
+  }
 
-    ngOnInit() {
-    }
+  title: string = 'Our office';
+  our_email: string = 'foodbucket@gmail.com';
+  phone:string = "8-888-888-888";
+  time:string = "8.00-22.00";
+
+  lat: number = 50.454660;
+  lng: number = 30.52380;
+
 }

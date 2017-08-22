@@ -7,14 +7,33 @@ import {Color} from 'ng2-charts';
   styleUrls: ['./adminmain.component.css']
 })
 export class AdminMainComponent implements OnInit {
+    public comments = 134;
+    public orders = 85;
+
     public barChartOptions: any = {
         scaleShowVerticalLines: false,
         responsive: true
     };
-    public doughnutChartLabels: string[] = ['Pastas', 'Apple', 'Salad'];
-    public doughnutChartType = 'doughnut';
+    public doughnutChartLabels: string[] = ['Tiramisu', 'Carbonara', 'Ratatouille'];
+    public doughnutChartDataCategory: Array<number> = [10, 5, 10];
+    public doughnutChartLabelsCategory: string[] = ['Bakery', 'Vegetarian', 'Seafood'];
     public doughnutChartData: Array<number> = [35, 45, 10];
+    public doughnutChartType = 'doughnut';
     public colorsEmptyObject: Array<Color> = [{}];
+    public datasetsCategory: any[] = [
+        {
+            data: this.doughnutChartDataCategory,
+            backgroundColor: [
+                '#E85013',
+                '#64D678',
+                '#19D2E8'
+            ],
+            hoverBackgroundColor: [
+                '#BA400F',
+                '#A6BA13',
+                '#14A9BA'
+            ]
+        }];
     public datasets: any[] = [
         {
             data: this.doughnutChartData,
