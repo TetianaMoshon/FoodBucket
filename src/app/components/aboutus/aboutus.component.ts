@@ -10,19 +10,18 @@ import { Massage } from './massage';
 })
 export class AboutusComponent implements OnInit {
 
-  constructor() { }
-
   model = new Massage('', '', '', '');
 
-  ngOnInit() {
-  }
+  title = 'Our office';
+  our_email = 'foodbucket@gmail.com';
+  phone = '8-888-888-888';
+  time = '8.00-22.00';
 
-  title: string = 'Our office';
-  our_email: string = 'foodbucket@gmail.com';
-  phone:string = "8-888-888-888";
-  time:string = "8.00-22.00";
+  lat = 50.454660;
+  lng = 30.52380;
 
-  lat: number = 50.454660;
-  lng: number = 30.52380;
+    constructor() { }
 
+    ngOnInit() {
+    }
 }
