@@ -10,11 +10,7 @@ import {LoginComponent} from '../modals/login/login.component';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private modalService: BsModalService) { }
-
-    public openLoginModal() {
-        this.modalService.show(LoginComponent);
-    }
+  constructor() { }
   ngOnInit() {
   }
 
