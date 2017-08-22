@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {PagerService} from '../../services/pagination.service';
-import {Order} from "../../models/order";
+import {Order} from '../../models/order';
 
 @Component({
   selector: 'app-admin-orders',
@@ -155,7 +155,7 @@ orders: Order[] = [{
     },
     {
         'date': '27/05/2015',
-        'id':17,
+        'id': 17,
         'name': 'John',
         'food': 'pizza,pasta,salad',
         'tel': 345,

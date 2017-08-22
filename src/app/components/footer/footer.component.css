@@ -9,6 +9,7 @@ footer {
     padding: 10px 0;
 }
 .logo-container {
+    margin-top: 10px;
     margin-bottom: 5px;
     text-align: center;
 }
@@ -17,6 +18,13 @@ img.logo {
     height: 110px;
     width: 120px;
 }
+
+@-moz-document url-prefix() {
+    img.logo {
+        width: 145px!important;
+    }
+}
+
 .footer-top-layout h4 {
     color: #ffffff;
     font-size: 18px;
@@ -170,6 +178,12 @@ a.facebook {
     height: 20px;
     margin-right: 7px;
     background-size: 20px 20px;
+}
+
+@-moz-document url-prefix() {
+    a.facebook {
+        background-size: 13px 20px!important;
+    }
 }
 
 a.instagram {
