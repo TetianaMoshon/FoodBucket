@@ -15,7 +15,7 @@ export class OrdersFiltersPipe implements PipeTransform {
         return items.filter((item: Order) => this.applyFilter(item, filter));
     }
     applyFilter(order: Order, filter: Order): boolean {
-        for (let field in filter) {
+        for (const field in filter) {
             if (filter[field]) {
                 if (typeof filter[field] === 'string') {
                     if (order[field].toLowerCase().indexOf(filter[field].toLowerCase()) === -1) {

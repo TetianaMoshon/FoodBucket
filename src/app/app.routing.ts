@@ -19,26 +19,26 @@ import {ProductpageComponent} from './components/productlist/productpage/product
 import { AdminProductPageComponent } from './components/admin-product-list/admin-product-page/admin-product-page.component';
 import {UserProfileComponent} from './components/user-profile/user-profile.component';
 
-import {Error404Component} from "./components/error404/error404.component";
+import {Error404Component} from './components/error404/error404.component';
 
 const appRoutes: Routes = [
-  { path: '',component: HomeComponent},
+  { path: '', component: HomeComponent},
     { path: 'ingredients', component: IngredientsComponent},
-    { path: 'category', children:[
-          {path:'',component: CategoryComponent},
-          { path: 'productlist', children:[
-              {path:'',component: ProductlistComponent},
+    { path: 'category', children: [
+          {path: '', component: CategoryComponent},
+          { path: 'productlist', children: [
+              {path: '', component: ProductlistComponent},
               { path: 'productpage', component: ProductpageComponent}
           ]},
       ]},
       { path: 'aboutus', component: AboutusComponent},
       { path: 'checkout', component: CheckoutComponent},
       { path: 'profile', component: UserProfileComponent},
-  { path: 'admin', children:[
-      {path:'',component: AdminMainComponent},
+  { path: 'admin', children: [
+      {path: '', component: AdminMainComponent},
       { path: 'orders', component: AdminOrdersComponent},
-      { path: 'productlist', children:[
-          {path:'', component: AdminProductListComponent},
+      { path: 'productlist', children: [
+          {path: '', component: AdminProductListComponent},
           { path: 'productpage', component: AdminProductPageComponent},
       ]},
       { path: 'comments', component: AdminCommentsComponent},
@@ -47,7 +47,7 @@ const appRoutes: Routes = [
       { path: 'analytics', component: AdminAnalyticsComponent},
       { path: 'ingredients', component: AdminIngredientsComponent},
   ]},
-    {path: "**",component: Error404Component },
+    {path: '**', component: Error404Component },
 ];
 
 export  const appRouting: ModuleWithProviders = RouterModule.forRoot(appRoutes);
