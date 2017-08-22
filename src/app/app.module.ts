@@ -112,6 +112,7 @@ import { OrdersFiltersPipe } from './pipes/orders-filters.pipe';
       CollapseModule,
       FormsModule,
       appRouting,
+      DisqusModule,
       DisqusModule.forRoot('foodbucket-com-1'),
       AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDgXQMgwN1IOu9c6ZyHjqiVzaB9JXhIoTA'
