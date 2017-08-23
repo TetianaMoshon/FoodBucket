@@ -55,7 +55,7 @@ div.border {
     color: #ffffff;
 }
 .footer-col-item {
-    min-height: 140px;
+    min-height: 130px;
 }
 
 .footer-top-layout {
@@ -226,6 +226,7 @@ div.socials-container {
 
 ul.margin-left {
     margin-left: 10px;
+    margin-bottom: 0px;
 }
 
 @media only screen and (max-width: 768px) {
