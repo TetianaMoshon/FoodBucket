@@ -29,4 +29,4 @@ var UsersSchema = new Schema({
     active: Boolean
 });
 
-module.exports = mongoose.model('Users', UsersSchema);
+module.exports = UsersSchema;

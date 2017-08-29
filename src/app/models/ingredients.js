@@ -12,4 +12,4 @@ var IngredientsSchema = new Schema({
     discount: Number
 });
 
-module.exports = mongoose.model('Ingredients', IngredientsSchema);
+module.exports = IngredientsSchema;

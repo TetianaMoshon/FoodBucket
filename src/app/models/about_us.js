@@ -9,4 +9,4 @@ var AboutUsSchema = new Schema({
     lan: String
 });
 
-module.exports = mongoose.model('AboutUs', AboutUsSchema);
+module.exports = AboutUsSchema;

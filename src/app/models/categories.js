@@ -8,4 +8,4 @@ var CategoriesSchema = new Schema({
     image: String
 });
 
-module.exports = mongoose.model('Categories', CategoriesSchema);
+module.exports = CategoriesSchema;

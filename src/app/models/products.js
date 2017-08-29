@@ -7,7 +7,11 @@ var ProductsSchema = new Schema({
         type: String,
         required: true
     },
-    discription: String,
+    discription: {
+        type: String,
+        required: true
+    },
+    image: String,
     category: [Number],
     info:{
         calories: Number,
@@ -22,8 +26,6 @@ var ProductsSchema = new Schema({
         required: true
     },
     discount: Number,
-
-    active: Boolean,
     promotions: Boolean,
     rate:{
         users_quantity: Number
@@ -33,4 +35,4 @@ var ProductsSchema = new Schema({
     lable:[String]
 });
 
-module.exports = mongoose.model('Products', ProductsSchema);
+module.exports = ProductsSchema;
