@@ -3,16 +3,26 @@ var Schema = mongoose.Schema;
 
 var ProductsSchema = new Schema({
     id: Number,
-    title: String,
+    title: {
+        type: String,
+        required: true
+    },
     discription: String,
     category: [Number],
     info:{
         calories: Number,
-        time: Number
+        time: Number,
+        steps: Number,
+        difficutly: String,
+        weight: Number
     },
     ingredients:[{ingredient: Number, quantity: Number}],
-    price: Number,
+    price: {
+        type: Number,
+        required: true
+    },
     discount: Number,
+
     active: Boolean,
     promotions: Boolean,
     rate:{
