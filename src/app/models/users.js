@@ -24,8 +24,8 @@ var UsersSchema = new Schema({
     adress: String,
     image: String,
     favourites: [Number],
-    cteate_at: String,
-    update_at: String,
+    cteate_at: Date,
+    update_at: Date,
     active: Boolean
 });
 
