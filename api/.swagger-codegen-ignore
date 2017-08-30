@@ -25,3 +25,8 @@
 package.json
 index.js
 api/swagger.yaml
+model/
+schema/
+
+service/CategoryService.js
+controllers/CategoryService.js
