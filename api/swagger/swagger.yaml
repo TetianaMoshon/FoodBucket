@@ -190,6 +190,63 @@ paths:
           description: invalid input
           schema:
             $ref: "#/definitions/Error"
+    put:
+      x-swagger-router-controller: Ingredient
+      operationId: updateInredient
+      tags:
+      - "ingredient"
+      consumes:
+      - application/json
+      summary: Update ingredient
+      description: |
+        This endpoint allows to update ingredient.
+      parameters:
+      - name: id
+        in: path
+        description: ID of the ingredient to get
+        required: true
+        type: integer
+        format: int64
+      responses:
+        200:
+          description: Existing message was found and updated
+          schema:
+            $ref: '#/definitions/Ingredient'
+        201:
+          description: Ingredient/message added
+          schema:
+            $ref: '#/definitions/Ingredient'
+        400:
+          description: Invalid input   
+  /ingredient:
+    post:
+      x-swagger-router-controller: Ingredient
+      operationId: sendInredient
+      tags:
+      - "ingredient"
+      consumes:
+      - application/json
+      summary: Send ingredient
+      description: |
+        This endpoint allows to add ingredient.
+      parameters:
+      - name: body
+        in: body
+        description: Ingredient/message object
+        required: true
+        schema:
+          $ref: '#/definitions/Ingredient'
+      responses:
+        200:
+          description: Existing message was found and updated
+          schema:
+            $ref: '#/definitions/Ingredient'
+        201:
+          description: Ingredient/message added
+          schema:
+            $ref: '#/definitions/Ingredient'
+        400:
+          description: Invalid input
   /promotion:
     get:
       x-swagger-router-controller: Promotion
