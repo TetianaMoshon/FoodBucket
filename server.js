@@ -13,6 +13,7 @@ let swaggerTools = require('swagger-tools');
 let jsyaml = require('js-yaml');
 let serverPort = process.env.PORT || '3000';
 
+
 // swaggerRouter configuration
 let options = {
     swaggerUi: path.join(__dirname, '/swagger.json'),
@@ -23,6 +24,21 @@ let options = {
 // The Swagger document (require it, build it programmatically, fetch it from a URL, ...)
 let spec = fs.readFileSync(path.join(__dirname,'/api/swagger/swagger.yaml'), 'utf8');
 let swaggerDoc = jsyaml.safeLoad(spec);
+
+let mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost:27017/foodbucket', {
+    promiseLibrary: global.Promise, // require('bluebird')
+    keepAlive: true,
+    reconnectTries: Number.MAX_VALUE,
+    useMongoClient: true
+})
+.then(() => { console.log('Start Mongoose...');
+})
+.catch(err => {
+    console.error('App starting error:', err.stack);
+    process.exit(1);
+});
 
 const app = express();
 
