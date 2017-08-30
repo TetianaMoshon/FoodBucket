@@ -29,3 +29,7 @@ model/
 schema/
 
 service/CategoryService.js
+controllers/CategoryService.js
+
+service/IngredientService.js
+controllers/IngredientService.js

@@ -1,8 +1,8 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var IngredientsSchema = require('../schema/ingredients');
+const IngredientsSchema = require('../schema/ingredients');
 
-var Ingredient = mongoose.model('Ingredient', IngredientsSchema);
+const Ingredient = mongoose.model('Ingredient', IngredientsSchema);
 
 
 

@@ -25,8 +25,8 @@ exports.createIngredient = function(body) {
       });
 
       newIngredient['application/json'].save().then(
-          (inredientDoc) => { console.log('Saved ingredient', inredientDoc); },
-      (error) => { console.log('Unable to save ingredient'); }
+          inredientDoc => { console.log('Saved ingredient', inredientDoc); },
+      error => { console.log('Unable to save ingredient'); }
   );
 
     if (Object.keys(newIngredient).length > 0) {
@@ -48,7 +48,7 @@ exports.deleteIngredientById = function(id) {
       let oneIngredient = {};
 
       Ingredient.findOneAndRemove({ingredient_id: id}).then(
-          (oneIngredientDoc) => {
+          oneIngredientDoc => {
           oneIngredient['application/json'] = oneIngredientDoc;
 
       if (Object.keys(oneIngredient).length > 0) {
@@ -57,7 +57,7 @@ exports.deleteIngredientById = function(id) {
           reject();
       }
   },
-      (error) => { console.log('Unable to remove ingredient'); }
+      error => { console.log('Unable to remove ingredient'); }
   );
 
   });
@@ -73,7 +73,7 @@ exports.findIngredientById = function(id) {
   return new Promise(function(resolve, reject) {
     let oneIngredient = {};
     Ingredient.findOne({ ingredient_id: id }).then(
-          (oneIngredientDoc) => {
+          oneIngredientDoc => {
               oneIngredient['application/json'] = oneIngredientDoc;
               if (Object.keys(oneIngredient).length > 0) {
                   resolve(oneIngredient[Object.keys(oneIngredient)[0]]);
@@ -81,7 +81,7 @@ exports.findIngredientById = function(id) {
                   reject();
               }
           },
-        (error) => { console.log('Unable to get ingredient'); }
+        error => { console.log('Unable to get ingredient'); }
       );
   });
 }
@@ -98,17 +98,21 @@ exports.getAllIngredients = function(offset,limit,isActive) {
   return new Promise(function(resolve, reject) {
     let ingredients = {};
     Ingredient.find().then(
-        (ingredientsDoc) => {
+        ingredientsDoc => {
         ingredients['application/json'] = ingredientsDoc;
 
 
-    if (Object.keys(ingredients).length > 0) {
-      resolve(ingredients[Object.keys(ingredients)[0]]);
-    } else {
-      resolve();
-    }
+            if (Object.keys(ingredients).length > 0) {
+                resolve(ingredients[Object.keys(ingredients)[0]]);
+            } else {
+                reject();
+            }
+        },
+        error => { console.log('Unable to get ingredient'); }
+    );
   });
-})}
+}
+
 
 
 /**
