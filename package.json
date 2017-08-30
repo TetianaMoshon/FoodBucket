@@ -48,7 +48,9 @@
     "ngx-disqus": "^2.1.1",
     "rxjs": "^5.1.0",
     "swagger-tools": "0.10.1",
-    "zone.js": "^0.8.4"
+    "zone.js": "^0.8.4",
+      "mongodb":"^2.2.31",
+      "mongoose": "^4.11.9"
   },
   "devDependencies": {
     "@angular/cli": "^1.2.6",

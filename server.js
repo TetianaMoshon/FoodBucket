@@ -11,11 +11,7 @@ let cors = require('cors');
 
 let swaggerTools = require('swagger-tools');
 let jsyaml = require('js-yaml');
-let serverPort = process.env.PORT || '3000';git
-
-// Connect to server
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost');
+let serverPort = process.env.PORT || '3000';
 
 // swaggerRouter configuration
 let options = {
