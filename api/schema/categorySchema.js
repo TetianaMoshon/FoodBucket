@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-var categorySchema = mongoose.Schema({
+const categorySchema = mongoose.Schema({
     category_id: {
         type: Number
     },

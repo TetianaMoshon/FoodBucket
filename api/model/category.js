@@ -1,10 +1,7 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var categorySchema = require('../schema/categorySchema');
+const categorySchema = require('../schema/categorySchema');
 
-var Category = mongoose.model('Category', categorySchema);
-
-
-
+const Category = mongoose.model('Category', categorySchema);
 
 module.exports = Category;
