@@ -20,8 +20,8 @@ exports.createCategory = function (body) {
 
         newCategory['application/json'].save().then(
             (categoryDoc) => { console.log('Saved category', categoryDoc); },
-            (error) => { console.log('Unable to save category'); }
-        );
+        (error) => { console.log('Unable to save category'); }
+    );
 
         if (Object.keys(newCategory).length > 0) {
             resolve(newCategory[Object.keys(newCategory)[0]]);
@@ -43,15 +43,15 @@ exports.deleteCategoryById = function(id) {
 
         Category.findOneAndRemove({ category_id: id }).then(
             (oneCategoryDoc) => {
-                oneCategory['application/json'] = oneCategoryDoc;
-                if (Object.keys(oneCategory).length > 0) {
-                    resolve(oneCategory[Object.keys(oneCategory)[0]]);
-                } else {
-                    reject();
-                }
-            },
-            (error) => { console.log('Unable to remove category'); }
-        );
+            oneCategory['application/json'] = oneCategoryDoc;
+        if (Object.keys(oneCategory).length > 0) {
+            resolve(oneCategory[Object.keys(oneCategory)[0]]);
+        } else {
+            reject();
+        }
+    },
+        (error) => { console.log('Unable to remove category'); }
+    );
     });
 }
 
@@ -67,15 +67,15 @@ exports.findCategoryById = function (id) {
 
         Category.findOne({ category_id: id }).then(
             (oneCategoryDoc) => {
-                oneCategory['application/json'] = oneCategoryDoc;
-                if (Object.keys(oneCategory).length > 0) {
-                    resolve(oneCategory[Object.keys(oneCategory)[0]]);
-                } else {
-                    reject();
-                }
-            },
-            (error) => { console.log('Unable to get category'); }
-        );
+            oneCategory['application/json'] = oneCategoryDoc;
+        if (Object.keys(oneCategory).length > 0) {
+            resolve(oneCategory[Object.keys(oneCategory)[0]]);
+        } else {
+            reject();
+        }
+    },
+        (error) => { console.log('Unable to get category'); }
+    );
     });
 }
 
@@ -92,16 +92,16 @@ exports.getAllCategories = function (offset, limit, isActive) {
         var categories = [];
         Category.find().then(
             (categoriesDoc) => {
-                categories['application/json'] = categoriesDoc;
+            categories['application/json'] = categoriesDoc;
 
-                if (Object.keys(categories).length > 0) {
-                    resolve(categories[Object.keys(categories)[0]]);
-                } else {
-                    reject();
-                }
-            },
-            (error) => { console.log('Unable to get categories'); }
-        );
+        if (Object.keys(categories).length > 0) {
+            resolve(categories[Object.keys(categories)[0]]);
+        } else {
+            reject();
+        }
+    },
+        (error) => { console.log('Unable to get categories'); }
+    );
     });
 }
 
@@ -117,21 +117,20 @@ exports.updateCategoryById = function(id, updated_category) {
         var oneCategory = {};
 
         Category.findOneAndUpdate({ category_id: id },
-                  {
-                      title: updated_category.title,
-                      image: updated_category.image,
-                      description: updated_category.description,
-                  }).then(
+            {
+                title: updated_category.title,
+                image: updated_category.image,
+                description: updated_category.description,
+            }).then(
             (oneCategoryDoc) => {
-                oneCategory['application/json'] = updated_category;
-                if (Object.keys(oneCategory).length > 0) {
-                    resolve(oneCategory[Object.keys(oneCategory)[0]]);
-                } else {
-                    reject();
-                }
-            },
-            (error) => { console.log('Unable to get category'); }
-        );
+            oneCategory['application/json'] = updated_category;
+        if (Object.keys(oneCategory).length > 0) {
+            resolve(oneCategory[Object.keys(oneCategory)[0]]);
+        } else {
+            reject();
+        }
+    },
+        (error) => { console.log('Unable to get category'); }
+    );
     });
 }
-
