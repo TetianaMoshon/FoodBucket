@@ -9,7 +9,6 @@ const Ingredient = require('../model/ingredient');
  * returns Ingredient
  **/
 exports.createIngredient = function(body) {
-  console.log(body);
     return new Promise(function(resolve, reject) {
     let newIngredient = {};
     let {image, measure, quantity, ingredient_id, price, description, discount, title} = body;
