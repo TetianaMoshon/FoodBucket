@@ -1,5 +1,60 @@
 'use strict';
 
+const Product = require('../model/product');
+
+/**
+ * Create product
+ * This endpoint allows to create new product.
+ *
+ * body Product Product object
+ * returns Product
+ **/
+exports.createProduct = function ({productId, title, description, image, price}) {
+    return new Promise(function (resolve, reject) {
+        let newProduct = {};
+        newProduct['application/json'] = new Product({
+            "productId": productId,
+            "title": title,
+            "description": description,
+            "image": image,
+            "price": price
+            // "calories": calories,
+            // "time": time,
+            // "steps": steps,
+            // "difficulty": difficulty,
+            // "weight": weight
+        });
+
+        newProduct['application/json'].save().then(
+            productDoc => { console.log('Saved product', productDoc); },
+            error => { console.log('Unable to save product'); }
+        );
+
+        if (Object.keys(newProduct).length > 0) {
+            resolve(newProduct[Object.keys(newProduct)[0]]);
+        } else {
+            reject();
+        }
+    });
+}
+
+exports.deleteProductById = function(id) {
+    return new Promise(function (resolve, reject) {
+        let oneProduct = {};
+
+        Product.findOneAndRemove({ product_id: id }).then(
+            oneProductDoc => {
+                oneProduct['application/json'] = oneProductDoc;
+                if (Object.keys(oneProduct).length > 0) {
+                    resolve(oneProduct[Object.keys(oneProduct)[0]]);
+                } else {
+                    reject();
+                }
+            },
+            error => { console.log('Unable to remove product'); }
+        );
+    });
+}
 
 /**
  *
@@ -7,39 +62,21 @@
  * returns Product
  **/
 exports.findProductById = function(id) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "image" : "image",
-  "price" : 6,
-  "description" : "description",
-  "ingredients" : [ {
-    "image" : "image",
-    "ingredient_id" : 1,
-    "description" : "description",
-    "title" : "title"
-  }, {
-    "image" : "image",
-    "ingredient_id" : 1,
-    "description" : "description",
-    "title" : "title"
-  } ],
-  "id" : 1,
-  "title" : "title",
-  "productInfo" : [ {
-    "product_info_id" : 5,
-    "calories" : 5
-  }, {
-    "product_info_id" : 5,
-    "calories" : 5
-  } ]
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+    return new Promise(function (resolve, reject) {
+        let oneProduct = {};
+
+        Product.findOne({ product_id: id }).then(
+            oneProductDoc => {
+                oneProduct['application/json'] = oneProductDoc;
+                if (Object.keys(oneProduct).length > 0) {
+                    resolve(oneProduct[Object.keys(oneProduct)[0]]);
+                } else {
+                    reject();
+                }
+            },
+            error => { console.log('Unable to get product'); }
+        );
+    });
 }
 
 
@@ -47,67 +84,24 @@ exports.findProductById = function(id) {
  *
  * offset Integer start position for quering from DB
  * limit Integer number of items to query from DB
- * category_id List returns products only from specified category (optional)
  * isActive Boolean returns active products (optional)
  * returns List
  **/
-exports.getAllProducts = function(offset,limit,category_id,isActive) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = [ {
-  "image" : "image",
-  "price" : 6,
-  "description" : "description",
-  "ingredients" : [ {
-    "image" : "image",
-    "ingredient_id" : 1,
-    "description" : "description",
-    "title" : "title"
-  }, {
-    "image" : "image",
-    "ingredient_id" : 1,
-    "description" : "description",
-    "title" : "title"
-  } ],
-  "id" : 1,
-  "title" : "title",
-  "productInfo" : [ {
-    "product_info_id" : 5,
-    "calories" : 5
-  }, {
-    "product_info_id" : 5,
-    "calories" : 5
-  } ]
-}, {
-  "image" : "image",
-  "price" : 6,
-  "description" : "description",
-  "ingredients" : [ {
-    "image" : "image",
-    "ingredient_id" : 1,
-    "description" : "description",
-    "title" : "title"
-  }, {
-    "image" : "image",
-    "ingredient_id" : 1,
-    "description" : "description",
-    "title" : "title"
-  } ],
-  "id" : 1,
-  "title" : "title",
-  "productInfo" : [ {
-    "product_info_id" : 5,
-    "calories" : 5
-  }, {
-    "product_info_id" : 5,
-    "calories" : 5
-  } ]
-} ];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+exports.getAllProducts = function(offset,limit,isActive) {
+    return new Promise(function (resolve, reject) {
+        let products = [];
+        Product.find().then(
+            productsDoc => {
+                products['application/json'] = productsDoc;
+
+                if (Object.keys(products).length > 0) {
+                    resolve(products[Object.keys(products)[0]]);
+                } else {
+                    reject();
+                }
+            },
+            error => { console.log('Unable to get products'); }
+        );
+    });
 }
 
