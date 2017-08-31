@@ -302,7 +302,7 @@ paths:
           schema:
             $ref: '#/definitions/Category'
         400:
-          description: Invalid input            
+          description: Invalid input
   /ingredient/{id}:
     get:
       x-swagger-router-controller: Ingredient
@@ -502,40 +502,19 @@ definitions:
   User:
     type: object
     required:
-      - first_name
-      - last_name
-      - email
-      - password
-      - phone
+      - image
+      - title
+      - description
     properties:
-      user_id:
-        type: integer
-        format: int64
-      first_name:
-        type: string
-      last_name:
-        type: string
-      email:
-        type: string
-      password:
-        type: string
-      phone:
-        type: integer
-        format: int64
-      city: 
-        type: string
-      adress: 
-        type: string
-      image: 
-        type: string
-      favourites:
-        type: array
-        minimum: 1
-        items:
-           $ref: '#/definitions/Product'
-      active:
-        type: boolean
-      
+     category_id:
+       type: integer
+       format: int64
+     image:
+       type: string
+     title:
+       type: string
+     description:
+       type: string
   Ingredient:
     type: object
     required:

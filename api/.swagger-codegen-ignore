@@ -30,3 +30,6 @@ schema/
 
 service/CategoryService.js
 controllers/CategoryService.js
+
+service/UserService.js
+controllers/UserService.js
