@@ -10,22 +10,21 @@ const Category = require('../model/category');
  **/
 exports.createCategory = function (body) {
     return new Promise(function (resolve, reject) {
-        let newCategory = {};
         let { category_id, title, image, description } = body;
-        newCategory['application/json'] = new Category({
+        let newCategory = new Category({
             "category_id": category_id,
             "title": title,
             "image": image,
             "description": description
         });
 
-        newCategory['application/json'].save().then(
+        newCategory.save().then(
             categoryDoc => { console.log('Saved category', categoryDoc); },
             error => { console.log('Unable to save category'); }
         );
 
         if (Object.keys(newCategory).length > 0) {
-            resolve(newCategory[Object.keys(newCategory)[0]]);
+            resolve(newCategory);
         } else {
             reject();
         }
@@ -44,9 +43,9 @@ exports.deleteCategoryById = function(id) {
 
         Category.findOneAndRemove({ category_id: id }).then(
             oneCategoryDoc => {
-                oneCategory['application/json'] = oneCategoryDoc;
+                oneCategory = oneCategoryDoc;
                 if (Object.keys(oneCategory).length > 0) {
-                    resolve(oneCategory[Object.keys(oneCategory)[0]]);
+                    resolve(oneCategory);
                 } else {
                     reject();
                 }
@@ -68,9 +67,9 @@ exports.findCategoryById = function (id) {
 
         Category.findOne({ category_id: id }).then(
             oneCategoryDoc => {
-                oneCategory['application/json'] = oneCategoryDoc;
+                oneCategory = oneCategoryDoc;
                 if (Object.keys(oneCategory).length > 0) {
-                    resolve(oneCategory[Object.keys(oneCategory)[0]]);
+                    resolve(oneCategory);
                 } else {
                     reject();
                 }
@@ -93,10 +92,10 @@ exports.getAllCategories = function (offset, limit, isActive) {
         let categories = [];
         Category.find().then(
             categoriesDoc => {
-                categories['application/json'] = categoriesDoc;
+                categories = categoriesDoc;
 
                 if (Object.keys(categories).length > 0) {
-                    resolve(categories[Object.keys(categories)[0]]);
+                    resolve(categories);
                 } else {
                     reject();
                 }
@@ -118,16 +117,11 @@ exports.updateCategoryById = function(id, updated_category) {
         let oneCategory = {};
         let { title, image, description } = updated_category;
 
-        Category.findOneAndUpdate({ category_id: id },
-                  {
-                      title: updated_category.title,
-                      image: updated_category.image,
-                      description: updated_category.description,
-                  }).then(
+        Category.findOneAndUpdate({ category_id: id }, { title, image, description }).then(
             oneCategoryDoc => {
-                oneCategory['application/json'] = updated_category;
+                oneCategory = updated_category;
                 if (Object.keys(oneCategory).length > 0) {
-                    resolve(oneCategory[Object.keys(oneCategory)[0]]);
+                    resolve(oneCategory);
                 } else {
                     reject();
                 }
