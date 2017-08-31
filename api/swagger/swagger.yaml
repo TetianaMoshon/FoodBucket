@@ -119,13 +119,13 @@ paths:
       parameters:
       - name: id
         in: path
-        description: Id of the Product being updated
+        description: content of the product is being updated
         required: true
         type: integer
         format: int64
       - name: "updatedProduct"
         in: "body"
-        description: The updated Product
+        description: The updated product
         required: true
         schema:
           $ref: "#/definitions/Product"
@@ -470,10 +470,28 @@ definitions:
       price:
         type: integer
         format: int64
+      category:
+        type: string  
       productInfo:
         type: array
         items:
           $ref: '#/definitions/ProductInfo'
+      ingredients:
+        type: array
+        items:
+          $ref: '#/definitions/Ingredient'
+      discount:
+        type: integer
+        format: int64
+      promotions:
+        type: boolean
+      status:
+        type: boolean
+      portion:
+        type: integer
+        format: int64
+      productLabel:
+        type: string  
   Category:
     type: object
     required:

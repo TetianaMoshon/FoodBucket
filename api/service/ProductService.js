@@ -2,20 +2,30 @@
 
 const Product = require('../model/product');
 
-exports.createProduct = function ({productId, title, description, image, price}) {
+exports.createProduct = function (body) {
     return new Promise((resolve, reject) => {
-        let newProduct = {};
-        newProduct = new Product({
+        let {productId, title, description, image, price, category, discount, promotions, status, portion, productLabel} = body;
+        let newProduct = new Product({
             "productId": productId,
             "title": title,
             "description": description,
             "image": image,
-            "price": price
+            "price": price,
             // "calories": calories,
             // "time": time,
             // "steps": steps,
             // "difficulty": difficulty,
             // "weight": weight
+            "category": category,
+            // "ingredients": [{
+            //     "ingredientName": ingredientName.body,
+            //     "quantity": quantity.body
+            // }],
+            "discount": discount,
+            "promotions": promotions,
+            "status": status,
+            "portion": portion,
+            "productLabel": productLabel
         });
 
         newProduct.save().then(

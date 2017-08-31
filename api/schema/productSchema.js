@@ -14,22 +14,27 @@ const productSchema = mongoose.Schema({
     price: {
         type: Number,
         required: true
-    }
-    // category: [Number],
-    //
+    },
+    category: String,
+    productInfo: {
+        calories: Number,
+        time: Number,
+        steps: Number,
+        difficulty: String,
+        weight: Number
+    },
     // ingredients: [{
-    //     ingredient: Number,
+    //     ingredientName: Number,
     //     quantity: Number
     // }],
-    //
-    // discount: Number,
-    // promotions: Boolean,
+    discount: Number,
+    promotions: Boolean,
     // rate: {
     //     users_quantity: Number
     // },
-    // status: Boolean,
-    // portion: Number,
-    // label:[String]
+    status: Boolean,
+    portion: Number,
+    productLabel: [String]
 });
 
 module.exports = productSchema;
