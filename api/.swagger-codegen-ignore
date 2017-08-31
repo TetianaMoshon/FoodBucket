@@ -29,6 +29,4 @@ model/
 schema/
 
 service/CategoryService.js
-controllers/Category.js
 service/OrderService.js
-controllers/Order.js

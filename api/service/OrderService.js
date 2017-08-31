@@ -9,17 +9,17 @@ const Order = require('../model/order');
 exports.findOrderById = function(id) {
     return new Promise(function(resolve, reject) {
         let oneOrder = {};
-        Order.findOne({orderId: id}).then(
+        Order.findOne({_id: id}).then(
             (oneOrderDoc) =>{
                 oneOrder = oneOrderDoc;
-                if (Object.keys(oneOrder).length > 0){
+                if (oneOrder!==null && Object.keys(oneOrder).length > 0){
                     resolve(oneOrder)
                 }
                 else {
-                    reject();
+                    resolve({'error':123});
                 }
             },
-            (error)=> {console.log('Unable to find order. View error:' + error.toString());}
+            (error)=> {console.log('Unable to find order. View error:' + error.toString()); reject();}
         );
 //     examples['application/json'] = {
 //   "address" : "address",
@@ -148,7 +148,7 @@ exports.deleteOrderById = function(id) {
     return new Promise((resolve, reject) => {
         let oneOrder = {};
 
-        Order.findOneAndRemove({ order_id: id }).then(
+        Order.findOneAndRemove({ _id: id }).then(
             oneOrderDoc => {
                 oneOrder = oneOrderDoc;
                 if (Object.keys(oneOrder).length > 0) {

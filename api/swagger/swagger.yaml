@@ -178,8 +178,7 @@ paths:
         in: path
         description: ID of the order to get
         required: true
-        type: integer
-        format: int64
+        type: string
       responses:
         200:
           description: Order response
@@ -201,8 +200,7 @@ paths:
         in: path
         description: ID of the order to delete
         required: true
-        type: integer
-        format: int64
+        type: string
       responses:
         204:
           description: Order is deleted
@@ -564,6 +562,8 @@ definitions:
       - price
       - status
     properties:
+      id:
+        type: string
       username:
         type: string
       city:
