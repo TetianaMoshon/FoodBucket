@@ -9,7 +9,7 @@ const Category = require('../model/category');
  * returns Category
  **/
 exports.createCategory = function (body) {
-    return new Promise(function (resolve, reject) {
+    return new Promise((resolve, reject) => {
         let { category_id, title, image, description } = body;
         let newCategory = new Category({
             "category_id": category_id,
@@ -20,7 +20,7 @@ exports.createCategory = function (body) {
 
         newCategory.save().then(
             categoryDoc => { console.log('Saved category', categoryDoc); },
-            error => { console.log('Unable to save category'); }
+            error => { console.log('Unable to save category: ', error); }
         );
 
         if (Object.keys(newCategory).length > 0) {
@@ -38,7 +38,7 @@ exports.createCategory = function (body) {
  * no response value expected for this operation
  **/
 exports.deleteCategoryById = function(id) {
-    return new Promise(function (resolve, reject) {
+    return new Promise((resolve, reject) => {
         let oneCategory = {};
 
         Category.findOneAndRemove({ category_id: id }).then(
@@ -50,7 +50,7 @@ exports.deleteCategoryById = function(id) {
                     reject();
                 }
             },
-            error => { console.log('Unable to remove category'); }
+            error => { console.log('Unable to remove category: ', error); }
         );
     });
 }
@@ -62,7 +62,7 @@ exports.deleteCategoryById = function(id) {
  * returns Category
  **/
 exports.findCategoryById = function (id) {
-    return new Promise(function (resolve, reject) {
+    return new Promise((resolve, reject) => {
         let oneCategory = {};
 
         Category.findOne({ category_id: id }).then(
@@ -74,7 +74,7 @@ exports.findCategoryById = function (id) {
                     reject();
                 }
             },
-            error => { console.log('Unable to get category'); }
+            error => { console.log('Unable to get category: ', error); }
         );
     });
 }
@@ -88,7 +88,7 @@ exports.findCategoryById = function (id) {
  * returns List
  **/
 exports.getAllCategories = function (offset, limit, isActive) {
-    return new Promise(function (resolve, reject) {
+    return new Promise((resolve, reject) => {
         let categories = [];
         Category.find().then(
             categoriesDoc => {
@@ -100,7 +100,7 @@ exports.getAllCategories = function (offset, limit, isActive) {
                     reject();
                 }
             },
-            error => { console.log('Unable to get categories'); }
+            error => { console.log('Unable to get categories: ', error); }
         );
     });
 }
@@ -109,24 +109,22 @@ exports.getAllCategories = function (offset, limit, isActive) {
 /**
  *
  * id Long Id of the Category being updated
- * updated_category Category The updated Category
+ * updatedCategory Category The updated Category
  * no response value expected for this operation
  **/
-exports.updateCategoryById = function(id, updated_category) {
-    return new Promise(function (resolve, reject) {
-        let oneCategory = {};
-        let { title, image, description } = updated_category;
+exports.updateCategoryById = function(id, updatedCategory) {
+    return new Promise((resolve, reject) => {
+        let { title, image, description } = updatedCategory;
 
         Category.findOneAndUpdate({ category_id: id }, { title, image, description }).then(
-            oneCategoryDoc => {
-                oneCategory = updated_category;
-                if (Object.keys(oneCategory).length > 0) {
-                    resolve(oneCategory);
+            () => {
+                if (Object.keys(updatedCategory).length > 0) {
+                    resolve(updatedCategory);
                 } else {
                     reject();
                 }
             },
-            error => { console.log('Unable to get category'); }
+            error => { console.log('Unable to get category: ', error); }
         );
     });
 }
