@@ -1,9 +1,9 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
+let mongoose = require('mongoose');
+let Schema = mongoose.Schema;
 
-var OrdersSchema = new Schema({
+let OrdersSchema = new Schema({
     user:Number,
-    user_name:{
+    username:{
         type: String,
         required: true
     },
@@ -11,16 +11,16 @@ var OrdersSchema = new Schema({
         type: String,
         required: true
     },
-    adress:{
+    address:{
         type: String,
         required: true
     },
-    products:[Number],
-    price:[Number],
+    products: [Number],
+    price:Number,
     quantity_dishes: Number,
     payment: String,
-    status: Boolean,
-    data: {
+    status: String,
+    date: {
         type: Date,
         default: Date.now
     }

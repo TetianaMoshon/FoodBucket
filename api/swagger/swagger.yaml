@@ -100,6 +100,112 @@ paths:
           description: invalid input
           schema:
             $ref: "#/definitions/Error"
+  /order:
+    get:
+      x-swagger-router-controller: Order
+      operationId: getAllOrders
+      tags:
+      - "order"
+      produces:
+      - application/json
+      parameters:
+        - name: offset
+          in: query
+          description: start position for quering from DB
+          required: true
+          type: integer
+          format: int32
+          minimum: 0
+          default: 0
+        - name: limit
+          in: query
+          description: number of items to query from DB
+          required: true
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 50
+          default: 20
+      responses:
+        200:
+          description: Successful products response
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Order"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+    post:
+      x-swagger-router-controller: Order
+      operationId: putOrder
+      tags:
+      - "order"
+      consumes:
+      - application/json
+      summary: Put an order
+      description: |
+        This endpoint allows to make an order.
+      parameters:
+      - in: body
+        name: body
+        description: Order body
+        required: true
+        schema:
+          $ref: '#/definitions/Order'
+      responses:
+        200:
+          description: Existing order was found and updated
+          schema:
+            $ref: '#/definitions/Order'
+        201:
+          description: Order added
+          schema:
+            $ref: '#/definitions/Order'
+        400:
+          description: Invalid input
+  /order/{id}:
+    get:
+      x-swagger-router-controller: Order
+      operationId: findOrderById
+      tags:
+      - "order"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the order to get
+        required: true
+        type: integer
+        format: int64
+      responses:
+        200:
+          description: Order response
+          schema:
+            $ref: "#/definitions/Order"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+    delete:
+      x-swagger-router-controller: Order
+      operationId: deleteOrderById
+      tags:
+      - "order"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the order to delete
+        required: true
+        type: integer
+        format: int64
+      responses:
+        204:
+          description: Order is deleted
   /categories:
     get:
       x-swagger-router-controller: Category
@@ -448,6 +554,33 @@ definitions:
         type: string
       description:
         type: string
+  Order:
+    type: object
+    required:
+      - username
+      - city
+      - address
+      - products
+      - price
+      - status
+    properties:
+      username:
+        type: string
+      city:
+        type: string
+      price:
+        type: integer
+        format: int64
+      address:
+        type: string
+      status:
+        type: string
+      products:
+        type: array
+        items: 
+          type: integer
+          format: int64
+        minItems: 1
   ProductInfo:
     type: object
     required:
