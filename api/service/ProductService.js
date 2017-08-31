@@ -2,17 +2,10 @@
 
 const Product = require('../model/product');
 
-/**
- * Create product
- * This endpoint allows to create new product.
- *
- * body Product Product object
- * returns Product
- **/
 exports.createProduct = function ({productId, title, description, image, price}) {
-    return new Promise(function (resolve, reject) {
+    return new Promise((resolve, reject) => {
         let newProduct = {};
-        newProduct['application/json'] = new Product({
+        newProduct = new Product({
             "productId": productId,
             "title": title,
             "description": description,
@@ -25,13 +18,13 @@ exports.createProduct = function ({productId, title, description, image, price})
             // "weight": weight
         });
 
-        newProduct['application/json'].save().then(
+        newProduct.save().then(
             productDoc => { console.log('Saved product', productDoc); },
-            error => { console.log('Unable to save product'); }
+            error => { console.log('Unable to save product', error); }
         );
 
         if (Object.keys(newProduct).length > 0) {
-            resolve(newProduct[Object.keys(newProduct)[0]]);
+            resolve(newProduct);
         } else {
             reject();
         }
@@ -39,69 +32,72 @@ exports.createProduct = function ({productId, title, description, image, price})
 }
 
 exports.deleteProductById = function(id) {
-    return new Promise(function (resolve, reject) {
+    return new Promise((resolve, reject) => {
         let oneProduct = {};
 
-        Product.findOneAndRemove({ product_id: id }).then(
+        Product.findOneAndRemove({ productId: id }).then(
             oneProductDoc => {
-                oneProduct['application/json'] = oneProductDoc;
+                oneProduct = oneProductDoc;
                 if (Object.keys(oneProduct).length > 0) {
-                    resolve(oneProduct[Object.keys(oneProduct)[0]]);
+                    resolve(oneProduct);
                 } else {
                     reject();
                 }
             },
-            error => { console.log('Unable to remove product'); }
+            error => { console.log('Unable to remove product', error); }
         );
     });
 }
 
-/**
- *
- * id Long ID of the product to get
- * returns Product
- **/
 exports.findProductById = function(id) {
-    return new Promise(function (resolve, reject) {
+    return new Promise((resolve, reject) => {
         let oneProduct = {};
 
-        Product.findOne({ product_id: id }).then(
+        Product.findOne({ productId: id }).then(
             oneProductDoc => {
-                oneProduct['application/json'] = oneProductDoc;
+                oneProduct = oneProductDoc;
                 if (Object.keys(oneProduct).length > 0) {
-                    resolve(oneProduct[Object.keys(oneProduct)[0]]);
+                    resolve(oneProduct);
                 } else {
                     reject();
                 }
             },
-            error => { console.log('Unable to get product'); }
+            error => { console.log('Unable to get product', error); }
         );
     });
 }
 
-
-/**
- *
- * offset Integer start position for quering from DB
- * limit Integer number of items to query from DB
- * isActive Boolean returns active products (optional)
- * returns List
- **/
 exports.getAllProducts = function(offset,limit,isActive) {
-    return new Promise(function (resolve, reject) {
+    return new Promise((resolve, reject) => {
         let products = [];
         Product.find().then(
             productsDoc => {
-                products['application/json'] = productsDoc;
+                products = productsDoc;
 
                 if (Object.keys(products).length > 0) {
-                    resolve(products[Object.keys(products)[0]]);
+                    resolve(products);
                 } else {
                     reject();
                 }
             },
-            error => { console.log('Unable to get products'); }
+            error => { console.log('Unable to get products', error); }
         );
     });
 }
 
+exports.updateProductById = function(id, updatedProduct) {
+    return new Promise((resolve, reject) => {
+        let { title, description, image, price } = updatedProduct;
+
+        Product.findOneAndUpdate({ productId: id }, { title, description, image, price }).then(
+            () => {
+                if (Object.keys(updatedProduct).length > 0) {
+                    resolve(updatedProduct);
+                } else {
+                    reject();
+                }
+            },
+            error => { console.log('Unable to get product: ', error); }
+        );
+    });
+}

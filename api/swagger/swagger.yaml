@@ -109,6 +109,31 @@ paths:
       responses:
         204:
           description: Product is deleted
+    put:
+      x-swagger-router-controller: Product
+      operationId: updateProductById
+      tags:
+      - "product"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: Id of the Product being updated
+        required: true
+        type: integer
+        format: int64
+      - name: "updatedProduct"
+        in: "body"
+        description: The updated Product
+        required: true
+        schema:
+          $ref: "#/definitions/Product"
+      responses:
+        200:
+          description: Product is updated
+        400:
+          description: An error!
   /product:
     post:
       x-swagger-router-controller: Product
