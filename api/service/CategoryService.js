@@ -46,8 +46,7 @@ exports.deleteCategoryById = function(id) {
                 oneCategoryDoc = oneCategoryDoc || {};
                 if (Object.keys(oneCategoryDoc).length > 0) {
                     let {category_id, title, image, description} = oneCategoryDoc;
-                    // if we need to return content we should use code 200
-                    resolve(utils.respondWithCode(204, {category_id, title, image, description}));
+                    resolve(utils.respondWithCode(200, {category_id, title, image, description}));
                 } else {
                     reject(utils.respondWithCode(404, {"code": 404, "message": "Category is not deleted, please try again."}));
                 }
