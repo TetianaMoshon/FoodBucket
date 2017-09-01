@@ -19,15 +19,16 @@ exports.createCategory = function (body) {
         });
 
         newCategory.save().then(
-            categoryDoc => { console.log('Saved category', categoryDoc); },
+            categoryDoc => {
+                if (Object.keys(categoryDoc).length > 0) {
+                    resolve(categoryDoc);
+                } else {
+                    reject();
+                }
+                console.log('Saved category', categoryDoc);
+            },
             error => { console.log('Unable to save category: ', error); }
         );
-
-        if (Object.keys(newCategory).length > 0) {
-            resolve(newCategory);
-        } else {
-            reject();
-        }
     });
 }
 
@@ -39,13 +40,11 @@ exports.createCategory = function (body) {
  **/
 exports.deleteCategoryById = function(id) {
     return new Promise((resolve, reject) => {
-        let oneCategory = {};
-
         Category.findOneAndRemove({ category_id: id }).then(
             oneCategoryDoc => {
-                oneCategory = oneCategoryDoc;
-                if (Object.keys(oneCategory).length > 0) {
-                    resolve(oneCategory);
+                oneCategoryDoc = oneCategoryDoc || {};
+                if (Object.keys(oneCategoryDoc).length > 0) {
+                    resolve(oneCategoryDoc);
                 } else {
                     reject();
                 }
@@ -63,13 +62,11 @@ exports.deleteCategoryById = function(id) {
  **/
 exports.findCategoryById = function (id) {
     return new Promise((resolve, reject) => {
-        let oneCategory = {};
-
         Category.findOne({ category_id: id }).then(
             oneCategoryDoc => {
-                oneCategory = oneCategoryDoc;
-                if (Object.keys(oneCategory).length > 0) {
-                    resolve(oneCategory);
+                oneCategoryDoc = oneCategoryDoc || {};
+                if (Object.keys(oneCategoryDoc).length > 0) {
+                    resolve(oneCategoryDoc);
                 } else {
                     reject();
                 }
@@ -89,13 +86,11 @@ exports.findCategoryById = function (id) {
  **/
 exports.getAllCategories = function (offset, limit, isActive) {
     return new Promise((resolve, reject) => {
-        let categories = [];
         Category.find().then(
             categoriesDoc => {
-                categories = categoriesDoc;
-
-                if (Object.keys(categories).length > 0) {
-                    resolve(categories);
+                categoriesDoc = categoriesDoc || [];
+                if (Object.keys(categoriesDoc).length > 0) {
+                    resolve(categoriesDoc);
                 } else {
                     reject();
                 }
