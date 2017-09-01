@@ -460,7 +460,6 @@ definitions:
       productId:
         type: integer
         format: int64
-        minimum: 1
       title:
         type: string
       description:
@@ -471,15 +470,9 @@ definitions:
         type: integer
         format: int64
       category:
-        type: string  
-      productInfo:
-        type: array
-        items:
-          $ref: '#/definitions/ProductInfo'
-      ingredients:
-        type: array
-        items:
-          $ref: '#/definitions/Ingredient'
+        type: string
+      recommended:
+        type: [string]
       discount:
         type: integer
         format: int64
@@ -487,11 +480,15 @@ definitions:
         type: boolean
       status:
         type: boolean
-      portion:
+      caloricity:
         type: integer
         format: int64
-      productLabel:
-        type: string  
+      servingSize:
+        type: integer  
+      difficulty:
+        type: string
+      spiceLevel:
+        type: string
   Category:
     type: object
     required:
@@ -524,25 +521,6 @@ definitions:
         type: string
       description:
         type: string
-  ProductInfo:
-    type: object
-    required:
-      - calories
-    properties:
-      calories:
-        type: integer
-        format: int64
-      time:
-        type: integer
-        format: int64
-      steps:
-        type: integer
-        format: int64
-      difficulty:
-        type: string
-      weight:
-        type: integer
-        format: int64
   Promotion:
     type: object
     required:

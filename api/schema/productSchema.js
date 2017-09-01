@@ -16,25 +16,23 @@ const productSchema = mongoose.Schema({
         required: true
     },
     category: String,
-    productInfo: {
-        calories: Number,
-        time: Number,
-        steps: Number,
-        difficulty: String,
-        weight: Number
-    },
-    // ingredients: [{
-    //     ingredientName: Number,
-    //     quantity: Number
-    // }],
+    recommended: [String],
     discount: Number,
     promotions: Boolean,
+    status: Boolean,
+    caloricity: Number,
+    servingSize: Number,
+    difficulty: String,
+    spiceLevel: String
+    // ingredients: [
+    //     {
+    //         ingredientName: Number,
+    //         quantity: Number
+    //     }
+    // ]
     // rate: {
     //     users_quantity: Number
-    // },
-    status: Boolean,
-    portion: Number,
-    productLabel: [String]
+    // }
 });
 
 module.exports = productSchema;

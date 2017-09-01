@@ -4,28 +4,26 @@ const Product = require('../model/product');
 
 exports.createProduct = function (body) {
     return new Promise((resolve, reject) => {
-        let {productId, title, description, image, price, category, discount, promotions, status, portion, productLabel} = body;
+        let { productId, title, description, image, price, category, caloricity, servingSize, difficulty, spiceLevel, recommended, discount, promotions, status, ingredients } = body;
         let newProduct = new Product({
             "productId": productId,
             "title": title,
             "description": description,
             "image": image,
             "price": price,
-            // "calories": calories,
-            // "time": time,
-            // "steps": steps,
-            // "difficulty": difficulty,
-            // "weight": weight
             "category": category,
-            // "ingredients": [{
-            //     "ingredientName": ingredientName.body,
-            //     "quantity": quantity.body
-            // }],
+            "status": status,
+            "recommended": recommended,
             "discount": discount,
             "promotions": promotions,
-            "status": status,
-            "portion": portion,
-            "productLabel": productLabel
+            "caloricity": caloricity,
+            "servingSize": servingSize,
+            "difficulty": difficulty,
+            "spiceLevel": spiceLevel
+            // "ingredients": [{
+            //     "ingredientName": ingredientName,
+            //     "quantity": quantity
+            // }]
         });
 
         newProduct.save().then(
@@ -97,9 +95,24 @@ exports.getAllProducts = function(offset,limit,isActive) {
 
 exports.updateProductById = function(id, updatedProduct) {
     return new Promise((resolve, reject) => {
-        let { title, description, image, price } = updatedProduct;
+        let { title, description, image, price, category, status, recommended, discount, promotions, caloricity, servingSize, difficulty, spiceLevel } = updatedProduct;
 
-        Product.findOneAndUpdate({ productId: id }, { title, description, image, price }).then(
+        Product.findOneAndUpdate({ productId: id },
+            {
+                "title": title,
+                "description": description,
+                "image": image,
+                "price": price,
+                "category": category,
+                "status": status,
+                "recommended": recommended,
+                "discount": discount,
+                "promotions": promotions,
+                "caloricity": caloricity,
+                "servingSize": servingSize,
+                "difficulty": difficulty,
+                "spiceLevel": spiceLevel
+            }).then(
             () => {
                 if (Object.keys(updatedProduct).length > 0) {
                     resolve(updatedProduct);
