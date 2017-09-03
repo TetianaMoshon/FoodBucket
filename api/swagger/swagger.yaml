@@ -162,7 +162,7 @@ paths:
           schema:
             $ref: '#/definitions/Product'
         400:
-          description: Invalid input   
+          description: Invalid input
   /categories:
     get:
       x-swagger-router-controller: Category
@@ -299,7 +299,7 @@ paths:
           schema:
             $ref: '#/definitions/Category'
         400:
-          description: Invalid input            
+          description: Invalid input
   /ingredient/{id}:
     get:
       x-swagger-router-controller: Ingredient
@@ -484,11 +484,24 @@ definitions:
         type: integer
         format: int64
       servingSize:
-        type: integer  
+        type: integer
       difficulty:
         type: string
       spiceLevel:
         type: string
+      ingredients:
+        type: array
+        items:
+          type: object
+          properties:
+            ingredientId:
+              type: integer
+              format: int64
+            ingredientName:
+              type: string
+            quantity:
+              type: integer
+              format: int64
   Category:
     type: object
     required:
