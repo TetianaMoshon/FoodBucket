@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const counter = require('../model/counter');
 
 const productSchema = mongoose.Schema({
     productId: Number,
@@ -33,6 +34,16 @@ const productSchema = mongoose.Schema({
     // rate: {
     //     users_quantity: Number
     // }
+});
+
+productSchema.pre('save', function(next) {
+    let doc = this;
+    counter.findByIdAndUpdate({_id: 'productId'}, {$inc: { seq: 1} }, function(error, counter)   {
+        if(error)
+            return next(error);
+        doc.productId = counter.seq;
+        next();
+    });
 });
 
 module.exports = productSchema;

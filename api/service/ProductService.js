@@ -1,5 +1,5 @@
 'use strict';
-
+const utils = require('../utils/writer.js');
 const Product = require('../model/product');
 
 exports.createProduct = function (body) {
