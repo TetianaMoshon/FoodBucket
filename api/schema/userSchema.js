@@ -1,7 +1,23 @@
 var mongoose = require('mongoose');
 
 var UserSchema = mongoose.Schema({
-    id: Number,
+    user_id: {
+        type: Number
+    },
+
+    image: {
+        type: String,
+        required: true
+    },
+    title: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    }
+    /* id: Number,
     first_name: {
         type: String,
         required: true
@@ -23,7 +39,7 @@ var UserSchema = mongoose.Schema({
     adress: String,
     image: String,
     favourites: [Number],
-    active: Boolean
+    active: Boolean*/
 });
 
 module.exports = UserSchema;

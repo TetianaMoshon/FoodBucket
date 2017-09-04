@@ -62,84 +62,104 @@ exports.deleteCategoryById = function(id) {
  * returns Category
  **/
 exports.findCategoryById = function(id) {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "image" : "image",
-  "category_id" : 0,
-  "description" : "description",
-  "title" : "title"
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
-exports.findCategoryById = function (id) {
-    return new Promise((resolve, reject) => {
-        let oneCategory = {};
-
-        Category.findOne({ category_id: id }).then(
-            oneCategoryDoc => {
-                oneCategory = oneCategoryDoc;
-                if (Object.keys(oneCategory).length > 0) {
-                    resolve(oneCategory);
-                } else {
-                    reject();
-                }
-            },
-            error => { console.log('Unable to get category: ', error); }
-        );
+    return new Promise(function (resolve, reject) {
+        var examples = {};
+        examples['application/json'] = {
+            "image": "image",
+            "category_id": 0,
+            "description": "description",
+            "title": "title"
+        };
+        if (Object.keys(examples).length > 0) {
+            resolve(examples[Object.keys(examples)[0]]);
+        } else {
+            resolve();
+        }
     });
 }
+    exports.findCategoryById = function (id) {
+        return new Promise((resolve, reject) => {
+                let oneCategory = {};
+
+        Category.findOne({category_id: id}).then(
+            oneCategoryDoc => {
+            oneCategory = oneCategoryDoc;
+        if (Object.keys(oneCategory).length > 0) {
+            resolve(oneCategory);
+        } else {
+            reject();
+        }
+    },
+        error =>{
+            console.log('Unable to get category: ', error);
+        }
+
+        )
+        ;
+    })
+        ;
+    }
 
 
-/**
- *
- * offset Integer start position for quering from DB
- * limit Integer number of items to query from DB
- * isActive Boolean returns active categories (optional)
- * returns List
- **/
-exports.getAllCategories = function (offset, limit, isActive) {
-    return new Promise((resolve, reject) => {
-        let categories = [];
+    /**
+     *
+     * offset Integer start position for quering from DB
+     * limit Integer number of items to query from DB
+     * isActive Boolean returns active categories (optional)
+     * returns List
+     **/
+    exports.getAllCategories = function (offset, limit, isActive) {
+        return new Promise((resolve, reject) => {
+                let categories = [];
         Category.find().then(
             categoriesDoc => {
-                categories = categoriesDoc;
+            categories = categoriesDoc;
 
-                if (Object.keys(categories).length > 0) {
-                    resolve(categories);
-                } else {
-                    reject();
-                }
-            },
-            error => { console.log('Unable to get categories: ', error); }
-        );
-    });
-}
+        if (Object.keys(categories).length > 0) {
+            resolve(categories);
+        } else {
+            reject();
+        }
+    },
+        error =>
+        {
+            console.log('Unable to get categories: ', error);
+        }
+        )
+        ;
+    })
+        ;
+    }
 
 
-/**
- *
- * id Long Id of the Category being updated
- * updatedCategory Category The updated Category
- * no response value expected for this operation
- **/
-exports.updateCategoryById = function(id, updatedCategory) {
-    return new Promise((resolve, reject) => {
-        let { title, image, description } = updatedCategory;
+    /**
+     *
+     * id Long Id of the Category being updated
+     * updatedCategory Category The updated Category
+     * no response value expected for this operation
+     **/
+    exports.updateCategoryById = function (id, updatedCategory) {
+        return new Promise((resolve, reject) => {
+                let {title, image, description} = updatedCategory;
 
-        Category.findOneAndUpdate({ category_id: id }, { title, image, description }).then(
+        Category.findOneAndUpdate({category_id: id}, {title, image, description}).then(
             () => {
-                if (Object.keys(updatedCategory).length > 0) {
-                    resolve(updatedCategory);
-                } else {
-                    reject();
-                }
-            },
-            error => { console.log('Unable to get category: ', error); }
-        );
-    });
-}
+            if (Object.keys(updatedCategory).length > 0
+        )
+        {
+            resolve(updatedCategory);
+        }
+        else
+        {
+            reject();
+        }
+    },
+        error =>
+        {
+            console.log('Unable to get category: ', error);
+        }
+        )
+        ;
+    })
+        ;
+    }

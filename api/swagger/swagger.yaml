@@ -166,6 +166,79 @@ paths:
           description: invalid input
           schema:
             $ref: "#/definitions/Error"
+    delete:
+      x-swagger-router-controller: User
+      operationId: deleteUserById
+      tags:
+      - "user"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the user to delete
+        required: true
+        type: integer
+        format: int64
+      responses:
+        204:
+          description: User is deleted
+          schema:
+            $ref: "#/definitions/User"
+    put:
+      x-swagger-router-controller: User
+      operationId: updateUserById
+      tags:
+      - "user"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: Id of the User being updated
+        required: true
+        type: integer
+        format: int64
+      - name: "updatedUser"
+        in: "body"
+        description: The updated User
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        200:
+          description: User is updated
+        400:
+          description: An error!
+  /user:
+    post:
+      x-swagger-router-controller: User
+      operationId: createUser
+      tags:
+      - "user"
+      consumes:
+      - application/json
+      summary: Create user
+      description: |
+        This endpoint allows to create new user.
+      parameters:
+      - in: body
+        name: body
+        description: User object
+        required: true
+        schema:
+          $ref: '#/definitions/User'
+      responses:
+        200:
+          description: Existing category was found and updated
+          schema:
+            $ref: "#/definitions/User"
+        201:
+          description: User added
+          schema:
+            $ref: "#/definitions/User"
+        400:
+          description: Invalid input
   /categories:
     get:
       x-swagger-router-controller: Category
@@ -506,7 +579,7 @@ definitions:
       - title
       - description
     properties:
-     category_id:
+     user_id:
        type: integer
        format: int64
      image:
