@@ -451,11 +451,10 @@ paths:
 definitions:
   Product:
     type: object
-    required:
-      - image
-      - price
+    required:      
       - title
       - description
+      - price
     properties:
       productId:
         type: integer
@@ -492,16 +491,18 @@ definitions:
       ingredients:
         type: array
         items:
-          type: object
-          properties:
-            ingredientId:
-              type: integer
-              format: int64
-            ingredientName:
-              type: string
-            quantity:
-              type: integer
-              format: int64
+          $ref: "#/definitions/IngredientsList"
+  IngredientsList:
+    type: object
+    properties:
+      ingredientId:
+        type: integer
+        format: int64
+      ingredientName:
+        type: string
+      quantity:
+        type: integer
+        format: int64
   Category:
     type: object
     required:
