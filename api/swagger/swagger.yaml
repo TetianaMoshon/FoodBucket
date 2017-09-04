@@ -300,6 +300,48 @@ paths:
             $ref: '#/definitions/Category'
         400:
           description: Invalid input
+  /ingredients:
+    get:
+      x-swagger-router-controller: Ingredient
+      operationId: getAllIngredients
+      tags:
+      - "ingredient"
+      produces:
+      - application/json
+      parameters:
+        - name: isActive
+          in: query
+          description: returns active ingredients
+          required: false
+          type: boolean
+        - name: offset
+          in: query
+          description: start position for quering from DB
+          required: true
+          type: integer
+          format: int32
+          minimum: 0
+          default: 0
+        - name: limit
+          in: query
+          description: number of items to query from DB
+          required: true
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 27
+          default: 9
+      responses:
+        200:
+          description: Successful ingredients response
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Ingredient"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
   /ingredient/{id}:
     get:
       x-swagger-router-controller: Ingredient
@@ -324,6 +366,77 @@ paths:
           description: invalid input
           schema:
             $ref: "#/definitions/Error"
+    delete:
+      x-swagger-router-controller: Ingredient
+      operationId: deleteIngredientById
+      tags:
+      - "ingredient"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the ingredient to delete
+        required: true
+        type: integer
+        format: int64
+      responses:
+        204:
+          description: Ingredient is deleted
+    put:
+      x-swagger-router-controller: Ingredient
+      operationId: updateIngredientById
+      tags:
+      - "ingredient"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: Id of the Ingredient being updated
+        required: true
+        type: integer
+        format: int64
+      - name: "updatedIngredient"
+        in: "body"
+        description: The updated Ingredient
+        required: true
+        schema:
+          $ref: "#/definitions/Ingredient"
+      responses:
+        200:
+          description: Ingredient is updated
+        400:
+          description: An error!
+  /ingredient:
+    post:
+      x-swagger-router-controller: Ingredient
+      operationId: createIngredient
+      tags:
+      - "ingredient"
+      consumes:
+      - application/json
+      summary: Create Ingredient
+      description: |
+        This endpoint allows to create new Ingredient.
+      parameters:
+      - in: body
+        name: body
+        description: Ingredient object
+        required: true
+        schema:
+          $ref: '#/definitions/Ingredient'
+      responses:
+        200:
+          description: Existing ingredient was found and updated
+          schema:
+            $ref: '#/definitions/Ingredient'
+        201:
+          description: Ingredient added
+          schema:
+            $ref: '#/definitions/Ingredient'
+        400:
+          description: Invalid input
   /promotion:
     get:
       x-swagger-router-controller: Promotion
@@ -529,12 +642,22 @@ definitions:
       ingredient_id:
         type: integer
         format: int64
-      image:
-        type: string
       title:
         type: string
       description:
         type: string
+      image:
+        type: string
+      measure:
+        type: string
+      quantity:
+        type: string
+      price:
+        type: integer
+        format: int64
+      discount:
+        type: integer
+        format: int64
   Promotion:
     type: object
     required:

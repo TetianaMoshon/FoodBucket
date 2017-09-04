@@ -2,12 +2,12 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var IngredientsSchema = new Schema({
-    id: Number,
+    ingredient_id: Number,
     title: String,
-    discription: String,
+    description: String,
     image: String,
     measure: String,
-    quantity: Number,
+    quantity: String,
     price: Number,
     discount: Number
 });
