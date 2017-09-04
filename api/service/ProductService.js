@@ -4,7 +4,7 @@ const Product = require('../model/product');
 
 exports.createProduct = function (body) {
     return new Promise((resolve, reject) => {
-        let { productId, title, description, image, price, category, caloricity, servingSize, difficulty, spiceLevel, recommended, discount, promotions, status, ingredients } = body;
+        let { productId, title, description, image, price, category, caloricity, servingSize, difficulty, spiceLevel, recommended, discount, promotions, status, ingredients: [{ ingredientId, ingredientName, quantity }] } = body;
         let newProduct = new Product({
             "productId": productId,
             "title": title,
@@ -19,11 +19,14 @@ exports.createProduct = function (body) {
             "caloricity": caloricity,
             "servingSize": servingSize,
             "difficulty": difficulty,
-            "spiceLevel": spiceLevel
-            // "ingredients": [{
-            //     "ingredientName": ingredientName,
-            //     "quantity": quantity
-            // }]
+            "spiceLevel": spiceLevel,
+            "ingredients": [
+                {
+                    "ingredientId": ingredientId,
+                    "ingredientName": ingredientName,
+                    "quantity": quantity
+                }
+            ]
         });
 
         newProduct.save().then(

@@ -24,13 +24,14 @@ const productSchema = mongoose.Schema({
     caloricity: Number,
     servingSize: Number,
     difficulty: String,
-    spiceLevel: String
-    // ingredients: [
-    //     {
-    //         ingredientName: Number,
-    //         quantity: Number
-    //     }
-    // ]
+    spiceLevel: String,
+    ingredients: [
+        {
+            ingredientId: Number,
+            ingredientName: String,
+            quantity: Number
+        }
+    ]
     // rate: {
     //     users_quantity: Number
     // }
