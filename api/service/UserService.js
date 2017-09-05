@@ -1,6 +1,6 @@
 'use strict';
 const User = require('../model/user');
-/*work*/
+
 exports.findUserById = function (id) {
     return new Promise((resolve, reject) => {
         let oneUser = {};
@@ -20,7 +20,7 @@ exports.findUserById = function (id) {
         );
     });
 }
-/*work*/
+
 exports.getAllUsers = function (offset, limit, isActive) {
     return new Promise((resolve, reject) => {
         let users = [];
@@ -96,18 +96,14 @@ exports.updateUserById = function (id, updatedUser) {
 
         User.findOneAndUpdate({user_id: id}, {user_id, first_name, last_name, email, password, phone, city, address, image, favourites, active}).then(
             () => {
-                if (Object.keys(updatedUser).length > 0
-                )
-                {
+                if (Object.keys(updatedUser).length > 0) {
                     resolve(updatedUser);
                 }
-                else
-                {
+                else {
                     reject();
                 }
             },
-            error =>
-            {
+            error => {
                 console.log('Unable to get user: ', error);
             }
         );

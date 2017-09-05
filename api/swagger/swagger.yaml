@@ -579,7 +579,6 @@ definitions:
       - last_name
       - email
       - password
-      - phone
     properties:
      user_id:
        type: integer

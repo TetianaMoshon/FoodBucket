@@ -1,11 +1,23 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var UserSchema = mongoose.Schema({
+const UserSchema = mongoose.Schema({
     user_id: Number,
-    first_name: String,
-    last_name: String,
-    email:  String,
-    password: String,
+    first_name: {
+        type: String,
+        required: true
+    },
+    last_name: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
     phone: Number,
     city: String,
     address: String,
