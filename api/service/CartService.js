@@ -11,24 +11,24 @@ const Cart = require('../model/cart');
  **/
 exports.createCartForUserById = function(id,body) {
     return new Promise(function(resolve, reject) {
-        let { orderedProducts, totalPriceOfAllDishes } = body;
+        const { orderedProducts, totalPriceOfAllDishes } = body;
 
-        let newCart = new Cart({
-            "userId": id,
-            "orderedProducts": orderedProducts,
-            "totalPriceOfAllDishes": totalPriceOfAllDishes
-        });
-
-        newCart.save()
-            .then(
-             cartDoc => { console.log('Saved cart content', cartDoc); },
-             error => { console.log('Unable to save cart content: ', error); });
-
-        if (Object.keys(newCart).length > 0) {
-            resolve(newCart);
-        } else {
-            reject();
-        }
+       new Cart({
+            userId: id,
+            orderedProducts,
+            totalPriceOfAllDishes
+        })
+           .save()
+           .then(
+             cartDoc => { console.log('Saved cart content', cartDoc);
+            if (Object.keys(cartDoc).length > 0) {
+                resolve(cartDoc);
+            } else {
+                reject();
+            }
+             },
+             error => { console.log('Unable to save cart content: ', error); }
+      );
 
     });
 }
@@ -85,7 +85,7 @@ exports.findCartContentById = function(id) {
 /**
  *
  * id Long content of the user's cart is being updated
- * updated_cartContent Cart The updated cartContent
+ * updatedcartContent Cart The updated cartContent
  * no response value expected for this operation
  **/
 exports.updateCartContentById = function(id,updatedcartContent) {
@@ -94,8 +94,8 @@ exports.updateCartContentById = function(id,updatedcartContent) {
 
         let oneCart = Cart.findOneAndUpdate({ userId: id },
             {
-                ordered_products: orderedProducts,
-                totalPriceOfAllDishes: totalPriceOfAllDishes
+                orderedProducts,
+                totalPriceOfAllDishes
             }
         ).then(
                 () => {

@@ -8,7 +8,7 @@ var cartSchema = mongoose.Schema({
         type: [
                 {
                     quantity: Number,
-                    product_id: Number
+                    productId: Number
                 }
             ],
         required: true
