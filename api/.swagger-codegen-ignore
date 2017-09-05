@@ -29,4 +29,6 @@ model/
 schema/
 
 service/CategoryService.js
+service/ProductService.js
 controllers/CategoryService.js
+controllers/ProductService.js
