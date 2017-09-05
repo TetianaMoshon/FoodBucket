@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
+const counter = require('../model/counter');
 
-const UserSchema = mongoose.Schema({
+const
+    userSchema = mongoose.Schema({
     user_id: Number,
     first_name: {
         type: String,
@@ -26,4 +28,14 @@ const UserSchema = mongoose.Schema({
     active: Boolean
 });
 
-module.exports = UserSchema;
+userSchema.pre('save', function(next) {
+    let doc = this;
+    counter.findByIdAndUpdate({_id: 'userId'}, {$inc: { seq: 1} }, function(error, counter)   {
+        if(error)
+            return next(error);
+        doc.user_id = counter.seq;
+        next();
+    });
+});
+
+module.exports = userSchema;

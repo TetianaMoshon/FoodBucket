@@ -104,6 +104,7 @@ paths:
     get:
       x-swagger-router-controller: User
       operationId: getAllUsers
+      summary: Get all users
       tags:
       - "user"
       produces:
@@ -146,6 +147,7 @@ paths:
     get:
       x-swagger-router-controller: User
       operationId: findUserById
+      summary: Find user
       tags:
       - "user"
       produces:
@@ -169,6 +171,7 @@ paths:
     delete:
       x-swagger-router-controller: User
       operationId: deleteUserById
+      summary: Delete user
       tags:
       - "user"
       produces:
@@ -188,6 +191,7 @@ paths:
     put:
       x-swagger-router-controller: User
       operationId: updateUserById
+      summary: Update user
       tags:
       - "user"
       produces:
