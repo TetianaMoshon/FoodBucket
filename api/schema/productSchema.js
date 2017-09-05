@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const counter = require('../model/counter');
+const ingredient = require('../model/ingredients');
 
 const productSchema = mongoose.Schema({
     productId: Number,
@@ -43,6 +44,7 @@ productSchema.pre('save', function(next) {
         doc.productId = counter.seq;
         next();
     });
+
 });
 
 module.exports = productSchema;

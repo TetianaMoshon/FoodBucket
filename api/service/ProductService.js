@@ -1,10 +1,18 @@
 'use strict';
 const utils = require('../utils/writer.js');
 const Product = require('../model/product');
+const Ingredient = require('../model/ingredients');
 
 exports.createProduct = function (body) {
     return new Promise((resolve, reject) => {
         let { productId, title, description, image, price, category, caloricity, servingSize, difficulty, spiceLevel, recommended, discount, promotions, status, ingredients} = body;
+
+        for(let i = 0; i < ingredients.length;i++){
+            Ingredient.findOne({'ingredient_id':ingredients[i].ingredientId}, function (err,obj) {
+                doc.ingredients[i].ingredientName = obj.title;
+            })};
+
+        var temporary = ingredients;
         let newProduct = new Product({
             "productId": productId,
             "title": title,
@@ -23,8 +31,10 @@ exports.createProduct = function (body) {
             "ingredients": ingredients
         });
 
+        Product.update(all, {'difficulty': 'WORK'});
+
         newProduct.save().then(
-            productDoc => { console.log('Saved product', productDoc); },
+            productDoc => { console.log('Saved product', temporary); },
             error => { console.log('Unable to save product', error); }
         );
 
