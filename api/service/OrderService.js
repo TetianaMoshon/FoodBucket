@@ -13,7 +13,7 @@ exports.findOrderById = function(id) {
             (oneOrderDoc) =>{
                 oneOrderDoc = oneOrderDoc || {};
                 if (Object.keys(oneOrderDoc).length > 0) {
-                    let { orderId,username, city, address, products,price,status } = oneCategoryDoc;
+                    let { orderId,username, city, address, products,price,status } = oneOrderDoc;
                     resolve(utils.respondWithCode(200, { orderId,username, city, address, products,price,status }));
                 }
                 else {
@@ -37,7 +37,7 @@ exports.getAllOrders = function (offset, limit) {
 
         Order.find().then(
             (ordersDoc) => {
-                ordersDoc = ordersDocDoc || [];
+                ordersDoc = ordersDoc || [];
                 if (Object.keys(ordersDoc).length > 0) {
                     ordersDoc = ordersDoc.map( ({ orderId,username, city, address, products,price,status }) => {
                         return { orderId,username, city, address, products,price,status };
@@ -80,8 +80,8 @@ exports.putOrder = function({ orderId,username, city, address, products,price,st
             } else {
                 reject(utils.respondWithCode(404, {"code": 404, "message": "Order is not created, please try again."}));
             }
-            console.log('Saved category', orderDoc);
-        },
+            //console.log('Saved category', orderDoc);
+        }
 
     );
         //
