@@ -51,6 +51,8 @@ import { DisqusComponent } from './components/disqus/disqus.component';
 import { CommentsService } from './services/comments.service';
 import { OrdersFiltersPipe } from './pipes/orders-filters.pipe';
 
+import { ApiModule } from './client/api.module';
+
 @NgModule({
   declarations: [
       AppComponent,
@@ -120,6 +122,7 @@ import { OrdersFiltersPipe } from './pipes/orders-filters.pipe';
       Ng2SmartTableModule,
       ChartsModule,
       [TabsModule.forRoot()],
+      ApiModule,
   ],
   providers: [PagerService, CommentsService],
   bootstrap: [AppComponent]
