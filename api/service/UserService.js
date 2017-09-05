@@ -1,50 +1,16 @@
 'use strict';
+const utils = require('../utils/writer.js');
 const User = require('../model/user');
 
-exports.findUserById = function (id) {
+/**
+ * Create user
+ * This endpoint allows to create new user.
+ *
+ * body User User object
+ * returns User
+ **/
+exports.createUser = function ({user_id, first_name, last_name, email, password, phone, city, address, image, favourites, active}) {
     return new Promise((resolve, reject) => {
-        let oneUser = {};
-
-        User.findOne({user_id: id}).then(
-            oneUserDoc => {
-                oneUser = oneUserDoc;
-                if (Object.keys(oneUser).length > 0) {
-                    resolve(oneUser);
-                } else {
-                    reject();
-                }
-            },
-            error =>{
-                console.log('Unable to get user: ', error);
-            }
-        );
-    });
-}
-
-exports.getAllUsers = function (offset, limit, isActive) {
-    return new Promise((resolve, reject) => {
-        let users = [];
-        User.find().then(
-            usersDoc => {
-                users = usersDoc;
-
-                if (Object.keys(users).length > 0) {
-                    resolve(users);
-                } else {
-                    reject();
-                }
-            },
-            error =>
-            {
-                console.log('Unable to get users: ', error);
-            }
-        );
-    });
-}
-
-exports.createUser = function (body) {
-    return new Promise((resolve, reject) => {
-        let { user_id, first_name, last_name, email, password, phone, city, address, image, favourites, active} = body;
         let newUser = new User({
             "user_id": user_id,
             "first_name": first_name,
@@ -60,53 +26,114 @@ exports.createUser = function (body) {
         });
 
         newUser.save().then(
-            userDoc => { console.log('Saved user', userDoc); },
-            error => { console.log('Unable to save user: ', error); }
+            userDoc => {
+                if (Object.keys(userDoc).length > 0) {
+                    let {user_id, first_name, last_name, email, password, phone, city, address, image, favourites, active} = userDoc;
+                    resolve(utils.respondWithCode(201, {user_id, first_name, last_name, email, password, phone, city, address, image, favourites, active}));
+                } else {
+                    reject(utils.respondWithCode(404, {"code": 404, "message": "User is not created, please try again."}));
+                }
+                console.log('Saved user', userDoc);
+            },
+            error => {
+                console.log('Unable to save user: ', error);
+            }
         );
-
-        if (Object.keys(newUser).length > 0) {
-            resolve(newUser);
-        } else {
-            reject();
-        }
     });
-}
+};
 
+/**
+ *
+ * id Long ID of the user to delete
+ * no response value expected for this operation
+ **/
 exports.deleteUserById = function(id) {
     return new Promise((resolve, reject) => {
-        let oneUser = {};
-
         User.findOneAndRemove({ user_id: id }).then(
             oneUserDoc => {
-                oneUser = oneUserDoc;
-                if (Object.keys(oneUser).length > 0) {
-                    resolve(oneUser);
+                oneUserDoc = oneUserDoc || {};
+                if (Object.keys(oneUserDoc).length > 0) {
+                    let {user_id, first_name, last_name, email, password, phone, city, address, image, favourites, active} = oneUserDoc;
+                    resolve(utils.respondWithCode(200, {user_id, first_name, last_name, email, password, phone, city, address, image, favourites, active}));
                 } else {
-                    reject();
+                    reject(utils.respondWithCode(404, {"code": 404, "message": "User is not deleted, please try again."}));
                 }
             },
             error => { console.log('Unable to remove user: ', error); }
         );
     });
-}
+};
 
-exports.updateUserById = function (id, updatedUser) {
+/**
+ *
+ * id Long ID of the user to get
+ * returns User
+ **/
+exports.findUserById = function (id) {
     return new Promise((resolve, reject) => {
-        let {user_id, first_name, last_name, email, password, phone, city, address, image, favourites, active} = updatedUser;
-
-        User.findOneAndUpdate({user_id: id}, {user_id, first_name, last_name, email, password, phone, city, address, image, favourites, active}).then(
-            () => {
-                if (Object.keys(updatedUser).length > 0) {
-                    resolve(updatedUser);
-                }
-                else {
-                    reject();
+        User.findOne({ user_id: id }).then(
+            oneUserDoc => {
+                oneUserDoc = oneUserDoc || {};
+                if (Object.keys(oneUserDoc).length > 0) {
+                    let {user_id, first_name, last_name, email, password, phone, city, address, image, favourites, active} = oneUserDoc;
+                    resolve(utils.respondWithCode(200, {user_id, first_name, last_name, email, password, phone, city, address, image, favourites, active}));
+                } else {
+                    reject(utils.respondWithCode(404, {"code": 404, "message": "User is not found, please try again."}));
                 }
             },
-            error => {
-                console.log('Unable to get user: ', error);
-            }
+            error => { console.log('Unable to get user: ', error); }
         );
     });
-}
+};
 
+
+/**
+ *
+ * offset Integer start position for quering from DB
+ * limit Integer number of items to query from DB
+ * isActive Boolean returns active users (optional)
+ * returns List
+ **/
+exports.getAllUsers = function (offset, limit, isActive) {
+    return new Promise((resolve, reject) => {
+        User.find().then(
+            usersDoc => {
+                usersDoc = usersDoc || [];
+                if (Object.keys(usersDoc).length > 0) {
+                    usersDoc = usersDoc.map( ({ user_id, first_name, last_name, email, password, phone, city, address, image, favourites, active }) => {
+                        return { user_id, first_name, last_name, email, password, phone, city, address, image, favourites, active };
+                    });
+                    resolve(utils.respondWithCode(200, usersDoc));
+                } else {
+                    reject(utils.respondWithCode(404, {"code": 404, "message": "Users are not found, please try again."}));
+                }
+            },
+            error => { console.log('Unable to get users: ', error); }
+        );
+    });
+};
+
+
+/**
+ *
+ * id Long Id of the User being updated
+ * updatedUser User The updated User
+ * no response value expected for this operation
+ **/
+exports.updateUserById = function(id, updatedUser) {
+    return new Promise((resolve, reject) => {
+        let {first_name, last_name, email, password, phone, city, address, image, favourites, active } = updatedUser;
+
+        User.findOneAndUpdate({ user_id: id }, {first_name, last_name, email, password, phone, city, address, image, favourites, active }).then(
+            oneUser => {
+                if (Object.keys(updatedUser).length > 0 && oneUser !== null) {
+                    let user_id = oneUser.user_id;
+                    resolve(utils.respondWithCode(200, {user_id, first_name, last_name, email, password, phone, city, address, image, favourites, active}));
+                } else {
+                    reject(utils.respondWithCode(400, {"code": 404, "message": "User is not updated, please try again."}));
+                }
+            },
+            error => { console.log('Unable to get user: ', error); }
+        );
+    });
+};
