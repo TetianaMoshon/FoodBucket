@@ -25,13 +25,11 @@ const productSchema = mongoose.Schema({
     servingSize: Number,
     difficulty: String,
     spiceLevel: String,
-    ingredients: [
-        {
-            ingredientId: Number,
-            ingredientName: String,
-            quantity: Number
-        }
-    ]
+    ingredients: [{
+        "ingredientId": Number,
+        "ingredientName": String,
+        "quantity": Number
+    }]
     // rate: {
     //     users_quantity: Number
     // }
