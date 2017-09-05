@@ -1,8 +1,9 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
+const counter = require('../model/counter');
 
-let OrdersSchema = new Schema({
-    user:Number,
+let ordersSchema = new Schema({
+    orderId:Number,
     username:{
         type: String,
         required: true
@@ -25,5 +26,14 @@ let OrdersSchema = new Schema({
         default: Date.now
     }
 });
+ordersSchema.pre('save', function(next) {
+    let doc = this;
+    counter.findByIdAndUpdate({_id: 'orderId'}, {$inc: { seq: 1} }, function(error, counter)   {
+        if(error)
+            return next(error);
+        doc.orderId = counter.seq;
+        next();
+    });
+});
 
-module.exports = OrdersSchema;
+module.exports = ordersSchema;

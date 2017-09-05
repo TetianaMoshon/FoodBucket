@@ -1,5 +1,6 @@
 'use strict';
 const Order = require('../model/order');
+const utils = require('../utils/writer.js');
 
 /**
  *
@@ -8,75 +9,19 @@ const Order = require('../model/order');
  **/
 exports.findOrderById = function(id) {
     return new Promise(function(resolve, reject) {
-        let oneOrder = {};
-        Order.findOne({_id: id}).then(
+        Order.findOne({orderId: id}).then(
             (oneOrderDoc) =>{
-                oneOrder = oneOrderDoc;
-                if (oneOrder!==null && Object.keys(oneOrder).length > 0){
-                    resolve(oneOrder)
+                oneOrderDoc = oneOrderDoc || {};
+                if (Object.keys(oneOrderDoc).length > 0) {
+                    let { orderId,username, city, address, products,price,status } = oneCategoryDoc;
+                    resolve(utils.respondWithCode(200, { orderId,username, city, address, products,price,status }));
                 }
                 else {
-                    resolve({'error':123});
+                    reject(utils.respondWithCode(404, {"code": 404, "message": "Order is not found, please try again."}));
                 }
             },
             (error)=> {console.log('Unable to find order. View error:' + error.toString()); reject();}
         );
-//     examples['application/json'] = {
-//   "address" : "address",
-//   "city" : "city",
-//   "price" : 0,
-//   "username" : "username",
-//   "status" : "status",
-//   "products" : [ {
-//     "image" : "image",
-//     "price" : 6,
-//     "description" : "description",
-//     "ingredients" : [ {
-//       "image" : "image",
-//       "ingredient_id" : 1,
-//       "description" : "description",
-//       "title" : "title"
-//     }, {
-//       "image" : "image",
-//       "ingredient_id" : 1,
-//       "description" : "description",
-//       "title" : "title"
-//     } ],
-//     "id" : 1,
-//     "title" : "title",
-//     "productInfo" : [ {
-//       "product_info_id" : 5,
-//       "calories" : 5
-//     }, {
-//       "product_info_id" : 5,
-//       "calories" : 5
-//     } ]
-//   }, {
-//     "image" : "image",
-//     "price" : 6,
-//     "description" : "description",
-//     "ingredients" : [ {
-//       "image" : "image",
-//       "ingredient_id" : 1,
-//       "description" : "description",
-//       "title" : "title"
-//     }, {
-//       "image" : "image",
-//       "ingredient_id" : 1,
-//       "description" : "description",
-//       "title" : "title"
-//     } ],
-//     "id" : 1,
-//     "title" : "title",
-//     "productInfo" : [ {
-//       "product_info_id" : 5,
-//       "calories" : 5
-//     }, {
-//       "product_info_id" : 5,
-//       "calories" : 5
-//     } ]
-//   } ]
-// };
     });
 };
 
@@ -111,10 +56,10 @@ exports.getAllOrders = function (offset, limit) {
  * body Order Order body
  * returns Order
  **/
-exports.putOrder = function(body) {
+exports.putOrder = function({ orderId,username, city, address, products,price,status }) {
     return new Promise(function(resolve, reject) {
-        let {username, city, address, products, price, status} = body;
         let newOrder = new Order({
+            "orderId": orderId,
             "username":username,
             "city": city,
             "address": address,
@@ -123,38 +68,49 @@ exports.putOrder = function(body) {
             "status": status
         });
         newOrder.save().then(
-            (orderDoc) => { console.log('Saved order', orderDoc); },
-            (error) => { console.log('Unable to save category', error); }
-        );
+            // (orderDoc) => { console.log('Saved order', orderDoc); },
+            // (error) => { console.log('Unable to save category', error); }
+        orderDoc => {
+            if (Object.keys(orderDoc).length > 0) {
+                let { orderId,username, city, address, products,price,status,date } = orderDoc;
+                resolve(utils.respondWithCode(201, { orderId,username, city, address, products,price,status,date }));
+            } else {
+                reject(utils.respondWithCode(404, {"code": 404, "message": "Order is not created, please try again."}));
+            }
+            console.log('Saved category', orderDoc);
+        },
 
-        if (Object.keys(newOrder).length > 0) {
-            let {username, city, address, products, price, status,date} = newOrder;
-            let responseOrder = {
-                "username":username,
-                "city": city,
-                "address": address,
-                "products": products,
-                "price": price,
-                "status": status,
-                "date": date
-            };
-            resolve(responseOrder);
-        } else {
-            reject();
-        }
+    );
+        //
+        // if (Object.keys(newOrder).length > 0) {
+        //     let {username, city, address, products, price, status,date} = newOrder;
+        //     let responseOrder = {
+        //         "username":username,
+        //         "city": city,
+        //         "address": address,
+        //         "products": products,
+        //         "price": price,
+        //         "status": status,
+        //         "date": date
+        //     };
+        //     resolve(responseOrder);
+        // } else {
+        //     reject();
+        // }
     });
 };
 exports.deleteOrderById = function(id) {
     return new Promise((resolve, reject) => {
-        let oneOrder = {};
 
-        Order.findOneAndRemove({ _id: id }).then(
+        Order.findOneAndRemove({ orderId: id }).then(
             oneOrderDoc => {
-                oneOrder = oneOrderDoc;
-                if (Object.keys(oneOrder).length > 0) {
-                    resolve(oneOrder);
+                oneOrderDoc = oneOrderDoc || {};
+                if (Object.keys(oneOrderDoc).length > 0) {
+                    let { orderId,username, city, address, products,price,status,date } = oneOrderDoc;
+                    resolve(utils.respondWithCode(201, { orderId,username, city, address, products,price,status,date }));
                 } else {
-                    reject();
+                    reject(utils.respondWithCode(404, {"code": 404, "message": "Order is not deleted, please try again."}));
+
                 }
             },
             error => { console.log('Unable to remove order: ', error); }
