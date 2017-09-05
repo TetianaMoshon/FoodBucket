@@ -575,19 +575,36 @@ definitions:
   User:
     type: object
     required:
-      - image
-      - title
-      - description
+      - first_name
+      - last_name
+      - email
+      - password
+      - phone
     properties:
      user_id:
        type: integer
        format: int64
+     first_name:
+       type: string
+     last_name:
+       type: string
+     email:
+       type: string
+     password:
+       type: string
+     phone:
+       type: integer
+       format: int64
+     city:
+       type: string
+     address:
+       type: string
      image:
        type: string
-     title:
+     favourites:
        type: string
-     description:
-       type: string
+     active:
+       type: boolean
   Ingredient:
     type: object
     required:

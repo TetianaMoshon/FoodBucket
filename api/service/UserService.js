@@ -17,11 +17,8 @@ exports.findUserById = function (id) {
             error =>{
                 console.log('Unable to get user: ', error);
             }
-
-        )
-        ;
-    })
-        ;
+        );
+    });
 }
 /*work*/
 exports.getAllUsers = function (offset, limit, isActive) {
@@ -41,19 +38,25 @@ exports.getAllUsers = function (offset, limit, isActive) {
             {
                 console.log('Unable to get users: ', error);
             }
-        )
-        ;
+        );
     });
 }
-/*work*/
+
 exports.createUser = function (body) {
     return new Promise((resolve, reject) => {
-        let { user_id, title, image, description } = body;
+        let { user_id, first_name, last_name, email, password, phone, city, address, image, favourites, active} = body;
         let newUser = new User({
             "user_id": user_id,
-            "title": title,
+            "first_name": first_name,
+            "last_name": last_name,
+            "email": email,
+            "password": password,
+            "phone": phone,
+            "city": city,
+            "address": address,
             "image": image,
-            "description": description
+            "favourites": favourites,
+            "active": active
         });
 
         newUser.save().then(
@@ -89,9 +92,9 @@ exports.deleteUserById = function(id) {
 
 exports.updateUserById = function (id, updatedUser) {
     return new Promise((resolve, reject) => {
-        let {title, image, description} = updatedUser;
+        let {user_id, first_name, last_name, email, password, phone, city, address, image, favourites, active} = updatedUser;
 
-        User.findOneAndUpdate({category_id: id}, {title, image, description}).then(
+        User.findOneAndUpdate({user_id: id}, {user_id, first_name, last_name, email, password, phone, city, address, image, favourites, active}).then(
             () => {
                 if (Object.keys(updatedUser).length > 0
                 )
