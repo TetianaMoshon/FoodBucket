@@ -34,20 +34,23 @@ exports.findOrderById = function(id) {
  **/
 exports.getAllOrders = function (offset, limit) {
     return new Promise(function (resolve, reject) {
-        let orders = [];
+
         Order.find().then(
             (ordersDoc) => {
-                orders = ordersDoc;
-
-                if (Object.keys(orders).length > 0) {
-                    resolve(orders);
-                } else {
-                    reject();
+                ordersDoc = ordersDocDoc || [];
+                if (Object.keys(ordersDoc).length > 0) {
+                    ordersDoc = ordersDoc.map( ({ orderId,username, city, address, products,price,status }) => {
+                        return { orderId,username, city, address, products,price,status };
+                    });
+                    resolve(utils.respondWithCode(200, ordersDoc));
+                }
+                else {
+                reject(utils.respondWithCode(404, {"code": 404, "message": "Categories are not found, please try again."}));
                 }
             },
             (error) => {console.log('Unable to find order. View error:' + error.toString());}
         );
-    });
+    })
 };
 /**
  * Put an order
