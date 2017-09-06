@@ -71,8 +71,6 @@ exports.putOrder = function({ orderId,username, city, address, products,price,st
             "status": status
         });
         newOrder.save().then(
-            // (orderDoc) => { console.log('Saved order', orderDoc); },
-            // (error) => { console.log('Unable to save category', error); }
         orderDoc => {
             if (Object.keys(orderDoc).length > 0) {
                 let { orderId,username, city, address, products,price,status,date } = orderDoc;
@@ -80,26 +78,9 @@ exports.putOrder = function({ orderId,username, city, address, products,price,st
             } else {
                 reject(utils.respondWithCode(404, {"code": 404, "message": "Order is not created, please try again."}));
             }
-            //console.log('Saved category', orderDoc);
         }
 
     );
-        //
-        // if (Object.keys(newOrder).length > 0) {
-        //     let {username, city, address, products, price, status,date} = newOrder;
-        //     let responseOrder = {
-        //         "username":username,
-        //         "city": city,
-        //         "address": address,
-        //         "products": products,
-        //         "price": price,
-        //         "status": status,
-        //         "date": date
-        //     };
-        //     resolve(responseOrder);
-        // } else {
-        //     reject();
-        // }
     });
 };
 exports.deleteOrderById = function(id) {
