@@ -5,6 +5,7 @@ const express = require('express');
 const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
+const initScript = require('./config/initializeDb');
 
 let fs = require('fs');
 let cors = require('cors');
@@ -27,13 +28,17 @@ let swaggerDoc = jsyaml.safeLoad(spec);
 
 let mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost:27017/foodbucket', {
+mongoose.connect('mongodb://megauser:mysecret@localhost:27017/mydata', {
     promiseLibrary: global.Promise, // require('bluebird')
     keepAlive: true,
     reconnectTries: Number.MAX_VALUE,
     useMongoClient: true
 })
-.then(() => { console.log('Start Mongoose...');
+.then(() => {
+    console.log('Start Mongoose...');
+    return initScript.initDb();
+}).then(msg => {
+    console.log(msg);
 })
 .catch(err => {
     console.error('App starting error:', err.stack);
