@@ -99,8 +99,8 @@ exports.updateCartContentById = function(id,updatedcartContent) {
             }
         ).then(
                 () => {
-        if (Object.keys(oneCart).length > 0) {
-            resolve(oneCart);
+        if (Object.keys(updatedcartContent).length > 0) {
+            resolve(updatedcartContent);
         } else {
             reject();
         }

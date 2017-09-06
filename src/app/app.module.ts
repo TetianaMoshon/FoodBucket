@@ -50,6 +50,7 @@ import { Error404Component } from './components/error404/error404.component';
 import { DisqusComponent } from './components/disqus/disqus.component';
 import { CommentsService } from './services/comments.service';
 import { OrdersFiltersPipe } from './pipes/orders-filters.pipe';
+import {ApiModule} from './client/api.module';
 
 @NgModule({
   declarations: [
@@ -113,6 +114,7 @@ import { OrdersFiltersPipe } from './pipes/orders-filters.pipe';
       FormsModule,
       appRouting,
       DisqusModule,
+      ApiModule,
       DisqusModule.forRoot('foodbucket-com-1'),
       AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDgXQMgwN1IOu9c6ZyHjqiVzaB9JXhIoTA'
