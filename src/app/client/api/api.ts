@@ -1,0 +1,15 @@
+export * from './auth.service';
+import { AuthService } from './auth.service';
+export * from './category.service';
+import { CategoryService } from './category.service';
+export * from './contacts.service';
+import { ContactsService } from './contacts.service';
+export * from './ingredient.service';
+import { IngredientService } from './ingredient.service';
+export * from './product.service';
+import { ProductService } from './product.service';
+export * from './promotion.service';
+import { PromotionService } from './promotion.service';
+export * from './toprated.service';
+import { TopratedService } from './toprated.service';
+export const APIS = [AuthService, CategoryService, ContactsService, IngredientService, ProductService, PromotionService, TopratedService];
