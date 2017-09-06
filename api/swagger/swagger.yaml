@@ -605,9 +605,17 @@ definitions:
      image:
        type: string
      favourites:
-       type: string
+       type: array
+       items:
+         $ref: "#/definitions/ProductsList"
      active:
        type: boolean
+  ProductsList:
+      type: object
+      properties:
+        ingredientId:
+          type: integer
+          format: int64
   Ingredient:
     type: object
     required:

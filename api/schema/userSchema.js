@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const counter = require('../model/counter');
 
+const product = require('../model/product');
+
 const
     userSchema = mongoose.Schema({
     user_id: Number,
@@ -24,7 +26,10 @@ const
     city: String,
     address: String,
     image: String,
-    favourites: String,
+    favourites: [{
+        ingredientId: Number,
+    }]
+    ,
     active: Boolean
 });
 
