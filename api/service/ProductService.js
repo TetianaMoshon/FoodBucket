@@ -3,7 +3,25 @@ const utils = require('../utils/writer.js');
 const Product = require('../model/product');
 const Ingredient = require('../service/IngredientService');
 
-exports.createProduct = function ({ productId, title, description, image, price, category, caloricity, servingSize, difficulty, spiceLevel, recommended, discount, promotions, status, ingredients }) {
+exports.createProduct = function ({ productId, title, description, image, price, category, caloricity, servingSize, difficulty, spiceLevel, recommended, discount, promotions, status, ingredients}) {
+    //with promises
+    // for(let i = 0; i < ingredients.length; i++){
+    //     let temp;
+    //     Ingredient.findIngredientById(ingredients[0].ingredientId)
+    //         .then(
+    //             oneIngredientDoc =>{
+    //                 let doc = oneIngredientDoc;
+    //                 return doc;
+    //             },
+    //             error => {return error}
+    //         ).then( doc => {ingredients[0].ingredientName = doc.title;}
+    //
+    //         );
+    // }
+
+
+
+
     return new Promise((resolve, reject) => {
         let newProduct = new Product({
             productId,
