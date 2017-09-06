@@ -16,7 +16,7 @@ exports.login = function ({email, password}) {
             oneUserDoc => {
                 console.log(oneUserDoc.password);
                 console.log(password);
-                if(oneUserDoc.password == password) {
+                if(oneUserDoc.password === password) {
                     return oneUserDoc; // Узнать почему при resolve не работает правильно
                 }
             },
@@ -63,8 +63,8 @@ exports.register = function ({ firstName, lastName, email, password, phone, city
         newUser.save().then(
             userDoc => {
                 if (Object.keys(userDoc).length > 0) {
-                    let {user_id, firstName, lastName, email, password, phone, city, address, image, create_at, update_at, active} = userDoc;
-                    resolve(utils.respondWithCode(201, {user_id, firstName, lastName, email, password, phone, city, address, image, create_at, update_at, active}));
+                    let {userId, firstName, lastName, email, password, phone, city, address, image, create_at, update_at, active} = userDoc;
+                    resolve(utils.respondWithCode(201, {userId, firstName, lastName, email, password, phone, city, address, image, create_at, update_at, active}));
                 } else {
                     reject(utils.respondWithCode(404, {"code": 404, "message": "Category is not created, please try again."}));
                 }

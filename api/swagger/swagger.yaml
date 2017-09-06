@@ -578,7 +578,7 @@ definitions:
         type: string
       products:
         type: array
-        items: 
+        items:
           type: integer
           format: int64
         minItems: 1
@@ -674,7 +674,7 @@ definitions:
       - firstName
       - lastName
     properties:
-      id:
+      userId:
         type: integer
         format: int64
         minimum: 1
