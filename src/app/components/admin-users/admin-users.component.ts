@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import {UserService} from '../../client/api/user.service';
 
 @Component({
   selector: 'app-admin-users',
@@ -10,9 +11,30 @@ export class AdminUsersComponent implements OnInit {
 
     settings = {
         actions: {
+            custom: [
+                {
+                    name: 'edit',
+                    title: 'Edit ',
+                },
+                {
+                    name: 'delete',
+                    title: 'Delete ',
+                },
+            ],
             position: 'right',
             columnTitle: ' ',
+            edit: false,
+            delete: false,
         },
+        custom: [
+            {
+                action: 'edit',
+                buttonContent: `EDIT `
+            },
+            {
+                action: 'delete',
+                buttonContent: 'DELETE '
+            }],
         pager: {
             display: true,
             perPage: 5,
@@ -21,14 +43,14 @@ export class AdminUsersComponent implements OnInit {
             addButtonContent: 'Add'
         },
         columns: {
-            id: {
+            user_id: {
                 title: 'ID',
                 width: '6%'
             },
-            name: {
+            first_name: {
                 title: 'Name'
             },
-            surname: {
+            last_name: {
                 title: 'Surname'
             },
             email: {
@@ -40,126 +62,49 @@ export class AdminUsersComponent implements OnInit {
             city: {
                 title: 'City'
             },
-            adress: {
-                title: 'Adress'
+            address: {
+                title: 'Address'
+            },
+            favourites: {
+                title: 'Favourites'
+            },
+            active: {
+                title: 'Active'
             },
         }
     };
 
-    data = [
-        {
-            id: 1,
-            name: 'Leanne',
-            surname: 'Bret',
-            email: 'Sincere@april.biz',
-            phone: '06566565',
-            city: 'Kiev',
-            adress: 'St.Peremogy, 95'
-        },
-        {
-            id: 2,
-            name: 'Katya',
-            surname: 'Kvitka',
-            email: 'kvitka@april.biz',
-            phone: '06566565',
-            city: 'Zhytomir',
-            adress: 'St.Peremogy, 95'
-        },
-        {
-            id: 3,
-            name: 'Katya',
-            surname: 'Kvitka',
-            email: 'kvitka@april.biz',
-            phone: '06566565',
-            city: 'Zhytomir',
-            adress: 'St.Peremogy, 95'
-        },
-        {
-            id: 4,
-            name: 'Katya',
-            surname: 'Kvitka',
-            email: 'kvitka@april.biz',
-            phone: '06566565',
-            city: 'Zhytomir',
-            adress: 'St.Peremogy, 95'
-        },
-        {
-            id: 5,
-            name: 'Katya',
-            surname: 'Kvitka',
-            email: 'kvitka@april.biz',
-            phone: '06566565',
-            city: 'Zhytomir',
-            adress: 'St.Peremogy, 95'
-        },
-        {
-            id: 6,
-            name: 'Katya',
-            surname: 'Kvitka',
-            email: 'kvitka@april.biz',
-            phone: '06566565',
-            city: 'Zhytomir',
-            adress: 'St.Peremogy, 95'
-        },
-        {
-            id: 7,
-            name: 'Katya',
-            surname: 'Kvitka',
-            email: 'kvitka@april.biz',
-            phone: '06566565',
-            city: 'Zhytomir',
-            adress: 'St.Peremogy, 95'
-        },
-        {
-            id: 8,
-            name: 'Katya',
-            surname: 'Kvitka',
-            email: 'kvitka@april.biz',
-            phone: '06566565',
-            city: 'Zhytomir',
-            adress: 'St.Peremogy, 95'
-        },
-        {
-            id: 9,
-            name: 'Katya',
-            surname: 'Kvitka',
-            email: 'kvitka@april.biz',
-            phone: '06566565',
-            city: 'Zhytomir',
-            adress: 'St.Peremogy, 95'
-        },
-        {
-            id: 10,
-            name: 'Katya',
-            surname: 'Kvitka',
-            email: 'kvitka@april.biz',
-            phone: '06566565',
-            city: 'Zhytomir',
-            adress: 'St.Peremogy, 95'
-        },
-        {
-            id: 11,
-            name: 'Katya',
-            surname: 'Kvitka',
-            email: 'kvitka@april.biz',
-            phone: '06566565',
-            city: 'Zhytomir',
-            adress: 'St.Peremogy, 95'
-        },
-        {
-            id: 12,
-            name: 'Katya',
-            surname: 'Kvitka',
-            email: 'kvitka@april.biz',
-            phone: '06566565',
-            city: 'Zhytomir',
-            adress: 'St.Peremogy, 95'
+    public data;
+
+    onCustom(event) {
+        console.log(event.data.user_id);
+        if (event.action === 'delete') {
+            this.userService.deleteUserById(event.data.user_id)
+                .subscribe(
+                user => {
+                },
+                err => console.log(err)
+            );
         }
-    ];
+    }
 
+    constructor(private userService: UserService) {}
 
-    constructor() { }
 
     ngOnInit() {
+        this.userService.getAllUsers(0, 2, true)
+            .subscribe(
+                user => {
+                    this.data =  user;
+                },
+                err => console.log(err)
+            );
+        this.userService.findUserById(1)
+            .subscribe(
+                user_find => {
+                    console.log(user_find);
+                },
+                err => console.log(err)
+            );
     }
 }

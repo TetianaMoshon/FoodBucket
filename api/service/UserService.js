@@ -10,11 +10,12 @@ const Product = require('../service/ProductService');
  * body User User object
  * returns User
  **/
-exports.createUser = function ({user_id, first_name, last_name, email, password, phone, city, address, image, favourites, active}) {
+exports.createUser = function ({first_name, last_name, email, password, phone, city, address, image, favourites, active}) {
     return new Promise((resolve, reject) => {
+
     console.log(Product);
-        let newUser = new User({
-            user_id,
+
+    let newUser = new User({
             first_name,
             last_name,
             email,
@@ -30,8 +31,8 @@ exports.createUser = function ({user_id, first_name, last_name, email, password,
         newUser.save().then(
             userDoc => {
                 if (Object.keys(userDoc).length > 0) {
-                    let {user_id, first_name, last_name, email, password, phone, city, address, image, favourites, active} = userDoc;
-                    resolve(utils.respondWithCode(201, {user_id, first_name, last_name, email, password, phone, city, address, image, favourites, active}));
+                    let {first_name, last_name, email, password, phone, city, address, image, favourites, active} = userDoc;
+                    resolve(utils.respondWithCode(201, {first_name, last_name, email, password, phone, city, address, image, favourites, active}));
                 } else {
                     reject(utils.respondWithCode(404, {"code": 404, "message": "User is not created, please try again."}));
                 }

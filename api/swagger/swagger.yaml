@@ -784,9 +784,6 @@ definitions:
       - email
       - password
     properties:
-     user_id:
-       type: integer
-       format: int64
      first_name:
        type: string
      last_name:
