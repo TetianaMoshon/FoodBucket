@@ -10,23 +10,36 @@
  * Do not edit the class manually.
  */
 
-import { Ingredient } from './ingredient';
-import { ProductInfo } from './productInfo';
+import { IngredientsList } from './ingredientsList';
 
 
 export interface Product {
-    id?: number;
-
-    image: string;
-
-    price: number;
+    productId?: number;
 
     title: string;
 
     description: string;
 
-    ingredients?: Array<Ingredient>;
+    image?: string;
 
-    productInfo?: Array<ProductInfo>;
+    price: number;
+
+    category?: string;
+
+    status?: boolean;
+
+    discount?: number;
+
+    promotions?: boolean;
+
+    caloricity?: number;
+
+    servingSize?: number;
+
+    difficulty?: string;
+
+    spiceLevel?: string;
+
+    ingredients?: Array<IngredientsList>;
 
 }

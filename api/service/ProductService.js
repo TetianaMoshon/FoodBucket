@@ -4,56 +4,57 @@ const Product = require('../model/product');
 const Ingredient = require('../service/IngredientService');
 
 exports.createProduct = function ({ productId, title, description, image, price, category, caloricity, servingSize, difficulty, spiceLevel, recommended, discount, promotions, status, ingredients}) {
-    //with promises
-    // for(let i = 0; i < ingredients.length; i++){
-    //     let temp;
-    //     Ingredient.findIngredientById(ingredients[0].ingredientId)
-    //         .then(
-    //             oneIngredientDoc =>{
-    //                 let doc = oneIngredientDoc;
-    //                 return doc;
-    //             },
-    //             error => {return error}
-    //         ).then( doc => {ingredients[0].ingredientName = doc.title;}
-    //
-    //         );
-    // }
-
-
-
 
     return new Promise((resolve, reject) => {
-        let newProduct = new Product({
-            productId,
-            title,
-            description,
-            image,
-            price,
-            category,
-            status,
-            recommended,
-            discount,
-            promotions,
-            caloricity,
-            servingSize,
-            difficulty,
-            spiceLevel,
-            ingredients
-        });
+        let temp;
 
 
-        newProduct.save().then(
-            productDoc => {
-                if (Object.keys(newProduct).length > 0) {
-                    let { productId, title, description, image, price, category, caloricity, servingSize, difficulty, spiceLevel, recommended, discount, promotions, status, ingredients } = productDoc;
-                    resolve(utils.respondWithCode(201, { productId, title, description, image, price, category, caloricity, servingSize, difficulty, spiceLevel, recommended, discount, promotions, status, ingredients }));
-                } else {
-                    reject(utils.respondWithCode(404, {"code": 404, "message": "Product is not created, please try again."}));
-                }
-                console.log('Saved product', productDoc);
-                },
-            error => { console.log('Unable to save product', error); }
-        );
+              Ingredient.findIngredientById(ingredients[0].ingredientId)
+                .then(
+                    oneIngredientDoc =>{
+                        let doc = oneIngredientDoc;
+                        return doc;
+                    },
+                    error => {return error}
+                ).then( doc => {ingredients[0].ingredientName = doc.title;console.log(doc.title);return ingredients}).then(
+                   ingredients => {let newProduct = new Product({
+                        productId,
+                        title,
+                        description,
+                        image,
+                        price,
+                        category,
+                        status,
+                        recommended,
+                        discount,
+                        promotions,
+                        caloricity,
+                        servingSize,
+                        difficulty,
+                        spiceLevel,
+                        ingredients
+        });return newProduct}
+
+              ).then(
+                  newProduct =>
+                  newProduct.save().then(
+                      productDoc => {
+                          if (Object.keys(newProduct).length > 0) {
+                              let { productId, title, description, image, price, category, caloricity, servingSize, difficulty, spiceLevel, recommended, discount, promotions, status, ingredients } = productDoc;
+                              resolve(utils.respondWithCode(201, { productId, title, description, image, price, category, caloricity, servingSize, difficulty, spiceLevel, recommended, discount, promotions, status, ingredients }));
+                          } else {
+                              reject(utils.respondWithCode(404, {"code": 404, "message": "Product is not created, please try again."}));
+                          }
+                          console.log('Saved product', productDoc);
+                      },
+                      error => { console.log('Unable to save product', error); }
+                  )
+
+
+              )
+
+
+
 
     });
 }

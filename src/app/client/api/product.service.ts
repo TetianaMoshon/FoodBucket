@@ -73,6 +73,37 @@ export class ProductService {
     }
 
     /**
+     * This endpoint allows to create new product. 
+     * @summary Create product
+     * @param body Product object
+     */
+    public createProduct(body: Product, extraHttpRequestParams?: any): Observable<Product> {
+        return this.createProductWithHttpInfo(body, extraHttpRequestParams)
+            .map((response: Response) => {
+                if (response.status === 204) {
+                    return undefined;
+                } else {
+                    return response.json() || {};
+                }
+            });
+    }
+
+    /**
+     * 
+     * @param id ID of the product to delete
+     */
+    public deleteProductById(id: number, extraHttpRequestParams?: any): Observable<{}> {
+        return this.deleteProductByIdWithHttpInfo(id, extraHttpRequestParams)
+            .map((response: Response) => {
+                if (response.status === 204) {
+                    return undefined;
+                } else {
+                    return response.json() || {};
+                }
+            });
+    }
+
+    /**
      * 
      * @param id ID of the product to get
      */
@@ -91,11 +122,10 @@ export class ProductService {
      * 
      * @param offset start position for quering from DB
      * @param limit number of items to query from DB
-     * @param categoryId returns products only from specified category
      * @param isActive returns active products
      */
-    public getAllProducts(offset: number, limit: number, categoryId?: Array<string>, isActive?: boolean, extraHttpRequestParams?: any): Observable<Array<Product>> {
-        return this.getAllProductsWithHttpInfo(offset, limit, categoryId, isActive, extraHttpRequestParams)
+    public getAllProducts(offset: number, limit: number, isActive?: boolean, extraHttpRequestParams?: any): Observable<Array<Product>> {
+        return this.getAllProductsWithHttpInfo(offset, limit, isActive, extraHttpRequestParams)
             .map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
@@ -105,6 +135,98 @@ export class ProductService {
             });
     }
 
+    /**
+     * 
+     * @param id content of the product is being updated
+     * @param updatedProduct The updated product
+     */
+    public updateProductById(id: number, updatedProduct: Product, extraHttpRequestParams?: any): Observable<{}> {
+        return this.updateProductByIdWithHttpInfo(id, updatedProduct, extraHttpRequestParams)
+            .map((response: Response) => {
+                if (response.status === 204) {
+                    return undefined;
+                } else {
+                    return response.json() || {};
+                }
+            });
+    }
+
+
+    /**
+     * Create product
+     * This endpoint allows to create new product. 
+     * @param body Product object
+     */
+    public createProductWithHttpInfo(body: Product, extraHttpRequestParams?: any): Observable<Response> {
+        const path = this.basePath + '/product';
+
+        let queryParameters = new URLSearchParams();
+        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+
+        // verify required parameter 'body' is not null or undefined
+        if (body === null || body === undefined) {
+            throw new Error('Required parameter body was null or undefined when calling createProduct.');
+        }
+
+        // to determine the Accept header
+        let produces: string[] = [
+            'application/json'
+        ];
+
+            
+        headers.set('Content-Type', 'application/json');
+
+        let requestOptions: RequestOptionsArgs = new RequestOptions({
+            method: RequestMethod.Post,
+            headers: headers,
+            body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
+            search: queryParameters,
+            withCredentials:this.configuration.withCredentials
+        });
+        // https://github.com/swagger-api/swagger-codegen/issues/4037
+        if (extraHttpRequestParams) {
+            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
+        }
+
+        return this.http.request(path, requestOptions);
+    }
+
+    /**
+     * 
+     * 
+     * @param id ID of the product to delete
+     */
+    public deleteProductByIdWithHttpInfo(id: number, extraHttpRequestParams?: any): Observable<Response> {
+        const path = this.basePath + '/product/${id}'
+                    .replace('${' + 'id' + '}', String(id));
+
+        let queryParameters = new URLSearchParams();
+        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+
+        // verify required parameter 'id' is not null or undefined
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling deleteProductById.');
+        }
+
+        // to determine the Accept header
+        let produces: string[] = [
+            'application/json'
+        ];
+
+            
+        let requestOptions: RequestOptionsArgs = new RequestOptions({
+            method: RequestMethod.Delete,
+            headers: headers,
+            search: queryParameters,
+            withCredentials:this.configuration.withCredentials
+        });
+        // https://github.com/swagger-api/swagger-codegen/issues/4037
+        if (extraHttpRequestParams) {
+            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
+        }
+
+        return this.http.request(path, requestOptions);
+    }
 
     /**
      * 
@@ -148,10 +270,9 @@ export class ProductService {
      * 
      * @param offset start position for quering from DB
      * @param limit number of items to query from DB
-     * @param categoryId returns products only from specified category
      * @param isActive returns active products
      */
-    public getAllProductsWithHttpInfo(offset: number, limit: number, categoryId?: Array<string>, isActive?: boolean, extraHttpRequestParams?: any): Observable<Response> {
+    public getAllProductsWithHttpInfo(offset: number, limit: number, isActive?: boolean, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/products';
 
         let queryParameters = new URLSearchParams();
@@ -165,12 +286,6 @@ export class ProductService {
         if (limit === null || limit === undefined) {
             throw new Error('Required parameter limit was null or undefined when calling getAllProducts.');
         }
-        if (categoryId) {
-            categoryId.forEach((element) => {
-                queryParameters.append('category_id', <any>element);
-            })
-        }
-
         if (isActive !== undefined) {
             queryParameters.set('isActive', <any>isActive);
         }
@@ -193,6 +308,51 @@ export class ProductService {
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
+            search: queryParameters,
+            withCredentials:this.configuration.withCredentials
+        });
+        // https://github.com/swagger-api/swagger-codegen/issues/4037
+        if (extraHttpRequestParams) {
+            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
+        }
+
+        return this.http.request(path, requestOptions);
+    }
+
+    /**
+     * 
+     * 
+     * @param id content of the product is being updated
+     * @param updatedProduct The updated product
+     */
+    public updateProductByIdWithHttpInfo(id: number, updatedProduct: Product, extraHttpRequestParams?: any): Observable<Response> {
+        const path = this.basePath + '/product/${id}'
+                    .replace('${' + 'id' + '}', String(id));
+
+        let queryParameters = new URLSearchParams();
+        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+
+        // verify required parameter 'id' is not null or undefined
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling updateProductById.');
+        }
+        // verify required parameter 'updatedProduct' is not null or undefined
+        if (updatedProduct === null || updatedProduct === undefined) {
+            throw new Error('Required parameter updatedProduct was null or undefined when calling updateProductById.');
+        }
+
+        // to determine the Accept header
+        let produces: string[] = [
+            'application/json'
+        ];
+
+            
+        headers.set('Content-Type', 'application/json');
+
+        let requestOptions: RequestOptionsArgs = new RequestOptions({
+            method: RequestMethod.Put,
+            headers: headers,
+            body: updatedProduct == null ? '' : JSON.stringify(updatedProduct), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
             withCredentials:this.configuration.withCredentials
         });

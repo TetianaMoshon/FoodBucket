@@ -73,6 +73,37 @@ export class IngredientService {
     }
 
     /**
+     * This endpoint allows to create new Ingredient. 
+     * @summary Create Ingredient
+     * @param body Ingredient object
+     */
+    public createIngredient(body: Ingredient, extraHttpRequestParams?: any): Observable<Ingredient> {
+        return this.createIngredientWithHttpInfo(body, extraHttpRequestParams)
+            .map((response: Response) => {
+                if (response.status === 204) {
+                    return undefined;
+                } else {
+                    return response.json() || {};
+                }
+            });
+    }
+
+    /**
+     * 
+     * @param id ID of the ingredient to delete
+     */
+    public deleteIngredientById(id: number, extraHttpRequestParams?: any): Observable<{}> {
+        return this.deleteIngredientByIdWithHttpInfo(id, extraHttpRequestParams)
+            .map((response: Response) => {
+                if (response.status === 204) {
+                    return undefined;
+                } else {
+                    return response.json() || {};
+                }
+            });
+    }
+
+    /**
      * 
      * @param id ID of the ingredient to get
      */
@@ -87,6 +118,115 @@ export class IngredientService {
             });
     }
 
+    /**
+     * 
+     * @param offset start position for quering from DB
+     * @param limit number of items to query from DB
+     * @param isActive returns active ingredients
+     */
+    public getAllIngredients(offset: number, limit: number, isActive?: boolean, extraHttpRequestParams?: any): Observable<Array<Ingredient>> {
+        return this.getAllIngredientsWithHttpInfo(offset, limit, isActive, extraHttpRequestParams)
+            .map((response: Response) => {
+                if (response.status === 204) {
+                    return undefined;
+                } else {
+                    return response.json() || {};
+                }
+            });
+    }
+
+    /**
+     * 
+     * @param id Id of the Ingredient being updated
+     * @param updatedIngredient The updated Ingredient
+     */
+    public updateIngredientById(id: number, updatedIngredient: Ingredient, extraHttpRequestParams?: any): Observable<{}> {
+        return this.updateIngredientByIdWithHttpInfo(id, updatedIngredient, extraHttpRequestParams)
+            .map((response: Response) => {
+                if (response.status === 204) {
+                    return undefined;
+                } else {
+                    return response.json() || {};
+                }
+            });
+    }
+
+
+    /**
+     * Create Ingredient
+     * This endpoint allows to create new Ingredient. 
+     * @param body Ingredient object
+     */
+    public createIngredientWithHttpInfo(body: Ingredient, extraHttpRequestParams?: any): Observable<Response> {
+        const path = this.basePath + '/ingredient';
+
+        let queryParameters = new URLSearchParams();
+        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+
+        // verify required parameter 'body' is not null or undefined
+        if (body === null || body === undefined) {
+            throw new Error('Required parameter body was null or undefined when calling createIngredient.');
+        }
+
+        // to determine the Accept header
+        let produces: string[] = [
+            'application/json'
+        ];
+
+            
+        headers.set('Content-Type', 'application/json');
+
+        let requestOptions: RequestOptionsArgs = new RequestOptions({
+            method: RequestMethod.Post,
+            headers: headers,
+            body: body == null ? '' : JSON.stringify(body), // https://github.com/angular/angular/issues/10612
+            search: queryParameters,
+            withCredentials:this.configuration.withCredentials
+        });
+        // https://github.com/swagger-api/swagger-codegen/issues/4037
+        if (extraHttpRequestParams) {
+            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
+        }
+
+        return this.http.request(path, requestOptions);
+    }
+
+    /**
+     * 
+     * 
+     * @param id ID of the ingredient to delete
+     */
+    public deleteIngredientByIdWithHttpInfo(id: number, extraHttpRequestParams?: any): Observable<Response> {
+        const path = this.basePath + '/ingredient/${id}'
+                    .replace('${' + 'id' + '}', String(id));
+
+        let queryParameters = new URLSearchParams();
+        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+
+        // verify required parameter 'id' is not null or undefined
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling deleteIngredientById.');
+        }
+
+        // to determine the Accept header
+        let produces: string[] = [
+            'application/json'
+        ];
+
+            
+        let requestOptions: RequestOptionsArgs = new RequestOptions({
+            method: RequestMethod.Delete,
+            headers: headers,
+            search: queryParameters,
+            withCredentials:this.configuration.withCredentials
+        });
+        // https://github.com/swagger-api/swagger-codegen/issues/4037
+        if (extraHttpRequestParams) {
+            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
+        }
+
+        return this.http.request(path, requestOptions);
+    }
 
     /**
      * 
@@ -114,6 +254,105 @@ export class IngredientService {
         let requestOptions: RequestOptionsArgs = new RequestOptions({
             method: RequestMethod.Get,
             headers: headers,
+            search: queryParameters,
+            withCredentials:this.configuration.withCredentials
+        });
+        // https://github.com/swagger-api/swagger-codegen/issues/4037
+        if (extraHttpRequestParams) {
+            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
+        }
+
+        return this.http.request(path, requestOptions);
+    }
+
+    /**
+     * 
+     * 
+     * @param offset start position for quering from DB
+     * @param limit number of items to query from DB
+     * @param isActive returns active ingredients
+     */
+    public getAllIngredientsWithHttpInfo(offset: number, limit: number, isActive?: boolean, extraHttpRequestParams?: any): Observable<Response> {
+        const path = this.basePath + '/ingredients';
+
+        let queryParameters = new URLSearchParams();
+        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+
+        // verify required parameter 'offset' is not null or undefined
+        if (offset === null || offset === undefined) {
+            throw new Error('Required parameter offset was null or undefined when calling getAllIngredients.');
+        }
+        // verify required parameter 'limit' is not null or undefined
+        if (limit === null || limit === undefined) {
+            throw new Error('Required parameter limit was null or undefined when calling getAllIngredients.');
+        }
+        if (isActive !== undefined) {
+            queryParameters.set('isActive', <any>isActive);
+        }
+
+        if (offset !== undefined) {
+            queryParameters.set('offset', <any>offset);
+        }
+
+        if (limit !== undefined) {
+            queryParameters.set('limit', <any>limit);
+        }
+
+
+        // to determine the Accept header
+        let produces: string[] = [
+            'application/json'
+        ];
+
+            
+        let requestOptions: RequestOptionsArgs = new RequestOptions({
+            method: RequestMethod.Get,
+            headers: headers,
+            search: queryParameters,
+            withCredentials:this.configuration.withCredentials
+        });
+        // https://github.com/swagger-api/swagger-codegen/issues/4037
+        if (extraHttpRequestParams) {
+            requestOptions = (<any>Object).assign(requestOptions, extraHttpRequestParams);
+        }
+
+        return this.http.request(path, requestOptions);
+    }
+
+    /**
+     * 
+     * 
+     * @param id Id of the Ingredient being updated
+     * @param updatedIngredient The updated Ingredient
+     */
+    public updateIngredientByIdWithHttpInfo(id: number, updatedIngredient: Ingredient, extraHttpRequestParams?: any): Observable<Response> {
+        const path = this.basePath + '/ingredient/${id}'
+                    .replace('${' + 'id' + '}', String(id));
+
+        let queryParameters = new URLSearchParams();
+        let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
+
+        // verify required parameter 'id' is not null or undefined
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling updateIngredientById.');
+        }
+        // verify required parameter 'updatedIngredient' is not null or undefined
+        if (updatedIngredient === null || updatedIngredient === undefined) {
+            throw new Error('Required parameter updatedIngredient was null or undefined when calling updateIngredientById.');
+        }
+
+        // to determine the Accept header
+        let produces: string[] = [
+            'application/json'
+        ];
+
+            
+        headers.set('Content-Type', 'application/json');
+
+        let requestOptions: RequestOptionsArgs = new RequestOptions({
+            method: RequestMethod.Put,
+            headers: headers,
+            body: updatedIngredient == null ? '' : JSON.stringify(updatedIngredient), // https://github.com/angular/angular/issues/10612
             search: queryParameters,
             withCredentials:this.configuration.withCredentials
         });
