@@ -49,3 +49,12 @@ download.vbs
 
 api/controllers
 api/utils/writer.js
+/api/.swagger-codegen/VERSION
+/src/app/client/.swagger-codegen/VERSION
+/src/app/client/api.module.ts
+/src/app/client/index.ts
+/src/app/client/configuration.ts
+/src/app/client/variables.ts
+/src/app/client/rxjs-operators.ts
+/src/app/client/api/
+/src/app/client/model/
