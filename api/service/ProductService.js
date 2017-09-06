@@ -1,29 +1,96 @@
 'use strict';
 const utils = require('../utils/writer.js');
 const Product = require('../model/product');
-const Ingredient = require('../service/IngredientService');
+const Ingredient = require('../model/ingredients');
 
 exports.createProduct = function ({ productId, title, description, image, price, category, caloricity, servingSize, difficulty, spiceLevel, recommended, discount, promotions, status, ingredients}) {
 
-    return new Promise((resolve, reject) => {
-        let temp;
+    // return new Promise((resolve, reject) => {
+    //     let temp;
+    //
+    //     ingredients.forEach(function(item){
+    //         Ingredient.findIngredientById(item.ingredientId)
+    //             .then(
+    //                 oneIngredientDoc =>{
+    //                     let doc = oneIngredientDoc;
+    //                     console.log("1 "+doc);
+    //                     console.log("2 "+item.ingredientId);
+    //                     return doc;
+    //                 },
+    //                 error => {return error}
+    //             ).then( doc => {item.ingredientName = doc.title;console.log("3 "+doc.title);console.log("4"+item.ingredientName);return ingredients})
+    //
+    //         return ingredients;
+    //     })
+    //     .then(
+    //                  ingredients => {let newProduct = new Product({
+    //                     productId,
+    //                     title,
+    //                     description,
+    //                     image,
+    //                     price,
+    //                     category,
+    //                     status,
+    //                     recommended,
+    //                     discount,
+    //                     promotions,
+    //                     caloricity,
+    //                     servingSize,
+    //                     difficulty,
+    //                     spiceLevel,
+    //                     ingredients
+    //     });return newProduct;}
+    //
+    //           ).then(
+    //               newProduct =>
+    //               newProduct.save().then(
+    //                   productDoc => {
+    //                       if (Object.keys(newProduct).length > 0) {
+    //                           let { productId, title, description, image, price, category, caloricity, servingSize, difficulty, spiceLevel, recommended, discount, promotions, status, ingredients } = productDoc;
+    //                           resolve(utils.respondWithCode(201, { productId, title, description, image, price, category, caloricity, servingSize, difficulty, spiceLevel, recommended, discount, promotions, status, ingredients }));
+    //                       } else {
+    //                           reject(utils.respondWithCode(404, {"code": 404, "message": "Product is not created, please try again."}));
+    //                       }
+    //                       console.log('Saved product', productDoc);
+    //                   },
+    //                   error => { console.log('Unable to save product', error); }
+    //               )
+    //
+    //
+    //           )
+    //
+    //
+    //
+    //
+    // });
 
-        ingredients.forEach(function(item){
-            Ingredient.findIngredientById(item.ingredientId)
+        return new Promise((resolve, reject) => {
+        let temp=[];
+            ingredients.forEach(ingredient => {
+                console.log(ingredient);
+                Ingredient.findOne({"ingredient_id":ingredient.ingredientId}, (err, ingr)=>{
+                    console.log('WOW');
+                    if (err) {
+                        console.log(err);
+                        ///todo
+                    }
+                    console.log(ingr);
+                    temp.push(ingr)
+                })
+            });
+            console.log(temp);
+            Ingredient.findIngredientById(ingredients[0].ingredientId)
                 .then(
                     oneIngredientDoc =>{
                         let doc = oneIngredientDoc;
                         console.log("1 "+doc);
-                        console.log("2 "+item);
+                        console.log("2 "+ingredients[0].ingredientId);
                         return doc;
                     },
                     error => {return error}
-                ).then( doc => {ingredients[i].ingredientName = doc.title;console.log("3 "+doc.title);return ingredients})
-
-
-        })
-        .then(
-                   ingredients => {let newProduct = new Product({
+                ).then( doc => {ingredients[0].ingredientName = doc.title;console.log("3 "+doc.title);return ingredients})
+                .then(
+                     ingredients => {let newProduct = new Product({
                         productId,
                         title,
                         description,
@@ -39,9 +106,7 @@ exports.createProduct = function ({ productId, title, description, image, price,
                         difficulty,
                         spiceLevel,
                         ingredients
-        });return newProduct}
-
-              ).then(
+        });return newProduct;}).then(
                   newProduct =>
                   newProduct.save().then(
                       productDoc => {
@@ -54,16 +119,8 @@ exports.createProduct = function ({ productId, title, description, image, price,
                           console.log('Saved product', productDoc);
                       },
                       error => { console.log('Unable to save product', error); }
-                  )
-
-
-              )
-
-
-
-
-    });
-}
+                  ))});
+ }
 
 exports.deleteProductById = function(id) {
     return new Promise((resolve, reject) => {
