@@ -1,4 +1,5 @@
 'use strict';
+const utils = require('../utils/writer.js');
 const Category = require('../model/category');
 
 /**
@@ -8,9 +9,8 @@ const Category = require('../model/category');
  * body Category Category object
  * returns Category
  **/
-exports.createCategory = function (body) {
+exports.createCategory = function ({ category_id, title, image, description }) {
     return new Promise((resolve, reject) => {
-        let { category_id, title, image, description } = body;
         let newCategory = new Category({
             "category_id": category_id,
             "title": title,
@@ -19,17 +19,19 @@ exports.createCategory = function (body) {
         });
 
         newCategory.save().then(
-            categoryDoc => { console.log('Saved category', categoryDoc); },
+            categoryDoc => {
+                if (Object.keys(categoryDoc).length > 0) {
+                    let {category_id, title, image, description} = categoryDoc;
+                    resolve(utils.respondWithCode(201, {category_id, title, image, description}));
+                } else {
+                    reject(utils.respondWithCode(404, {"code": 404, "message": "Category is not created, please try again."}));
+                }
+                console.log('Saved category', categoryDoc);
+            },
             error => { console.log('Unable to save category: ', error); }
         );
-
-        if (Object.keys(newCategory).length > 0) {
-            resolve(newCategory);
-        } else {
-            reject();
-        }
     });
-}
+};
 
 
 /**
@@ -39,21 +41,20 @@ exports.createCategory = function (body) {
  **/
 exports.deleteCategoryById = function(id) {
     return new Promise((resolve, reject) => {
-        let oneCategory = {};
-
         Category.findOneAndRemove({ category_id: id }).then(
             oneCategoryDoc => {
-                oneCategory = oneCategoryDoc;
-                if (Object.keys(oneCategory).length > 0) {
-                    resolve(oneCategory);
+                oneCategoryDoc = oneCategoryDoc || {};
+                if (Object.keys(oneCategoryDoc).length > 0) {
+                    let {category_id, title, image, description} = oneCategoryDoc;
+                    resolve(utils.respondWithCode(200, {category_id, title, image, description}));
                 } else {
-                    reject();
+                    reject(utils.respondWithCode(404, {"code": 404, "message": "Category is not deleted, please try again."}));
                 }
             },
             error => { console.log('Unable to remove category: ', error); }
         );
     });
-}
+};
 
 
 /**
@@ -63,21 +64,20 @@ exports.deleteCategoryById = function(id) {
  **/
 exports.findCategoryById = function (id) {
     return new Promise((resolve, reject) => {
-        let oneCategory = {};
-
         Category.findOne({ category_id: id }).then(
             oneCategoryDoc => {
-                oneCategory = oneCategoryDoc;
-                if (Object.keys(oneCategory).length > 0) {
-                    resolve(oneCategory);
+                oneCategoryDoc = oneCategoryDoc || {};
+                if (Object.keys(oneCategoryDoc).length > 0) {
+                    let {category_id, title, image, description} = oneCategoryDoc;
+                    resolve(utils.respondWithCode(200, {category_id, title, image, description}));
                 } else {
-                    reject();
+                    reject(utils.respondWithCode(404, {"code": 404, "message": "Category is not found, please try again."}));
                 }
             },
             error => { console.log('Unable to get category: ', error); }
         );
     });
-}
+};
 
 
 /**
@@ -89,21 +89,22 @@ exports.findCategoryById = function (id) {
  **/
 exports.getAllCategories = function (offset, limit, isActive) {
     return new Promise((resolve, reject) => {
-        let categories = [];
         Category.find().then(
             categoriesDoc => {
-                categories = categoriesDoc;
-
-                if (Object.keys(categories).length > 0) {
-                    resolve(categories);
+                categoriesDoc = categoriesDoc || [];
+                if (Object.keys(categoriesDoc).length > 0) {
+                    categoriesDoc = categoriesDoc.map( ({ category_id, title, image, description }) => {
+                        return { category_id, title, image, description };
+                    });
+                    resolve(utils.respondWithCode(200, categoriesDoc));
                 } else {
-                    reject();
+                    reject(utils.respondWithCode(404, {"code": 404, "message": "Categories are not found, please try again."}));
                 }
             },
             error => { console.log('Unable to get categories: ', error); }
         );
     });
-}
+};
 
 
 /**
@@ -117,14 +118,15 @@ exports.updateCategoryById = function(id, updatedCategory) {
         let { title, image, description } = updatedCategory;
 
         Category.findOneAndUpdate({ category_id: id }, { title, image, description }).then(
-            () => {
-                if (Object.keys(updatedCategory).length > 0) {
-                    resolve(updatedCategory);
+            oneCategory => {
+                if (Object.keys(updatedCategory).length > 0 && oneCategory !== null) {
+                    let categoryId = oneCategory.category_id;
+                    resolve(utils.respondWithCode(200, {categoryId, title, image, description}));
                 } else {
-                    reject();
+                    reject(utils.respondWithCode(400, {"code": 404, "message": "Category is not updated, please try again."}));
                 }
             },
             error => { console.log('Unable to get category: ', error); }
         );
     });
-}
+};
