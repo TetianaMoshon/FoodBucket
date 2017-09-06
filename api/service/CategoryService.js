@@ -1,6 +1,7 @@
 'use strict';
 const utils = require('../utils/writer.js');
 const Category = require('../model/category');
+const debug = require('debug')('foodbucket:categoryService');
 
 /**
  * Create category
@@ -26,9 +27,9 @@ exports.createCategory = function ({ category_id, title, image, description }) {
                 } else {
                     reject(utils.respondWithCode(404, {"code": 404, "message": "Category is not created, please try again."}));
                 }
-                console.log('Saved category', categoryDoc);
+                debug('Saved category: %O', categoryDoc);
             },
-            error => { console.log('Unable to save category: ', error); }
+            error => { debug('Unable to save category: %O', error); }
         );
     });
 };
@@ -51,7 +52,7 @@ exports.deleteCategoryById = function(id) {
                     reject(utils.respondWithCode(404, {"code": 404, "message": "Category is not deleted, please try again."}));
                 }
             },
-            error => { console.log('Unable to remove category: ', error); }
+            error => { debug('Unable to remove category: %O', error); }
         );
     });
 };
@@ -74,7 +75,7 @@ exports.findCategoryById = function (id) {
                     reject(utils.respondWithCode(404, {"code": 404, "message": "Category is not found, please try again."}));
                 }
             },
-            error => { console.log('Unable to get category: ', error); }
+            error => { debug('Unable to get category: %O', error); }
         );
     });
 };
@@ -101,7 +102,7 @@ exports.getAllCategories = function (offset, limit, isActive) {
                     reject(utils.respondWithCode(404, {"code": 404, "message": "Categories are not found, please try again."}));
                 }
             },
-            error => { console.log('Unable to get categories: ', error); }
+            error => { debug('Unable to get categories: %O', error); }
         );
     });
 };
@@ -126,7 +127,7 @@ exports.updateCategoryById = function(id, updatedCategory) {
                     reject(utils.respondWithCode(400, {"code": 404, "message": "Category is not updated, please try again."}));
                 }
             },
-            error => { console.log('Unable to get category: ', error); }
+            error => { debug('Unable to get category: %O', error); }
         );
     });
 };
