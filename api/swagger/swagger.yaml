@@ -583,14 +583,14 @@ definitions:
         format: int64
       category:
         type: string
+      status:
+        type: boolean
       recommended:
         type: [string]
       discount:
         type: integer
         format: int64
       promotions:
-        type: boolean
-      status:
         type: boolean
       caloricity:
         type: integer
