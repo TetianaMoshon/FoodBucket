@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import {ProductService} from '../../../client/api/product.service';
 @Component({
   selector: 'app-productpage',
   templateUrl: './productpage.component.html',
@@ -24,11 +24,22 @@ export class ProductpageComponent implements OnInit {
         '/assets/images/pasta-carbonara.jpg'
     ];
 
-  constructor() { }
+  constructor(private productService: ProductService) {
+
+  }
 
   ngOnInit() {
       this.InitImageSource();
       this.quantityOfPhotos = this.ListOfImageLinks.length;
+
+      this.productService.findProductById(101)
+          .subscribe(
+              product => {
+                  console.log('findProductById: ', product);
+              },
+              err => console.log(err)
+          );
+
   }
     InitImageSource() {
         this.sourceForPreviousImage = this.ListOfImageLinks[this.initialSourceForPreviousImage];
