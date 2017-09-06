@@ -12,6 +12,7 @@
     "e2e": "ng e2e",
     "nodebuild": "ng build && node server.js",
     "swagger-codegen": "java -jar api/swagger-codegen-cli.jar generate -i api/swagger/swagger.yaml -l nodejs-server -o api/ -Dservice",
+    "postswagger-codegen": "java -jar api/swagger-codegen-cli.jar generate -i api/swagger/swagger.yaml -l typescript-angular -o src/app/client --additional-properties ngVersion=4",
     "swagger-edit": "swagger project edit",
     "windows-codegen": "get_codegen.bat",
     "linux-codegen": "bash get_codegen.sh"
