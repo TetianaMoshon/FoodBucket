@@ -41,7 +41,6 @@ exports.createProduct = function ({ productId, title, description, image, price,
             ingredients
         });
 
-
         newProduct.save().then(
             productDoc => {
                 if (Object.keys(newProduct).length > 0) {

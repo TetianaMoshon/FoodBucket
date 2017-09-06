@@ -1,7 +1,7 @@
 'use strict';
 const utils = require('../utils/writer.js');
 const User = require('../model/user');
-const Product = require('../model/product');
+const Product = require('../service/ProductService');
 
 /**
  * Create user
@@ -12,18 +12,19 @@ const Product = require('../model/product');
  **/
 exports.createUser = function ({user_id, first_name, last_name, email, password, phone, city, address, image, favourites, active}) {
     return new Promise((resolve, reject) => {
+    console.log(Product);
         let newUser = new User({
-            "user_id": user_id,
-            "first_name": first_name,
-            "last_name": last_name,
-            "email": email,
-            "password": password,
-            "phone": phone,
-            "city": city,
-            "address": address,
-            "image": image,
-            "favourites": favourites,
-            "active": active
+            user_id,
+            first_name,
+            last_name,
+            email,
+            password,
+            phone,
+            city,
+            address,
+            image,
+            favourites,
+            active
         });
 
         newUser.save().then(

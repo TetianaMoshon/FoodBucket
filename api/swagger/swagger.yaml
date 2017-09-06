@@ -92,6 +92,48 @@ paths:
           description: invalid input
           schema:
             $ref: "#/definitions/Error"
+    delete:
+      x-swagger-router-controller: Product
+      operationId: deleteProductById
+      tags:
+      - "product"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the product to delete
+        required: true
+        type: integer
+        format: int64
+      responses:
+        204:
+          description: Product is deleted
+    put:
+      x-swagger-router-controller: Product
+      operationId: updateProductById
+      tags:
+      - "product"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: content of the product is being updated
+        required: true
+        type: integer
+        format: int64
+      - name: "updatedProduct"
+        in: "body"
+        description: The updated product
+        required: true
+        schema:
+          $ref: "#/definitions/Product"
+      responses:
+        200:
+          description: Product is updated
+        400:
+          description: An error!
   /users:
     get:
       x-swagger-router-controller: User
@@ -235,48 +277,6 @@ paths:
             $ref: "#/definitions/User"
         400:
           description: Invalid input
-    delete:
-      x-swagger-router-controller: Product
-      operationId: deleteProductById
-      tags:
-      - "product"
-      produces:
-      - application/json
-      parameters:
-      - name: id
-        in: path
-        description: ID of the product to delete
-        required: true
-        type: integer
-        format: int64
-      responses:
-        204:
-          description: Product is deleted
-    put:
-      x-swagger-router-controller: Product
-      operationId: updateProductById
-      tags:
-      - "product"
-      produces:
-      - application/json
-      parameters:
-      - name: id
-        in: path
-        description: content of the product is being updated
-        required: true
-        type: integer
-        format: int64
-      - name: "updatedProduct"
-        in: "body"
-        description: The updated product
-        required: true
-        schema:
-          $ref: "#/definitions/Product"
-      responses:
-        200:
-          description: Product is updated
-        400:
-          description: An error!
   /product:
     post:
       x-swagger-router-controller: Product
@@ -442,7 +442,6 @@ paths:
           schema:
             $ref: '#/definitions/Category'
         400:
-          description: Invalid input
           description: Invalid input
   /ingredients:
     get:
@@ -812,11 +811,11 @@ definitions:
      active:
        type: boolean
   ProductsList:
-      type: object
-      properties:
-        ingredientId:
-          type: integer
-          format: int64
+    type: object
+    properties:
+      productId:
+        type: integer
+        format: int64
   Ingredient:
     type: object
     required:

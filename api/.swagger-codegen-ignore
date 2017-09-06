@@ -36,4 +36,6 @@ controllers/ProductService.js
 service/UserService.js
 controllers/UserService.js
 
+service/IngredientService.js
+controllers/IngredientService.js
 
