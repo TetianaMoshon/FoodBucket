@@ -30,7 +30,8 @@ schema/
 
 service/CategoryService.js
 controllers/CategoryService.js
-
+service/CartService.js
+controllers/CartService.js
 service/OrderService.js
 controllers/OrderService.js
 
