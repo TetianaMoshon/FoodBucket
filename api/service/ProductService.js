@@ -1,59 +1,73 @@
 'use strict';
 const utils = require('../utils/writer.js');
 const Product = require('../model/product');
-const Ingredient = require('../model/ingredients');
+const Ingredient = require('../service/IngredientService');
 
-exports.createProduct = function (body) {
+exports.createProduct = function ({ productId, title, description, image, price, category, caloricity, servingSize, difficulty, spiceLevel, recommended, discount, promotions, status, ingredients}) {
+    //with promises
+    // for(let i = 0; i < ingredients.length; i++){
+    //     let temp;
+    //     Ingredient.findIngredientById(ingredients[0].ingredientId)
+    //         .then(
+    //             oneIngredientDoc =>{
+    //                 let doc = oneIngredientDoc;
+    //                 return doc;
+    //             },
+    //             error => {return error}
+    //         ).then( doc => {ingredients[0].ingredientName = doc.title;}
+    //
+    //         );
+    // }
+
+
+
+
     return new Promise((resolve, reject) => {
-        let { productId, title, description, image, price, category, caloricity, servingSize, difficulty, spiceLevel, recommended, discount, promotions, status, ingredients } = body;
-
-        ingredients.forEach(function () {
-            console.log(ingredients[i])
-        })
-
         let newProduct = new Product({
-            "productId": productId,
-            "title": title,
-            "description": description,
-            "image": image,
-            "price": price,
-            "category": category,
-            "status": status,
-            "recommended": recommended,
-            "discount": discount,
-            "promotions": promotions,
-            "caloricity": caloricity,
-            "servingSize": servingSize,
-            "difficulty": difficulty,
-            "spiceLevel": spiceLevel,
-            "ingredients": ingredients
+            productId,
+            title,
+            description,
+            image,
+            price,
+            category,
+            status,
+            recommended,
+            discount,
+            promotions,
+            caloricity,
+            servingSize,
+            difficulty,
+            spiceLevel,
+            ingredients
         });
 
+
         newProduct.save().then(
-            productDoc => { console.log('Saved product', productDoc); },
+            productDoc => {
+                if (Object.keys(newProduct).length > 0) {
+                    let { productId, title, description, image, price, category, caloricity, servingSize, difficulty, spiceLevel, recommended, discount, promotions, status, ingredients } = productDoc;
+                    resolve(utils.respondWithCode(201, { productId, title, description, image, price, category, caloricity, servingSize, difficulty, spiceLevel, recommended, discount, promotions, status, ingredients }));
+                } else {
+                    reject(utils.respondWithCode(404, {"code": 404, "message": "Product is not created, please try again."}));
+                }
+                console.log('Saved product', productDoc);
+                },
             error => { console.log('Unable to save product', error); }
         );
 
-        if (Object.keys(newProduct).length > 0) {
-            resolve(newProduct);
-        } else {
-            reject();
-        }
     });
 }
 
-
 exports.deleteProductById = function(id) {
     return new Promise((resolve, reject) => {
-        let oneProduct = {};
-
-        Product.findOneAndRemove({ productId: id }).then(
+       Product.findOneAndRemove({ productId: id }).then(
             oneProductDoc => {
-                oneProduct = oneProductDoc;
-                if (Object.keys(oneProduct).length > 0) {
-                    resolve(oneProduct);
+                oneProductDoc = oneProductDoc || {};
+                if (Object.keys(oneProductDoc).length > 0) {
+                    let { productId, title, description, image, price, category, caloricity, servingSize, difficulty, spiceLevel, recommended, discount, promotions, status, ingredients } = oneProductDoc;
+                    resolve(utils.respondWithCode(200, { productId, title, description, image, price, category, caloricity, servingSize, difficulty, spiceLevel, recommended, discount, promotions, status, ingredients }));
                 } else {
-                    reject();
+                    reject(utils.respondWithCode(404, {"code": 404, "message": "Product is not deleted, please try again."}));
                 }
             },
             error => { console.log('Unable to remove product', error); }
@@ -63,15 +77,14 @@ exports.deleteProductById = function(id) {
 
 exports.findProductById = function(id) {
     return new Promise((resolve, reject) => {
-        let oneProduct = {};
-
         Product.findOne({ productId: id }).then(
             oneProductDoc => {
-                oneProduct = oneProductDoc;
-                if (Object.keys(oneProduct).length > 0) {
-                    resolve(oneProduct);
+                oneProductDoc = oneProductDoc || {};
+                if (Object.keys(oneProductDoc).length > 0) {
+                    let { productId, title, description, image, price, category, caloricity, servingSize, difficulty, spiceLevel, recommended, discount, promotions, status, ingredients } = oneProductDoc;
+                    resolve(utils.respondWithCode(200, { productId, title, description, image, price, category, caloricity, servingSize, difficulty, spiceLevel, recommended, discount, promotions, status, ingredients }));
                 } else {
-                    reject();
+                    reject(utils.respondWithCode(404, {"code": 404, "message": "Product is not found, please try again."}));
                 }
             },
             error => { console.log('Unable to get product', error); }
@@ -81,15 +94,33 @@ exports.findProductById = function(id) {
 
 exports.getAllProducts = function(offset,limit,isActive) {
     return new Promise((resolve, reject) => {
-        let products = [];
         Product.find().then(
             productsDoc => {
-                products = productsDoc;
-
-                if (Object.keys(products).length > 0) {
-                    resolve(products);
-                } else {
-                    reject();
+                productsDoc = productsDoc || {};
+                if (Object.keys(productsDoc).length > 0) {
+                    productsDoc = productsDoc.map(({productId, title, description, image, price, category, caloricity, servingSize, difficulty, spiceLevel, recommended, discount, promotions, status, ingredients}) => {
+                        return {
+                            productId,
+                            title,
+                            description,
+                            image,
+                            price,
+                            category,
+                            caloricity,
+                            servingSize,
+                            difficulty,
+                            spiceLevel,
+                            recommended,
+                            discount,
+                            promotions,
+                            status,
+                            ingredients
+                        };
+                    });
+                    resolve(utils.respondWithCode(200, productsDoc));
+                }
+                else {
+                    reject(utils.respondWithCode(404, {"code": 404, "message": "Products are not found, please try again."}));
                 }
             },
             error => { console.log('Unable to get products', error); }
@@ -99,29 +130,31 @@ exports.getAllProducts = function(offset,limit,isActive) {
 
 exports.updateProductById = function(id, updatedProduct) {
     return new Promise((resolve, reject) => {
-        let { title, description, image, price, category, status, recommended, discount, promotions, caloricity, servingSize, difficulty, spiceLevel } = updatedProduct;
+        let { title, description, image, price, category, status, recommended, discount, promotions, caloricity, servingSize, difficulty, spiceLevel, ingredients } = updatedProduct;
 
         Product.findOneAndUpdate({ productId: id },
             {
-                "title": title,
-                "description": description,
-                "image": image,
-                "price": price,
-                "category": category,
-                "status": status,
-                "recommended": recommended,
-                "discount": discount,
-                "promotions": promotions,
-                "caloricity": caloricity,
-                "servingSize": servingSize,
-                "difficulty": difficulty,
-                "spiceLevel": spiceLevel
+                title,
+                description,
+                image,
+                price,
+                category,
+                status,
+                recommended,
+                discount,
+                promotions,
+                caloricity,
+                servingSize,
+                difficulty,
+                spiceLevel,
+                ingredients
             }).then(
-            () => {
-                if (Object.keys(updatedProduct).length > 0) {
-                    resolve(updatedProduct);
+            oneProduct => {
+                if (Object.keys(updatedProduct).length > 0 && oneProduct !== null) {
+                    let productId = Product.productId;
+                    resolve(utils.respondWithCode(200, { title, description, image, price, category, status, recommended, discount, promotions, caloricity, servingSize, difficulty, spiceLevel, ingredients }));
                 } else {
-                    reject();
+                    reject(utils.respondWithCode(400, {"code": 404, "message": "Product is not updated, please try again."}));
                 }
             },
             error => { console.log('Unable to get product: ', error); }

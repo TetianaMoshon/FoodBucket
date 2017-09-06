@@ -21,14 +21,5 @@
 #docs/*.md
 # Then explicitly reverse the ignore rule for a single file:
 #!docs/README.md
-#api
-package.json
-index.js
-api/swagger.yaml
-model/
-schema/
-
-service/CategoryService.js
-service/ProductService.js
-controllers/CategoryService.js
-controllers/ProductService.js
+/.gitignore
+/git_push.sh

@@ -1,0 +1,7 @@
+import {Configuration} from './configuration';
+
+export function apiConfig() {
+    return new Configuration({
+        basePath: '%BASE_PATH%'
+    });
+}
