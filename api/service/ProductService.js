@@ -8,15 +8,21 @@ exports.createProduct = function ({ productId, title, description, image, price,
     return new Promise((resolve, reject) => {
         let temp;
 
-
-              Ingredient.findIngredientById(ingredients[0].ingredientId)
+        ingredients.forEach(function(item){
+            Ingredient.findIngredientById(item.ingredientId)
                 .then(
                     oneIngredientDoc =>{
                         let doc = oneIngredientDoc;
+                        console.log("1 "+doc);
+                        console.log("2 "+item);
                         return doc;
                     },
                     error => {return error}
-                ).then( doc => {ingredients[0].ingredientName = doc.title;console.log(doc.title);return ingredients}).then(
+                ).then( doc => {ingredients[i].ingredientName = doc.title;console.log("3 "+doc.title);return ingredients})
+
+
+        })
+        .then(
                    ingredients => {let newProduct = new Product({
                         productId,
                         title,
