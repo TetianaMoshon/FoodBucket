@@ -4,6 +4,8 @@
 const express = require('express');
 const path = require('path');
 const http = require('http');
+const logger = require('morgan');
+const debug = require('debug')('foodbucket:server');
 const bodyParser = require('body-parser');
 const initScript = require('./config/initializeDb');
 
@@ -28,25 +30,25 @@ let swaggerDoc = jsyaml.safeLoad(spec);
 
 let mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://megauser:mysecret@localhost:27017/mydata', {
+mongoose.connect('mongodb://localhost:27017/foodbucket', {
     promiseLibrary: global.Promise, // require('bluebird')
     keepAlive: true,
     reconnectTries: Number.MAX_VALUE,
     useMongoClient: true
 })
 .then(() => {
-    console.log('Start Mongoose...');
+    debug('Start Mongoose...');
     return initScript.initDb();
 }).then(msg => {
-    console.log(msg);
+    debug(msg);
 })
 .catch(err => {
-    console.error('App starting error:', err.stack);
+    debug('App starting error: %O', err.stack);
     process.exit(1);
 });
 
 const app = express();
-
+app.use(logger('dev'));
 // Parsers for POST data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -85,7 +87,7 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
 
     // Create and start HTTP server
     http.createServer(app).listen(serverPort, function () {
-        console.log('Your server is listening on port %d (http://localhost:%d)', serverPort, serverPort);
-        console.log('Swagger-ui is available on http://localhost:%d/docs', serverPort);
+        debug('Your server is listening on port %d (http://localhost:%d)', serverPort, serverPort);
+        debug('Swagger-ui is available on http://localhost:%d/docs', serverPort);
     });
 });
