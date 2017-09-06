@@ -4,6 +4,7 @@ const Counter =  require('../api/model/counter');
 const jsyaml = require('js-yaml');
 const fs = require('fs');
 const path = require('path');
+const debug = require('debug')('foodbucket:init');
 
 exports.initDb = function () {
     return new Promise((resolve, reject) => {
@@ -27,13 +28,13 @@ exports.initDb = function () {
                         if (err) {
                             throw err;
                         }
-                        console.log("Set sequence for " + sequence._id);
+                        debug("Set sequence for %s", sequence._id);
                     });
                 }
             });
         });
         return "Sequences are up to date";
     }).catch(err => {
-        console.log(err)
+        debug("Error: %O", err)
     })
 };
