@@ -33,3 +33,7 @@ controllers/CategoryService.js
 service/CartService.js
 controllers/CartService.js
 service/OrderService.js
+controllers/OrderService.js
+
+service/AuthService.js
+controllers/AuthService.js
