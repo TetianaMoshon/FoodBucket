@@ -77,7 +77,6 @@ export class AdminUsersComponent implements OnInit {
     public data;
 
     onCustom(event) {
-        console.log(event.data.user_id);
         if (event.action === 'delete') {
             this.userService.deleteUserById(event.data.user_id)
                 .subscribe(
@@ -85,6 +84,17 @@ export class AdminUsersComponent implements OnInit {
                 },
                 err => console.log(err)
             );
+            this.data.remove(event.data);
+
+            /*
+            this.data.update()
+            this.userService.getAllUsers(0, 2, true)
+                .subscribe(
+                    user => {
+                        this.data =  user;
+                    },
+                    err => console.log(err)
+                );*/
         }
     }
 
