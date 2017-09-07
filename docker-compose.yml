@@ -17,5 +17,9 @@ services:
     mem_limit: 268400000
     ports:
       - "80:80"
+    environment:
+      - MONGODB_USERNAME=${USER}
+      - MONGODB_PASSWORD=${PASS}
+      - MONGODB_DATABASE=${DB}
     links:
       - mongo

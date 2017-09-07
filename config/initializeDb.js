@@ -38,3 +38,15 @@ exports.initDb = function () {
         debug("Error: %O", err)
     })
 };
+
+exports.getMongoUrl = function () {
+    const user = process.env.MONGODB_USERNAME;
+    const pass = process.env.MONGODB_PASSWORD;
+    const db = process.env.MONGODB_DATABASE;
+    if (typeof user !== 'undefined' && typeof pass !== 'undefined' && typeof db !== 'undefined') {
+        return `mongodb://${user}:${pass}@mongo:27017/${db}`;
+    }
+    else {
+        return "mongodb://localhost:27017/foodbucket"
+    }
+};
