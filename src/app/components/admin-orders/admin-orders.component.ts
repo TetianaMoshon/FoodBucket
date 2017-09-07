@@ -168,28 +168,20 @@ export class AdminOrdersComponent implements OnInit {
     orders: Order[] = [];
 pager: any = {};
 pagedItems: any[];
-// filter: Order = new Order();
+ filter: Order = {
+     orderId: 0,
+     username: '',
+     city: '',
+     products: [],
+     price : 0,
+     address: '' ,
+     status: ''
+ };
   constructor(private pagerService: PagerService, private ApiService: OrderService) {
       this.showHide = false;
   }
 
   ngOnInit() {
-    // this.ApiService.putOrder({
-    //
-    //     username: 'Vasyan',
-    //
-    //   city: 'Kiev',
-    //
-    //   price: 45,
-    //
-    //   address: 'Myhailivska 45',
-    //
-    //   status: 'Delivered',
-    //
-    //   products: [1, 2 , 3 , 4 , 5 , 6 , 7 , 8 , 9 ],
-    // }).subscribe((postedOrder) => {
-    //     console.log(postedOrder);
-    // });
       this.ApiService.getAllOrders(0, 20 ).subscribe(orders => {
           this.orders = orders;
           this.pager = this.pagerService.getPager(orders.length, 1);

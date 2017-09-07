@@ -17,8 +17,11 @@ export class OrdersFiltersPipe implements PipeTransform {
     applyFilter(order: Order, filter: Order): boolean {
         for (const field in filter) {
             if (filter[field]) {
-                if (typeof filter[field] === 'string') {
-                    if (order[field].toLowerCase().indexOf(filter[field].toLowerCase()) === -1) {
+                if (typeof filter[field] === 'number') {
+                    // if (order[field].toLowerCase().indexOf(filter[field].toLowerCase()) === -1) {
+                    //     return false;
+                    // }
+                    if (order[field] !== filter[field]) {
                         return false;
                     }
                 } else if (typeof filter[field] === 'number') {
