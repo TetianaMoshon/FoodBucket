@@ -18,6 +18,7 @@ import {AdminUsersComponent} from './components/admin-users/admin-users.componen
 import {ProductpageComponent} from './components/productlist/productpage/productpage.component';
 import { AdminProductPageComponent } from './components/admin-product-list/admin-product-page/admin-product-page.component';
 import {UserProfileComponent} from './components/user-profile/user-profile.component';
+import {AdmincategoriesFormComponent} from './components/admincategories/admincategories-form/admincategories-form.component';
 
 import {Error404Component} from './components/error404/error404.component';
 
@@ -43,7 +44,11 @@ const appRoutes: Routes = [
       ]},
       { path: 'comments', component: AdminCommentsComponent},
       { path: 'users', component: AdminUsersComponent},
-      { path: 'categories', component: AdmincategoriesComponent},
+      { path: 'categories', children: [
+          { path: '', component: AdmincategoriesComponent },
+          { path: ':id/edit', component: AdmincategoriesFormComponent },
+          { path: 'create', component: AdmincategoriesFormComponent },
+      ]},
       { path: 'analytics', component: AdminAnalyticsComponent},
       { path: 'ingredients', component: AdminIngredientsComponent},
   ]},
