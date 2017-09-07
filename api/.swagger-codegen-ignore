@@ -29,6 +29,7 @@ model/
 schema/
 
 service/CategoryService.js
+service/ProductService.js
 controllers/CategoryService.js
 service/CartService.js
 controllers/CartService.js
@@ -37,3 +38,4 @@ controllers/OrderService.js
 
 service/AuthService.js
 controllers/AuthService.js
+controllers/ProductService.js

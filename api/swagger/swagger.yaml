@@ -35,14 +35,6 @@ paths:
       produces:
       - application/json
       parameters:
-        - name: category_id
-          in: query
-          description: returns products only from specified category
-          required: false
-          type: array
-          items:
-            type: string
-          collectionFormat: multi
         - name: isActive
           in: query
           description: returns active products
@@ -593,59 +585,82 @@ definitions:
   Product:
     type: object
     required:
-      - image
-      - price
       - title
       - description
+      - price
     properties:
-      id:
-        type: integer
-        format: int64
-        minimum: 1
-      image:
-        type: string
-      price:
+      productId:
         type: integer
         format: int64
       title:
         type: string
       description:
         type: string
-      ingredients:
-        type: array
-        minimum: 1
-        items:
-          $ref: '#/definitions/Ingredient'
-      productInfo:
-        type: array
-        items:
-          $ref: '#/definitions/ProductInfo'
-  Cart:
-    type: object
-    required:
-       - orderedProducts
-       - totalPriceOfAllDishes
-    properties:
-      orderedProducts:
-        type: array
-        items:
-          $ref: '#/definitions/CartOrder'
-      totalPriceOfAllDishes:
-        type: integer
-        format: int64  
-  CartOrder:
-    type: object
-    required:
-      - productId
-      - quantity
-    properties:
-      productId:
+      image:
+        type: string
+      price:
         type: integer
         format: int64
+      category:
+        type: string
+      status:
+        type: boolean
+      recommended:
+        type: [string]
+      discount:
+        type: integer
+        format: int64
+      promotions:
+        type: boolean
+      caloricity:
+        type: integer
+        format: int64
+      servingSize:
+        type: integer
+      difficulty:
+        type: string
+      spiceLevel:
+        type: string
+      ingredients:
+        type: array
+        items:
+          $ref: "#/definitions/IngredientsList"
+  IngredientsList:
+    type: object
+    properties:
+      ingredientId:
+        type: integer
+        format: int64
+      ingredientName:
+        type: string
       quantity:
         type: integer
         format: int64
-
+    Cart:
+      type: object
+      required:
+         - orderedProducts
+         - totalPriceOfAllDishes
+      properties:
+        orderedProducts:
+          type: array
+          items:
+            $ref: '#/definitions/CartOrder'
+        totalPriceOfAllDishes:
+          type: integer
+          format: int64
+    CartOrder:
+      type: object
+      required:
+        - productId
+        - quantity
+      properties:
+        productId:
+          type: integer
+          format: int64
+        quantity:
+          type: integer
+          format: int64
   Category:
     type: object
     required:
@@ -708,17 +723,6 @@ definitions:
           type: integer
           format: int64
         minItems: 1
-  ProductInfo:
-    type: object
-    required:
-      - calories
-    properties:
-      product_info_id:
-        type: integer
-        format: int64
-      calories:
-        type: integer
-        format: int64
   Promotion:
     type: object
     required:
