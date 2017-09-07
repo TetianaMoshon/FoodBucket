@@ -23,14 +23,6 @@ export const settings = {
             filter: true,
             width: '10%',
         },
-        // image: {
-        //     title: 'Image',
-        //     width: '13%',
-        //     type: 'custom',
-        //     renderComponent: AdminProductListImageComponent,
-        //     sort: false,
-        //     filter: false,
-        // },
         image: {
             title: 'Image',
             width: '22%',
