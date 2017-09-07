@@ -1,5 +1,7 @@
 'use strict';
+const utils = require('../utils/writer.js');
 const Ingredient = require('../model/ingredient');
+const debug = require('debug')('foodbucket:ingredientService');
 
 /**
  * Create ingredient
@@ -8,33 +10,32 @@ const Ingredient = require('../model/ingredient');
  * body Ingredient Ingredient object
  * returns Ingredient
  **/
-exports.createIngredient = function(body) {
-    return new Promise(function(resolve, reject) {
-    let newIngredient = {};
-    let {image, measure, quantity, ingredient_id, price, description, discount, title} = body;
-      newIngredient['application/json'] = new Ingredient ({
-      "image": image,
-      "measure" : measure,
-      "quantity" : quantity,
-      "ingredient_id" : ingredient_id,
-      "price" : price,
-      "description" : description,
-      "discount" : discount,
-      "title" : title
-      });
+exports.createIngredient = function({ingredient_id, image, measure, quantity, price, description, discount, title}) {
+    return new Promise( (resolve, reject) => {
+       let newIngredient = new Ingredient ({
+            "image": image,
+            "measure" : measure,
+            "quantity" : quantity,
+            "price" : price,
+            "description" : description,
+            "discount" : discount,
+            "title" : title
+        });
 
-      newIngredient['application/json'].save().then(
-          inredientDoc => { console.log('Saved ingredient', inredientDoc); },
-      error => { console.log('Unable to save ingredient'); }
-  );
-
-    if (Object.keys(newIngredient).length > 0) {
-      resolve(newIngredient[Object.keys(newIngredient)[0]]);
-    } else {
-      resolve();
-    }
-  });
-}
+       newIngredient.save().then(
+            ingredientDoc => {
+                if (Object.keys(ingredientDoc).length > 0) {
+                    let {ingredient_id, title, image, description, measure, quantity, price, discount} = ingredientDoc;
+                    resolve(utils.respondWithCode(201, {ingredient_id, title, image, description, measure, quantity, price, discount}));
+                } else {
+                    reject(utils.respondWithCode(404, {"code": 404, "message": "Ingredient is not created, please try again."}));
+                }
+                debug('Saved ingredient: %O', ingredientDoc);
+            },
+            error => { debug('Unable to save ingredient: %O', error); }
+       );
+    });
+};
 
 
 /**
@@ -43,23 +44,21 @@ exports.createIngredient = function(body) {
  * no response value expected for this operation
  **/
 exports.deleteIngredientById = function(id) {
-  return new Promise(function(resolve, reject) {
-      let oneIngredient = {};
+    return new Promise( (resolve, reject) => {
+        Ingredient.findOneAndRemove({ ingredient_id: id }).then(
+            oneIngredientDoc => {
+                oneIngredientDoc = oneIngredientDoc || {};
+                if (Object.keys(oneIngredientDoc).length > 0) {
+                    let {ingredient_id, title, image, description, measure, quantity, price, discount} = oneIngredientDoc;
+                    resolve(utils.respondWithCode(200, {ingredient_id, title, image, description, measure, quantity, price, discount}));
+                } else {
+                    reject(utils.respondWithCode(404, {"code": 404, "message": "Ingredient is not deleted, please try again."}));
+                }
+    },
+        error => { console.log('Unable to remove ingredient'); }
+    );
 
-      Ingredient.findOneAndRemove({ingredient_id: id}).then(
-          oneIngredientDoc => {
-          oneIngredient['application/json'] = oneIngredientDoc;
-
-      if (Object.keys(oneIngredient).length > 0) {
-          resolve(oneIngredient[Object.keys(oneIngredient)[0]]);
-      } else {
-          reject();
-      }
-  },
-      error => { console.log('Unable to remove ingredient'); }
-  );
-
-  });
+    });
 }
 
 
@@ -69,21 +68,21 @@ exports.deleteIngredientById = function(id) {
  * returns Ingredient
  **/
 exports.findIngredientById = function(id) {
-  return new Promise(function(resolve, reject) {
-    let oneIngredient = {};
-    Ingredient.findOne({ ingredient_id: id }).then(
-          oneIngredientDoc => {
-              oneIngredient['application/json'] = oneIngredientDoc;
-              if (Object.keys(oneIngredient).length > 0) {
-                  resolve(oneIngredient[Object.keys(oneIngredient)[0]]);
-              } else {
-                  reject();
-              }
-          },
-        error => { console.log('Unable to get ingredient'); }
-      );
-  });
-}
+    return new Promise( (resolve, reject) => {
+        Ingredient.findOne({ ingredient_id: id }).then(
+            oneIngredientDoc => {
+                oneIngredientDoc = oneIngredientDoc || {};
+                if (Object.keys(oneIngredientDoc).length > 0) {
+                    let {ingredient_id, title, image, description, measure, quantity, price, discount} = oneIngredientDoc;
+                    resolve(utils.respondWithCode(200, {ingredient_id, title, image, description, measure, quantity, price, discount}));
+                } else {
+                    reject(utils.respondWithCode(404, {"code": 404, "message": "Ingredient is not found, please try again."}));
+                }
+            },
+            error => { debug('Unable to get ingredient: %O', error); }
+        );
+    });
+};
 
 
 /**
@@ -94,22 +93,22 @@ exports.findIngredientById = function(id) {
  * returns List
  **/
 exports.getAllIngredients = function(offset,limit,isActive) {
-  return new Promise(function(resolve, reject) {
-    let ingredients = {};
-    Ingredient.find().then(
-        ingredientsDoc => {
-        ingredients['application/json'] = ingredientsDoc;
-
-
-            if (Object.keys(ingredients).length > 0) {
-                resolve(ingredients[Object.keys(ingredients)[0]]);
-            } else {
-                reject();
-            }
-        },
-        error => { console.log('Unable to get ingredient'); }
+    return new Promise( (resolve, reject) => {
+        Ingredient.find().then(
+            ingredientsDoc => {
+                ingredientsDoc = ingredientsDoc || [];
+                if (Object.keys(ingredientsDoc).length > 0) {
+                    ingredientsDoc = ingredientsDoc.map( ({ ingredient_id, title, image, description, measure, quantity, price, discount}) => {
+                        return { ingredient_id, title, image, description, measure, quantity, price, discount };
+                    });
+                    resolve(utils.respondWithCode(200, ingredientsDoc));
+                } else {
+                    reject(utils.respondWithCode(404, {"code": 404, "message": "Ingredients are not found, please try again."}));
+                }
+            },
+            error => { debug('Unable to get ingredients: %O', error); }
     );
-  });
+    });
 }
 
 
@@ -117,35 +116,24 @@ exports.getAllIngredients = function(offset,limit,isActive) {
 /**
  *
  * id Long Id of the Ingredient being updated
- * updated_ingredient Ingredient The updated Ingredient
+ * updatedIngredient Ingredient The updated Ingredient
  * no response value expected for this operation
  **/
-exports.updateIngredientById = function(id,updated_ingredient) {
-  return new Promise(function(resolve, reject) {
-      let oneIngredient = {};
-      let { image, measure, quantity, ingredient_id, price, description, discount, title } = updated_ingredient;
+exports.updateIngredientById = function(id,updatedIngredient) {
+    return new Promise((resolve, reject) => {
+        let { title, image, description, measure, quantity, price, discount } = updatedIngredient;
 
-      Ingredient.findOneAndUpdate({ ingredient_id: id },
-          {
-              "image": image,
-              "measure" : measure,
-              "quantity" : quantity,
-              "price" : price,
-              "description" : description,
-              "discount" : discount,
-              "title" : title
-
-          }).then(
-          (oneIngredientDoc) => {
-              oneIngredient['application/json'] = updated_ingredient;
-              if (Object.keys(oneIngredient).length > 0) {
-                  resolve(oneIngredient[Object.keys(oneIngredient)[0]]);
-              } else {
-                  reject();
-              }
-          },
-          (error) => { console.log('Unable to get ingredient'); }
-      );
-  });
+        Ingredient.findOneAndUpdate({ ingredient_id: id }, { title, image, description, measure, quantity, price, discount }).then(
+            oneIngredient => {
+                if (Object.keys(updatedIngredient).length > 0 && oneIngredient !== null) {
+                    let ingredient_id = oneIngredient.ingredient_id;
+                    resolve(utils.respondWithCode(200, {ingredient_id, title, image, description, measure, quantity, price, discount}));
+                } else {
+                    reject(utils.respondWithCode(400, {"code": 404, "message": "Ingredient is not updated, please try again."}));
+                }
+            },
+            error => { debug('Unable to get ingredient: %O', error); }
+         );
+    });
 };
 

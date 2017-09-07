@@ -791,6 +791,17 @@ definitions:
         type: string
       description:
         type: string
+      measure:
+        type: string
+      quantity:
+        type: integer
+        format: int64
+      price: 
+        type: integer
+        format: int64
+      discount: 
+        type: integer
+        format: int64
   Order:
     type: object
     required:
@@ -824,9 +835,6 @@ definitions:
       measure:
         type: string
       quantity:
-        type: integer
-        format: int64
-      price:
         type: integer
         format: int64
       discount:

@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const counter = require('../model/counter');
 
-const IngredientsSchema = new Schema({
-    id: Number,
+
+const IngredientsSchema = mongoose.Schema({
+    ingredient_id: Number,
     title: String,
     discription: String,
     image: String,
@@ -11,5 +12,16 @@ const IngredientsSchema = new Schema({
     price: Number,
     discount: Number
 });
+
+IngredientsSchema.pre('save', function(next) {
+    let doc = this;
+    counter.findByIdAndUpdate({_id: 'ingredientId'}, {$inc: { seq: 1} }, function(error, counter)   {
+        if(error)
+            return next(error);
+        doc.ingredient_id = counter.seq;
+        next();
+    });
+});
+
 
 module.exports = IngredientsSchema;
