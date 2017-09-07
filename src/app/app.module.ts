@@ -54,7 +54,6 @@ import { OrdersFiltersPipe } from './pipes/orders-filters.pipe';
 import { ApiModule } from './client/index';
 import { apiConfig } from './client/api.config';
 
-import { ApiModule } from './client/api.module';
 import { FlashMessagesModule } from 'ngx-flash-messages';
 
 @NgModule({
@@ -129,7 +128,6 @@ import { FlashMessagesModule } from 'ngx-flash-messages';
       ChartsModule,
       [TabsModule.forRoot()],
       FlashMessagesModule,
-      ApiModule,
   ],
   providers: [PagerService, CommentsService],
   bootstrap: [AppComponent]
