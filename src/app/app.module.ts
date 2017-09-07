@@ -40,6 +40,7 @@ import { ConfirmationComponent } from './components/modals/confirmation/confirma
 import { ProductpageComponent } from './components/productlist/productpage/productpage.component';
 import {ImageRenderComponent} from './components/admin-ingredients/image-render.component';
 import { AdminProductPageComponent } from './components/admin-product-list/admin-product-page/admin-product-page.component';
+import { AdmincategoriesFormComponent } from './components/admincategories/admincategories-form/admincategories-form.component';
 
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { TabsModule } from 'ngx-bootstrap';
@@ -52,6 +53,8 @@ import { CommentsService } from './services/comments.service';
 import { OrdersFiltersPipe } from './pipes/orders-filters.pipe';
 import { ApiModule } from './client/index';
 import { apiConfig } from './client/api.config';
+
+import { FlashMessagesModule } from 'ngx-flash-messages';
 
 @NgModule({
   declarations: [
@@ -96,6 +99,7 @@ import { apiConfig } from './client/api.config';
       UserProfileComponent,
       Error404Component,
       OrdersFiltersPipe,
+      AdmincategoriesFormComponent,
   ],
   entryComponents: [
       ModalCongratulationComponent,
@@ -123,6 +127,7 @@ import { apiConfig } from './client/api.config';
       Ng2SmartTableModule,
       ChartsModule,
       [TabsModule.forRoot()],
+      FlashMessagesModule,
   ],
   providers: [PagerService, CommentsService],
   bootstrap: [AppComponent]
