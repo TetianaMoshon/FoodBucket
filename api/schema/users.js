@@ -1,13 +1,14 @@
 var mongoose = require('mongoose');
+var counter = require('../model/counter');
 var Schema = mongoose.Schema;
 
 var UsersSchema = new Schema({
-    id: Number,
-    first_name: {
+    userId: Number,
+    firstName: {
         type: String,
         required: true
     },
-    last_name: {
+    lastName: {
         type: String,
         required: true
     },
@@ -21,12 +22,22 @@ var UsersSchema = new Schema({
     },
     phone: Number,
     city: String,
-    adress: String,
+    address: String,
     image: String,
     favourites: [Number],
-    cteate_at: Date,
+    create_at: Date,
     update_at: Date,
     active: Boolean
+});
+
+UsersSchema.pre('save', function(next) {
+    let doc = this;
+    counter.findByIdAndUpdate({_id: 'userId'}, {$inc: { seq: 1} }, function(error, counter)   {
+        if(error)
+            return next(error);
+        doc.userId = counter.seq;
+        next();
+    });
 });
 
 module.exports = UsersSchema;

@@ -1,5 +1,7 @@
 'use strict';
+const utils = require('../utils/writer.js');
 const Category = require('../model/category');
+const debug = require('debug')('foodbucket:categoryService');
 
 /**
  * Create category
@@ -8,29 +10,29 @@ const Category = require('../model/category');
  * body Category Category object
  * returns Category
  **/
-exports.createCategory = function (body) {
-    return new Promise(function (resolve, reject) {
-        let newCategory = {};
-        let { category_id, title, image, description } = body;
-        newCategory['application/json'] = new Category({
+exports.createCategory = function ({ category_id, title, image, description }) {
+    return new Promise((resolve, reject) => {
+        let newCategory = new Category({
             "category_id": category_id,
             "title": title,
             "image": image,
             "description": description
         });
 
-        newCategory['application/json'].save().then(
-            categoryDoc => { console.log('Saved category', categoryDoc); },
-            error => { console.log('Unable to save category'); }
+        newCategory.save().then(
+            categoryDoc => {
+                if (Object.keys(categoryDoc).length > 0) {
+                    let {category_id, title, image, description} = categoryDoc;
+                    resolve(utils.respondWithCode(201, {category_id, title, image, description}));
+                } else {
+                    reject(utils.respondWithCode(404, {"code": 404, "message": "Category is not created, please try again."}));
+                }
+                debug('Saved category: %O', categoryDoc);
+            },
+            error => { debug('Unable to save category: %O', error); }
         );
-
-        if (Object.keys(newCategory).length > 0) {
-            resolve(newCategory[Object.keys(newCategory)[0]]);
-        } else {
-            reject();
-        }
     });
-}
+};
 
 
 /**
@@ -39,22 +41,21 @@ exports.createCategory = function (body) {
  * no response value expected for this operation
  **/
 exports.deleteCategoryById = function(id) {
-    return new Promise(function (resolve, reject) {
-        let oneCategory = {};
-
+    return new Promise((resolve, reject) => {
         Category.findOneAndRemove({ category_id: id }).then(
             oneCategoryDoc => {
-                oneCategory['application/json'] = oneCategoryDoc;
-                if (Object.keys(oneCategory).length > 0) {
-                    resolve(oneCategory[Object.keys(oneCategory)[0]]);
+                oneCategoryDoc = oneCategoryDoc || {};
+                if (Object.keys(oneCategoryDoc).length > 0) {
+                    let {category_id, title, image, description} = oneCategoryDoc;
+                    resolve(utils.respondWithCode(200, {category_id, title, image, description}));
                 } else {
-                    reject();
+                    reject(utils.respondWithCode(404, {"code": 404, "message": "Category is not deleted, please try again."}));
                 }
             },
-            error => { console.log('Unable to remove category'); }
+            error => { debug('Unable to remove category: %O', error); }
         );
     });
-}
+};
 
 
 /**
@@ -63,22 +64,21 @@ exports.deleteCategoryById = function(id) {
  * returns Category
  **/
 exports.findCategoryById = function (id) {
-    return new Promise(function (resolve, reject) {
-        let oneCategory = {};
-
+    return new Promise((resolve, reject) => {
         Category.findOne({ category_id: id }).then(
             oneCategoryDoc => {
-                oneCategory['application/json'] = oneCategoryDoc;
-                if (Object.keys(oneCategory).length > 0) {
-                    resolve(oneCategory[Object.keys(oneCategory)[0]]);
+                oneCategoryDoc = oneCategoryDoc || {};
+                if (Object.keys(oneCategoryDoc).length > 0) {
+                    let {category_id, title, image, description} = oneCategoryDoc;
+                    resolve(utils.respondWithCode(200, {category_id, title, image, description}));
                 } else {
-                    reject();
+                    reject(utils.respondWithCode(404, {"code": 404, "message": "Category is not found, please try again."}));
                 }
             },
-            error => { console.log('Unable to get category'); }
+            error => { debug('Unable to get category: %O', error); }
         );
     });
-}
+};
 
 
 /**
@@ -89,50 +89,45 @@ exports.findCategoryById = function (id) {
  * returns List
  **/
 exports.getAllCategories = function (offset, limit, isActive) {
-    return new Promise(function (resolve, reject) {
-        let categories = [];
+    return new Promise((resolve, reject) => {
         Category.find().then(
             categoriesDoc => {
-                categories['application/json'] = categoriesDoc;
-
-                if (Object.keys(categories).length > 0) {
-                    resolve(categories[Object.keys(categories)[0]]);
+                categoriesDoc = categoriesDoc || [];
+                if (Object.keys(categoriesDoc).length > 0) {
+                    categoriesDoc = categoriesDoc.map( ({ category_id, title, image, description }) => {
+                        return { category_id, title, image, description };
+                    });
+                    resolve(utils.respondWithCode(200, categoriesDoc));
                 } else {
-                    reject();
+                    reject(utils.respondWithCode(404, {"code": 404, "message": "Categories are not found, please try again."}));
                 }
             },
-            error => { console.log('Unable to get categories'); }
+            error => { debug('Unable to get categories: %O', error); }
         );
     });
-}
+};
 
 
 /**
  *
  * id Long Id of the Category being updated
- * updated_category Category The updated Category
+ * updatedCategory Category The updated Category
  * no response value expected for this operation
  **/
-exports.updateCategoryById = function(id, updated_category) {
-    return new Promise(function (resolve, reject) {
-        let oneCategory = {};
-        let { title, image, description } = updated_category;
+exports.updateCategoryById = function(id, updatedCategory) {
+    return new Promise((resolve, reject) => {
+        let { title, image, description } = updatedCategory;
 
-        Category.findOneAndUpdate({ category_id: id },
-                  {
-                      title: updated_category.title,
-                      image: updated_category.image,
-                      description: updated_category.description,
-                  }).then(
-            oneCategoryDoc => {
-                oneCategory['application/json'] = updated_category;
-                if (Object.keys(oneCategory).length > 0) {
-                    resolve(oneCategory[Object.keys(oneCategory)[0]]);
+        Category.findOneAndUpdate({ category_id: id }, { title, image, description }).then(
+            oneCategory => {
+                if (Object.keys(updatedCategory).length > 0 && oneCategory !== null) {
+                    let categoryId = oneCategory.category_id;
+                    resolve(utils.respondWithCode(200, {categoryId, title, image, description}));
                 } else {
-                    reject();
+                    reject(utils.respondWithCode(400, {"code": 404, "message": "Category is not updated, please try again."}));
                 }
             },
-            error => { console.log('Unable to get category'); }
+            error => { debug('Unable to get category: %O', error); }
         );
     });
-}
+};
