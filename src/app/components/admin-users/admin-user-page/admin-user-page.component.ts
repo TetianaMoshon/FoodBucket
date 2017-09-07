@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {Router, ActivatedRoute} from '@angular/router';
 import {UserService} from '../../../client/api/user.service';
-import {NgForm} from '@angular/forms';
-import { User } from '../user';
+
 
 @Component({
   selector: 'app-admin-user-page',
@@ -16,8 +15,7 @@ export class AdminUserPageComponent implements OnInit {
   }
 
   ngOnInit() {
-
-      console.log(this.route.url.value[0]);
+      console.log(this.route.url);
   }
 
 }

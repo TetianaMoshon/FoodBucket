@@ -49,9 +49,6 @@ export class AdminUsersComponent implements OnInit {
             address: {
                 title: 'Address'
             },
-            favourites: {
-                title: 'Favourites'
-            },
             active: {
                 title: 'Active'
             },
