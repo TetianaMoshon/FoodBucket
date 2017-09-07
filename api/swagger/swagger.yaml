@@ -92,6 +92,77 @@ paths:
           description: invalid input
           schema:
             $ref: "#/definitions/Error"
+    delete:
+      x-swagger-router-controller: Product
+      operationId: deleteProductById
+      tags:
+      - "product"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the product to delete
+        required: true
+        type: integer
+        format: int64
+      responses:
+        204:
+          description: Product is deleted
+    put:
+      x-swagger-router-controller: Product
+      operationId: updateProductById
+      tags:
+      - "product"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: content of the product is being updated
+        required: true
+        type: integer
+        format: int64
+      - name: "updatedProduct"
+        in: "body"
+        description: The updated product
+        required: true
+        schema:
+          $ref: "#/definitions/Product"
+      responses:
+        200:
+          description: Product is updated
+        400:
+          description: An error!
+  /product:
+    post:
+      x-swagger-router-controller: Product
+      operationId: createProduct
+      tags:
+      - "product"
+      consumes:
+      - application/json
+      summary: Create product
+      description: |
+        This endpoint allows to create new product.
+      parameters:
+      - in: body
+        name: body
+        description: Product object
+        required: true
+        schema:
+          $ref: '#/definitions/Product'
+      responses:
+        200:
+          description: Existing product was found and updated
+          schema:
+            $ref: '#/definitions/Product'
+        201:
+          description: Product added
+          schema:
+            $ref: '#/definitions/Product'
+        400:
+          description: Invalid input
   /order:
     get:
       x-swagger-router-controller: Order
@@ -636,31 +707,31 @@ definitions:
       quantity:
         type: integer
         format: int64
-    Cart:
-      type: object
-      required:
-         - orderedProducts
-         - totalPriceOfAllDishes
-      properties:
-        orderedProducts:
-          type: array
-          items:
-            $ref: '#/definitions/CartOrder'
-        totalPriceOfAllDishes:
-          type: integer
-          format: int64
-    CartOrder:
-      type: object
-      required:
-        - productId
-        - quantity
-      properties:
-        productId:
-          type: integer
-          format: int64
-        quantity:
-          type: integer
-          format: int64
+  Cart:
+    type: object
+    required:
+       - orderedProducts
+       - totalPriceOfAllDishes
+    properties:
+      orderedProducts:
+        type: array
+        items:
+          $ref: '#/definitions/CartOrder'
+      totalPriceOfAllDishes:
+        type: integer
+        format: int64
+  CartOrder:
+    type: object
+    required:
+      - productId
+      - quantity
+    properties:
+      productId:
+        type: integer
+        format: int64
+      quantity:
+        type: integer
+        format: int64
   Category:
     type: object
     required:
