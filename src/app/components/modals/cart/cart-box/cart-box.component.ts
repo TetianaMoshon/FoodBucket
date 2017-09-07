@@ -1,6 +1,7 @@
 import { Component, OnInit,  TemplateRef } from '@angular/core';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap';
 import {Router} from '@angular/router';
+import {CartService} from '../../../../client/api/cart.service';
 
 @Component({
   selector: 'app-cart-box',
@@ -37,11 +38,16 @@ export class CartBoxComponent implements OnInit {
     arrayOfIdsAndPrices = [];
 
 
-    constructor(public bsModalRef: BsModalRef, private router: Router) { }
+    constructor(
+        public bsModalRef: BsModalRef,
+        private router: Router,
+        private cartService: CartService
+    ) { }
 
     ngOnInit() {
         this.totalPriceOfAllDishes = 0;
         this.populateArrayOfIdsAndPrices();
+        this.cartService.findCartContentById(111).subscribe(data => console.log(data));
     }
 
     populateArrayOfIdsAndPrices() {

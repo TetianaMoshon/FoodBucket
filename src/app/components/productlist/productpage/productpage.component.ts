@@ -29,19 +29,19 @@ export class ProductpageComponent implements OnInit {
     ];
 
   constructor(public productService: ProductService, public ingredientService: IngredientService) {
-      this.productService.findProductById(24)
+      this.productService.findProductById(206)
           .subscribe(
               product => {
                   this.productData = product;
                   console.log(this.productData);
-                  let current = this;
+                  const current = this;
                   this.productData.ingredients.forEach(function (ingredient) {
                       current.ingredientService.findIngredientById(ingredient.ingredientId).subscribe(
-                          ingredient => {
-                              current.productIngredients.push(ingredient);
-                              console.log(ingredient);
+                          ingr => {
+                              current.productIngredients.push(ingr);
+                              console.log(ingr);
                           }
-                      )
+                      );
                   })
                   console.log(this.productIngredients);
 
