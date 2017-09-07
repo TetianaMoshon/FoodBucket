@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {ProductService} from '../../../client/api/product.service';
+
 @Component({
   selector: 'app-productpage',
   templateUrl: './productpage.component.html',
   styleUrls: ['./productpage.component.css']
 })
+
 export class ProductpageComponent implements OnInit {
 
     show = false;
@@ -24,7 +25,7 @@ export class ProductpageComponent implements OnInit {
         '/assets/images/pasta-carbonara.jpg'
     ];
 
-  constructor(private productService: ProductService) {
+  constructor() {
 
   }
 
@@ -32,13 +33,6 @@ export class ProductpageComponent implements OnInit {
       this.InitImageSource();
       this.quantityOfPhotos = this.ListOfImageLinks.length;
 
-      this.productService.findProductById(101)
-          .subscribe(
-              product => {
-                  console.log('findProductById: ', product);
-              },
-              err => console.log(err)
-          );
 
   }
     InitImageSource() {
