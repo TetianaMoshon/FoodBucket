@@ -18,6 +18,7 @@ import {AdminUsersComponent} from './components/admin-users/admin-users.componen
 import {ProductpageComponent} from './components/productlist/productpage/productpage.component';
 import { AdminProductPageComponent } from './components/admin-product-list/admin-product-page/admin-product-page.component';
 import {UserProfileComponent} from './components/user-profile/user-profile.component';
+import { AdminUserPageComponent } from './components/admin-users/admin-user-page/admin-user-page.component';
 
 import {Error404Component} from './components/error404/error404.component';
 
@@ -42,7 +43,12 @@ const appRoutes: Routes = [
           { path: 'productpage', component: AdminProductPageComponent},
       ]},
       { path: 'comments', component: AdminCommentsComponent},
-      { path: 'users', component: AdminUsersComponent},
+      { path: 'users', children: [
+          { path: '', component: AdminUsersComponent },
+          { path: ':id/edit', component: AdminUserPageComponent },
+          { path: 'create', component: AdminUserPageComponent },
+      ]},
+
       { path: 'categories', component: AdmincategoriesComponent},
       { path: 'analytics', component: AdminAnalyticsComponent},
       { path: 'ingredients', component: AdminIngredientsComponent},

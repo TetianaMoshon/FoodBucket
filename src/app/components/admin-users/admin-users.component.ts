@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Ng2SmartTableComponent} from 'ng2-smart-table/ng2-smart-table.component';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {LocalDataSource} from 'ng2-smart-table';
+
 
 import {UserService} from '../../client/api/user.service';
 
@@ -8,40 +12,20 @@ import {UserService} from '../../client/api/user.service';
   styleUrls: ['./admin-users.component.css']
 })
 export class AdminUsersComponent implements OnInit {
-
     settings = {
         actions: {
-            custom: [
-                {
-                    name: 'edit',
-                    title: 'Edit ',
-                },
-                {
-                    name: 'delete',
-                    title: 'Delete ',
-                },
-            ],
             position: 'right',
+            delete: 'true',
             columnTitle: ' ',
-            edit: false,
-            delete: false,
-        },
-        custom: [
-            {
-                action: 'edit',
-                buttonContent: `EDIT `
-            },
-            {
-                action: 'delete',
-                buttonContent: 'DELETE '
-            }],
-        pager: {
-            display: true,
-            perPage: 5,
         },
         add: {
             addButtonContent: 'Add'
         },
+        pager: {
+            display: true,
+            perPage: 5,
+        },
+        mode: 'external',
         columns: {
             user_id: {
                 title: 'ID',
@@ -73,48 +57,47 @@ export class AdminUsersComponent implements OnInit {
             },
         }
     };
-
     public data;
 
-    onCustom(event) {
-        if (event.action === 'delete') {
-            this.userService.deleteUserById(event.data.user_id)
-                .subscribe(
-                user => {
-                },
-                err => console.log(err)
-            );
-            this.data.remove(event.data);
-
-            /*
-            this.data.update()
-            this.userService.getAllUsers(0, 2, true)
-                .subscribe(
-                    user => {
-                        this.data =  user;
-                    },
-                    err => console.log(err)
-                );*/
-        }
-    }
-
-    constructor(private userService: UserService) {}
-
-
-    ngOnInit() {
-        this.userService.getAllUsers(0, 2, true)
+    constructor(protected userService: UserService, private router: Router) {
+        this.userService.getAllUsers(1, 2, true)
             .subscribe(
                 user => {
                     this.data =  user;
                 },
                 err => console.log(err)
             );
-        this.userService.findUserById(1)
+    }
+
+    onCreateClick(event, eventName: string): void {
+        this.changeRoute('/admin/users/create');
+    }
+
+    onEditClick(event, eventName: string): void {
+        this.changeRoute(`/admin/users/${event.data.user_id}/edit`);
+
+    }
+
+    onDeleteClick(event, eventName: string): void {
+        this.userService.deleteUserById(event.data.user_id)
             .subscribe(
-                user_find => {
-                    console.log(user_find);
+                user => {
                 },
                 err => console.log(err)
             );
+        this.userService.getAllUsers(1, 2, true)
+            .subscribe(
+                user => {
+                this.data =  user;
+            },
+            err => console.log(err)
+            );
+    }
+
+    changeRoute(routeValue) {
+        this.router.navigateByUrl(routeValue,);
+    }
+
+    ngOnInit(){
     }
 }

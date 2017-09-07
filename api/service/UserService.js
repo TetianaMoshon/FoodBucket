@@ -13,8 +13,6 @@ const Product = require('../service/ProductService');
 exports.createUser = function ({first_name, last_name, email, password, phone, city, address, image, favourites, active}) {
     return new Promise((resolve, reject) => {
 
-    console.log(Product);
-
     let newUser = new User({
             first_name,
             last_name,

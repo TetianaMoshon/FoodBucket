@@ -26,10 +26,7 @@ const
     city: String,
     address: String,
     image: String,
-    favourites: [{
-        ingredientId: Number,
-    }]
-    ,
+    favourites: [Number],
     active: Boolean
 });
 

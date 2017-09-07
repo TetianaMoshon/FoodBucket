@@ -5,7 +5,15 @@
     <hr/>
     <div class="main-wrap">
         <div class="table-wrap">
-            <ng2-smart-table [settings]="settings" [source]="data" (custom)="onCustom($event)"></ng2-smart-table>
+            <ng2-smart-table
+                [settings]="settings"
+                [source]="data"
+
+                (create)="onCreateClick($event, 'create')"
+                (edit)="onEditClick($event, 'edit')"
+                (delete)="onDeleteClick($event, 'delete')"
+
+            ></ng2-smart-table>
         </div>
     </div>
 </div>

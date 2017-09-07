@@ -804,15 +804,9 @@ definitions:
      favourites:
        type: array
        items:
-         $ref: "#/definitions/ProductsList"
+         type: number
      active:
        type: boolean
-  ProductsList:
-    type: object
-    properties:
-      productId:
-        type: integer
-        format: int64
   Ingredient:
     type: object
     required:

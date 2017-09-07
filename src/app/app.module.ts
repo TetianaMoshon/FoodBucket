@@ -52,6 +52,7 @@ import { CommentsService } from './services/comments.service';
 import { OrdersFiltersPipe } from './pipes/orders-filters.pipe';
 import { ApiModule } from './client/index';
 import { apiConfig } from './client/api.config';
+import { AdminUserPageComponent } from './components/admin-users/admin-user-page/admin-user-page.component';
 
 @NgModule({
   declarations: [
@@ -96,6 +97,7 @@ import { apiConfig } from './client/api.config';
       UserProfileComponent,
       Error404Component,
       OrdersFiltersPipe,
+      AdminUserPageComponent,
   ],
   entryComponents: [
       ModalCongratulationComponent,
