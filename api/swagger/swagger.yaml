@@ -340,7 +340,7 @@ paths:
           schema:
             $ref: '#/definitions/Category'
         400:
-          description: Invalid input            
+          description: Invalid input
   /ingredient/{id}:
     get:
       x-swagger-router-controller: Ingredient
@@ -562,7 +562,7 @@ definitions:
       - price
       - status
     properties:
-      id:
+      orderId:
         type: integer
         format: int64
       username:
@@ -578,7 +578,7 @@ definitions:
         type: string
       products:
         type: array
-        items: 
+        items:
           type: integer
           format: int64
         minItems: 1

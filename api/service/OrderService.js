@@ -45,7 +45,7 @@ exports.getAllOrders = function (offset, limit) {
                     resolve(utils.respondWithCode(200, ordersDoc));
                 }
                 else {
-                reject(utils.respondWithCode(404, {"code": 404, "message": "Categories are not found, please try again."}));
+                reject(utils.respondWithCode(404, {"code": 404, "message": "Orders are not found, please try again."}));
                 }
             },
             (error) => {console.log('Unable to find order. View error:' + error.toString());}

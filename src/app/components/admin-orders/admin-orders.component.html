@@ -4,65 +4,57 @@
         <div class="col-md-4">
             <h1>Orders</h1>
         </div>
-        <div class="col-md-4 col-md-offset-4 col-sm-4 col-xs-4">
-            <div class="input-group padding-top">
-                <input class="form-control" placeholder="Search for...">
-                <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Go!</button>
-      </span>
-            </div><!-- /input-group -->
-        </div><!-- /.col-lg-6 -->
     </div>
     <hr/>
     <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th class="text-center">
-                <div class="form-group">
-                <input  class="form-control" type="text" name="name" [(ngModel)]="filter.date" placeholder="Date">
-                </div>
-            </th>
-            <th>
-                <div class="form-group">
-                <input class="form-control"  type="number" name="id" [(ngModel)]="filter.id" min="1"  step="1" placeholder="ID">
-                </div>
-            </th>
-            <th class="text-center">
-                <div class="form-group">
-                <input  class="form-control" type="text" name="name" [(ngModel)]="filter.name" placeholder="Name">
-                </div>
-            </th>
-            <th class="text-center">
-                <div class="form-group">
-                <input class="form-control"  type="text" name="food" [(ngModel)]="filter.food" placeholder="Content">
-                </div>
-            </th>
-            <th class="text-center">
-                <div class="form-group">
-                <input  class="form-control" type="number" name="tel" [(ngModel)]="filter.tel" placeholder="Phone number">
-                </div>
-            </th>
-            <th class="text-center">
-                <div class="form-group">
-                <input  class="form-control" type="number" name="id" [(ngModel)]="filter.price" min="1" placeholder="Price">
-                </div>
-            </th>
-            <th class="text-center">
-                <div class="form-group">
-                <input  class="form-control" type="text" name="name" [(ngModel)]="filter.status" placeholder="Status">
-                </div>
-            </th>
-            <th class="text-center">More info</th>
-        </tr>
-        </thead>
+        <!--<thead>-->
+        <!--<tr>-->
+            <!--<th class="text-center">-->
+                <!--<div class="form-group">-->
+                <!--<input  class="form-control" type="text" name="name" [(ngModel)]="filter.date" placeholder="Date">-->
+                <!--</div>-->
+            <!--</th>-->
+            <!--<th>-->
+                <!--<div class="form-group">-->
+                <!--<input class="form-control"  type="number" name="id" [(ngModel)]="filter.id" min="1"  step="1" placeholder="ID">-->
+                <!--</div>-->
+            <!--</th>-->
+            <!--<th class="text-center">-->
+                <!--<div class="form-group">-->
+                <!--<input  class="form-control" type="text" name="name" [(ngModel)]="filter.name" placeholder="Name">-->
+                <!--</div>-->
+            <!--</th>-->
+            <!--<th class="text-center">-->
+                <!--<div class="form-group">-->
+                <!--<input class="form-control"  type="text" name="food" [(ngModel)]="filter.food" placeholder="Content">-->
+                <!--</div>-->
+            <!--</th>-->
+            <!--<th class="text-center">-->
+                <!--<div class="form-group">-->
+                <!--<input  class="form-control" type="number" name="tel" [(ngModel)]="filter.tel" placeholder="Phone number">-->
+                <!--</div>-->
+            <!--</th>-->
+            <!--<th class="text-center">-->
+                <!--<div class="form-group">-->
+                <!--<input  class="form-control" type="number" name="id" [(ngModel)]="filter.price" min="1" placeholder="Price">-->
+                <!--</div>-->
+            <!--</th>-->
+            <!--<th class="text-center">-->
+                <!--<div class="form-group">-->
+                <!--<input  class="form-control" type="text" name="name" [(ngModel)]="filter.status" placeholder="Status">-->
+                <!--</div>-->
+            <!--</th>-->
+            <!--<th class="text-center">More info</th>-->
+        <!--</tr>-->
+        <!--</thead>-->
         <tbody>
-        <ng-container *ngFor="let order of pagedItems  | ordersfilter:filter;">
+        <ng-container *ngFor="let order of pagedItems;">
         <tr>
-            <td class="gray-border  text-center">{{order.date}}</td>
-            <td class="gray-border text-center">{{order.id}}</td>
-            <td class="gray-border text-center">{{order.name}}</td>
-            <td class="gray-border text-center">{{order.food}}</td>
-            <td class="gray-border text-center">{{order.tel}}</td>
+            <!--<td class="gray-border  text-center">{{orderid}}</td>-->
+            <td class="gray-border text-center">{{order.orderId}}</td>
+            <td class="gray-border text-center">{{order.username}}</td>
+            <td class="gray-border text-center">{{order.city}}</td>
+            <td class="gray-border text-center">{{order.products}}</td>
             <td class="gray-border text-center">{{order.price}}</td>
             <td class="gray-border text-center">{{order.status}}</td>
             <td class="gray-border text-center">
