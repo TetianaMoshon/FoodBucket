@@ -1,9 +1,9 @@
 <div class="container">
     <div class="row text-center">
         <div class="col-md-6 col-sm-6">
-            <h1>Dish Name
+            <h1 class="dish_title">{{productData.title}}</h1>
                 <a href="" class="icon"><span class="glyphicon glyphicon-star-empty color-gold"></span></a>
-            </h1>
+
         </div>
         <div class="col-md-6 col-sm-6">
             <div class="text-center ">
@@ -25,19 +25,19 @@
                         <tbody>
                         <tr>
                             <td>Calories</td>
-                            <td>00</td>
+                            <td>{{productData.caloricity}}</td>
                         </tr>
                         <tr>
                             <td>Spice level</td>
-                            <td>00</td>
+                            <td>{{productData.spiceLevel}}</td>
                         </tr>
                         <tr>
                             <td>Serving size</td>
-                            <td>00</td>
+                            <td>{{productData.servingSize}}</td>
                         </tr>
                         <tr>
                             <td>Difficulty</td>
-                            <td>00</td>
+                            <td>{{productData.difficulty}}</td>
                         </tr>
                         <tr>
                             <td>Cooking type</td>
@@ -60,13 +60,13 @@
                         <div class="col-md-4 col-sm-6 col-xs-6">
                             <figure>
                                 <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                                <figcaption>Apple</figcaption>
+                                <figcaption>{{productIngredients[0].title}}</figcaption>
                             </figure>
                         </div>
                         <div class="col-md-4 col-sm-6 col-xs-6">
                             <figure>
                                 <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                                <figcaption>Apple</figcaption>
+                                <figcaption>{{productIngredients[1].title}}</figcaption>
                             </figure>
                         </div>
                         <div class="col-md-4 col-sm-6 col-xs-6">

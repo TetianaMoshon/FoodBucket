@@ -20,7 +20,7 @@ exports.createProduct = function ({ productId, title, description, image, price,
     });
     });
 
-    ingredientPromise.then(newIngredients =>{console.log('WOW_1'+newIngredients);})
+    ingredientPromise.then(newIngredients =>{console.log('WOW_1'+newIngredients.length);})
 
 
     return new Promise((resolve, reject) => {
