@@ -7,5 +7,6 @@ export class Order {
     address?: string;
     status?: string;
     products?: Array<number>;
+    phone?: string;
 
 }

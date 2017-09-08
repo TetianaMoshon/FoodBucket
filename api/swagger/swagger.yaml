@@ -602,6 +602,8 @@ definitions:
         type: string
       status:
         type: string
+      phone:
+        type: string
       products:
         type: array
         items:

@@ -56,9 +56,13 @@
         <tr *ngIf="order.expanded">
             <td class="gray-border nohover" colspan="8">
                 <div class="container-fluid">
-                    <div class="col-md-2 col-md-offset-1 text-center">
+                    <div class="col-md-2 text-center">
                         <h4>Date of order</h4>
                         <p>{{order.date}}</p>
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <h4>Phone number</h4>
+                        <p>{{order.phone}}</p>
                     </div>
                     <div class="col-md-2 text-center">
                         <h4 class="text-center">Name and surname</h4>

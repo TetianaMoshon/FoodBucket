@@ -13,8 +13,8 @@ exports.findOrderById = function(id) {
             (oneOrderDoc) =>{
                 oneOrderDoc = oneOrderDoc || {};
                 if (Object.keys(oneOrderDoc).length > 0) {
-                    let { orderId,username, city, address, products,price,status } = oneOrderDoc;
-                    resolve(utils.respondWithCode(200, { orderId,username, city, address, products,price,status }));
+                    let { orderId,username, city, phone,address, products,price,status } = oneOrderDoc;
+                    resolve(utils.respondWithCode(200, { orderId,username, phone,city, address, products,price,status }));
                 }
                 else {
                     reject(utils.respondWithCode(404, {"code": 404, "message": "Order is not found, please try again."}));
@@ -39,10 +39,9 @@ exports.getAllOrders = function (offset, limit) {
             (ordersDoc) => {
                 ordersDoc = ordersDoc || [];
                 if (Object.keys(ordersDoc).length > 0) {
-                    ordersDoc = ordersDoc.map( ({ date,orderId,username, city, address, products,price,status }) => {
-                        let formattedDate = new Date(date).getDate()+'/'+ (new Date(date).getMonth()+1)+'/'+new Date(date).getFullYear();
-                        date = formattedDate;
-                        return { date,orderId,username, city, address, products,price,status };
+                    ordersDoc = ordersDoc.map( ({ date,orderId,username, phone,city, address, products,price,status }) => {
+                        date = new Date(date).getDate()+'/'+ (new Date(date).getMonth()+1)+'/'+new Date(date).getFullYear();
+                        return { date,orderId,username, city,phone, address, products,price,status };
                     });
                     resolve(utils.respondWithCode(200, ordersDoc));
                 }
@@ -61,7 +60,7 @@ exports.getAllOrders = function (offset, limit) {
  * body Order Order body
  * returns Order
  **/
-exports.putOrder = function({ orderId,username, city, address, products,price,status }) {
+exports.putOrder = function({ orderId,username, phone,city, address, products,price,status }) {
     return new Promise(function(resolve, reject) {
         let newOrder = new Order({
             "orderId": orderId,
@@ -69,15 +68,16 @@ exports.putOrder = function({ orderId,username, city, address, products,price,st
             "city": city,
             "address": address,
             "products": products,
+            "phone":phone,
             "price": price,
             "status": status
         });
         newOrder.save().then(
         orderDoc => {
             if (Object.keys(orderDoc).length > 0) {
-                let { orderId,username, city, address, products,price,status } = orderDoc;
+                let { orderId,username, city,phone, address, products,price,status } = orderDoc;
                 let date =getFormattedDate(orderDoc.date);
-                resolve(utils.respondWithCode(201, { orderId,username, city, address, products,price,status,date }));
+                resolve(utils.respondWithCode(201, { orderId,username, city,phone, address, products,price,status,date }));
             } else {
                 reject(utils.respondWithCode(404, {"code": 404, "message": "Order is not created, please try again."}));
             }
@@ -112,11 +112,12 @@ function getFormattedDate(date) {
 
 exports.updateOrderById = function(updatedOrder,id ) {
     return new Promise((resolve, reject) => {
-        let {username, city, address, products,price,status,} = updatedOrder;
+        let {status} = updatedOrder;
         Order.findOneAndUpdate({ orderId: id }, {status}).then(
             oneOrder => {
                 if (Object.keys(updatedOrder).length > 0 && oneOrder !== null) {
                     let date =getFormattedDate(oneOrder.date);
+                    let {username, city, address, products,price} = oneOrder;
                     resolve(utils.respondWithCode(200, {username, city, address, products,price,status,date}));
                 } else {
                     reject(utils.respondWithCode(400, {"code": 404, "message": "Order is not updated, please try again."}));
