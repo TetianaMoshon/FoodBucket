@@ -1,32 +1,23 @@
-.account-image{
-    width: 150px;
-    height: 150px;
-    border: 1px solid gray;
-    background-image: url(../../../../assets/account.jpg);
-    background-size: cover;
-    margin: auto;
+.container-max-width {
+    max-width: 500px;
+    padding-bottom: 50px;
 }
 
-.alert-danger{
-    color: red;
-    background: inherit;
-    border: none;
+h2 {
+    font-family: Oswald, sans-serif;
 }
 
-
-
-.btn-file input[type=file] {
-    position: absolute;
-    top: 0;
-    right: 0;
-    min-width: 100%;
-    min-height: 100%;
-    font-size: 100px;
-    text-align: right;
-    filter: alpha(opacity=0);
-    opacity: 0;
-    outline: none;
-    background: white;
-    cursor: inherit;
-    display: block;
+hr {
+    margin-top: 0;
+    margin-bottom: 40px;
+    border-color: black;
 }
+
+.btn-group>.btn:first-child:not(:last-child):not(.dropdown-toggle) {
+    border-radius: 10%;
+    margin-right: 10px;
+}
+.btn-group>.btn:last-child:not(:first-child), .btn-group>.dropdown-toggle:not(:first-child) {
+    border-radius: 10%;
+}
+

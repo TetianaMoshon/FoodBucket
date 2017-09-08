@@ -1,7 +1,7 @@
 'use strict';
 const utils = require('../utils/writer.js');
 const User = require('../model/user');
-const Product = require('../service/ProductService');
+
 
 /**
  * Create user

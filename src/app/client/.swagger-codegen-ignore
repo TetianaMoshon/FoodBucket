@@ -23,3 +23,5 @@
 #!docs/README.md
 /.gitignore
 /git_push.sh
+
+model/user.ts
