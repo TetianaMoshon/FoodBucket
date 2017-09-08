@@ -81,7 +81,7 @@ export class AdminUserPageComponent implements OnInit, OnDestroy{
             favourites: [],
             active: true
         };
-
+        console.log(userObject);
         if (this.action.name === 'create') {
             this.createUser(userObject);
             this.reset();
@@ -112,7 +112,6 @@ export class AdminUserPageComponent implements OnInit, OnDestroy{
                         classes: ['alert', 'alert-success'],
                         timeout: 3000,
                     });
-                    this.reset();
                 },
                 err => console.log(err)
             );
