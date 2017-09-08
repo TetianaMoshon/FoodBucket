@@ -510,6 +510,106 @@ paths:
             $ref: '#/definitions/Register'
         400:
           description: Invalid input
+  /user/{id}/cart:
+    get:
+      x-swagger-router-controller: Cart
+      operationId: findCartContentById
+      tags:
+      - "cart"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the user to get content of the cart
+        required: true
+        type: integer
+        format: int64
+      responses:
+        200:
+          description: Cart response
+          schema:
+            $ref: "#/definitions/Cart"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+    post:
+      x-swagger-router-controller: Cart
+      operationId: createCartForUserById
+      tags:
+      - "cart"
+      consumes:
+      - application/json
+      summary: Create cart for user using user's id
+      description: |
+        This endpoint allows to create new cart for user using user's id.
+      parameters:
+      - name: id
+        in: path
+        description: ID of the user to get content of the cart
+        required: true
+        type: integer
+        format: int64
+      - in: body
+        name: body
+        description: Cart object
+        required: true
+        schema:
+          $ref: '#/definitions/Cart'
+      responses:
+        200:
+          description: Existing category was found and updated
+          schema:
+            $ref: '#/definitions/Cart'
+        201:
+          description: Cart added
+          schema:
+            $ref: '#/definitions/Cart'
+        400:
+          description: Invalid input
+    delete:
+      x-swagger-router-controller: Cart
+      operationId: deleteCartContentById
+      tags:
+      - "cart"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the user to delete content of the cart
+        required: true
+        type: integer
+        format: int64
+      responses:
+        204:
+          description: content of the user's cart is deleted
+    put:
+      x-swagger-router-controller: Cart
+      operationId: updateCartContentById
+      tags:
+      - "cart"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: content of the user's cart is being updated
+        required: true
+        type: integer
+        format: int64
+      - name: "updated_cartContent"
+        in: "body"
+        description: The updated cartContent
+        required: true
+        schema:
+          $ref: "#/definitions/Cart"
+      responses:
+        200:
+          description: cartContent is updated
+        400:
+          description: An error!
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
@@ -544,6 +644,32 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/ProductInfo'
+  Cart:
+    type: object
+    required:
+       - orderedProducts
+       - totalPriceOfAllDishes
+    properties:
+      orderedProducts:
+        type: array
+        items:
+          $ref: '#/definitions/CartOrder'
+      totalPriceOfAllDishes:
+        type: integer
+        format: int64  
+  CartOrder:
+    type: object
+    required:
+      - productId
+      - quantity
+    properties:
+      productId:
+        type: integer
+        format: int64
+      quantity:
+        type: integer
+        format: int64
+
   Category:
     type: object
     required:
@@ -699,8 +825,10 @@ definitions:
     required:
       - email
       - password
+      - firstName
+      - lastName
     properties:
-      id:
+      userId:
         type: integer
         format: int64
         minimum: 1
