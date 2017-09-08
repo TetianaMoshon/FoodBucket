@@ -5,6 +5,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {UserService} from '../../../client/api/user.service';
 import {NgForm} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';
+import {FlashMessagesService} from 'ngx-flash-messages';
 
 @Component({
   selector: 'app-admin-user-page',
@@ -33,7 +34,9 @@ export class AdminUserPageComponent implements OnInit, OnDestroy{
 
     constructor(
       protected userService: UserService,
-      protected route: ActivatedRoute) {
+      protected route: ActivatedRoute,
+      private flashMessagesService: FlashMessagesService,
+    ) {
   }
 
     ngOnInit() {
@@ -41,11 +44,11 @@ export class AdminUserPageComponent implements OnInit, OnDestroy{
             .subscribe(
                 (segments) => {
                     const seg1 = segments[0].path,
-                        seg2 = segments[1] !== undefined ? segments[1].path : '';
+                          seg2 = segments[1] !== undefined ? segments[1].path : '';
 
                     if (!isNaN(parseInt(seg1, 10)) && seg2 === 'edit') {
 
-                        this.fillUser(parseInt(seg1, 10));
+                        this.newUser(parseInt(seg1, 10));
 
                         this.action = {
                             id: parseInt(seg1, 10),
@@ -81,7 +84,7 @@ export class AdminUserPageComponent implements OnInit, OnDestroy{
 
         if (this.action.name === 'create') {
             this.createUser(userObject);
-            this.resetFormFields();
+            this.reset();
         } else {
             this.updateUser(this.action.id, userObject);
         }
@@ -91,7 +94,11 @@ export class AdminUserPageComponent implements OnInit, OnDestroy{
         this.userService.createUser(userObject)
             .subscribe(
                 user => {
-
+                    this.flashMessagesService.show(`User with id:${user['user_id']} was successfully created!`, {
+                        classes: ['alert', 'alert-success'],
+                        timeout: 3000,
+                    });
+                    this.reset();
                 },
                 err => console.log(err)
             );
@@ -101,13 +108,17 @@ export class AdminUserPageComponent implements OnInit, OnDestroy{
         this.userService.updateUserById(id, userObject)
             .subscribe(
                 user => {
-
+                    this.flashMessagesService.show(`User with id:${user['user_id']} was successfully updated!`, {
+                        classes: ['alert', 'alert-success'],
+                        timeout: 3000,
+                    });
+                    this.reset();
                 },
                 err => console.log(err)
             );
     }
 
-    fillUser(id: number) {
+    newUser(id: number) {
         this.userService.findUserById(id)
             .subscribe(
                 user => {
@@ -118,12 +129,12 @@ export class AdminUserPageComponent implements OnInit, OnDestroy{
                     this.phone = user.phone;
                     this.city = user.city;
                     this.address = user.address;
-            },
+                },
                 err => console.log(err)
             );
     }
 
-    resetFormFields() {
+    reset() {
         this.first_name = '';
         this.last_name = '';
         this.email = '';

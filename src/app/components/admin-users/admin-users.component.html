@@ -1,18 +1,16 @@
 <div class="table-container">
     <app-adminnavbar></app-adminnavbar>
 
-    <h2>Users</h2>
+    <h1>Users</h1>
     <hr/>
     <div class="main-wrap">
         <div class="table-wrap">
             <ng2-smart-table
                 [settings]="settings"
                 [source]="data"
-
                 (create)="onCreateClick($event, 'create')"
                 (edit)="onEditClick($event, 'edit')"
                 (delete)="onDeleteClick($event, 'delete')"
-
             ></ng2-smart-table>
         </div>
     </div>

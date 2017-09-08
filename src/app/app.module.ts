@@ -6,6 +6,7 @@ import { AgmCoreModule } from '@agm/core';
 import { DisqusModule } from 'ngx-disqus';
 import { ChartsModule } from 'ng2-charts';
 
+import { FlashMessagesModule } from 'ngx-flash-messages';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.page.component';
@@ -113,6 +114,7 @@ import { AdminUserPageComponent } from './components/admin-users/admin-user-page
   imports: [
       ModalModule.forRoot(),
       BrowserModule,
+      FlashMessagesModule,
       CollapseModule,
       FormsModule,
       appRouting,

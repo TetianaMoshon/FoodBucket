@@ -1,25 +1,28 @@
 <app-adminnavbar></app-adminnavbar>
 <div class="container container-max-width">
+    <div class="row">
+        <ngx-flash-messages></ngx-flash-messages>
+    </div>
     <h2>User page</h2>
     <hr>
         <form (ngSubmit)="onSubmit(f)" #f="ngForm">
         <div class="form-group">
             <label for="first_name">First name:</label>
-            <input [(ngModel)]="first_name" name="first_name" type="text" class="form-control" id="first_name">
+            <input [(ngModel)]="first_name" name="first_name" type="text" class="form-control" id="first_name" required>
         </div>
 
         <div class="form-group">
             <label for="last_name">Last name:</label>
-            <input [(ngModel)]="last_name" name="last_name" type="text" class="form-control" id="last_name">
+            <input [(ngModel)]="last_name" name="last_name" type="text" class="form-control" id="last_name" required>
         </div>
 
             <div class="form-group">
             <label for="email">Email:</label>
-            <input [(ngModel)]="email" name="email" type="email" class="form-control" id="email">
+            <input [(ngModel)]="email" name="email" type="email" class="form-control" id="email" required>
         </div>
         <div class="form-group">
             <label for="password">Password:</label>
-            <input [(ngModel)]="password" name="password" type="password" class="form-control" id="password">
+            <input [(ngModel)]="password" name="password" type="password" class="form-control" id="password" required>
         </div>
 
         <div class="form-group">
@@ -38,7 +41,7 @@
         </div>
 
         <div class="btn-group">
-            <button (click)="onSubmit()" type="submit" class="btn btn-success">Save</button>
+            <button (click)="onSubmit()" type="submit" class="btn btn-success"  [disabled]="!f.form.valid">Save</button>
             <a class="btn btn-danger" routerLink="/admin/users" routerLinkActive="active">Back</a>
         </div>
     </form>
