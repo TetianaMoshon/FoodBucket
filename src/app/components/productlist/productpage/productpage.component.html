@@ -2,7 +2,7 @@
     <div class="row text-center">
         <div class="col-md-6 col-sm-6">
             <h1 class="dish_title">{{productData.title}}
-                <a href="" class="icon"><span class="glyphicon glyphicon-star-empty color-gold"></span></a>
+                <button class="favorites"><span class="glyphicon glyphicon-star-empty color-gold"></span></button>
             </h1>
         </div>
         <div class="col-md-6 col-sm-6">
@@ -39,14 +39,6 @@
                             <td>Difficulty</td>
                             <td>{{productData.difficulty}}</td>
                         </tr>
-                        <tr>
-                            <td>Cooking type</td>
-                            <td>00</td>
-                        </tr>
-                        <tr>
-                            <td>Number of steps</td>
-                            <td>00</td>
-                        </tr>
                         </tbody>
                     </table>
                 </figcaption>
@@ -58,7 +50,7 @@
                 <div class="border-fruits">
                     <div class="row text-center ingredient-row" >
                         <div *ngFor="let ingredient of productIngredients" class="col-md-4 col-sm-6 col-xs-6">
-                            <figure>
+                            <figure >
                                 <div class="ingredient-icon">
                                     <img  src={{ingredient.image}} width="40px" height="40px" alt={{ingredient.title}}>
                                 </div>
@@ -70,17 +62,23 @@
             </div>
             <div class="text-center">
                 <button class="button-details"  (click)="show = !show">
-                    <span class="under-line"><p class="details-p__big-text">Details<p></p></span>
+                    <span class="under-line"><p class="details-p__big-text"><p>Detail Information</p></span>
                 </button>
                 <div *ngIf="show">
-                    <p class="details-p__big-text"> Some details </p>
+                    <p class="details-p__big-text"> <a href="http://mirellefoods.com/share/Pasta%20recipes.pdf" target="_blank">Detail</a> </p>
                 </div>
+            </div>
+            <div ng-app calss="">
+                <div ng-init="counter = 1"></div>
+                <button (click)="counter = counter+1">+</button>
+                <button (click)="counter==1?counter=1:counter = counter-1">-</button>
+                <span>{{counter}}</span>
             </div>
             <div class="row button-padding">
                 <div class="price-wrapper">
-                    <p class="text-right text-font product-price">Price <span>{{productData.price}}</span>$</p>
-                    <p class="text-right text-font product-price">Total 99$</p>
-                    <p class="text-right text-font product-price">Economy 00$</p>
+                    <p class="text-right text-font product-price">Price <span>{{productData.price*counter}}$</span></p>
+                    <p class="text-right text-font product-price">Total <span>{{productData.price*counter - productData.discount}}$</span></p>
+                    <p class="text-right text-font product-price">Economy <span>{{productData.discount}}$</span></p>
                 </div>
                 <button class="btn btn-md btn-primary to-cart-btn pull-right custom-cart-button">
                     <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add to cart
