@@ -780,7 +780,6 @@ definitions:
     required:
       - image
       - title
-      - description
     properties:
       ingredient_id:
         type: integer
@@ -789,17 +788,12 @@ definitions:
         type: string
       title:
         type: string
-      description:
-        type: string
       measure:
         type: string
       quantity:
         type: integer
         format: int64
       price: 
-        type: integer
-        format: int64
-      discount: 
         type: integer
         format: int64
   Order:
