@@ -1,9 +1,9 @@
 <div class="container">
     <div class="row text-center">
         <div class="col-md-6 col-sm-6">
-            <h1 class="dish_title">{{productData.title}}</h1>
+            <h1 class="dish_title">{{productData.title}}
                 <a href="" class="icon"><span class="glyphicon glyphicon-star-empty color-gold"></span></a>
-
+            </h1>
         </div>
         <div class="col-md-6 col-sm-6">
             <div class="text-center ">
@@ -55,78 +55,14 @@
         </div>
         <div class="col-md-6 col-sm-6 second-block">
             <div class="thumbnail">
-                <div class="scrollable border-fruits">
-                    <div class="row text-center">
-                        <div class="col-md-4 col-sm-6 col-xs-6">
+                <div class="border-fruits">
+                    <div class="row text-center ingredient-row" >
+                        <div *ngFor="let ingredient of productIngredients" class="col-md-4 col-sm-6 col-xs-6">
                             <figure>
-                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                                <figcaption>{{productIngredients[0].title}}</figcaption>
-                            </figure>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-6">
-                            <figure>
-                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                                <figcaption>{{productIngredients[1].title}}</figcaption>
-                            </figure>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-6">
-                            <figure>
-                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                                <figcaption>Apple</figcaption>
-                            </figure>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-6">
-                            <figure>
-                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                                <figcaption>Apple</figcaption>
-                            </figure>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-6">
-                            <figure>
-                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                                <figcaption>Apple</figcaption>
-                            </figure>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-6">
-                            <figure>
-                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                                <figcaption>Apple</figcaption>
-                            </figure>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-6">
-                            <figure>
-                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                                <figcaption>Apple</figcaption>
-                            </figure>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-6">
-                            <figure>
-                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                                <figcaption>Apple</figcaption>
-                            </figure>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-6">
-                            <figure>
-                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                                <figcaption>Apple</figcaption>
-                            </figure>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-6">
-                            <figure>
-                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                                <figcaption>Apple</figcaption>
-                            </figure>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-6">
-                            <figure>
-                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                                <figcaption>Apple</figcaption>
-                            </figure>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-6">
-                            <figure>
-                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                                <figcaption>Apple</figcaption>
+                                <div class="ingredient-icon">
+                                    <img  src={{ingredient.image}} width="40px" height="40px" alt={{ingredient.title}}>
+                                </div>
+                                <figcaption>{{ingredient.title}}</figcaption>
                             </figure>
                         </div>
                     </div>
@@ -142,7 +78,7 @@
             </div>
             <div class="row button-padding">
                 <div class="price-wrapper">
-                    <p class="text-right text-font product-price">Price 99$</p>
+                    <p class="text-right text-font product-price">Price <span>{{productData.price}}</span>$</p>
                     <p class="text-right text-font product-price">Total 99$</p>
                     <p class="text-right text-font product-price">Economy 00$</p>
                 </div>

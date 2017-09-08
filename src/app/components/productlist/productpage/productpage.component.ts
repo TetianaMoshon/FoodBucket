@@ -10,7 +10,7 @@ import {IngredientService} from '../../../client/api/ingredient.service';
 
 export class ProductpageComponent implements OnInit {
     public productData;
-    public productIngredients=[];
+    public productIngredients = [];
     show = false;
 
     quantityOfPhotos: number;
@@ -29,7 +29,7 @@ export class ProductpageComponent implements OnInit {
     ];
 
   constructor(public productService: ProductService, public ingredientService: IngredientService) {
-      this.productService.findProductById(206)
+      this.productService.findProductById(207)
           .subscribe(
               product => {
                   this.productData = product;

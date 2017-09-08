@@ -84,7 +84,19 @@ i.glyphicon-chevron-left, i.glyphicon-chevron-right {
 .price-wrapper {
     margin-bottom: 20px;
 }
+.ingredient-icon {
+    margin: 0 auto 10px;
+    display: block;
+    padding: 10px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 1px solid #14A9BA;
+}
 
+.ingredient-row {
+    margin-bottom: 15px;
+}
 @media (max-width: 990px) {
     i.glyphicon-chevron-left, i.glyphicon-chevron-right {
         top: 25%;
