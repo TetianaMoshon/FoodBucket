@@ -23,7 +23,8 @@ export class CheckoutComponent implements OnInit {
               return value;
           }
       }
-          document.getElementById('card').addEventListener('input', function () {
+      const cardInput = (<HTMLInputElement>document.getElementById('card'));
+          cardInput.addEventListener('input', function () {
               this.value = validateCardNumber(this.value);
           });
   }
