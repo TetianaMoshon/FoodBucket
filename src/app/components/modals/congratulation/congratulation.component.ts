@@ -7,11 +7,16 @@ import { BsModalRef } from 'ngx-bootstrap/modal/modal-options.class';
   styleUrls: ['./congratulation.component.css']
 })
 export class CongratulationComponent implements OnInit {
-    public title = 'Congratulation!';
+    private title;
     public text = 'Thanks for your registration!';
     constructor(public bsModalRef: BsModalRef) { }
 
   ngOnInit() {
   }
-
+    public setTitle(title: string): void {
+        this.title = title;
+    }
+    public getTitle(): string{
+        return this.title;
+    }
 }
