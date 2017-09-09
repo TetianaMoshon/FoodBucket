@@ -53,8 +53,8 @@ import { ApiModule } from './client/index';
 import { apiConfig } from './client/api.config';
 
 import { FlashMessagesModule } from 'ngx-flash-messages';
-import {appRouting} from "./app.routing";
-import {AdminIngredientsFormComponent} from "./components/admin-ingredients/adminingredients-form/adminingredients-form.component";
+import {appRouting} from './app.routing';
+import {AdminIngredientsFormComponent} from './components/admin-ingredients/adminingredients-form/adminingredients-form.component';
 
 @NgModule({
   declarations: [

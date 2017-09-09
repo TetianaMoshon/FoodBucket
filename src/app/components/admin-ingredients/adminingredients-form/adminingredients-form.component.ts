@@ -4,7 +4,7 @@ import {Router, ActivatedRoute} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';
 import {FlashMessagesService} from 'ngx-flash-messages';
-import {IngredientService} from "../../../client/api/ingredient.service";
+import {IngredientService} from '../../../client/api/ingredient.service';
 
 @Component({
     selector: 'app-adminingredients-form',
@@ -63,8 +63,8 @@ export class AdminIngredientsFormComponent implements OnInit, OnDestroy {
         const ingredientObject = {
             title: form.value.title,
             measure: form.value.measure,
-            quantity: form.value.quantity,
-            price: form.value.price,
+            quantity: Number(form.value.quantity),
+            price: Number(form.value.price),
             image: form.value.image,
         };
 
@@ -120,8 +120,8 @@ export class AdminIngredientsFormComponent implements OnInit, OnDestroy {
     resetFormFields() {
         this.title = '';
         this.measure = '';
-        this.quantity = 0;
-        this.price = 0;
+        this.quantity = null;
+        this.price = null;
         this.image = '';
     }
 }

@@ -13,6 +13,11 @@ export const  settings = {
     },
     mode: 'external',
     columns: {
+        ingredient_id: {
+            title: 'ID',
+            filter: true,
+            width: '10%',
+        },
         title: {
             title: 'Ingredients',
             filter: true,
