@@ -18,8 +18,8 @@ export class CartItemComponent implements OnInit {
   constructor(private cartCommunicationService: CartCommunicationService) { }
 
     ngOnInit() {
-        this.amountOfDishesOrdered = 1;
-        this.totalPriceOfOneDish = this.info.price;
+        this.amountOfDishesOrdered = this.info.quantityOrdered || 1;
+        this.totalPriceOfOneDish = this.info.price * this.info.quantityOrdered || this.info.price;
     }
 
     plusClicked(id: number) {

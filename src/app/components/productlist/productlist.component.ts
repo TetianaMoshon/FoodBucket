@@ -67,19 +67,6 @@ export class ProductlistComponent implements OnInit {
 
                 console.log('You have already added this product to your cart');
 
-                // use GET method to find cart by id
-                // this.cartService.findCartContentById(parseInt(e.target.id)).subscribe(
-                //     cartContent => {
-                //         // retrieve array of productIds from cart
-                //         // const {orderedProducts} =  cartContent;
-                //         console.log(cartContent);
-                //     }
-                // );
-                // const updatedCart;
-                // // use PUT method
-                // this.cartService.updateCartContentById().subscribe(
-                //
-                // );
 
             }else {
                 console.log('Let us add new cartOrder / cartOrders to your cart');
@@ -108,8 +95,6 @@ export class ProductlistComponent implements OnInit {
 
     private findIdInArray(e) {
         const isAlreadyInIdArray = this.arrayOfCartOrders.find(cartOrder => {
-            // console.log('findIdInArray(e) works', cartOrder);
-            // console.log('Element is in array : ', cartOrder.productId === parseInt(e.target.id));
             return cartOrder.productId === parseInt(e.target.id);
 
         });
