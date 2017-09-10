@@ -1,11 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-
+import {Component, OnInit} from '@angular/core';
+import {NgForm} from '@angular/forms';
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css'],
 })
 export class CheckoutComponent implements OnInit {
+    firstName: string;
+    surname: string;
+    phone: number;
+    city: string;
+    address: string;
   constructor() { }
 
   ngOnInit() {
@@ -28,5 +33,14 @@ export class CheckoutComponent implements OnInit {
               this.value = validateCardNumber(this.value);
           });
   }
-
+    onSubmit(form: NgForm) {
+        const orderObject = {
+            firstName: form.value.firstName,
+            surname: form.value.surname,
+            phone: form.value.phone,
+            city: form.value.city,
+            address: form.value.address,
+        };
+        console.log(orderObject);
+    }
 }
