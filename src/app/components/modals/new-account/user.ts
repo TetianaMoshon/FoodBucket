@@ -10,5 +10,4 @@ export class User implements Register {
         public city: string,
         public address: string,
     ) {}
-    public userId = 0;
 }

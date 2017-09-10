@@ -20,8 +20,9 @@ export class NewAccountComponent implements OnInit {
     }
     public sendNewAccToDB() {
         const {firstName, lastName, email, password, city, address} = this.model;
-        this.destructedObj = { firstName, lastName, email, password, city, address };
-        console.log(this.destructedObj);
+        /*this.destructedObj = { firstName, lastName, email, password, city, address };
+        console.log(this.destructedObj);*/
+        console.log({firstName, lastName, email, password, city, address});
         this.registerAPI.registerWithHttpInfo({firstName, lastName, email, password, city, address}).subscribe(reg => {
             if (reg.ok ) {
                 this.openCongratulation();

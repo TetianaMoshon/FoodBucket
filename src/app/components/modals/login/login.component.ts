@@ -32,9 +32,13 @@ export class LoginComponent implements OnInit {
     public logInOperation() {
         this.loginAPI.loginWithHttpInfo(this.model).subscribe(reg => {
             if (reg.ok) {
+                console.log(reg.json());
+                localStorage.setItem('currentUser', JSON.stringify(reg.json()));
+                /*const user = JSON.parse(localStorage.getItem('currentUser'));
+                console.log(user);*/   // спросить у Димы или Никиты  почему не работает без Парса с локалстор
                 this.openCongratulation();
             } else {
-                //
+                console.log(reg.json());
             }
         });
     }

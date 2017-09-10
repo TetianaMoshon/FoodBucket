@@ -1,6 +1,7 @@
 'use strict';
 const utils = require('../utils/writer.js');
 const Users = require('../model/users');
+const Bcrypt = require('bcrypt-nodejs');
 
 /**
  * Login operation
@@ -14,7 +15,7 @@ exports.login = function ({email, password}) {
     return new Promise((resolve, reject) => {
         Users.findOne({ email: email }).then(
             oneUserDoc => {
-                if(oneUserDoc.password === password) {
+                if(Bcrypt.compareSync(password, oneUserDoc.password)) {
                     return oneUserDoc;
                 }
             },
@@ -24,8 +25,8 @@ exports.login = function ({email, password}) {
                 oneUserDoc => {
                     oneUserDoc = oneUserDoc || {};
                     if (Object.keys(oneUserDoc).length > 0) {
-                        let {email, firstName, lastName} = oneUserDoc;
-                        resolve(utils.respondWithCode(200, {email, firstName, lastName}));
+                        let {email, userId, firstName, lastName, city, address} = oneUserDoc;
+                        resolve(utils.respondWithCode(200, {email, userId, firstName, lastName, city, address}));
                     } else {
                         reject(utils.respondWithCode(404, {
                             "code": 404,
@@ -46,11 +47,12 @@ exports.login = function ({email, password}) {
  **/
 exports.register = function ({ firstName, lastName, email, password, phone, city, address, image }) {
     return new Promise((resolve, reject) => {
+        const hashedPassword = Bcrypt.hashSync(password);
         let newUser = new Users({
             "firstName": firstName,
             "lastName": lastName,
             "email": email,
-            "password": password,
+            "password": hashedPassword,
             "phone": phone,
             "city": city,
             "address": address,
