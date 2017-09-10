@@ -72,87 +72,23 @@
     <!--Product list block starts-->
     <div class="product-list-blocks">
 
-        <div class="row text-center">
+        <ng-container *ngFor="let product of products">
             <div class="col-md-4 col-sm-6 hero-feature">
                 <div class="thumbnail">
-                    <a routerLink="productpage"><img src="/assets/images/bistro-shrimp-pasta.jpg"  alt=""></a>
+                    <a routerLink={{product.routerLink}}> <img src={{product.image}}></a>
                     <div class="caption product-desc">
-                        <h3>Bistro Shrimp Pasta</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+                        <h3>{{product.title}}</h3>
+                        <p>{{product.description}}</p>
                         <p>
-                            <a href="#" class="btn btn-primary">Buy Now!</a> <a routerLink="productpage" routerLinkActive="active" class="btn btn-default">More Info</a>
+                            <button class="btn btn-primary" [id]="product.id" (click)="addProductToCart($event)">Buy Now!</button>
+                            <a routerLink="productpage" routerLinkActive="active" class="btn btn-default">More Info</a>
                         </p>
                     </div>
                 </div>
             </div>
+        </ng-container>
 
-            <div class="col-md-4 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                    <a routerLink="productpage"> <img src="/assets/images/evelyns-favorite-pasta.jpg" alt=""></a>
-                    <div class="caption product-desc">
-                        <h3>Evelyns Favorite Pasta</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                        <p>
-                            <a href="#" class="btn btn-primary">Buy Now!</a> <a routerLink="productpage" routerLinkActive="active" class="btn btn-default">More Info</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                    <a routerLink="productpage"><img src="/assets/images/fettuccini-alfredo.jpg" alt=""></a>
-                    <div class="caption product-desc">
-                        <h3>Fettuccini Alfredo</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                        <p>
-                            <a href="#" class="btn btn-primary">Buy Now!</a> <a routerLink="productpage" routerLinkActive="active" class="btn btn-default">More Info</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                    <a routerLink="productpage"> <img src="/assets/images/louisiana-chicken-pasta.jpg" alt=""></a>
-                    <div class="caption product-desc">
-                        <h3>Louisiana Chicken Pasta</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                        <p>
-                            <a href="#" class="btn btn-primary">Buy Now!</a> <a routerLink="productpage" routerLinkActive="active" class="btn btn-default">More Info</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                    <a routerLink="productpage"> <img src="/assets/images/pasta-carbonara.jpg" alt=""></a>
-                    <div class="caption product-desc">
-                        <h3>Pasta Carbonara</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                        <p>
-                            <a href="#" class="btn btn-primary">Buy Now!</a> <a routerLink="productpage" routerLinkActive="active" class="btn btn-default">More Info</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                    <a routerLink="productpage"> <img src="/assets/images/pasta-with-shrimp-and-sausage.jpg" alt=""></a>
-                    <div class="caption product-desc">
-                        <h3>Pasta wit Shrimp and Sausage</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
-                        <p>
-                            <a href="#" class="btn btn-primary">Buy Now!</a> <a routerLink="productpage" routerLinkActive="active" class="btn btn-default">More Info</a>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--Product list block ends-->
+        <!--Product list block ends-->
 
 </div>
 <!--Product list ends-->

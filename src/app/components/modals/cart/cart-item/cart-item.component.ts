@@ -22,6 +22,7 @@ export class CartItemComponent implements OnInit {
         this.amountOfDishesOrdered = 1;
         this.totalPriceOfOneDish = this.info.price;
         this.calculatingTotalPriceOfOneDish();
+
     }
 
     plusClicked(id: number) {
@@ -45,8 +46,10 @@ export class CartItemComponent implements OnInit {
 
 
     calculatingTotalPriceOfOneDish() {
+
         this.totalPriceOfOneDish = this.info.price * this.amountOfDishesOrdered;
         this.moneyToPayForADish.emit({totalPriceOfOneDish: this.totalPriceOfOneDish, id: this.info.id});
+
     }
 
 }
