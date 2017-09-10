@@ -52,6 +52,7 @@ import { CommentsService } from './services/comments.service';
 import { OrdersFiltersPipe } from './pipes/orders-filters.pipe';
 import { ApiModule } from './client/index';
 import { apiConfig } from './client/api.config';
+import {CartCommunicationService} from './services/cart-communication.service';
 
 @NgModule({
   declarations: [
@@ -124,7 +125,7 @@ import { apiConfig } from './client/api.config';
       ChartsModule,
       [TabsModule.forRoot()],
   ],
-  providers: [PagerService, CommentsService],
+  providers: [PagerService, CommentsService, CartCommunicationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
