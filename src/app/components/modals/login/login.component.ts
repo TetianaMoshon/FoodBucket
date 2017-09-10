@@ -1,4 +1,3 @@
-///<reference path="../../../services/data/data.service.ts"/>
 import { Component, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal/modal-options.class';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -7,9 +6,8 @@ import { ForgotPassComponent } from '../forgot-pass/forgot-pass.component';
 import { AuthService } from '../../../client/api/auth.service';
 import { Login } from '../../../client/model/login';
 import { User } from './user';
-import { ModalCongratulationComponent } from '../modal-congratulation/modal-congratulation.component';
-import {DataService} from '../../../services/data/data.service';
-
+import { DataService } from '../../../services/data/data.service';
+import { CongratulationComponent } from '../congratulation/congratulation.component';
 
 
 @Component({
@@ -34,21 +32,18 @@ export class LoginComponent implements OnInit {
             if (reg.ok) {
                 console.log(reg.json());
                 localStorage.setItem('currentUser', JSON.stringify(reg.json()));
-                /*const user = JSON.parse(localStorage.getItem('currentUser'));
-                console.log(user);*/   // спросить у Димы или Никиты  почему не работает без Парса с локалстор
-                this.openCongratulation();
+                this.openModal('You are logged');
             } else {
-                console.log(reg.json());
+                this.openModal('Sorry, you are\'t logged. Try again please!');
             }
         });
     }
     public openNewAccount() {
         this.modalService.show(NewAccountComponent);
     }
-
-    public  openCongratulation() {
-        this.data.changeMessage('Log In Completed', 'Thank you, you are logged');
-        this.modalService.show(ModalCongratulationComponent);
+    public  openModal(text: string) {
+        this.data.changeMessage(text);
+        this.modalService.show(CongratulationComponent);
     }
     public openForgotPass() {
         this.modalService.show(ForgotPassComponent);

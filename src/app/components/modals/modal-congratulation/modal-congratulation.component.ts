@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal/modal-options.class';
-import {DataService} from '../../../services/data/data.service';
+import { DataService } from '../../../services/data/data.service';
 
 @Component({
     selector: 'app-modal-congratulation',
@@ -16,15 +16,6 @@ export class ModalCongratulationComponent implements OnInit {
     }
 
     ngOnInit() {
-
         this.data.currentMessage.subscribe(message => this.title = message);
-        console.log('model cong on init com');
-
-        ////this.data.currentMessage.subscribe(message => this.title = message);
     }
-
-    // newMessage(text: string) {
-    //     this.data.changeMessage(text);
-    // }
-
 }

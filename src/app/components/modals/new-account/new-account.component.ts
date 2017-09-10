@@ -5,6 +5,7 @@ import { AuthService } from '../../../client/api/auth.service';
 import { User } from './user';
 import { Register } from '../../../client/model/register';
 import { CongratulationComponent } from '../congratulation/congratulation.component';
+import { DataService } from '../../../services/data/data.service';
 
 @Component({
   selector: 'app-new-account',
@@ -15,23 +16,27 @@ export class NewAccountComponent implements OnInit {
     public title = 'Create Your Account';
     model: Register;
     destructedObj = {};
-    constructor(public bsModalRef: BsModalRef, private registerAPI: AuthService, private modalService: BsModalService) {
+    constructor(public bsModalRef: BsModalRef,
+                private registerAPI: AuthService,
+                private modalService: BsModalService,
+                public data: DataService
+    ) {
         this.model = new User('', '', '', '', '', '');
     }
     public sendNewAccToDB() {
         const {firstName, lastName, email, password, city, address} = this.model;
         /*this.destructedObj = { firstName, lastName, email, password, city, address };
         console.log(this.destructedObj);*/
-        console.log({firstName, lastName, email, password, city, address});
         this.registerAPI.registerWithHttpInfo({firstName, lastName, email, password, city, address}).subscribe(reg => {
             if (reg.ok ) {
-                this.openCongratulation();
+                this.openModal('Registration is completed');
             } else {
-                //
+                this.openModal('Ooops, smth went wrong!');
             }
         });
     }
-    public  openCongratulation() {
+    public  openModal(text: string) {
+        this.data.changeMessage(text);
         this.modalService.show(CongratulationComponent);
     }
     ngOnInit() {
