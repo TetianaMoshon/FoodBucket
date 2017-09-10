@@ -177,6 +177,8 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
     hideAndRoute() {
         this.bsModalRef.hide();
+
+        // let's make an Order object and send it to checkout
         this.router.navigate(['/checkout']);
     }
 
