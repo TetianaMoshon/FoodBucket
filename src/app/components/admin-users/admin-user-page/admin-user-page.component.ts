@@ -6,6 +6,7 @@ import {UserService} from '../../../client/api/user.service';
 import {NgForm} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';
 import {FlashMessagesService} from 'ngx-flash-messages';
+import { UserModel } from './userModel';
 
 @Component({
   selector: 'app-admin-user-page',
@@ -13,17 +14,6 @@ import {FlashMessagesService} from 'ngx-flash-messages';
   styleUrls: ['./admin-user-page.component.css']
 })
 export class AdminUserPageComponent implements OnInit, OnDestroy{
-
-    first_name: string;
-    last_name: string;
-    email: string;
-    password: string;
-    phone: number;
-    city: string;
-    address: string;
-    image: string;
-    favourites = [];
-    active =  true;
 
     action: {
         id: number,
@@ -36,8 +26,9 @@ export class AdminUserPageComponent implements OnInit, OnDestroy{
       protected userService: UserService,
       protected route: ActivatedRoute,
       private flashMessagesService: FlashMessagesService,
-    ) {
-  }
+    ) {}
+
+    userModel = new UserModel('', '' , '', '', null, '', '', '', [], true);
 
     ngOnInit() {
         this.urlSubscription = this.route.url
@@ -48,7 +39,7 @@ export class AdminUserPageComponent implements OnInit, OnDestroy{
 
                     if (!isNaN(parseInt(seg1, 10)) && seg2 === 'edit') {
 
-                        this.newUser(parseInt(seg1, 10));
+                        this.findUserById(parseInt(seg1, 10));
 
                         this.action = {
                             id: parseInt(seg1, 10),
@@ -68,30 +59,19 @@ export class AdminUserPageComponent implements OnInit, OnDestroy{
         this.urlSubscription.unsubscribe();
     }
 
-    onSubmit(form: NgForm) {
-        const userObject = {
-            first_name: form.value.first_name,
-            last_name: form.value.last_name,
-            email: form.value.email,
-            password: form.value.password,
-            phone: Number(form.value.phone),
-            city: form.value.city,
-            address: form.value.address,
-            image: '',
-            favourites: [],
-            active: true
-        };
-        console.log(userObject);
+    onSubmit() {
         if (this.action.name === 'create') {
-            this.createUser(userObject);
+            this.userModel.phone = Number(this.userModel.phone);
+            this.createUser(this.userModel);
             this.reset();
         } else {
-            this.updateUser(this.action.id, userObject);
+            this.userModel.phone = Number(this.userModel.phone);
+            this.updateUser(this.action.id, this.userModel);
         }
     }
 
-    createUser(userObject) {
-        this.userService.createUser(userObject)
+    createUser(userModel) {
+        this.userService.createUser(userModel)
             .subscribe(
                 user => {
                     this.flashMessagesService.show(`User with id:${user['user_id']} was successfully created!`, {
@@ -104,8 +84,8 @@ export class AdminUserPageComponent implements OnInit, OnDestroy{
             );
     }
 
-    updateUser(id: number, userObject) {
-        this.userService.updateUserById(id, userObject)
+    updateUser(id: number, userModel) {
+        this.userService.updateUserById(id, userModel)
             .subscribe(
                 user => {
                     this.flashMessagesService.show(`User with id:${user['user_id']} was successfully updated!`, {
@@ -117,30 +97,23 @@ export class AdminUserPageComponent implements OnInit, OnDestroy{
             );
     }
 
-    newUser(id: number) {
+    findUserById(id: number) {
         this.userService.findUserById(id)
             .subscribe(
                 user => {
-                    this.first_name = user.first_name;
-                    this.last_name = user.last_name;
-                    this.email = user.email;
-                    this.password = user.password;
-                    this.phone = user.phone;
-                    this.city = user.city;
-                    this.address = user.address;
+                    this.userModel.first_name = user.first_name;
+                    this.userModel.last_name = user.last_name;
+                    this.userModel.email = user.email;
+                    this.userModel.password = user.password;
+                    this.userModel.phone = Number(this.userModel.phone);
+                    this.userModel.city = user.city;
+                    this.userModel.address = user.address;
                 },
                 err => console.log(err)
             );
     }
 
     reset() {
-        this.first_name = '';
-        this.last_name = '';
-        this.email = '';
-        this.password = '';
-        this.phone = null;
-        this.city = '';
-        this.address = '';
+        this.userModel = new UserModel('', '' , '', '', null, '', '', '', [], true);
     }
-
 }

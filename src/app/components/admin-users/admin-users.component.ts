@@ -18,6 +18,9 @@ export class AdminUsersComponent implements OnInit {
             delete: 'true',
             columnTitle: ' ',
         },
+        delete: {
+            addButtonContent: 'OFF'
+        },
         add: {
             addButtonContent: 'Add'
         },
@@ -55,6 +58,7 @@ export class AdminUsersComponent implements OnInit {
         }
     };
     public data;
+    public newUser;
 
     constructor(protected userService: UserService, private router: Router) {
         this.userService.getAllUsers(1, 2, true)
@@ -75,19 +79,29 @@ export class AdminUsersComponent implements OnInit {
 
     }
 
+
+
     onDeleteClick(event, eventName: string): void {
-        this.userService.deleteUserById(event.data.user_id)
+        this.userService.findUserById(event.data.user_id)
             .subscribe(
                 user => {
+                    this.newUser = user;
+                    this.newUser.active = false;
+                    this.userService.updateUserById(this.newUser.user_id, this.newUser)
+                        .subscribe(
+                            updateUser => {
+                                this.userService.getAllUsers(1, 2, true)
+                                    .subscribe(
+                                        addUser => {
+                                            this.data =  addUser;
+                                        },
+                                        err => console.log(err)
+                                    );
+                            },
+                            err => console.log(err)
+                        );
                 },
                 err => console.log(err)
-            );
-        this.userService.getAllUsers(1, 2, true)
-            .subscribe(
-                user => {
-                this.data =  user;
-            },
-            err => console.log(err)
             );
     }
 
