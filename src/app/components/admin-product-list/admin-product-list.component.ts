@@ -18,7 +18,7 @@ export class AdminProductListComponent implements OnInit {
         protected productService: ProductService,
         private router: Router
     ) {
-        this.productService.getAllProducts(1, 2, true)
+        this.productService.getAllProducts(1, 2, ["string"])
             .subscribe(
                 products => {
                     this.source = new LocalDataSource();

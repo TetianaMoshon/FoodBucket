@@ -35,14 +35,6 @@ paths:
       produces:
       - application/json
       parameters:
-        - name: category_id
-          in: query
-          description: returns products only from specified category
-          required: false
-          type: array
-          items:
-            type: string
-          collectionFormat: multi
         - name: isActive
           in: query
           description: returns active products
@@ -928,46 +920,6 @@ definitions:
       discount:
         type: integer
         format: int64
-  ProductInfo:
-    type: object
-    required:
-      - calories
-    properties:
-      product_info_id:
-        type: integer
-        format: int64
-      calories:
-        type: integer
-        format: int64
-      type: object
-      required:
-        - username
-        - city
-        - address
-        - products
-        - price
-        - status
-      properties:
-        id:
-          type: integer
-          format: int64
-        username:
-          type: string
-        city:
-          type: string
-        price:
-          type: integer
-          format: int64
-        address:
-          type: string
-        status:
-          type: string
-        products:
-          type: array
-          items:
-            type: integer
-            format: int64
-          minItems: 1
   Promotion:
     type: object
     required:

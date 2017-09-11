@@ -43,4 +43,5 @@ controllers/AuthService.js
 service/IngredientService.js
 controllers/IngredientService.js
 
-
+service/ProductService.js
+controllers/ProductService.js

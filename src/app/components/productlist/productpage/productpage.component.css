@@ -80,8 +80,9 @@ i.glyphicon-chevron-left, i.glyphicon-chevron-right {
     top: 30%;
 }
 
-.price-wrapper {
+.price-wrapper p.product-price {
     margin-bottom: 20px;
+   text-align: right;
 }
 
 .ingredient-icon {
@@ -105,9 +106,11 @@ i.glyphicon-chevron-left, i.glyphicon-chevron-right {
     display: inline-block;
 }
 
-.counter input {
+.counter-result {
     display: inline-block;
-    width: 70px;
+    width: 50px;
+    font-size: 20px;
+    text-align: center;
 }
 
 @media (max-width: 990px) {

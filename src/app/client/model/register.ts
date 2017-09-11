@@ -13,15 +13,15 @@
 
 
 export interface Register {
-    id?: number;
+    userId?: number;
 
     email: string;
 
     password: string;
 
-    firstName?: string;
+    firstName: string;
 
-    lastName?: string;
+    lastName: string;
 
     city?: string;
 

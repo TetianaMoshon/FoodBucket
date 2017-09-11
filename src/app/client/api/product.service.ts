@@ -122,10 +122,11 @@ export class ProductService {
      * 
      * @param offset start position for quering from DB
      * @param limit number of items to query from DB
+     * @param categoryId returns products only from specified category
      * @param isActive returns active products
      */
-    public getAllProducts(offset: number, limit: number, isActive?: boolean, extraHttpRequestParams?: any): Observable<Array<Product>> {
-        return this.getAllProductsWithHttpInfo(offset, limit, isActive, extraHttpRequestParams)
+    public getAllProducts(offset: number, limit: number, categoryId?: Array<string>, isActive?: boolean, extraHttpRequestParams?: any): Observable<Array<Product>> {
+        return this.getAllProductsWithHttpInfo(offset, limit, categoryId, isActive, extraHttpRequestParams)
             .map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
@@ -270,9 +271,10 @@ export class ProductService {
      * 
      * @param offset start position for quering from DB
      * @param limit number of items to query from DB
+     * @param categoryId returns products only from specified category
      * @param isActive returns active products
      */
-    public getAllProductsWithHttpInfo(offset: number, limit: number, isActive?: boolean, extraHttpRequestParams?: any): Observable<Response> {
+    public getAllProductsWithHttpInfo(offset: number, limit: number, categoryId?: Array<string>, isActive?: boolean, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/products';
 
         let queryParameters = new URLSearchParams();
@@ -286,6 +288,12 @@ export class ProductService {
         if (limit === null || limit === undefined) {
             throw new Error('Required parameter limit was null or undefined when calling getAllProducts.');
         }
+        if (categoryId) {
+            categoryId.forEach((element) => {
+                queryParameters.append('category_id', <any>element);
+            })
+        }
+
         if (isActive !== undefined) {
             queryParameters.set('isActive', <any>isActive);
         }
