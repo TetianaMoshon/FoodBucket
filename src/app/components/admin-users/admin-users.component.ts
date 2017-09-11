@@ -34,10 +34,10 @@ export class AdminUsersComponent implements OnInit {
                 title: 'ID',
                 width: '6%'
             },
-            first_name: {
+            firstName: {
                 title: 'Name'
             },
-            last_name: {
+            lastName: {
                 title: 'Surname'
             },
             email: {
@@ -65,6 +65,8 @@ export class AdminUsersComponent implements OnInit {
             .subscribe(
                 user => {
                     this.data =  user;
+                    console.log(this.data);
+                    console.log(user);
                 },
                 err => console.log(err)
             );
@@ -106,9 +108,9 @@ export class AdminUsersComponent implements OnInit {
     }
 
     changeRoute(routeValue) {
-        this.router.navigateByUrl(routeValue,);
+        this.router.navigateByUrl(routeValue,) ;
     }
 
-    ngOnInit(){
+    ngOnInit() {
     }
 }

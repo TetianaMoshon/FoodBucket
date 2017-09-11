@@ -31,6 +31,7 @@ export class AdminUserPageComponent implements OnInit, OnDestroy {
     userModel = new UserModel('', '' , '', '', null, '', '', '', [], true);
 
     ngOnInit() {
+        console.log(this.route.params);
         this.urlSubscription = this.route.url
             .subscribe(
                 (segments) => {
@@ -100,8 +101,8 @@ export class AdminUserPageComponent implements OnInit, OnDestroy {
         this.userService.findUserById(id)
             .subscribe(
                 user => {
-                    this.userModel.first_name = user.first_name;
-                    this.userModel.last_name = user.last_name;
+                    this.userModel.firstName = user.firstName;
+                    this.userModel.lastName = user.lastName;
                     this.userModel.email = user.email;
                     this.userModel.password = user.password;
                     this.userModel.phone = Number(this.userModel.phone);

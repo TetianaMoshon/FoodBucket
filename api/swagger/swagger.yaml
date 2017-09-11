@@ -779,34 +779,34 @@ definitions:
   User:
     type: object
     required:
-      - first_name
-      - last_name
+      - firstName
+      - lastName
       - email
       - password
     properties:
-     first_name:
-       type: string
-     last_name:
-       type: string
-     email:
-       type: string
-     password:
-       type: string
-     phone:
-       type: integer
-       format: int64
-     city:
-       type: string
-     address:
-       type: string
-     image:
-       type: string
-     favourites:
-       type: array
-       items:
-         type: number
-     active:
-       type: boolean
+      firstName:
+        type: string
+      lastName:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      phone:
+        type: integer
+        format: int64
+      city:
+        type: string
+      address:
+        type: string
+      image:
+        type: string
+      favourites:
+        type: array
+        items:
+          type: number
+      active:
+        type: boolean
   Ingredient:
     type: object
     required:

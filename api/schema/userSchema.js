@@ -1,16 +1,15 @@
 const mongoose = require('mongoose');
 const counter = require('../model/counter');
 
-const product = require('../model/product');
 
 const
     userSchema = mongoose.Schema({
     user_id: Number,
-    first_name: {
+    firstName: {
         type: String,
         required: true
     },
-    last_name: {
+    lastName: {
         type: String,
         required: true
     },
