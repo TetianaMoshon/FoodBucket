@@ -8,6 +8,7 @@ import { Login } from '../../../client/model/login';
 import { User } from './user';
 import { DataService } from '../../../services/data/data.service';
 import { CongratulationComponent } from '../congratulation/congratulation.component';
+import { NavbarComponent } from '../../navbar/navbar.component';
 
 
 @Component({
@@ -30,9 +31,9 @@ export class LoginComponent implements OnInit {
     public logInOperation() {
         this.loginAPI.loginWithHttpInfo(this.model).subscribe(reg => {
             if (reg.ok) {
-                console.log(reg.json());
                 localStorage.setItem('currentUser', JSON.stringify(reg.json()));
                 this.openModal('You are logged');
+                this.changeLogBtnText(false);
             } else {
                 this.openModal('Sorry, you are\'t logged. Try again please!');
             }
@@ -44,6 +45,9 @@ export class LoginComponent implements OnInit {
     }
     public openNewAccount() {
         this.modalService.show(NewAccountComponent);
+    }
+    public changeLogBtnText(message: boolean){
+        this.data.changeIsLogged(message);
     }
     public  openModal(text: string) {
         this.data.changeMessage(text);
