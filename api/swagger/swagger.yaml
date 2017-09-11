@@ -415,7 +415,7 @@ paths:
       parameters:
         - name: isActive
           in: query
-          description: returns active ingredients
+          description: returns active ingredient
           required: false
           type: boolean
         - name: offset
@@ -437,7 +437,7 @@ paths:
           default: 9
       responses:
         200:
-          description: Successful ingredients response
+          description: Successful ingredient response
           schema:
             type: array
             items:
@@ -501,7 +501,7 @@ paths:
         required: true
         type: integer
         format: int64
-      - name: "updatedIngredient"
+      - name: "updated_ingredient"
         in: "body"
         description: The updated Ingredient
         required: true
@@ -520,9 +520,9 @@ paths:
       - "ingredient"
       consumes:
       - application/json
-      summary: Create Ingredient
+      summary: Create ingredient
       description: |
-        This endpoint allows to create new Ingredient.
+        This endpoint allows to create new ingredient.
       parameters:
       - in: body
         name: body
@@ -821,6 +821,18 @@ definitions:
         type: integer
         format: int64
   Cart:
+    type: object
+    required:
+       - orderedProducts
+       - totalPriceOfAllDishes
+    properties:
+      orderedProducts:
+        type: array
+        items:
+          $ref: '#/definitions/CartOrder'
+      totalPriceOfAllDishes:
+        type: integer
+        format: int64
       type: object
       required:
          - orderedProducts
@@ -875,6 +887,17 @@ definitions:
         type: string
       description:
         type: string
+      measure:
+        type: string
+      quantity:
+        type: integer
+        format: int64
+      price:
+        type: integer
+        format: int64
+      discount:
+        type: integer
+        format: int64
       image:
         type: string
       measure:
@@ -888,6 +911,54 @@ definitions:
         type: integer
         format: int64
   Order:
+    type: object
+    required:
+      - username
+      - city
+      - address
+      - products
+      - price
+      - status
+    properties:
+      id:
+        type: integer
+        format: int64
+      username:
+        type: string
+      city:
+        type: string
+      price:
+        type: integer
+        format: int64
+      address:
+        type: string
+      status:
+        type: string
+      products:
+        type: array
+        items:
+          type: integer
+          format: int64
+        minItems: 1
+      measure:
+        type: string
+      quantity:
+        type: integer
+        format: int64
+      discount:
+        type: integer
+        format: int64
+  ProductInfo:
+    type: object
+    required:
+      - calories
+    properties:
+      product_info_id:
+        type: integer
+        format: int64
+      calories:
+        type: integer
+        format: int64
       type: object
       required:
         - username
