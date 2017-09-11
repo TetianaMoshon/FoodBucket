@@ -1,10 +1,12 @@
 export class Order {
-    date: string;
-    id: number;
-    name: string;
-    food: string;
-    tel: number;
-    price: number;
-    status: string;
+    orderId?: number;
+    date?: string;
+    username?: string;
+    city?: string;
+    price?: number;
+    address?: string;
+    status?: string;
+    products?: Array<number>;
+    phone?: string;
 
 }

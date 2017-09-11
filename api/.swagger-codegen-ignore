@@ -39,3 +39,8 @@ controllers/OrderService.js
 service/AuthService.js
 controllers/AuthService.js
 controllers/ProductService.js
+
+service/IngredientService.js
+controllers/IngredientService.js
+
+

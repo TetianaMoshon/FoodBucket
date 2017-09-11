@@ -4,14 +4,6 @@
         <div class="col-md-4">
             <h1>Orders</h1>
         </div>
-        <div class="col-md-4 col-md-offset-4 col-sm-4 col-xs-4">
-            <div class="input-group padding-top">
-                <input class="form-control" placeholder="Search for...">
-                <span class="input-group-btn">
-        <button class="btn btn-default" type="button">Go!</button>
-      </span>
-            </div><!-- /input-group -->
-        </div><!-- /.col-lg-6 -->
     </div>
     <hr/>
     <table class="table table-bordered">
@@ -19,34 +11,25 @@
         <tr>
             <th class="text-center">
                 <div class="form-group">
-                <input  class="form-control" type="text" name="name" [(ngModel)]="filter.date" placeholder="Date">
+                <input  class="form-control" type="number" name="name" [(ngModel)]="filter.orderId" placeholder="ID">
                 </div>
             </th>
             <th>
                 <div class="form-group">
-                <input class="form-control"  type="number" name="id" [(ngModel)]="filter.id" min="1"  step="1" placeholder="ID">
+                <input class="form-control"  type="text" name="id" [(ngModel)]="filter.username" min="1"  step="1" placeholder="Username">
                 </div>
             </th>
             <th class="text-center">
                 <div class="form-group">
-                <input  class="form-control" type="text" name="name" [(ngModel)]="filter.name" placeholder="Name">
+                <input  class="form-control" type="text" name="name" [(ngModel)]="filter.city" placeholder="City">
                 </div>
             </th>
             <th class="text-center">
                 <div class="form-group">
-                <input class="form-control"  type="text" name="food" [(ngModel)]="filter.food" placeholder="Content">
+                <input  class="form-control" type="number" name="tel" [(ngModel)]="filter.price" placeholder="Price">
                 </div>
             </th>
-            <th class="text-center">
-                <div class="form-group">
-                <input  class="form-control" type="number" name="tel" [(ngModel)]="filter.tel" placeholder="Phone number">
-                </div>
-            </th>
-            <th class="text-center">
-                <div class="form-group">
-                <input  class="form-control" type="number" name="id" [(ngModel)]="filter.price" min="1" placeholder="Price">
-                </div>
-            </th>
+            <th class="text-center">Products</th>
             <th class="text-center">
                 <div class="form-group">
                 <input  class="form-control" type="text" name="name" [(ngModel)]="filter.status" placeholder="Status">
@@ -56,14 +39,14 @@
         </tr>
         </thead>
         <tbody>
-        <ng-container *ngFor="let order of pagedItems  | ordersfilter:filter;">
+        <ng-container *ngFor="let order of pagedItems| ordersfilter: filter;">
         <tr>
-            <td class="gray-border  text-center">{{order.date}}</td>
-            <td class="gray-border text-center">{{order.id}}</td>
-            <td class="gray-border text-center">{{order.name}}</td>
-            <td class="gray-border text-center">{{order.food}}</td>
-            <td class="gray-border text-center">{{order.tel}}</td>
+            <!--<td class="gray-border  text-center">{{orderid}}</td>-->
+            <td class="gray-border text-center">{{order.orderId}}</td>
+            <td class="gray-border text-center">{{order.username}}</td>
+            <td class="gray-border text-center">{{order.city}}</td>
             <td class="gray-border text-center">{{order.price}}</td>
+            <td class="gray-border text-center">{{order.products}}</td>
             <td class="gray-border text-center">{{order.status}}</td>
             <td class="gray-border text-center">
                 <button class="btn btn-primary" *ngIf="order.expanded" (click)="order.expanded = false">Close</button>
@@ -73,20 +56,30 @@
         <tr *ngIf="order.expanded">
             <td class="gray-border nohover" colspan="8">
                 <div class="container-fluid">
-                    <div class="col-md-4 text-center">
-                        <h3 class="text-center">Name and surname</h3>
-                        <p>Vasiliy Pupkin</p>
+                    <div class="col-md-2 text-center">
+                        <h4>Date of order</h4>
+                        <p>{{order.date}}</p>
                     </div>
-                    <div class="col-md-4 text-center">
-                        <h3 class="text-center">Delivery address</h3>
-                        <p>Sechenova 48, app. 34</p>
+                    <div class="col-md-2 text-center">
+                        <h4>Phone number</h4>
+                        <p>{{order.phone}}</p>
                     </div>
-                    <div class="col-md-4 text-center">
-                        <h3 class="text-center">Order contents</h3>
-                        <ul class="list-group">
-                            <li class="list-group-item">Pizza <span class="badge">12</span></li>
-                            <li class="list-group-item">Salad <span class="badge">5</span></li>
-                            <li class="list-group-item">Borsch <span class="badge">3</span></li>
+                    <div class="col-md-2 text-center">
+                        <h4 class="text-center">Name and surname</h4>
+                        <p>{{order.username}}</p>
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <h4 class="text-center">Delivery address</h4>
+                        <p>{{order.city}} <br>{{order.address}}</p>
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <h4>Price of order</h4>
+                        <p>{{order.price}}</p>
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <h4 class="text-center">Order contents</h4>
+                        <ul *ngFor="let product of order.products" class="list-group">
+                            <li class="list-group-item">{{product}}</li>
                         </ul>
                     </div>
                 </div>
