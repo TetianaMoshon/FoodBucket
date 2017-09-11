@@ -58,3 +58,5 @@ api/utils/writer.js
 /src/app/client/rxjs-operators.ts
 /src/app/client/api/
 /src/app/client/model/
+/src/app/client/encoder.ts
+

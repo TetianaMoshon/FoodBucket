@@ -28,13 +28,19 @@ api/swagger.yaml
 model/
 schema/
 
-service/AuthService.js
-service/CartService.js
 service/CategoryService.js
-service/OrderService.js
-service/ProductService.js
-controllers/AuthService.js
-controllers/CartService.js
 controllers/CategoryService.js
+
+service/CartService.js
+controllers/CartService.js
+
+service/OrderService.js
 controllers/OrderService.js
-controllers/ProductService.js
+
+service/AuthService.js
+controllers/AuthService.js
+
+service/IngredientService.js
+controllers/IngredientService.js
+
+
