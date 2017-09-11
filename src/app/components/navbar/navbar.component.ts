@@ -13,12 +13,14 @@ import { DataService} from '../../services/data/data.service';
 })
 export class NavbarComponent implements OnInit {
 
+    LogBtnText = 'Log in / Registration'
     isCollapsed = true;
     isLogged = true;
     constructor(private modalService: BsModalService, private data: DataService) { }
 
     ngOnInit() {
         this.data.currentIsLogged.subscribe(message => this.isLogged = message);
+        this.data.currentLogBtn.subscribe(message => this.LogBtnText = message);
     }
 
     public openNewAccount() {
