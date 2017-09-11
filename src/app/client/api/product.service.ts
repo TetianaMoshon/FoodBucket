@@ -24,6 +24,7 @@ import { Product } from '../model/product';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
+import { CustomQueryEncoderHelper }                          from '../encoder';
 
 
 @Injectable()
@@ -122,11 +123,10 @@ export class ProductService {
      * 
      * @param offset start position for quering from DB
      * @param limit number of items to query from DB
-     * @param categoryId returns products only from specified category
      * @param isActive returns active products
      */
-    public getAllProducts(offset: number, limit: number, categoryId?: Array<string>, isActive?: boolean, extraHttpRequestParams?: any): Observable<Array<Product>> {
-        return this.getAllProductsWithHttpInfo(offset, limit, categoryId, isActive, extraHttpRequestParams)
+    public getAllProducts(offset: number, limit: number, isActive?: boolean, extraHttpRequestParams?: any): Observable<Array<Product>> {
+        return this.getAllProductsWithHttpInfo(offset, limit, isActive, extraHttpRequestParams)
             .map((response: Response) => {
                 if (response.status === 204) {
                     return undefined;
@@ -161,7 +161,7 @@ export class ProductService {
     public createProductWithHttpInfo(body: Product, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/product';
 
-        let queryParameters = new URLSearchParams();
+        let queryParameters = new URLSearchParams('', new CustomQueryEncoderHelper());
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'body' is not null or undefined
@@ -201,7 +201,7 @@ export class ProductService {
         const path = this.basePath + '/product/${id}'
                     .replace('${' + 'id' + '}', String(id));
 
-        let queryParameters = new URLSearchParams();
+        let queryParameters = new URLSearchParams('', new CustomQueryEncoderHelper());
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'id' is not null or undefined
@@ -238,7 +238,7 @@ export class ProductService {
         const path = this.basePath + '/product/${id}'
                     .replace('${' + 'id' + '}', String(id));
 
-        let queryParameters = new URLSearchParams();
+        let queryParameters = new URLSearchParams('', new CustomQueryEncoderHelper());
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'id' is not null or undefined
@@ -271,13 +271,12 @@ export class ProductService {
      * 
      * @param offset start position for quering from DB
      * @param limit number of items to query from DB
-     * @param categoryId returns products only from specified category
      * @param isActive returns active products
      */
-    public getAllProductsWithHttpInfo(offset: number, limit: number, categoryId?: Array<string>, isActive?: boolean, extraHttpRequestParams?: any): Observable<Response> {
+    public getAllProductsWithHttpInfo(offset: number, limit: number, isActive?: boolean, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/products';
 
-        let queryParameters = new URLSearchParams();
+        let queryParameters = new URLSearchParams('', new CustomQueryEncoderHelper());
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'offset' is not null or undefined
@@ -288,12 +287,6 @@ export class ProductService {
         if (limit === null || limit === undefined) {
             throw new Error('Required parameter limit was null or undefined when calling getAllProducts.');
         }
-        if (categoryId) {
-            categoryId.forEach((element) => {
-                queryParameters.append('category_id', <any>element);
-            })
-        }
-
         if (isActive !== undefined) {
             queryParameters.set('isActive', <any>isActive);
         }
@@ -337,7 +330,7 @@ export class ProductService {
         const path = this.basePath + '/product/${id}'
                     .replace('${' + 'id' + '}', String(id));
 
-        let queryParameters = new URLSearchParams();
+        let queryParameters = new URLSearchParams('', new CustomQueryEncoderHelper());
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'id' is not null or undefined

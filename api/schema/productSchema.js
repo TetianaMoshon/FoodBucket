@@ -18,18 +18,20 @@ const productSchema = mongoose.Schema({
         required: true
     },
     category: String,
+    status: Boolean,
     discount: Number,
     promotions: Boolean,
-    status: Boolean,
     caloricity: Number,
     servingSize: Number,
     difficulty: String,
     spiceLevel: String,
-    ingredients: [{
-        "ingredientId": Number,
-        "ingredientName": String,
-        "quantity": Number
-    }]
+    ingredients: [
+        {
+            ingredientName: String,
+            quantity: Number,
+            measure: String
+        }
+    ]
 });
 
 productSchema.pre('save', function(next) {

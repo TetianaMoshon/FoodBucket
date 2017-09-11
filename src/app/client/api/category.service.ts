@@ -24,6 +24,7 @@ import { Category } from '../model/category';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
+import { CustomQueryEncoderHelper }                          from '../encoder';
 
 
 @Injectable()
@@ -160,7 +161,7 @@ export class CategoryService {
     public createCategoryWithHttpInfo(body: Category, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/category';
 
-        let queryParameters = new URLSearchParams();
+        let queryParameters = new URLSearchParams('', new CustomQueryEncoderHelper());
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'body' is not null or undefined
@@ -200,7 +201,7 @@ export class CategoryService {
         const path = this.basePath + '/category/${id}'
                     .replace('${' + 'id' + '}', String(id));
 
-        let queryParameters = new URLSearchParams();
+        let queryParameters = new URLSearchParams('', new CustomQueryEncoderHelper());
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'id' is not null or undefined
@@ -237,7 +238,7 @@ export class CategoryService {
         const path = this.basePath + '/category/${id}'
                     .replace('${' + 'id' + '}', String(id));
 
-        let queryParameters = new URLSearchParams();
+        let queryParameters = new URLSearchParams('', new CustomQueryEncoderHelper());
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'id' is not null or undefined
@@ -275,7 +276,7 @@ export class CategoryService {
     public getAllCategoriesWithHttpInfo(offset: number, limit: number, isActive?: boolean, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/categories';
 
-        let queryParameters = new URLSearchParams();
+        let queryParameters = new URLSearchParams('', new CustomQueryEncoderHelper());
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'offset' is not null or undefined
@@ -329,7 +330,7 @@ export class CategoryService {
         const path = this.basePath + '/category/${id}'
                     .replace('${' + 'id' + '}', String(id));
 
-        let queryParameters = new URLSearchParams();
+        let queryParameters = new URLSearchParams('', new CustomQueryEncoderHelper());
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'id' is not null or undefined

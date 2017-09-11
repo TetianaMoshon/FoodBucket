@@ -18,7 +18,7 @@ export class AdminProductListComponent implements OnInit {
         protected productService: ProductService,
         private router: Router
     ) {
-        this.productService.getAllProducts(1, 2, ["string"])
+        this.productService.getAllProducts(1, 2, true)
             .subscribe(
                 products => {
                     this.source = new LocalDataSource();
@@ -33,11 +33,11 @@ export class AdminProductListComponent implements OnInit {
 
     onEditClick(event, eventName: string): void {
         const productId = parseInt(event.cells[0].value);
-        this.changeRoute('/admin/productlist/productpage');
+        this.changeRoute(`/admin/productlist/${productId}/edit`);
     }
 
     onCreateClick(event, eventName: string): void {
-        this.changeRoute('/admin/productlist/productpage');
+        this.changeRoute('/admin/productlist/create');
 
     }
 

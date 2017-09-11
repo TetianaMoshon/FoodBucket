@@ -24,6 +24,7 @@ import { Toprated } from '../model/toprated';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
+import { CustomQueryEncoderHelper }                          from '../encoder';
 
 
 @Injectable()
@@ -94,7 +95,7 @@ export class TopratedService {
     public getTopratedWithHttpInfo(extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/toprated';
 
-        let queryParameters = new URLSearchParams();
+        let queryParameters = new URLSearchParams('', new CustomQueryEncoderHelper());
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
 
 
