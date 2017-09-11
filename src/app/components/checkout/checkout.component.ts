@@ -6,11 +6,11 @@ import {NgForm} from '@angular/forms';
   styleUrls: ['./checkout.component.css'],
 })
 export class CheckoutComponent implements OnInit {
-    firstName: string;
     surname: string;
-    phone: number;
+    phone: string;
     city: string;
     address: string;
+    firstName: string;
   constructor() { }
 
   ngOnInit() {
@@ -35,8 +35,7 @@ export class CheckoutComponent implements OnInit {
   }
     onSubmit(form: NgForm) {
         const orderObject = {
-            firstName: form.value.firstName,
-            surname: form.value.surname,
+            username: form.value.firstName + ' ' + form.value.surname,
             phone: form.value.phone,
             city: form.value.city,
             address: form.value.address,
