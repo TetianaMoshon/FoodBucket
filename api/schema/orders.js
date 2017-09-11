@@ -19,6 +19,7 @@ let ordersSchema = new Schema({
     products: [Number],
     price:Number,
     quantity_dishes: Number,
+    phone: String,
     payment: String,
     status: String,
     date: {

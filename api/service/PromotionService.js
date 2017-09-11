@@ -19,23 +19,31 @@ exports.getPromotion = function() {
     "description" : "description",
     "ingredients" : [ {
       "image" : "image",
+      "measure" : "measure",
+      "quantity" : 5,
       "ingredient_id" : 1,
+      "price" : 5,
       "description" : "description",
+      "discount" : 2,
       "title" : "title"
     }, {
       "image" : "image",
+      "measure" : "measure",
+      "quantity" : 5,
       "ingredient_id" : 1,
+      "price" : 5,
       "description" : "description",
+      "discount" : 2,
       "title" : "title"
     } ],
     "id" : 1,
     "title" : "title",
     "productInfo" : [ {
-      "product_info_id" : 5,
-      "calories" : 5
+      "product_info_id" : 7,
+      "calories" : 9
     }, {
-      "product_info_id" : 5,
-      "calories" : 5
+      "product_info_id" : 7,
+      "calories" : 9
     } ]
   }, {
     "image" : "image",
@@ -43,23 +51,31 @@ exports.getPromotion = function() {
     "description" : "description",
     "ingredients" : [ {
       "image" : "image",
+      "measure" : "measure",
+      "quantity" : 5,
       "ingredient_id" : 1,
+      "price" : 5,
       "description" : "description",
+      "discount" : 2,
       "title" : "title"
     }, {
       "image" : "image",
+      "measure" : "measure",
+      "quantity" : 5,
       "ingredient_id" : 1,
+      "price" : 5,
       "description" : "description",
+      "discount" : 2,
       "title" : "title"
     } ],
     "id" : 1,
     "title" : "title",
     "productInfo" : [ {
-      "product_info_id" : 5,
-      "calories" : 5
+      "product_info_id" : 7,
+      "calories" : 9
     }, {
-      "product_info_id" : 5,
-      "calories" : 5
+      "product_info_id" : 7,
+      "calories" : 9
     } ]
   } ]
 };

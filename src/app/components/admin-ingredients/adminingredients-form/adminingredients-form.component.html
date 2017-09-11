@@ -1,0 +1,43 @@
+<app-adminnavbar></app-adminnavbar>
+<div class="container container-max-width">
+    <div class="row">
+        <ngx-flash-messages></ngx-flash-messages>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <h2>Ingredient page</h2>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-xs-12">
+            <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+                <div class="form-group">
+                    <label for="title">Ingredient:</label>
+                    <input [(ngModel)]="title" name="title" type="text" class="form-control" id="title">
+                </div>
+                <div class="form-group">
+                    <label for="measure">Measure:</label>
+                    <input [(ngModel)]="measure" name="measure" type="text" class="form-control" id="measure">
+                </div>
+                <div class="form-group">
+                    <label for="quantity">Quantity:</label>
+                    <input [(ngModel)]="quantity" name="quantity" type="text" class="form-control" id="quantity">
+                </div>
+                <div class="form-group">
+                    <label for="price">Price:</label>
+                    <input [(ngModel)]="price" name="price" type="text" class="form-control" id="price">
+                </div>
+                <div class="form-group">
+                    <label for="image">Image:</label>
+                    <input [(ngModel)]="image" name="image" type="text" class="form-control" id="image">
+                </div>
+
+                <div class="btn-group">
+                    <button (Click)="onSubmit()" type="submit" class="btn btn-success">Save</button>
+                    <a class="btn btn-danger" routerLink="/admin/ingredients" routerLinkActive="active">Back</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
