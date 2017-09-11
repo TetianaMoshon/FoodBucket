@@ -27,6 +27,7 @@ const productSchema = mongoose.Schema({
     spiceLevel: String,
     ingredients: [
         {
+            ingredientId: Number,
             ingredientName: String,
             quantity: Number,
             measure: String

@@ -54,15 +54,10 @@
                                 <tr>
                                     <th>Ingredient name</th>
                                     <th>Quantity</th>
-                                    <th>Measure</th>
                                     </tr>
                             <tr *ngFor="let ingredient of ingredients">
                                 <td>{{ingredient.ingredientName}}</td>
-                                <!--<td>{{ingredient.quantity}}</td>-->
-                                <!--<td>{{ingredient.measure}}</td>-->
-                                <!--&lt;!&ndash;<td><input [(ngModel)]="ingredientName" name="ingredientName" type="text" class="form-control"></td>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<td><input [(ngModel)]="quantity" name="quantity" name="quantity" type="text" class="form-control"></td>&ndash;&gt;-->
-                            <!--&lt;!&ndash;<td><input [(ngModel)]="measure" name="measure" name="measure" type="text" class="form-control"></td>&ndash;&gt;-->
+                                <td>{{ingredient.quantity}}</td>
                             </tr>
                             </table>
                         </div>

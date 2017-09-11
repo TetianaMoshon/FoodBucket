@@ -817,6 +817,8 @@ definitions:
         format: int64
       ingredientName:
         type: string
+      measure:
+        type: string
       quantity:
         type: integer
         format: int64

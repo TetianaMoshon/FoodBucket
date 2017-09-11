@@ -24,7 +24,6 @@ import { Product } from '../model/product';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
-import { CustomQueryEncoderHelper }                          from '../encoder';
 
 
 @Injectable()
@@ -161,7 +160,7 @@ export class ProductService {
     public createProductWithHttpInfo(body: Product, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/product';
 
-        let queryParameters = new URLSearchParams('', new CustomQueryEncoderHelper());
+        let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'body' is not null or undefined
@@ -201,7 +200,7 @@ export class ProductService {
         const path = this.basePath + '/product/${id}'
                     .replace('${' + 'id' + '}', String(id));
 
-        let queryParameters = new URLSearchParams('', new CustomQueryEncoderHelper());
+        let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'id' is not null or undefined
@@ -238,7 +237,7 @@ export class ProductService {
         const path = this.basePath + '/product/${id}'
                     .replace('${' + 'id' + '}', String(id));
 
-        let queryParameters = new URLSearchParams('', new CustomQueryEncoderHelper());
+        let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'id' is not null or undefined
@@ -276,7 +275,7 @@ export class ProductService {
     public getAllProductsWithHttpInfo(offset: number, limit: number, isActive?: boolean, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/products';
 
-        let queryParameters = new URLSearchParams('', new CustomQueryEncoderHelper());
+        let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'offset' is not null or undefined
@@ -330,7 +329,7 @@ export class ProductService {
         const path = this.basePath + '/product/${id}'
                     .replace('${' + 'id' + '}', String(id));
 
-        let queryParameters = new URLSearchParams('', new CustomQueryEncoderHelper());
+        let queryParameters = new URLSearchParams();
         let headers = new Headers(this.defaultHeaders.toJSON()); // https://github.com/angular/angular/issues/6845
 
         // verify required parameter 'id' is not null or undefined
