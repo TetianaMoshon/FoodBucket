@@ -68,14 +68,8 @@
 <div class=" col-md-4 col-xs-12">
     <div class="row">
         <h3>Order summary</h3>
-        <ul class="list-group">
-            <li class="list-group-item">Item 1 <span class="badge">12</span></li>
-            <li class="list-group-item">Item 2 <span class="badge">5</span></li>
-            <li class="list-group-item">Item 3 <span class="badge">3</span></li>
-            <li class="list-group-item">Item 4 <span class="badge">34</span></li>
-            <li class="list-group-item">Item 5 <span class="badge">36</span></li>
-            <li class="list-group-item">Item 6 <span class="badge">3345</span></li>
-            <li class="list-group-item">Item 7 <span class="badge">395784</span></li>
+        <ul *ngFor="let product of productsArray" class="list-group">
+            <li class="list-group-item">{{product}}</li>
         </ul>
         <p class="bigger-font text-right">Subtotal <strong>99$</strong></p>
         <p class="bigger-font text-right">Delivery <strong>free</strong></p>

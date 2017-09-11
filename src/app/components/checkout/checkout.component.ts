@@ -3,6 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {ProductService} from '../../client/api/product.service';
 import {OrderService} from '../../client/api/order.service';
+import {Product} from '../../client/model/product';
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
@@ -10,6 +11,8 @@ import {OrderService} from '../../client/api/order.service';
 })
 export class CheckoutComponent implements OnInit {
     ORDER: any;
+    tempArray: number[] = [];
+    productsArray: string[] = [];
 
   constructor(private route: ActivatedRoute, private products: ProductService, private orderS: OrderService) { }
     surname: string;
@@ -21,8 +24,13 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit() {
       this.ORDER = JSON.parse(atob(this.route.snapshot.queryParams.order));
-      this.products.findProductById(this.ORDER.products[0].productId).subscribe(res =>
-      {console.log(res)});
+      this.ORDER.products.forEach(pro => {
+          this.tempArray.push(pro.productId);
+          this.products.findProductById(pro.productId).subscribe(res => {
+              this.productsArray.push(res.title)
+          });
+      });
+
       console.log(this.ORDER);
       function validateCardNumber(value) {
           const v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
@@ -52,8 +60,11 @@ export class CheckoutComponent implements OnInit {
       console.log(price);
       let status = 'NEW';
       let phone = form.value.phone;
-      let products: number[] = [parseInt(this.ORDER.products[0].productId)];
-      console.log(this.ORDER.products[0].productId)
+        this.ORDER.products.forEach(pro => {
+            this.tempArray.push(pro.productId)
+            }
+        );
+        console.log('temp array: ', this.tempArray);
       this.orderS.putOrder({
           "username": username,
           "city": city,
@@ -61,7 +72,7 @@ export class CheckoutComponent implements OnInit {
           "address": address,
           "status": status,
           "phone": phone,
-          "products": products
+          "products": this.tempArray
       }).subscribe(res => {
           console.log(res);
       });
