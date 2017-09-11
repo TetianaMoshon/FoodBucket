@@ -723,6 +723,149 @@ paths:
           description: cartContent is updated
         400:
           description: An error!
+  /users:
+    get:
+      x-swagger-router-controller: User
+      operationId: getAllUsers
+      summary: Get all users
+      tags:
+      - "user"
+      produces:
+      - application/json
+      parameters:
+        - name: isActive
+          in: query
+          description: returns active users
+          required: false
+          type: boolean
+        - name: offset
+          in: query
+          description: start position for quering from DB
+          required: true
+          type: integer
+          format: int32
+          minimum: 0
+          default: 0
+        - name: limit
+          in: query
+          description: number of items to query from DB
+          required: true
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 27
+          default: 9
+      responses:
+        200:
+          description: Successful users response
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/User"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+  /user/{id}:
+    get:
+      x-swagger-router-controller: User
+      operationId: findUserById
+      summary: Find user
+      tags:
+      - "user"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the user to get
+        required: true
+        type: integer
+        format: int64
+      responses:
+        200:
+          description: User response
+          schema:
+            $ref: "#/definitions/User"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+    delete:
+      x-swagger-router-controller: User
+      operationId: deleteUserById
+      summary: Delete user
+      tags:
+      - "user"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the user to delete
+        required: true
+        type: integer
+        format: int64
+      responses:
+        204:
+          description: User is deleted
+          schema:
+            $ref: "#/definitions/User"
+    put:
+      x-swagger-router-controller: User
+      operationId: updateUserById
+      summary: Update user
+      tags:
+      - "user"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: Id of the User being updated
+        required: true
+        type: integer
+        format: int64
+      - name: "updatedUser"
+        in: "body"
+        description: The updated User
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        200:
+          description: User is updated
+        400:
+          description: An error!
+  /user:
+    post:
+      x-swagger-router-controller: User
+      operationId: createUser
+      tags:
+      - "user"
+      consumes:
+      - application/json
+      summary: Create user
+      description: |
+        This endpoint allows to create new user.
+      parameters:
+      - in: body
+        name: body
+        description: User object
+        required: true
+        schema:
+          $ref: '#/definitions/User'
+      responses:
+        200:
+          description: Existing category was found and updated
+          schema:
+            $ref: "#/definitions/User"
+        201:
+          description: User added
+          schema:
+            $ref: "#/definitions/User"
+        400:
+          description: Invalid input
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
