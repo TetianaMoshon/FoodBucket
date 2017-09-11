@@ -204,6 +204,30 @@ paths:
       responses:
         204:
           description: Order is deleted
+    put:
+      x-swagger-router-controller: Order
+      operationId: updateOrderById
+      tags:
+      - "order"
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: Order body
+        required: true
+        schema:
+          $ref: '#/definitions/Order'
+      - name: id
+        in: path
+        description: ID of the order to update
+        required: true
+        type: string
+      responses:
+        200:
+          description: Order is updated
+        400:
+          description: Bad request
   /categories:
     get:
       x-swagger-router-controller: Category
@@ -341,6 +365,48 @@ paths:
             $ref: '#/definitions/Category'
         400:
           description: Invalid input
+  /ingredients:
+    get:
+      x-swagger-router-controller: Ingredient
+      operationId: getAllIngredients
+      tags:
+      - "ingredient"
+      produces:
+      - application/json
+      parameters:
+        - name: isActive
+          in: query
+          description: returns active ingredient
+          required: false
+          type: boolean
+        - name: offset
+          in: query
+          description: start position for quering from DB
+          required: true
+          type: integer
+          format: int32
+          minimum: 0
+          default: 0
+        - name: limit
+          in: query
+          description: number of items to query from DB
+          required: true
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 27
+          default: 9
+      responses:
+        200:
+          description: Successful ingredient response
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Ingredient"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
   /ingredient/{id}:
     get:
       x-swagger-router-controller: Ingredient
@@ -365,6 +431,77 @@ paths:
           description: invalid input
           schema:
             $ref: "#/definitions/Error"
+    delete:
+      x-swagger-router-controller: Ingredient
+      operationId: deleteIngredientById
+      tags:
+      - "ingredient"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the ingredient to delete
+        required: true
+        type: integer
+        format: int64
+      responses:
+        204:
+          description: Ingredient is deleted
+    put:
+      x-swagger-router-controller: Ingredient
+      operationId: updateIngredientById
+      tags:
+      - "ingredient"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: Id of the Ingredient being updated
+        required: true
+        type: integer
+        format: int64
+      - name: "updated_ingredient"
+        in: "body"
+        description: The updated Ingredient
+        required: true
+        schema:
+          $ref: "#/definitions/Ingredient"
+      responses:
+        200:
+          description: Ingredient is updated
+        400:
+          description: An error!
+  /ingredient:
+    post:
+      x-swagger-router-controller: Ingredient
+      operationId: createIngredient
+      tags:
+      - "ingredient"
+      consumes:
+      - application/json
+      summary: Create ingredient
+      description: |
+        This endpoint allows to create new ingredient.
+      parameters:
+      - in: body
+        name: body
+        description: Ingredient object
+        required: true
+        schema:
+          $ref: '#/definitions/Ingredient'
+      responses:
+        200:
+          description: Existing ingredient was found and updated
+          schema:
+            $ref: '#/definitions/Ingredient'
+        201:
+          description: Ingredient added
+          schema:
+            $ref: '#/definitions/Ingredient'
+        400:
+          description: Invalid input
   /promotion:
     get:
       x-swagger-router-controller: Promotion
@@ -632,7 +769,7 @@ definitions:
           $ref: '#/definitions/CartOrder'
       totalPriceOfAllDishes:
         type: integer
-        format: int64  
+        format: int64
   CartOrder:
     type: object
     required:
@@ -667,7 +804,6 @@ definitions:
     required:
       - image
       - title
-      - description
     properties:
       ingredient_id:
         type: integer
@@ -676,8 +812,14 @@ definitions:
         type: string
       title:
         type: string
-      description:
+      measure:
         type: string
+      quantity:
+        type: integer
+        format: int64
+      price: 
+        type: integer
+        format: int64
   Order:
     type: object
     required:
@@ -688,9 +830,11 @@ definitions:
       - price
       - status
     properties:
-      id:
+      orderId:
         type: integer
         format: int64
+      date:
+        type: string
       username:
         type: string
       city:
@@ -702,12 +846,22 @@ definitions:
         type: string
       status:
         type: string
+      phone:
+        type: string
       products:
         type: array
         items:
           type: integer
           format: int64
         minItems: 1
+      measure:
+        type: string
+      quantity:
+        type: integer
+        format: int64
+      discount:
+        type: integer
+        format: int64
   ProductInfo:
     type: object
     required:
