@@ -3,7 +3,7 @@ import {CartService} from '../../client/api/cart.service';
 import {ProductService} from '../../client/api/product.service';
 import {PagerService} from '../../services/pagination.service';
 import {Product} from '../../client/model/product';
-import {log} from "util";
+
 
 @Component({
   selector: 'app-productlist',
@@ -15,7 +15,6 @@ export class ProductlistComponent implements OnInit {
     priceOfChosenProduct;
     cartContentObjCreated = false;
     idOfLoggedinUser = 4444;
-    // arrayOfProductsIdsOnFrontEnd = [];
     arrayOfCartOrders = [];
 
     showHide: boolean;
@@ -28,12 +27,13 @@ export class ProductlistComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-        this.idOfLoggedinUser = this.getIdOfLoggedInUserFromLocalStorage();
+        // this.idOfLoggedinUser = this.getIdOfLoggedInUserFromLocalStorage();
         this.populateIdFieldOfProduct();
   }
 
     addProductToCart(e) {
-                if (/*JSON.parse(localStorage.getItem('cartContentObjCreated'))*/ !this.cartContentObjCreated) {
+        this.cartContentObjCreated = JSON.parse(localStorage.getItem('cartContentObjCreated'));
+                if (!this.cartContentObjCreated) {
                     // use POST method
 
                     // let's create cartOrder
@@ -52,12 +52,12 @@ export class ProductlistComponent implements OnInit {
 
                     this.cartService.createCartForUserById(this.idOfLoggedinUser, newCart).subscribe(
                         cart => {
+                            localStorage.setItem('showAPhrase', JSON.stringify(false));
                             console.log('What is in the cart ', cart);
                             const {orderedProducts} = cart;
                             orderedProducts.forEach(cartOrder => {
                                 this.arrayOfCartOrders.push(cartOrder);
-                                this.cartContentObjCreated = true;
-                                // localStorage.setItem('cartContentObjCreated', JSON.stringify(true));
+                                localStorage.setItem('cartContentObjCreated', JSON.stringify(true));
                             });
                         },
                         err => console.log('Error has happened ' + err )

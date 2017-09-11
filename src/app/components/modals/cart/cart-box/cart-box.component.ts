@@ -5,6 +5,7 @@ import {CartService} from '../../../../client/api/cart.service';
 import {ProductService} from '../../../../client/api/product.service';
 import {CartCommunicationService} from '../../../../services/cart-communication.service';
 import {Order} from '../../../../client/model/order';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-cart-box',
@@ -16,10 +17,11 @@ export class CartBoxComponent implements OnInit, OnDestroy {
     title = 'Cart';
     idOfLoggedinUser = 4444;
     cancelPrice = false;
-    showAPhrase = false;
+    showAPhrase = true;
     totalPriceOfAllDishes = 0;
     arrayOfDishNamesAndPrices = [];
     dataReferenceArray = [];
+    subscription: Subscription;
 
     constructor(
         public bsModalRef: BsModalRef,
@@ -31,10 +33,10 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
 
     ngOnInit() {
-        this.idOfLoggedinUser = this.getIdOfLoggedInUserFromLocalStorage();
-        this.showAPhrase = true;
+        // this.idOfLoggedinUser = this.getIdOfLoggedInUserFromLocalStorage();
+        this.showAPhrase = JSON.parse(localStorage.getItem('showAPhrase'));
         this.populateArrayOfDishNamesAndPrices();
-        this.cartCommunicationService.passedData.subscribe(
+        this.subscription = this.cartCommunicationService.passedData.subscribe(
             data => {
                 this.calculateTotalPriceToPay(data);
             }
@@ -43,39 +45,42 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         // Before modal is destroyed let's take care of user's data and save it to database
-        this.updateCartContentBasedOnDeletedItemsOnServer(this.arrayOfDishNamesAndPrices);
+            this.updateCartContentBasedOnDeletedItemsOnServer(this.arrayOfDishNamesAndPrices);
+            this.subscription.unsubscribe();
     }
 
+
     populateArrayOfDishNamesAndPrices() {
-        this.cartService.findCartContentById(this.idOfLoggedinUser).subscribe(
-            cartData => {
-                if (cartData === undefined || cartData === null) {
-                    return;
-                } else {
-                    this.showAPhrase = false;
-                    // retrieve array of cartOrders of logged in user
-                    const {orderedProducts} = cartData;
+        if (JSON.parse(localStorage.getItem('cartContentObjCreated'))) {
+            this.cartService.findCartContentById(this.idOfLoggedinUser).subscribe(
+                cartData => {
+                    if (cartData === undefined || cartData === null) {
+                        return;
+                    } else {
+                        // this.showAPhrase = false;
+                        // retrieve array of cartOrders of logged in user
+                        const {orderedProducts} = cartData;
 
-                    // go through array of cartOrders of logged in user and add each product to arrayOfDishNamesAndPrices
-                    orderedProducts.forEach(cartOrder => { // {productId: parseInt(e.target.id), quantity: 1}
-                        // retrieve necessary product data
-                        this.productService.findProductById(cartOrder.productId).subscribe(
-                            product => {
-                                const {title : name, image, price, productId} =  product;
-                                this.arrayOfDishNamesAndPrices.push({image, id : productId, name, price,
-                                    quantityOrdered: cartOrder.quantity});
-                    // let's have a copy of arrayOfDishNamesAndPrices so we can refer to it later instead of calling our server
-                                this.dataReferenceArray.push({image, id : productId, name, price,
-                                    quantityOrdered: cartOrder.quantity});
-                                this.sumUpTotalPriceOfAllDishes(this.arrayOfDishNamesAndPrices);
-                            }
-                        );
-                    });
+                        // go through array of cartOrders of logged in user and add each product to arrayOfDishNamesAndPrices
+                        orderedProducts.forEach(cartOrder => { // {productId: parseInt(e.target.id), quantity: 1}
+                            // retrieve necessary product data
+                            this.productService.findProductById(cartOrder.productId).subscribe(
+                                product => {
+                                    const {title : name, image, price, productId} =  product;
+                                    this.arrayOfDishNamesAndPrices.push({image, id : productId, name, price,
+                                        quantityOrdered: cartOrder.quantity});
+                                    // let's have a copy of arrayOfDishNamesAndPrices so we can refer to it later instead of calling our server
+                                    this.dataReferenceArray.push({image, id : productId, name, price,
+                                        quantityOrdered: cartOrder.quantity});
+                                    this.sumUpTotalPriceOfAllDishes(this.arrayOfDishNamesAndPrices);
+                                }
+                            );
+                        });
+                    }
+
                 }
-
-            }
-        );
-
+            );
+        }
     }
 
     renewArray(id: number) {
@@ -100,6 +105,8 @@ export class CartBoxComponent implements OnInit, OnDestroy {
                     );
 
                     this.showAPhrase = true;
+                    localStorage.setItem('showAPhrase', JSON.stringify(true));
+                    localStorage.setItem('cartContentObjCreated', JSON.stringify(false));
                 }
             }
 
@@ -110,18 +117,23 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
     private updateCartContentBasedOnDeletedItemsOnServer(arr) {
         // let's created updatedCartOrder
-        const arrayOfCartOrders = this.extractCartOrdersArray(arr);
-        // let's make sure our totalPriceOfAllDishes is up-to-date
-        this.sumUpTotalPriceOfAllDishes(arr);
-        const updatedCart = {
-            orderedProducts: arrayOfCartOrders,
-            // when cart is first created total price is the price of a clicked product
-            totalPriceOfAllDishes: this.totalPriceOfAllDishes
-        };
+           if (JSON.parse(localStorage.getItem('cartContentObjCreated'))) {
+            const arrayOfCartOrders = this.extractCartOrdersArray(arr);
+            // let's make sure our totalPriceOfAllDishes is up-to-date
+            this.sumUpTotalPriceOfAllDishes(arr);
+            const updatedCart = {
+                orderedProducts: arrayOfCartOrders,
+                // when cart is first created total price is the price of a clicked product
+                totalPriceOfAllDishes: this.totalPriceOfAllDishes
+            };
 
-        this.cartService.updateCartContentById(this.idOfLoggedinUser, updatedCart).subscribe(updatedData => {
-            console.log('updatedCart returned from backend ', updatedData);
-        });
+            this.cartService.updateCartContentById(this.idOfLoggedinUser, updatedCart).subscribe(updatedData => {
+                console.log('updatedCart returned from backend ', updatedData);
+            });
+        } else {
+            return;
+        }
+
     }
 
     private extractCartOrdersArray(arr) {
@@ -181,7 +193,6 @@ export class CartBoxComponent implements OnInit, OnDestroy {
         // let's make an Order object and send it to checkout
         const cartOrdersArray = this.extractCartOrdersArray(this.arrayOfDishNamesAndPrices);
         const newOrder: Order = {
-            id: this.idOfLoggedinUser,
             username: 'string',
             city: 'string',
             price: this.totalPriceOfAllDishes,
