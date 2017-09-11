@@ -116,7 +116,7 @@ export class ProductlistComponent implements OnInit {
 
     getIdOfLoggedInUserFromLocalStorage() {
         const id = JSON.parse(localStorage.getItem('currentUser'));
-        return id;
+        return id.userId;
     }
 }
 

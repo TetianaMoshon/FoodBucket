@@ -181,19 +181,20 @@ export class CartBoxComponent implements OnInit, OnDestroy {
         // let's make an Order object and send it to checkout
         const cartOrdersArray = this.extractCartOrdersArray(this.arrayOfDishNamesAndPrices);
         const newOrder: Order = {
-            id: this.idOfLoggedinUser,
             username: 'string',
             city: 'string',
             price: this.totalPriceOfAllDishes,
             address: 'string',
             status: 'string',
             products: cartOrdersArray
-        }
-        this.router.navigate(['/checkout'], {queryParams: newOrder});
+        };
+        this.router.navigate(['/checkout'], {queryParams:
+            {order:btoa(JSON.stringify(newOrder))}
+        });
     }
 
     private getIdOfLoggedInUserFromLocalStorage() {
             const id = JSON.parse(localStorage.getItem('currentUser'));
-            return id;
+            return id.userId;
     }
 }
