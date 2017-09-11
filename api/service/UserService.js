@@ -97,7 +97,11 @@ exports.findUserById = function (id) {
  **/
 exports.getAllUsers = function (offset, limit, isActive) {
     return new Promise((resolve, reject) => {
-        User.find().then(
+        User.find().where({
+            'active': {
+                $gte: true
+            }
+        }).then(
             usersDoc => {
                 usersDoc = usersDoc || [];
                 if (Object.keys(usersDoc).length > 0) {
