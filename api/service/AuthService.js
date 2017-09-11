@@ -19,7 +19,7 @@ exports.login = function ({email, password}) {
                     return oneUserDoc;
                 }
             },
-            error => { reject(utils.respondWithCode(404, {"code": 404, "message": "User is not found, please try again."})); }
+            error => { reject(utils.respondWithCode(403, {"code": 403, "message": "User is not found, please try again."})); }
         )
             .then(
                 oneUserDoc => {
@@ -28,9 +28,9 @@ exports.login = function ({email, password}) {
                         let {email, userId, firstName, lastName, city, address} = oneUserDoc;
                         resolve(utils.respondWithCode(200, {email, userId, firstName, lastName, city, address}));
                     } else {
-                        reject(utils.respondWithCode(404, {
-                            "code": 404,
-                            "message": "User is not found, please try again."
+                        reject(utils.respondWithCode(403, {
+                            "code": 403,
+                            "message": "Unauthorised , please try again."
                         }));
                     }
                 }

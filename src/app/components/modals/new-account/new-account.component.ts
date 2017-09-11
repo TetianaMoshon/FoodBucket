@@ -27,13 +27,17 @@ export class NewAccountComponent implements OnInit {
         const {firstName, lastName, email, password, city, address} = this.model;
         /*this.destructedObj = { firstName, lastName, email, password, city, address };
         console.log(this.destructedObj);*/
-        this.registerAPI.registerWithHttpInfo({firstName, lastName, email, password, city, address}).subscribe(reg => {
+        this.registerAPI.registerWithHttpInfo({firstName, lastName, email, password, city, address})
+            .subscribe(reg => {
             if (reg.ok ) {
                 this.openModal('Registration is completed');
             } else {
                 this.openModal('Ooops, smth went wrong!');
             }
-        });
+        }, err => {
+                    console.log('error reg' + err);
+                    this.openModal('Sorry, you are\'t logged. Try again please!');
+                });
     }
     public  openModal(text: string) {
         this.data.changeMessage(text);

@@ -36,7 +36,11 @@ export class LoginComponent implements OnInit {
             } else {
                 this.openModal('Sorry, you are\'t logged. Try again please!');
             }
-        });
+        },
+            err => {
+                console.log('error reg' + err);
+                this.openModal('Sorry, you are\'t logged. Try again please!');
+            });
     }
     public openNewAccount() {
         this.modalService.show(NewAccountComponent);
