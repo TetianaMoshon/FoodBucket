@@ -68,11 +68,15 @@
                     <p class="details-p__big-text"> <a href="http://mirellefoods.com/share/Pasta%20recipes.pdf" target="_blank">Detail</a> </p>
                 </div>
             </div>
-            <div ng-app calss="">
-                <div ng-init="counter = 1"></div>
-                <button (click)="counter = counter+1">+</button>
-                <button (click)="counter==1?counter=1:counter = counter-1">-</button>
-                <span>{{counter}}</span>
+            <div ng-app class="input-group-btn counter">
+                <button (click)="counter = counter+1" class="btn btn-default btn-number">
+                  <span class="glyphicon glyphicon-plus"></span>
+                </button>
+                <input type="text" class="form-control input-number" value={{counter}} min="1">
+                <button (click)="counter==1?counter=1:counter = counter-1" class="btn btn-default btn-number">
+                  <span class="glyphicon glyphicon-minus"></span>
+                </button>
+
             </div>
             <div class="row button-padding">
                 <div class="price-wrapper">
