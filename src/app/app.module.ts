@@ -39,8 +39,9 @@ import { CongratulationComponent } from './components/modals/congratulation/cong
 import { ForgotPassComponent } from './components/modals/forgot-pass/forgot-pass.component';
 import { ConfirmationComponent } from './components/modals/confirmation/confirmation.component';
 import { ProductpageComponent } from './components/productlist/productpage/productpage.component';
-import {ImageRenderComponent} from './components/admin-ingredients/image-render.component';
+
 import { AdminProductPageComponent } from './components/admin-product-list/admin-product-page/admin-product-page.component';
+import { AdmincategoriesFormComponent } from './components/admincategories/admincategories-form/admincategories-form.component';
 
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { TabsModule } from 'ngx-bootstrap';
@@ -54,6 +55,8 @@ import { OrdersFiltersPipe } from './pipes/orders-filters.pipe';
 import { ApiModule } from './client/index';
 import { apiConfig } from './client/api.config';
 import { AdminUserPageComponent } from './components/admin-users/admin-user-page/admin-user-page.component';
+import {appRouting} from './app.routing';
+import {AdminIngredientsFormComponent} from './components/admin-ingredients/adminingredients-form/adminingredients-form.component';
 
 @NgModule({
   declarations: [
@@ -94,11 +97,12 @@ import { AdminUserPageComponent } from './components/admin-users/admin-user-page
       CartItemComponent,
       AdminProductPageComponent,
       DisqusComponent,
-      ImageRenderComponent,
       UserProfileComponent,
       Error404Component,
       OrdersFiltersPipe,
       AdminUserPageComponent,
+      AdmincategoriesFormComponent,
+      AdminIngredientsFormComponent,
   ],
   entryComponents: [
       ModalCongratulationComponent,
@@ -107,7 +111,6 @@ import { AdminUserPageComponent } from './components/admin-users/admin-user-page
       ForgotPassComponent,
       ConfirmationComponent,
       NewAccountComponent,
-      ImageRenderComponent,
       AdminProductListImageComponent,
       CartBoxComponent,
   ],
