@@ -26,9 +26,9 @@ const productSchema = mongoose.Schema({
     difficulty: String,
     spiceLevel: String,
     ingredients: [{
+        "ingredientId": Number,
         "ingredientName": String,
-        "quantity": Number,
-        "measure": String
+        "quantity": Number
     }]
 });
 
