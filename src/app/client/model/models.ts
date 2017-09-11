@@ -8,6 +8,7 @@ export * from './login';
 export * from './modelError';
 export * from './order';
 export * from './product';
+export * from './productInfo';
 export * from './promotion';
 export * from './register';
 export * from './toprated';

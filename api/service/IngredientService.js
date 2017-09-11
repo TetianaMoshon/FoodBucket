@@ -10,23 +10,21 @@ const debug = require('debug')('foodbucket:ingredientService');
  * body Ingredient Ingredient object
  * returns Ingredient
  **/
-exports.createIngredient = function({ingredient_id, image, measure, quantity, price, description, discount, title}) {
+exports.createIngredient = function({ingredient_id, image, measure, quantity, price, title}) {
     return new Promise( (resolve, reject) => {
        let newIngredient = new Ingredient ({
             "image": image,
             "measure" : measure,
             "quantity" : quantity,
             "price" : price,
-            "description" : description,
-            "discount" : discount,
             "title" : title
         });
 
        newIngredient.save().then(
             ingredientDoc => {
                 if (Object.keys(ingredientDoc).length > 0) {
-                    let {ingredient_id, title, image, description, measure, quantity, price, discount} = ingredientDoc;
-                    resolve(utils.respondWithCode(201, {ingredient_id, title, image, description, measure, quantity, price, discount}));
+                    let {ingredient_id, title, image, measure, quantity, price} = ingredientDoc;
+                    resolve(utils.respondWithCode(201, {ingredient_id, title, image, measure, quantity, price}));
                 } else {
                     reject(utils.respondWithCode(404, {"code": 404, "message": "Ingredient is not created, please try again."}));
                 }
@@ -49,8 +47,8 @@ exports.deleteIngredientById = function(id) {
             oneIngredientDoc => {
                 oneIngredientDoc = oneIngredientDoc || {};
                 if (Object.keys(oneIngredientDoc).length > 0) {
-                    let {ingredient_id, title, image, description, measure, quantity, price, discount} = oneIngredientDoc;
-                    resolve(utils.respondWithCode(200, {ingredient_id, title, image, description, measure, quantity, price, discount}));
+                    let {ingredient_id, title, image,  measure, quantity, price} = oneIngredientDoc;
+                    resolve(utils.respondWithCode(200, {ingredient_id, title, image,  measure, quantity, price}));
                 } else {
                     reject(utils.respondWithCode(404, {"code": 404, "message": "Ingredient is not deleted, please try again."}));
                 }
@@ -73,8 +71,8 @@ exports.findIngredientById = function(id) {
             oneIngredientDoc => {
                 oneIngredientDoc = oneIngredientDoc || {};
                 if (Object.keys(oneIngredientDoc).length > 0) {
-                    let {ingredient_id, title, image, description, measure, quantity, price, discount} = oneIngredientDoc;
-                    resolve(utils.respondWithCode(200, {ingredient_id, title, image, description, measure, quantity, price, discount}));
+                    let {ingredient_id, title, image,  measure, quantity, price} = oneIngredientDoc;
+                    resolve(utils.respondWithCode(200, {ingredient_id, title, image,  measure, quantity, price}));
                 } else {
                     reject(utils.respondWithCode(404, {"code": 404, "message": "Ingredient is not found, please try again."}));
                 }
@@ -98,8 +96,8 @@ exports.getAllIngredients = function(offset,limit,isActive) {
             ingredientsDoc => {
                 ingredientsDoc = ingredientsDoc || [];
                 if (Object.keys(ingredientsDoc).length > 0) {
-                    ingredientsDoc = ingredientsDoc.map( ({ ingredient_id, title, image, description, measure, quantity, price, discount}) => {
-                        return { ingredient_id, title, image, description, measure, quantity, price, discount };
+                    ingredientsDoc = ingredientsDoc.map( ({ ingredient_id, title, image,  measure, quantity, price}) => {
+                        return { ingredient_id, title, image,  measure, quantity, price };
                     });
                     resolve(utils.respondWithCode(200, ingredientsDoc));
                 } else {
@@ -107,7 +105,7 @@ exports.getAllIngredients = function(offset,limit,isActive) {
                 }
             },
             error => { debug('Unable to get ingredients: %O', error); }
-    );
+         );
     });
 }
 
@@ -121,15 +119,15 @@ exports.getAllIngredients = function(offset,limit,isActive) {
  **/
 exports.updateIngredientById = function(id,updatedIngredient) {
     return new Promise((resolve, reject) => {
-        let { title, image, description, measure, quantity, price, discount } = updatedIngredient;
+        let { title, image, measure, quantity, price } = updatedIngredient;
 
-        Ingredient.findOneAndUpdate({ ingredient_id: id }, { title, image, description, measure, quantity, price, discount }).then(
+        Ingredient.findOneAndUpdate({ ingredient_id: id }, { title, image,  measure, quantity, price }).then(
             oneIngredient => {
                 if (Object.keys(updatedIngredient).length > 0 && oneIngredient !== null) {
                     let ingredient_id = oneIngredient.ingredient_id;
-                    resolve(utils.respondWithCode(200, {ingredient_id, title, image, description, measure, quantity, price, discount}));
+                    resolve(utils.respondWithCode(200, {ingredient_id, title, image,  measure, quantity, price}));
                 } else {
-                    reject(utils.respondWithCode(400, {"code": 404, "message": "Ingredient is not updated, please try again."}));
+                    reject(utils.respondWithCode(400, {"code": 400, "message": "Ingredient is not updated, please try again."}));
                 }
             },
             error => { debug('Unable to get ingredient: %O', error); }

@@ -73,8 +73,8 @@ export class IngredientService {
     }
 
     /**
-     * This endpoint allows to create new Ingredient. 
-     * @summary Create Ingredient
+     * This endpoint allows to create new ingredient. 
+     * @summary Create ingredient
      * @param body Ingredient object
      */
     public createIngredient(body: Ingredient, extraHttpRequestParams?: any): Observable<Ingredient> {
@@ -122,7 +122,7 @@ export class IngredientService {
      * 
      * @param offset start position for quering from DB
      * @param limit number of items to query from DB
-     * @param isActive returns active ingredients
+     * @param isActive returns active ingredient
      */
     public getAllIngredients(offset: number, limit: number, isActive?: boolean, extraHttpRequestParams?: any): Observable<Array<Ingredient>> {
         return this.getAllIngredientsWithHttpInfo(offset, limit, isActive, extraHttpRequestParams)
@@ -153,8 +153,8 @@ export class IngredientService {
 
 
     /**
-     * Create Ingredient
-     * This endpoint allows to create new Ingredient. 
+     * Create ingredient
+     * This endpoint allows to create new ingredient. 
      * @param body Ingredient object
      */
     public createIngredientWithHttpInfo(body: Ingredient, extraHttpRequestParams?: any): Observable<Response> {
@@ -270,7 +270,7 @@ export class IngredientService {
      * 
      * @param offset start position for quering from DB
      * @param limit number of items to query from DB
-     * @param isActive returns active ingredients
+     * @param isActive returns active ingredient
      */
     public getAllIngredientsWithHttpInfo(offset: number, limit: number, isActive?: boolean, extraHttpRequestParams?: any): Observable<Response> {
         const path = this.basePath + '/ingredients';

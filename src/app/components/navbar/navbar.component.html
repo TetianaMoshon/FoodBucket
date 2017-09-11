@@ -56,9 +56,8 @@
                       </g>
                     </svg>
                 </span></li>
-                <!--<li><a (click)="isCollapsed = true" class="bucket"></a> </li>-->
-                <li><a (click)="openLoginModal();isCollapsed = true" >Log In / Register</a></li>
-                <!--<li><a  (click)="openNewAccount();isCollapsed = true" >Sign Up</a></li>-->
+                <li *ngIf="isLogged"><a (click)="openLoginModal();isCollapsed = true">Log In / Registration</a></li>
+                <li *ngIf="!isLogged"><a (click)="isCollapsed = true"routerLink="profile" routerLinkActive="active">{{LogBtnText}}</a></li>
 
             </ul>
             <form class="navbar-form navbar-right">

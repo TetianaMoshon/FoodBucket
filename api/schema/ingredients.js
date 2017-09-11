@@ -5,12 +5,10 @@ const counter = require('../model/counter');
 const IngredientsSchema = mongoose.Schema({
     ingredient_id: Number,
     title: String,
-    discription: String,
     image: String,
     measure: String,
     quantity: Number,
     price: Number,
-    discount: Number
 });
 
 IngredientsSchema.pre('save', function(next) {

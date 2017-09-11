@@ -19,8 +19,6 @@ export interface Ingredient {
 
     description: string;
 
-    image: string;
-
     measure?: string;
 
     quantity?: string;
@@ -28,5 +26,7 @@ export interface Ingredient {
     price?: number;
 
     discount?: number;
+
+    image: string;
 
 }
