@@ -1,14 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NgForm} from '@angular/forms';
+import {ProductService} from '../../client/api/product.service';
+import {OrderService} from '../../client/api/order.service';
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
   styleUrls: ['./checkout.component.css'],
 })
 export class CheckoutComponent implements OnInit {
+    ORDER: any;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private products: ProductService, private orderS: OrderService) { }
     surname: string;
     phone: string;
     city: string;
@@ -17,7 +20,8 @@ export class CheckoutComponent implements OnInit {
 
 
   ngOnInit() {
-      const ORDER = JSON.parse(atob(this.route.snapshot.queryParams.order));
+      this.ORDER = JSON.parse(atob(this.route.snapshot.queryParams.order));
+      console.log(this.ORDER);
       function validateCardNumber(value) {
           const v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
           const matches = v.match(/\d{4,16}/g);
@@ -38,12 +42,26 @@ export class CheckoutComponent implements OnInit {
           });
   }
     onSubmit(form: NgForm) {
-        const orderObject = {
-            username: form.value.firstName + ' ' + form.value.surname,
-            phone: form.value.phone,
-            city: form.value.city,
-            address: form.value.address,
-        };
-        console.log(orderObject);
+      console.log(this.ORDER);
+      let username = this.ORDER.username;
+      let city = form.value.city;
+      let address = form.value.address;
+      let price = this.ORDER.price;
+      console.log(price);
+      let status = 'NEW';
+      let phone = form.value.phone;
+      let products: number[] = [parseInt(this.ORDER.products[0].productId)];
+      console.log(this.ORDER.products[0].productId)
+      this.orderS.putOrder({
+          "username": username,
+          "city": city,
+          "price": price,
+          "address": address,
+          "status": status,
+          "phone": phone,
+          "products": products
+      }).subscribe(res => {
+          console.log(res);
+      });
     }
 }
