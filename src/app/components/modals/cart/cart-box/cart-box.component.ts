@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {CartService} from '../../../../client/api/cart.service';
 import {ProductService} from '../../../../client/api/product.service';
 import {CartCommunicationService} from '../../../../services/cart-communication.service';
-import {Subscription} from 'rxjs/Subscription';
+import {Order} from '../../../../client/model/order';
 
 @Component({
   selector: 'app-cart-box',
@@ -14,19 +14,12 @@ import {Subscription} from 'rxjs/Subscription';
 export class CartBoxComponent implements OnInit, OnDestroy {
 
     title = 'Cart';
-
     idOfLoggedinUser = 4444;
-
     cancelPrice = false;
     showAPhrase = false;
-
     totalPriceOfAllDishes = 0;
-
-
     arrayOfDishNamesAndPrices = [];
-
     dataReferenceArray = [];
-    private subscription: Subscription;
 
     constructor(
         public bsModalRef: BsModalRef,
@@ -36,21 +29,20 @@ export class CartBoxComponent implements OnInit, OnDestroy {
         private cartCommunicationService: CartCommunicationService
     ) { }
 
+
     ngOnInit() {
         this.showAPhrase = true;
         this.populateArrayOfDishNamesAndPrices();
         this.cartCommunicationService.passedData.subscribe(
             data => {
                 this.calculateTotalPriceToPay(data);
-                console.log('data passed', data);
             }
         );
     }
 
     ngOnDestroy() {
         // Before modal is destroyed let's take care of user's data and save it to database
-        this.updateCartContentBasedOnDeletedItemsOnServer(this.arrayOfDishNamesAndPrices, this.dataReferenceArray);
-        console.log('OnDestroy works and saves.');
+        this.updateCartContentBasedOnDeletedItemsOnServer(this.arrayOfDishNamesAndPrices);
     }
 
     populateArrayOfDishNamesAndPrices() {
@@ -69,9 +61,11 @@ export class CartBoxComponent implements OnInit, OnDestroy {
                         this.productService.findProductById(cartOrder.productId).subscribe(
                             product => {
                                 const {title : name, image, price, productId} =  product;
-                                this.arrayOfDishNamesAndPrices.push({image, id : productId, name, price, quantityOrdered: cartOrder.quantity});
+                                this.arrayOfDishNamesAndPrices.push({image, id : productId, name, price,
+                                    quantityOrdered: cartOrder.quantity});
                     // let's have a copy of arrayOfDishNamesAndPrices so we can refer to it later instead of calling our server
-                                this.dataReferenceArray.push({image, id : productId, name, price, quantityOrdered: cartOrder.quantity});
+                                this.dataReferenceArray.push({image, id : productId, name, price,
+                                    quantityOrdered: cartOrder.quantity});
                                 this.sumUpTotalPriceOfAllDishes(this.arrayOfDishNamesAndPrices);
                             }
                         );
@@ -93,7 +87,7 @@ export class CartBoxComponent implements OnInit, OnDestroy {
                 this.arrayOfDishNamesAndPrices.splice(i, 1);
                 // let's update modyfied cartContent with some deleted items
 
-                this.updateCartContentBasedOnDeletedItemsOnServer(this.arrayOfDishNamesAndPrices, this.dataReferenceArray);
+                this.updateCartContentBasedOnDeletedItemsOnServer(this.arrayOfDishNamesAndPrices);
 
                 if (this.dataReferenceArray.length === 0) {
                     // let's delete user's cart altogether
@@ -113,18 +107,9 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
     }
 
-    private updateCartContentBasedOnDeletedItemsOnServer(arr, dataRefArr) {
+    private updateCartContentBasedOnDeletedItemsOnServer(arr) {
         // let's created updatedCartOrder
-        const arrayOfCartOrders = [];
-
-        arr.forEach(data => {
-            const priceForAProduct = this.getPriceById(data.id);
-            arrayOfCartOrders.push(
-                {
-                    productId: parseInt(data.id),
-                    quantity: data.price / priceForAProduct
-                });
-        });
+        const arrayOfCartOrders = this.extractCartOrdersArray(arr);
         // let's make sure our totalPriceOfAllDishes is up-to-date
         this.sumUpTotalPriceOfAllDishes(arr);
         const updatedCart = {
@@ -136,6 +121,20 @@ export class CartBoxComponent implements OnInit, OnDestroy {
         this.cartService.updateCartContentById(this.idOfLoggedinUser, updatedCart).subscribe(updatedData => {
             console.log('updatedCart returned from backend ', updatedData);
         });
+    }
+
+    private extractCartOrdersArray(arr) {
+        const arrayOfCartOrders = [];
+
+        arr.forEach(data => {
+            const priceForAProduct = this.getPriceById(data.id);
+            arrayOfCartOrders.push(
+                {
+                    productId: parseInt(data.id),
+                    quantity: data.price / priceForAProduct
+                });
+        });
+        return arrayOfCartOrders;
     }
 
     calculateTotalPriceToPay(data) {
@@ -179,7 +178,17 @@ export class CartBoxComponent implements OnInit, OnDestroy {
         this.bsModalRef.hide();
 
         // let's make an Order object and send it to checkout
-        this.router.navigate(['/checkout']);
+        const cartOrdersArray = this.extractCartOrdersArray(this.arrayOfDishNamesAndPrices);
+        const newOrder: Order = {
+            id: this.idOfLoggedinUser,
+            username: 'string',
+            city: 'string',
+            price: this.totalPriceOfAllDishes,
+            address: 'string',
+            status: 'string',
+            products: cartOrdersArray
+        }
+        this.router.navigate(['/checkout'], {queryParams: newOrder});
     }
 
 }

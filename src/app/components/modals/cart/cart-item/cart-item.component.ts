@@ -19,6 +19,9 @@ export class CartItemComponent implements OnInit {
 
     ngOnInit() {
         this.amountOfDishesOrdered = this.info.quantityOrdered || 1;
+        if (this.amountOfDishesOrdered > 1) {
+            this.cartCommunicationService.passedData.next({amount: this.amountOfDishesOrdered, id: this.info.id });
+        }
         this.totalPriceOfOneDish = this.info.price * this.info.quantityOrdered || this.info.price;
     }
 
