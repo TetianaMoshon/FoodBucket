@@ -21,6 +21,8 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit() {
       this.ORDER = JSON.parse(atob(this.route.snapshot.queryParams.order));
+      this.products.findProductById(this.ORDER.products[0].productId).subscribe(res =>
+      {console.log(res)});
       console.log(this.ORDER);
       function validateCardNumber(value) {
           const v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
