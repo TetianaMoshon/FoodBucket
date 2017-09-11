@@ -204,6 +204,30 @@ paths:
       responses:
         204:
           description: Order is deleted
+    put:
+      x-swagger-router-controller: Order
+      operationId: updateOrderById
+      tags:
+      - "order"
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: Order body
+        required: true
+        schema:
+          $ref: '#/definitions/Order'
+      - name: id
+        in: path
+        description: ID of the order to update
+        required: true
+        type: string
+      responses:
+        200:
+          description: Order is updated
+        400:
+          description: Bad request
   /categories:
     get:
       x-swagger-router-controller: Category
@@ -806,9 +830,11 @@ definitions:
       - price
       - status
     properties:
-      id:
+      orderId:
         type: integer
         format: int64
+      date:
+        type: string
       username:
         type: string
       city:
@@ -819,6 +845,8 @@ definitions:
       address:
         type: string
       status:
+        type: string
+      phone:
         type: string
       products:
         type: array
