@@ -15,18 +15,14 @@
 export interface Ingredient {
     ingredientId?: number;
 
-    title: string;
+    image: string;
 
-    description: string;
+    title: string;
 
     measure?: string;
 
-    quantity?: string;
+    quantity?: number;
 
     price?: number;
-
-    discount?: number;
-
-    image: string;
 
 }
