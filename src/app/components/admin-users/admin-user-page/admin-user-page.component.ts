@@ -13,7 +13,7 @@ import { UserModel } from './userModel';
   templateUrl: './admin-user-page.component.html',
   styleUrls: ['./admin-user-page.component.css']
 })
-export class AdminUserPageComponent implements OnInit, OnDestroy{
+export class AdminUserPageComponent implements OnInit, OnDestroy {
 
     action: {
         id: number,
@@ -39,7 +39,7 @@ export class AdminUserPageComponent implements OnInit, OnDestroy{
 
                     if (!isNaN(parseInt(seg1, 10)) && seg2 === 'edit') {
 
-                        this.findUserById(parseInt(seg1, 10));
+                        this.fillUserById(parseInt(seg1, 10));
 
                         this.action = {
                             id: parseInt(seg1, 10),
@@ -60,12 +60,12 @@ export class AdminUserPageComponent implements OnInit, OnDestroy{
     }
 
     onSubmit() {
+        this.userModel.phone = Number(this.userModel.phone);
+
         if (this.action.name === 'create') {
-            this.userModel.phone = Number(this.userModel.phone);
             this.createUser(this.userModel);
             this.reset();
         } else {
-            this.userModel.phone = Number(this.userModel.phone);
             this.updateUser(this.action.id, this.userModel);
         }
     }
@@ -74,11 +74,10 @@ export class AdminUserPageComponent implements OnInit, OnDestroy{
         this.userService.createUser(userModel)
             .subscribe(
                 user => {
-                    this.flashMessagesService.show(`User with id:${user['user_id']} was successfully created!`, {
+                    this.flashMessagesService.show(`User was successfully created!`, {
                         classes: ['alert', 'alert-success'],
                         timeout: 3000,
                     });
-                    this.reset();
                 },
                 err => console.log(err)
             );
@@ -97,7 +96,7 @@ export class AdminUserPageComponent implements OnInit, OnDestroy{
             );
     }
 
-    findUserById(id: number) {
+    fillUserById(id: number) {
         this.userService.findUserById(id)
             .subscribe(
                 user => {
