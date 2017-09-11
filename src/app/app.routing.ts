@@ -21,6 +21,7 @@ import {UserProfileComponent} from './components/user-profile/user-profile.compo
 import {AdmincategoriesFormComponent} from './components/admincategories/admincategories-form/admincategories-form.component';
 
 import {Error404Component} from './components/error404/error404.component';
+import {AdminIngredientsFormComponent} from "./components/admin-ingredients/adminingredients-form/adminingredients-form.component";
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
@@ -50,10 +51,15 @@ const appRoutes: Routes = [
           { path: 'create', component: AdmincategoriesFormComponent },
       ]},
       { path: 'analytics', component: AdminAnalyticsComponent},
-      { path: 'ingredients', component: AdminIngredientsComponent},
+      { path: 'ingredients', children: [
+          { path: '', component: AdminIngredientsComponent },
+          { path: ':id/edit', component: AdminIngredientsFormComponent },
+          { path: 'create', component: AdminIngredientsFormComponent },
+       ]},
   ]},
-    {path: '**', component: Error404Component },
+      {path: '**', component: Error404Component },
 ];
 
 export  const appRouting: ModuleWithProviders = RouterModule.forRoot(appRoutes);
+
 
