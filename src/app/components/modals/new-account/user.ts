@@ -1,9 +1,13 @@
-export class User {
+import {Register} from '../../../client/model/register';
+
+export class User implements Register {
 
     constructor(
-        public name: string,
-        public surname: string,
+        public firstName: string,
+        public lastName: string,
         public email: string,
-        public password: any,
+        public password: string,
+        public city: string,
+        public address: string,
     ) {}
 }
