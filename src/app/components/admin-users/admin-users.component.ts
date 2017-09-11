@@ -65,8 +65,6 @@ export class AdminUsersComponent implements OnInit {
             .subscribe(
                 user => {
                     this.data =  user;
-                    console.log(this.data);
-                    console.log(user);
                 },
                 err => console.log(err)
             );
@@ -80,8 +78,6 @@ export class AdminUsersComponent implements OnInit {
         this.changeRoute(`/admin/users/${event.data.user_id}/edit`);
 
     }
-
-
 
     onDeleteClick(event, eventName: string): void {
         this.userService.findUserById(event.data.user_id)
