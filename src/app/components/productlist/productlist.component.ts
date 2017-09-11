@@ -28,11 +28,12 @@ export class ProductlistComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+        this.idOfLoggedinUser = this.getIdOfLoggedInUserFromLocalStorage();
         this.populateIdFieldOfProduct();
   }
 
     addProductToCart(e) {
-                if (!this.cartContentObjCreated) {
+                if (/*JSON.parse(localStorage.getItem('cartContentObjCreated'))*/ !this.cartContentObjCreated) {
                     // use POST method
 
                     // let's create cartOrder
@@ -56,7 +57,7 @@ export class ProductlistComponent implements OnInit {
                             orderedProducts.forEach(cartOrder => {
                                 this.arrayOfCartOrders.push(cartOrder);
                                 this.cartContentObjCreated = true;
-                                console.log('Yooooo ', cartOrder);
+                                // localStorage.setItem('cartContentObjCreated', JSON.stringify(true));
                             });
                         },
                         err => console.log('Error has happened ' + err )
@@ -74,7 +75,7 @@ export class ProductlistComponent implements OnInit {
 
                 // let's push new CartOrder into arrayOfCartOrders
               this.arrayOfCartOrders.push({productId: parseInt(e.target.id), quantity: 1});
-
+                console.log(' this.arrayOfCartOrders ',  this.arrayOfCartOrders);
                 // let's created updatedCartOrder
                     console.log('array with added items ', this.arrayOfCartOrders);
                 const updatedCart = {
@@ -111,6 +112,11 @@ export class ProductlistComponent implements OnInit {
 
           });
 
+    }
+
+    getIdOfLoggedInUserFromLocalStorage() {
+        const id = JSON.parse(localStorage.getItem('currentUser'));
+        return id;
     }
 }
 

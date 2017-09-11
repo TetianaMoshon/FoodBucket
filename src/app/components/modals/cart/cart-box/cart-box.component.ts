@@ -31,6 +31,7 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
 
     ngOnInit() {
+        this.idOfLoggedinUser = this.getIdOfLoggedInUserFromLocalStorage();
         this.showAPhrase = true;
         this.populateArrayOfDishNamesAndPrices();
         this.cartCommunicationService.passedData.subscribe(
@@ -191,4 +192,8 @@ export class CartBoxComponent implements OnInit, OnDestroy {
         this.router.navigate(['/checkout'], {queryParams: newOrder});
     }
 
+    private getIdOfLoggedInUserFromLocalStorage() {
+            const id = JSON.parse(localStorage.getItem('currentUser'));
+            return id;
+    }
 }
