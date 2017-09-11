@@ -51,6 +51,7 @@ import { CommentsService } from './services/comments.service';
 import { OrdersFiltersPipe } from './pipes/orders-filters.pipe';
 import { ApiModule } from './client/index';
 import { apiConfig } from './client/api.config';
+import {DataService} from './services/data/data.service';
 
 import { FlashMessagesModule } from 'ngx-flash-messages';
 import {appRouting} from './app.routing';
@@ -128,7 +129,7 @@ import {AdminIngredientsFormComponent} from './components/admin-ingredients/admi
       [TabsModule.forRoot()],
       FlashMessagesModule,
   ],
-  providers: [PagerService, CommentsService],
+  providers: [PagerService, CommentsService, DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

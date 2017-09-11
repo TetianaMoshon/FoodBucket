@@ -2,7 +2,7 @@
     <div class="row">
         <div>
             <div class="profile  container">
-                <h2 class="title">Name Lastname</h2>
+                <h2 class="title">{{user.firstName}} {{user.lastName}}</h2>
                 <div class="row">
                     <div class="col-md-3">
                         <img src="/assets/images/user-avatar.jpg" alt="Name Lastname" class="img-thumbnail profile-img">
@@ -23,28 +23,16 @@
                             <address>
                                 <div class="city">
                                     <span>City</span>
-                                    <p>KYIV<span (click)="changeEditability($event)"class="glyphicon glyphicon-pencil edit"></span></p>
+                                    <p>{{user.city}}</p>
                                 </div>
                                 <div class="street">
                                     <span>Street</span>
-                                    <p>Leiptsyzka<span (click)="changeEditability($event)" class="glyphicon glyphicon-pencil edit"></span></p>
-                                </div>
-                                <div class="building">
-                                    <span>Bbuilding number</span>
-                                    <p>13<span (click)="changeEditability($event)" class="glyphicon glyphicon-pencil edit"></span></p>
-                                </div>
-                                <div class="floor">
-                                    <span>Floor</span>
-                                    <p>15<span (click)="changeEditability($event)" class="glyphicon glyphicon-pencil edit"></span></p>
-                                </div>
-                                <div class="apartment">
-                                    <span>Apartment number</span>
-                                    <p contenteditable="true">134<span (click)="changeEditability($event)" class="glyphicon glyphicon-pencil edit"></span></p>
+                                    <p>{{user.address}}</p>
                                 </div>
                             </address>
                             <div class="about">
                                 <span>About me</span>
-                                <p>Like health food<span (click)="changeEditability($event)" class="glyphicon glyphicon-pencil edit"></span></p>
+                                <p>Like health food</p>
                             </div>
                         </div>
                     </div>

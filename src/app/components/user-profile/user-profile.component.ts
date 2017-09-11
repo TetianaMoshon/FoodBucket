@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Register} from "../../client/model/register";
 
 @Component({
   selector: 'app-user-profile',
@@ -7,7 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 
 export class UserProfileComponent implements OnInit {
-  constructor() { }
+    public user: Register;
+
+  constructor() {
+      this.user = JSON.parse(localStorage.getItem('currentUser'));
+  }
 
   changeEditability(event) {
      event.currentTarget.parentElement.setAttribute('contenteditable', 'true');
