@@ -58,6 +58,7 @@ generate_api:
     paths:
       - api/controllers/
       - api/utils/
+      - src/app/client/
   <<: *release-only
 
 build_angular:
