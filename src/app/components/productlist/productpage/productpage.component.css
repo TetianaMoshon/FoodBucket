@@ -51,10 +51,8 @@ table {
 p {
     font-family: Roboto;
 }
-p.product-price {
+p .product-price {
     font-size: 20px;
-    width: 200px;
-    text-align: right;
 }
 
 .stickToBottom {
