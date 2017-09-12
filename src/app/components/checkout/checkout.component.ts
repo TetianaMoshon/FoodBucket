@@ -63,8 +63,26 @@ export class CheckoutComponent implements OnInit {
           });
   }
     onSubmit(form: NgForm) {
-    this.orderService.putOrder(this.passedObjFromCart).subscribe(data=>{
-        console.log(data);
-    });
+    // this.orderService.putOrder(this.passedObjFromCart).subscribe(data=>{
+    //     console.log(data);
+    // });
+        let username = this.passedObjFromCart.username;
+        let city = this.passedObjFromCart.city;
+        let address = this.passedObjFromCart.address;
+        let price = this.passedObjFromCart.price;
+        console.log(price);
+        let status = 'NEW';
+        let phone = form.value.phone;
+        this.orderService.putOrder({
+            "username": username,
+            "city": city,
+            "price": price,
+            "address": address,
+            "status": status,
+            "phone": phone,
+            "products": this.prodIdsArr
+        }).subscribe(res => {
+            console.log(res);
+        });
     }
 }
