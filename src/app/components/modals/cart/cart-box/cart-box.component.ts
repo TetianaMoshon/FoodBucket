@@ -34,7 +34,7 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
 
     ngOnInit() {
-        // this.idOfLoggedinUser = this.getIdOfLoggedInUserFromLocalStorage();
+        this.idOfLoggedinUser = this.getIdOfLoggedInUserFromLocalStorage().userId;
         this.showAPhrase = JSON.parse(localStorage.getItem('showAPhrase'));
         this.populateArrayOfDishNamesAndPrices();
         this.subscription = this.cartCommunicationService.passedData.subscribe(
@@ -199,11 +199,11 @@ export class CartBoxComponent implements OnInit, OnDestroy {
                     const {orderedProducts, totalPriceOfAllDishes} = updatedCart;
 
                     const newOrder: Order = {
-                        username: 'string',
-                        city: 'string',
+                        username: this.getIdOfLoggedInUserFromLocalStorage().firstName,
+                        city: this.getIdOfLoggedInUserFromLocalStorage().city,
                         price: totalPriceOfAllDishes,
-                        address: 'string',
-                        status: 'string',
+                        address: this.getIdOfLoggedInUserFromLocalStorage().address,
+                        status: 'New',
                         products: orderedProducts
                     }
                     console.log(`=======cartOrdersArray from cart-box======`, newOrder);
@@ -218,8 +218,8 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
     private getIdOfLoggedInUserFromLocalStorage() {
         if (JSON.parse(localStorage.getItem('currentUser'))) {
-            const id = JSON.parse(localStorage.getItem('currentUser'));
-            return id;
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            return user;
         } else {
             return;
         }

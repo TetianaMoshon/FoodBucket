@@ -27,7 +27,7 @@ export class ProductlistComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-        // this.idOfLoggedinUser = this.getIdOfLoggedInUserFromLocalStorage();
+        this.idOfLoggedinUser = this.getIdOfLoggedInUserFromLocalStorage().userId;
         this.populateIdFieldOfProduct();
   }
 
@@ -115,8 +115,8 @@ export class ProductlistComponent implements OnInit {
     }
 
     getIdOfLoggedInUserFromLocalStorage() {
-        const id = JSON.parse(localStorage.getItem('currentUser'));
-        return id;
+        const user = JSON.parse(localStorage.getItem('currentUser'));
+        return user;
     }
 }
 

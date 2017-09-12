@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {NgForm} from '@angular/forms';
+import {OrderService} from "../../client/api/order.service";
+
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
@@ -8,28 +10,35 @@ import {NgForm} from '@angular/forms';
 })
 export class CheckoutComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private orderService: OrderService ) { }
     surname: string;
     phone: string;
     city: string;
     address: string;
     firstName: string;
-
+    prodIdsArr = [];
+    passedObjFromCart;
 
   ngOnInit() {
       if (JSON.parse(localStorage.getItem('newOrder'))) {
-          const passedObjFromCart = JSON.parse(localStorage.getItem('newOrder'));
+          this.passedObjFromCart = JSON.parse(localStorage.getItem('newOrder'));
 
-          // const passedObjFromCart = this.route.snapshot.queryParams;
-          console.log(passedObjFromCart);
-          const arrayOfPassedObjs = passedObjFromCart.products;
+          console.log(this.passedObjFromCart);
+          const arrayOfPassedObjs = this.passedObjFromCart.products;
           arrayOfPassedObjs.forEach((data, i) => {
                   const {productId, quantity} = data;
+                  this.prodIdsArr.push(productId);
                   console.log(`productId #${i} ${productId}, quantity #${i} ${quantity}`);
+                  console.log(` this.prodIdsArr `,  this.prodIdsArr);
 
               }
 
           );
+
+          this.passedObjFromCart.products = this.prodIdsArr;
+          console.log(` this.passedObjFromCart `,  this.passedObjFromCart);
+
+
       }
 
 
@@ -54,12 +63,8 @@ export class CheckoutComponent implements OnInit {
           });
   }
     onSubmit(form: NgForm) {
-        const orderObject = {
-            username: form.value.firstName + ' ' + form.value.surname,
-            phone: form.value.phone,
-            city: form.value.city,
-            address: form.value.address,
-        };
-        console.log(orderObject);
+    this.orderService.putOrder(this.passedObjFromCart).subscribe(data=>{
+        console.log(data);
+    });
     }
 }
