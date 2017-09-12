@@ -61,15 +61,19 @@
                 </div>
             </div>
             <div class="text-center">
-                <button class="button-details"  (click)="show = !show">
-                    <span class="under-line"><p class="details-p__big-text"><p>Detail Information</p></span>
-                </button>
-                <div *ngIf="show">
-                    <p class="details-p__big-text"> Detail</p>
+                <div>
+                    <h5>INSTRUCTIONS</h5>
+                    <ol>
+                        <li class="details-p__big-text">In a large pot cook the pasta in boiling water according to package directions. Drain and set aside.</li>
+                        <li class="details-p__big-text">Using the same pan, heat olive oil and 2 Tablespoons of butter. Add the garlic and red pepper flakes and cook until fragrant.</li>
+                        <li class="details-p__big-text">Add the shrimp and salt and pepper to taste. Cook until the shrimp start to turn pink. Add italian seasoning and spinach and cook until wilted.</li>
+                        <li class="details-p__big-text">Add the pasta back to the pot with the remaining butter, parmesan, and parsley. Still until mixed and butter is melted.</li>
+                        <li class="details-p__big-text">Add the lemon juice before serving and serve while hot</li>
+                    </ol>
                 </div>
             </div>
             <div class="serving-size">
-                <h3> Serving Size</h3>
+                <h3>Portions</h3>
                 <div ng-app class="input-group counter" ng-init="counter = 1">
                     <button (click)="counter = counter+1" class="btn btn-default btn-number">
                         <span class="glyphicon glyphicon-plus"></span>

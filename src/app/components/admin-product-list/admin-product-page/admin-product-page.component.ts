@@ -27,7 +27,7 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     servingSize: number;
     difficulty: string;
     spiceLevel: string;
-    ingredients: object;
+    ingredients: any;
     ingredientName: string;
     quantity: number;
     measure: string;
@@ -174,8 +174,10 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
                     this.servingSize = product.servingSize;
                     this.difficulty = product.difficulty;
                     this.spiceLevel = product.spiceLevel;
-                    this.ingredients = product.ingredients;
-                    // this.ingredientName = ingredientList.ingredientName;
+                    // this.ingredients = product.ingredients;
+                    this.ingredientName = product.ingredients[0].ingredientName;
+                    this.quantity = product.ingredients[0].quantity;
+                    this.measure = product.ingredients[0].measure;
                 }
             );
     }

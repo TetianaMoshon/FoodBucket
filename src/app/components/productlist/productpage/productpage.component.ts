@@ -29,7 +29,7 @@ export class ProductpageComponent implements OnInit {
     ];
 
   constructor(public productService: ProductService, public ingredientService: IngredientService) {
-      this.productService.findProductById(210)
+      this.productService.findProductById(26)
           .subscribe(
               product => {
                   this.productData = product;
