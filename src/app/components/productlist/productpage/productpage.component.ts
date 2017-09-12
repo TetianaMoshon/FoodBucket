@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductService} from '../../../client/api/product.service';
+import {IngredientService} from '../../../client/api/ingredient.service';
+
 @Component({
   selector: 'app-productpage',
   templateUrl: './productpage.component.html',
   styleUrls: ['./productpage.component.css']
 })
-export class ProductpageComponent implements OnInit {
 
+export class ProductpageComponent implements OnInit {
+    public productData;
+    public productIngredients = [];
     show = false;
 
     quantityOfPhotos: number;
@@ -24,21 +28,30 @@ export class ProductpageComponent implements OnInit {
         '/assets/images/pasta-carbonara.jpg'
     ];
 
-  constructor(private productService: ProductService) {
+  constructor(public productService: ProductService, public ingredientService: IngredientService) {
+      this.productService.findProductById(1)
+          .subscribe(
+              product => {
+                  this.productData = product;
+                  console.log(this.productData);
+                  const current = this;
+                  this.productData.ingredients.forEach(function (ingredient) {
+                      current.ingredientService.findIngredientById(ingredient.ingredientId).subscribe(
+                          ingr => {
+                              current.productIngredients.push(ingr);
+                          }
+                      );
+                  })
 
+              },
+              err => console.log(err)
+          );
   }
 
   ngOnInit() {
       this.InitImageSource();
       this.quantityOfPhotos = this.ListOfImageLinks.length;
 
-      this.productService.findProductById(101)
-          .subscribe(
-              product => {
-                  console.log('findProductById: ', product);
-              },
-              err => console.log(err)
-          );
 
   }
     InitImageSource() {

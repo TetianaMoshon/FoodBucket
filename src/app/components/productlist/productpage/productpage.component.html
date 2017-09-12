@@ -1,8 +1,8 @@
 <div class="container">
     <div class="row text-center">
         <div class="col-md-6 col-sm-6">
-            <h1>Dish Name
-                <a href="" class="icon"><span class="glyphicon glyphicon-star-empty color-gold"></span></a>
+            <h1 class="dish_title">{{productData.title}}
+                <span class="glyphicon glyphicon-star-empty color-gold"></span>
             </h1>
         </div>
         <div class="col-md-6 col-sm-6">
@@ -25,27 +25,19 @@
                         <tbody>
                         <tr>
                             <td>Calories</td>
-                            <td>00</td>
+                            <td>{{productData.caloricity}}</td>
                         </tr>
                         <tr>
                             <td>Spice level</td>
-                            <td>00</td>
+                            <td>{{productData.spiceLevel}}</td>
                         </tr>
                         <tr>
                             <td>Serving size</td>
-                            <td>00</td>
+                            <td>{{productData.servingSize}}</td>
                         </tr>
                         <tr>
                             <td>Difficulty</td>
-                            <td>00</td>
-                        </tr>
-                        <tr>
-                            <td>Cooking type</td>
-                            <td>00</td>
-                        </tr>
-                        <tr>
-                            <td>Number of steps</td>
-                            <td>00</td>
+                            <td>{{productData.difficulty}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -55,96 +47,50 @@
         </div>
         <div class="col-md-6 col-sm-6 second-block">
             <div class="thumbnail">
-                <div class="scrollable border-fruits">
-                    <div class="row text-center">
-                        <div class="col-md-4 col-sm-6 col-xs-6">
-                            <figure>
-                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                                <figcaption>Apple</figcaption>
-                            </figure>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-6">
-                            <figure>
-                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                                <figcaption>Apple</figcaption>
-                            </figure>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-6">
-                            <figure>
-                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                                <figcaption>Apple</figcaption>
-                            </figure>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-6">
-                            <figure>
-                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                                <figcaption>Apple</figcaption>
-                            </figure>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-6">
-                            <figure>
-                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                                <figcaption>Apple</figcaption>
-                            </figure>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-6">
-                            <figure>
-                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                                <figcaption>Apple</figcaption>
-                            </figure>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-6">
-                            <figure>
-                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                                <figcaption>Apple</figcaption>
-                            </figure>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-6">
-                            <figure>
-                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                                <figcaption>Apple</figcaption>
-                            </figure>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-6">
-                            <figure>
-                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                                <figcaption>Apple</figcaption>
-                            </figure>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-6">
-                            <figure>
-                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                                <figcaption>Apple</figcaption>
-                            </figure>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-6">
-                            <figure>
-                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                                <figcaption>Apple</figcaption>
-                            </figure>
-                        </div>
-                        <div class="col-md-4 col-sm-6 col-xs-6">
-                            <figure>
-                                <p><img src="/assets/images/apple.svg" width="50" height="50" alt="Apple"></p>
-                                <figcaption>Apple</figcaption>
+                <div class="border-fruits">
+                    <div class="row text-center ingredient-row" >
+                        <div *ngFor="let ingredient of productIngredients" class="col-md-4 col-sm-6 col-xs-6">
+                            <figure >
+                                <div class="ingredient-icon">
+                                    <img  src={{ingredient.image}} width="40px" height="40px" alt={{ingredient.title}}>
+                                </div>
+                                <figcaption>{{ingredient.title}}</figcaption>
                             </figure>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="text-center">
-                <button class="button-details"  (click)="show = !show">
-                    <span class="under-line"><p class="details-p__big-text">Details<p></p></span>
-                </button>
-                <div *ngIf="show">
-                    <p class="details-p__big-text"> Some details </p>
+                <div>
+                    <h5>INSTRUCTIONS</h5>
+                    <ol>
+                        <li class="details-p__big-text">In a large pot cook the pasta in boiling water according to package directions. Drain and set aside.</li>
+                        <li class="details-p__big-text">Using the same pan, heat olive oil and 2 Tablespoons of butter. Add the garlic and red pepper flakes and cook until fragrant.</li>
+                        <li class="details-p__big-text">Add the shrimp and salt and pepper to taste. Cook until the shrimp start to turn pink. Add italian seasoning and spinach and cook until wilted.</li>
+                        <li class="details-p__big-text">Add the pasta back to the pot with the remaining butter, parmesan, and parsley. Still until mixed and butter is melted.</li>
+                        <li class="details-p__big-text">Add the lemon juice before serving and serve while hot</li>
+                    </ol>
                 </div>
             </div>
+            <div class="serving-size">
+                <h3>Portions</h3>
+                <div ng-app class="input-group counter" ng-init="counter = 1">
+                    <button (click)="counter = counter+1" class="btn btn-default btn-number">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                    <span class="counter-result">{{counter}}</span>
+                    <button (click)="counter==1?counter=1:counter = counter-1" class="btn btn-default btn-number">
+                        <span class="glyphicon glyphicon-minus"></span>
+                    </button>
+
+                </div>
+            </div>
+
             <div class="row button-padding">
                 <div class="price-wrapper">
-                    <p class="text-right text-font product-price">Price 99$</p>
-                    <p class="text-right text-font product-price">Total 99$</p>
-                    <p class="text-right text-font product-price">Economy 00$</p>
+                    <p class="text-right text-font product-price">Price <span>{{productData.price*counter}}$</span></p>
+                    <p class="text-right text-font product-price">Total <span>{{productData.price*counter - productData.discount}}$</span></p>
+                    <p class="text-right text-font product-price">Economy <span>{{productData.discount}}$</span></p>
                 </div>
                 <button class="btn btn-md btn-primary to-cart-btn pull-right custom-cart-button">
                     <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add to cart

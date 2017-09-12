@@ -24,3 +24,7 @@ tab{
 .table-wrap{
     margin-bottom: 10px;
 }
+
+.ingredients th, td {
+    text-align: center;
+}

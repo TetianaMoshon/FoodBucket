@@ -8,7 +8,13 @@
             </div>
         </div>
         <div class="row margin-row">
-            <ng2-smart-table [settings]="settings" [source]="data" (edit)="onEditClick($event, 'edit')" (create)="onCreateClick($event, 'create')"></ng2-smart-table>
+            <ng2-smart-table
+                [settings]="settings"
+                [source]="source"
+                (edit)="onEditClick($event, 'edit')"
+                (create)="onCreateClick($event, 'create')"
+                (delete)="onDeleteClick($event, 'delete')"
+            ></ng2-smart-table>
         </div>
     </div>
 </div>

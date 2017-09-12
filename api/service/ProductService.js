@@ -2,64 +2,44 @@
 const utils = require('../utils/writer.js');
 const Product = require('../model/product');
 const Ingredient = require('../service/IngredientService');
-
+const Ingred = require('../model/ingredients');
 exports.createProduct = function ({ productId, title, description, image, price, category, caloricity, servingSize, difficulty, spiceLevel, recommended, discount, promotions, status, ingredients}) {
-    //with promises
-    // for(let i = 0; i < ingredients.length; i++){
-    //     let temp;
-    //     Ingredient.findIngredientById(ingredients[0].ingredientId)
-    //         .then(
-    //             oneIngredientDoc =>{
-    //                 let doc = oneIngredientDoc;
-    //                 return doc;
-    //             },
-    //             error => {return error}
-    //         ).then( doc => {ingredients[0].ingredientName = doc.title;}
-    //
-    //         );
-    // }
-
-
-
-
     return new Promise((resolve, reject) => {
-        let newProduct = new Product({
-            productId,
-            title,
-            description,
-            image,
-            price,
-            category,
-            status,
-            recommended,
-            discount,
-            promotions,
-            caloricity,
-            servingSize,
-            difficulty,
-            spiceLevel,
-            ingredients
-        });
-
-        newProduct.save().then(
-            productDoc => {
-                if (Object.keys(newProduct).length > 0) {
-                    let { productId, title, description, image, price, category, caloricity, servingSize, difficulty, spiceLevel, recommended, discount, promotions, status, ingredients } = productDoc;
-                    resolve(utils.respondWithCode(201, { productId, title, description, image, price, category, caloricity, servingSize, difficulty, spiceLevel, recommended, discount, promotions, status, ingredients }));
-                } else {
-                    reject(utils.respondWithCode(404, {"code": 404, "message": "Product is not created, please try again."}));
-                }
-                console.log('Saved product', productDoc);
-                },
-            error => { console.log('Unable to save product', error); }
-        );
-
+         let newProduct = new Product({
+                    productId,
+                    title,
+                    description,
+                    image,
+                    price,
+                    category,
+                    status,
+                    recommended,
+                    discount,
+                    promotions,
+                    caloricity,
+                    servingSize,
+                    difficulty,
+                    spiceLevel,
+                    ingredients
+                });
+                newProduct.save()
+                    .then(productDoc => {
+                            if (Object.keys(newProduct).length > 0) {
+                                let { productId, title, description, image, price, category, caloricity, servingSize, difficulty, spiceLevel, recommended, discount, promotions, status, ingredients } = productDoc;
+                                resolve(utils.respondWithCode(201, { productId, title, description, image, price, category, caloricity, servingSize, difficulty, spiceLevel, recommended, discount, promotions, status, ingredients }));
+                            } else {
+                                reject(utils.respondWithCode(404, {"code": 404, "message": "Product is not created, please try again."}));
+                            }
+                            console.log('Saved product', productDoc);
+                        },
+                        error => { console.log('Unable to save product', error); }
+                    );
     });
-}
+};
 
 exports.deleteProductById = function(id) {
     return new Promise((resolve, reject) => {
-       Product.findOneAndRemove({ productId: id }).then(
+        Product.findOneAndRemove({ productId: id }).then(
             oneProductDoc => {
                 oneProductDoc = oneProductDoc || {};
                 if (Object.keys(oneProductDoc).length > 0) {
@@ -160,3 +140,4 @@ exports.updateProductById = function(id, updatedProduct) {
         );
     });
 }
+
