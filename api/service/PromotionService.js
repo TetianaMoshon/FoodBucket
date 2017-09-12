@@ -15,68 +15,50 @@ exports.getPromotion = function() {
   "title" : "title",
   "products" : [ {
     "image" : "image",
-    "price" : 6,
+    "productId" : 0,
+    "caloricity" : 5,
     "description" : "description",
-    "ingredients" : [ {
-      "image" : "image",
-      "measure" : "measure",
-      "quantity" : 5,
-      "ingredient_id" : 1,
-      "price" : 5,
-      "description" : "description",
-      "discount" : 2,
-      "title" : "title"
-    }, {
-      "image" : "image",
-      "measure" : "measure",
-      "quantity" : 5,
-      "ingredient_id" : 1,
-      "price" : 5,
-      "description" : "description",
-      "discount" : 2,
-      "title" : "title"
-    } ],
-    "id" : 1,
+    "discount" : 1,
     "title" : "title",
-    "productInfo" : [ {
-      "product_info_id" : 7,
-      "calories" : 9
+    "difficulty" : "difficulty",
+    "promotions" : true,
+    "price" : 6,
+    "ingredients" : [ {
+      "ingredientId" : 2,
+      "quantity" : 7,
+      "ingredientName" : "ingredientName"
     }, {
-      "product_info_id" : 7,
-      "calories" : 9
-    } ]
+      "ingredientId" : 2,
+      "quantity" : 7,
+      "ingredientName" : "ingredientName"
+    } ],
+    "category" : "category",
+    "spiceLevel" : "spiceLevel",
+    "servingSize" : 5,
+    "status" : true
   }, {
     "image" : "image",
-    "price" : 6,
+    "productId" : 0,
+    "caloricity" : 5,
     "description" : "description",
-    "ingredients" : [ {
-      "image" : "image",
-      "measure" : "measure",
-      "quantity" : 5,
-      "ingredient_id" : 1,
-      "price" : 5,
-      "description" : "description",
-      "discount" : 2,
-      "title" : "title"
-    }, {
-      "image" : "image",
-      "measure" : "measure",
-      "quantity" : 5,
-      "ingredient_id" : 1,
-      "price" : 5,
-      "description" : "description",
-      "discount" : 2,
-      "title" : "title"
-    } ],
-    "id" : 1,
+    "discount" : 1,
     "title" : "title",
-    "productInfo" : [ {
-      "product_info_id" : 7,
-      "calories" : 9
+    "difficulty" : "difficulty",
+    "promotions" : true,
+    "price" : 6,
+    "ingredients" : [ {
+      "ingredientId" : 2,
+      "quantity" : 7,
+      "ingredientName" : "ingredientName"
     }, {
-      "product_info_id" : 7,
-      "calories" : 9
-    } ]
+      "ingredientId" : 2,
+      "quantity" : 7,
+      "ingredientName" : "ingredientName"
+    } ],
+    "category" : "category",
+    "spiceLevel" : "spiceLevel",
+    "servingSize" : 5,
+    "status" : true
   } ]
 };
     if (Object.keys(examples).length > 0) {

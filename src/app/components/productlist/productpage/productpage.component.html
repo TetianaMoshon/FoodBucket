@@ -2,7 +2,7 @@
     <div class="row text-center">
         <div class="col-md-6 col-sm-6">
             <h1 class="dish_title">{{productData.title}}
-                <button class="favorites"><span class="glyphicon glyphicon-star-empty color-gold"></span></button>
+                <span class="glyphicon glyphicon-star-empty color-gold"></span>
             </h1>
         </div>
         <div class="col-md-6 col-sm-6">
@@ -68,12 +68,20 @@
                     <p class="details-p__big-text"> <a href="http://mirellefoods.com/share/Pasta%20recipes.pdf" target="_blank">Detail</a> </p>
                 </div>
             </div>
-            <div ng-app calss="">
-                <div ng-init="counter = 1"></div>
-                <button (click)="counter = counter+1">+</button>
-                <button (click)="counter===1?counter=1:counter = counter-1">-</button>
-                <span>{{counter}}</span>
+            <div class="serving-size">
+                <h3> Serving Size</h3>
+                <div ng-app class="input-group counter" ng-init="counter = 1">
+                    <button (click)="counter = counter+1" class="btn btn-default btn-number">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                    <span class="counter-result">{{counter}}</span>
+                    <button (click)="counter==1?counter=1:counter = counter-1" class="btn btn-default btn-number">
+                        <span class="glyphicon glyphicon-minus"></span>
+                    </button>
+
+                </div>
             </div>
+
             <div class="row button-padding">
                 <div class="price-wrapper">
                     <p class="text-right text-font product-price">Price <span>{{productData.price*counter}}$</span></p>

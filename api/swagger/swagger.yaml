@@ -844,6 +844,8 @@ definitions:
       quantity:
         type: integer
         format: int64
+      measure:
+        type: string
   Cart:
     type: object
     required:
