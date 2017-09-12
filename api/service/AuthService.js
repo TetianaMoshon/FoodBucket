@@ -66,11 +66,11 @@ exports.register = function ({ firstName, lastName, email, password, phone, city
                     let {userId, firstName, lastName, email, password, phone, city, address, image, create_at, update_at, active} = userDoc;
                     resolve(utils.respondWithCode(201, {userId, firstName, lastName, email, password, phone, city, address, image, create_at, update_at, active}));
                 } else {
-                    reject(utils.respondWithCode(404, {"code": 404, "message": "Category is not created, please try again."}));
+                    reject(utils.respondWithCode(404, {"code": 404, "message": "User is not register, please try again."}));
                 }
-                console.log('Saved category', userDoc);
+                console.log('User registration is completed', userDoc);
             },
-            error => { console.log('Unable to save category: ', error); }
+            error => { console.log('Unable to register user: ', error); }
         );
     });
 };
