@@ -1,6 +1,7 @@
 'use strict';
 const utils = require('../utils/writer.js');
 const Users = require('../model/users');
+const Bcrypt = require('bcrypt-nodejs');
 
 /**
  * Login operation
@@ -14,28 +15,26 @@ exports.login = function ({email, password}) {
     return new Promise((resolve, reject) => {
         Users.findOne({ email: email }).then(
             oneUserDoc => {
-                console.log(oneUserDoc.password);
-                console.log(password);
-                if(oneUserDoc.password === password) {
-                    return oneUserDoc; // Узнать почему при resolve не работает правильно
+                if(Bcrypt.compareSync(password, oneUserDoc.password)) {
+                    return oneUserDoc;
                 }
             },
-            error => { reject(utils.respondWithCode(403, {"code": 403, "message": "User is not found, please try again."})); } // спросить про код у никиты
+            error => { reject(utils.respondWithCode(403, {"code": 403, "message": "User is not found, please try again."})); }
         )
-        .then(
-            oneUserDoc => {
-                oneUserDoc = oneUserDoc || {};
-                if (Object.keys(oneUserDoc).length > 0) {
-                    let {email, firstName, lastName} = oneUserDoc;
-                    resolve(utils.respondWithCode(200, {email, firstName, lastName}));
-                } else {
-                    reject(utils.respondWithCode(404, {
-                        "code": 404,
-                        "message": "User is not found, please try again."
-                    }));
+            .then(
+                oneUserDoc => {
+                    oneUserDoc = oneUserDoc || {};
+                    if (Object.keys(oneUserDoc).length > 0) {
+                        let {email, userId, firstName, lastName, city, address} = oneUserDoc;
+                        resolve(utils.respondWithCode(200, {email, userId, firstName, lastName, city, address}));
+                    } else {
+                        reject(utils.respondWithCode(403, {
+                            "code": 403,
+                            "message": "Unauthorised , please try again."
+                        }));
+                    }
                 }
-            }
-        );
+            );
     });
 };
 
@@ -48,11 +47,12 @@ exports.login = function ({email, password}) {
  **/
 exports.register = function ({ firstName, lastName, email, password, phone, city, address, image }) {
     return new Promise((resolve, reject) => {
+        const hashedPassword = Bcrypt.hashSync(password);
         let newUser = new Users({
             "firstName": firstName,
             "lastName": lastName,
             "email": email,
-            "password": password,
+            "password": hashedPassword,
             "phone": phone,
             "city": city,
             "address": address,
@@ -74,4 +74,6 @@ exports.register = function ({ firstName, lastName, email, password, phone, city
         );
     });
 };
+
+
 

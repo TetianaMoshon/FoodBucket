@@ -6,7 +6,6 @@ import { AgmCoreModule } from '@agm/core';
 import { DisqusModule } from 'ngx-disqus';
 import { ChartsModule } from 'ng2-charts';
 
-import { FlashMessagesModule } from 'ngx-flash-messages';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.page.component';
@@ -38,7 +37,6 @@ import { CongratulationComponent } from './components/modals/congratulation/cong
 import { ForgotPassComponent } from './components/modals/forgot-pass/forgot-pass.component';
 import { ConfirmationComponent } from './components/modals/confirmation/confirmation.component';
 import { ProductpageComponent } from './components/productlist/productpage/productpage.component';
-
 import { AdminProductPageComponent } from './components/admin-product-list/admin-product-page/admin-product-page.component';
 import { AdmincategoriesFormComponent } from './components/admincategories/admincategories-form/admincategories-form.component';
 
@@ -54,6 +52,9 @@ import { OrdersFiltersPipe } from './pipes/orders-filters.pipe';
 import { ApiModule } from './client/index';
 import { apiConfig } from './client/api.config';
 import { AdminUserPageComponent } from './components/admin-users/admin-user-page/admin-user-page.component';
+import {DataService} from './services/data/data.service';
+
+import { FlashMessagesModule } from 'ngx-flash-messages';
 import {appRouting} from './app.routing';
 import {AdminIngredientsFormComponent} from './components/admin-ingredients/adminingredients-form/adminingredients-form.component';
 
@@ -130,7 +131,7 @@ import {AdminIngredientsFormComponent} from './components/admin-ingredients/admi
       ChartsModule,
       [TabsModule.forRoot()],
   ],
-  providers: [PagerService, CommentsService],
+  providers: [PagerService, CommentsService, DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
