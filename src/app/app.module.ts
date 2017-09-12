@@ -51,6 +51,7 @@ import { CommentsService } from './services/comments.service';
 import { OrdersFiltersPipe } from './pipes/orders-filters.pipe';
 import { ApiModule } from './client/index';
 import { apiConfig } from './client/api.config';
+import { AdminUserPageComponent } from './components/admin-users/admin-user-page/admin-user-page.component';
 import {DataService} from './services/data/data.service';
 
 import { FlashMessagesModule } from 'ngx-flash-messages';
@@ -99,6 +100,7 @@ import {AdminIngredientsFormComponent} from './components/admin-ingredients/admi
       UserProfileComponent,
       Error404Component,
       OrdersFiltersPipe,
+      AdminUserPageComponent,
       AdmincategoriesFormComponent,
       AdminIngredientsFormComponent,
   ],
@@ -115,6 +117,7 @@ import {AdminIngredientsFormComponent} from './components/admin-ingredients/admi
   imports: [
       ModalModule.forRoot(),
       BrowserModule,
+      FlashMessagesModule,
       CollapseModule,
       FormsModule,
       appRouting,
@@ -127,7 +130,6 @@ import {AdminIngredientsFormComponent} from './components/admin-ingredients/admi
       Ng2SmartTableModule,
       ChartsModule,
       [TabsModule.forRoot()],
-      FlashMessagesModule,
   ],
   providers: [PagerService, CommentsService, DataService],
   bootstrap: [AppComponent]
