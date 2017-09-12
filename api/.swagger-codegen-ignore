@@ -31,11 +31,17 @@ schema/
 service/CategoryService.js
 controllers/CategoryService.js
 
-service/AuthService.js
-controllers/AuthService.js
+service/UserService.js
+controllers/UserService.js
 
 service/CartService.js
 controllers/CartService.js
+
+service/OrderService.js
+controllers/OrderService.js
+
+service/AuthService.js
+controllers/AuthService.js
 
 service/ProductService.js
 controllers/ProductService.js

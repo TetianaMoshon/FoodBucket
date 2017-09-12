@@ -687,105 +687,248 @@ paths:
           400:
             description: Invalid input
   /user/{id}/cart:
-      get:
-        x-swagger-router-controller: Cart
-        operationId: findCartContentById
-        tags:
-        - "cart"
-        produces:
-        - application/json
-        parameters:
-        - name: id
-          in: path
-          description: ID of the user to get content of the cart
-          required: true
-          type: integer
-          format: int64
-        responses:
-          200:
-            description: Cart response
-            schema:
-              $ref: "#/definitions/Cart"
-          default:
-            description: invalid input
-            schema:
-              $ref: "#/definitions/Error"
-      post:
-        x-swagger-router-controller: Cart
-        operationId: createCartForUserById
-        tags:
-        - "cart"
-        consumes:
-        - application/json
-        summary: Create cart for user using user's id
-        description: |
-          This endpoint allows to create new cart for user using user's id.
-        parameters:
-        - name: id
-          in: path
-          description: ID of the user to get content of the cart
-          required: true
-          type: integer
-          format: int64
-        - in: body
-          name: body
-          description: Cart object
-          required: true
-          schema:
-            $ref: '#/definitions/Cart'
-        responses:
-          200:
-            description: Existing category was found and updated
-            schema:
-              $ref: '#/definitions/Cart'
-          201:
-            description: Cart added
-            schema:
-              $ref: '#/definitions/Cart'
-          400:
-            description: Invalid input
-      delete:
-        x-swagger-router-controller: Cart
-        operationId: deleteCartContentById
-        tags:
-        - "cart"
-        produces:
-        - application/json
-        parameters:
-        - name: id
-          in: path
-          description: ID of the user to delete content of the cart
-          required: true
-          type: integer
-          format: int64
-        responses:
-          204:
-            description: content of the user's cart is deleted
-      put:
-        x-swagger-router-controller: Cart
-        operationId: updateCartContentById
-        tags:
-        - "cart"
-        produces:
-        - application/json
-        parameters:
-        - name: id
-          in: path
-          description: content of the user's cart is being updated
-          required: true
-          type: integer
-          format: int64
-        - name: "updated_cartContent"
-          in: "body"
-          description: The updated cartContent
-          required: true
+    get:
+      x-swagger-router-controller: Cart
+      operationId: findCartContentById
+      tags:
+      - "cart"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the user to get content of the cart
+        required: true
+        type: integer
+        format: int64
+      responses:
+        200:
+          description: Cart response
           schema:
             $ref: "#/definitions/Cart"
-        responses:
-          200:
-            description: cartContent is updated
-          400:
-            description: An error!
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+    post:
+      x-swagger-router-controller: Cart
+      operationId: createCartForUserById
+      tags:
+      - "cart"
+      consumes:
+      - application/json
+      summary: Create cart for user using user's id
+      description: |
+        This endpoint allows to create new cart for user using user's id.
+      parameters:
+      - name: id
+        in: path
+        description: ID of the user to get content of the cart
+        required: true
+        type: integer
+        format: int64
+      - in: body
+        name: body
+        description: Cart object
+        required: true
+        schema:
+          $ref: '#/definitions/Cart'
+      responses:
+        200:
+          description: Existing category was found and updated
+          schema:
+            $ref: '#/definitions/Cart'
+        201:
+          description: Cart added
+          schema:
+            $ref: '#/definitions/Cart'
+        400:
+          description: Invalid input
+    delete:
+      x-swagger-router-controller: Cart
+      operationId: deleteCartContentById
+      tags:
+      - "cart"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the user to delete content of the cart
+        required: true
+        type: integer
+        format: int64
+      responses:
+        204:
+          description: content of the user's cart is deleted
+    put:
+      x-swagger-router-controller: Cart
+      operationId: updateCartContentById
+      tags:
+      - "cart"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: content of the user's cart is being updated
+        required: true
+        type: integer
+        format: int64
+      - name: "updated_cartContent"
+        in: "body"
+        description: The updated cartContent
+        required: true
+        schema:
+          $ref: "#/definitions/Cart"
+      responses:
+        200:
+          description: cartContent is updated
+        400:
+          description: An error!
+  /users:
+    get:
+      x-swagger-router-controller: User
+      operationId: getAllUsers
+      summary: Get all users
+      tags:
+      - "user"
+      produces:
+      - application/json
+      parameters:
+        - name: isActive
+          in: query
+          description: returns active users
+          required: false
+          type: boolean
+        - name: offset
+          in: query
+          description: start position for quering from DB
+          required: true
+          type: integer
+          format: int32
+          minimum: 0
+          default: 0
+        - name: limit
+          in: query
+          description: number of items to query from DB
+          required: true
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 27
+          default: 9
+      responses:
+        200:
+          description: Successful users response
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/User"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+  /user/{id}:
+    get:
+      x-swagger-router-controller: User
+      operationId: findUserById
+      summary: Find user
+      tags:
+      - "user"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the user to get
+        required: true
+        type: integer
+        format: int64
+      responses:
+        200:
+          description: User response
+          schema:
+            $ref: "#/definitions/User"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+    delete:
+      x-swagger-router-controller: User
+      operationId: deleteUserById
+      summary: Delete user
+      tags:
+      - "user"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the user to delete
+        required: true
+        type: integer
+        format: int64
+      responses:
+        204:
+          description: User is deleted
+          schema:
+            $ref: "#/definitions/User"
+    put:
+      x-swagger-router-controller: User
+      operationId: updateUserById
+      summary: Update user
+      tags:
+      - "user"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: Id of the User being updated
+        required: true
+        type: integer
+        format: int64
+      - name: "updatedUser"
+        in: "body"
+        description: The updated User
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        200:
+          description: User is updated
+        400:
+          description: An error!
+  /user:
+    post:
+      x-swagger-router-controller: User
+      operationId: createUser
+      tags:
+      - "user"
+      consumes:
+      - application/json
+      summary: Create user
+      description: |
+        This endpoint allows to create new user.
+      parameters:
+      - in: body
+        name: body
+        description: User object
+        required: true
+        schema:
+          $ref: '#/definitions/User'
+      responses:
+        200:
+          description: Existing category was found and updated
+          schema:
+            $ref: "#/definitions/User"
+        201:
+          description: User added
+          schema:
+            $ref: "#/definitions/User"
+        400:
+          description: Invalid input
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
@@ -793,9 +936,9 @@ definitions:
   Product:
     type: object
     required:
+      - price
       - title
       - description
-      - price
     properties:
       productId:
         type: integer
@@ -860,17 +1003,18 @@ definitions:
         type: integer
         format: int64
   CartOrder:
-      type: object
-      required:
-        - productId
-        - quantity
-      properties:
-        productId:
-          type: integer
-          format: int64
-        quantity:
-          type: integer
-          format: int64
+    type: object
+    required:
+      - productId
+      - quantity
+    properties:
+      productId:
+        type: integer
+        format: int64
+      quantity:
+        type: integer
+        format: int64
+
   Category:
     type: object
     required:
@@ -887,6 +1031,37 @@ definitions:
         type: string
       description:
         type: string
+  User:
+    type: object
+    required:
+      - firstName
+      - lastName
+      - email
+      - password
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      phone:
+        type: integer
+        format: int64
+      city:
+        type: string
+      address:
+        type: string
+      image:
+        type: string
+      favourites:
+        type: array
+        items:
+          type: number
+      active:
+        type: boolean
   Ingredient:
     type: object
     required:
@@ -942,6 +1117,14 @@ definitions:
           type: integer
           format: int64
         minItems: 1
+      measure:
+        type: string
+      quantity:
+        type: integer
+        format: int64
+      discount:
+        type: integer
+        format: int64
   Promotion:
     type: object
     required:
