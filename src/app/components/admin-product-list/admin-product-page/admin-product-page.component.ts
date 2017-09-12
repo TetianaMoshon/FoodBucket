@@ -175,8 +175,7 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
                     this.difficulty = product.difficulty;
                     this.spiceLevel = product.spiceLevel;
                     this.ingredients = product.ingredients;
-                    // this.quantity = product.ingredients;
-                    // this.measure = ingredients.measure;
+                    // this.ingredientName = ingredientList.ingredientName;
                 }
             );
     }
@@ -188,14 +187,14 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
         this.price = null;
         this.category = '';
         this.status = false;
-        this.discount = 0;
+        this.discount = null;
         this.promotions = false;
         this.caloricity = null;
         this.servingSize = null;
         this.difficulty = '';
         this.spiceLevel = '';
-        // this.ingredientName = '';
-        // this.quantity = null;
-        // this.measure = '';
+        this.ingredientName = '';
+        this.quantity = null;
+        this.measure = '';
     }
 }

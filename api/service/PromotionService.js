@@ -26,10 +26,12 @@ exports.getPromotion = function() {
     "ingredients" : [ {
       "ingredientId" : 2,
       "quantity" : 7,
+      "measure" : "measure",
       "ingredientName" : "ingredientName"
     }, {
       "ingredientId" : 2,
       "quantity" : 7,
+      "measure" : "measure",
       "ingredientName" : "ingredientName"
     } ],
     "category" : "category",
@@ -49,10 +51,12 @@ exports.getPromotion = function() {
     "ingredients" : [ {
       "ingredientId" : 2,
       "quantity" : 7,
+      "measure" : "measure",
       "ingredientName" : "ingredientName"
     }, {
       "ingredientId" : 2,
       "quantity" : 7,
+      "measure" : "measure",
       "ingredientName" : "ingredientName"
     } ],
     "category" : "category",
