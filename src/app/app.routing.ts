@@ -42,7 +42,7 @@ const appRoutes: Routes = [
       { path: 'productlist', children: [
           { path: '', component: AdminProductListComponent },
           { path: ':id/edit', component: AdminProductPageComponent},
-          { path: ':create', component: AdminProductPageComponent},
+          { path: 'create', component: AdminProductPageComponent},
       ]},
       { path: 'comments', component: AdminCommentsComponent},
       { path: 'users', component: AdminUsersComponent},
