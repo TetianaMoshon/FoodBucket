@@ -22,6 +22,7 @@ export class CartBoxComponent implements OnInit, OnDestroy {
     arrayOfDishNamesAndPrices = [];
     dataReferenceArray = [];
     subscription: Subscription;
+    arrayOfCartOrders = [];
 
     constructor(
         public bsModalRef: BsModalRef,
@@ -118,14 +119,7 @@ export class CartBoxComponent implements OnInit, OnDestroy {
     private updateCartContentBasedOnDeletedItemsOnServer(arr) {
         // let's created updatedCartOrder
            if (JSON.parse(localStorage.getItem('cartContentObjCreated'))) {
-            const arrayOfCartOrders = this.extractCartOrdersArray(arr);
-            // let's make sure our totalPriceOfAllDishes is up-to-date
-            this.sumUpTotalPriceOfAllDishes(arr);
-            const updatedCart = {
-                orderedProducts: arrayOfCartOrders,
-                // when cart is first created total price is the price of a clicked product
-                totalPriceOfAllDishes: this.totalPriceOfAllDishes
-            };
+               const updatedCart = this.extractArrayOfProductData(arr);
 
             this.cartService.updateCartContentById(this.idOfLoggedinUser, updatedCart).subscribe(updatedData => {
                 console.log('updatedCart returned from backend ', updatedData);
@@ -136,10 +130,24 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
     }
 
+    private extractArrayOfProductData(arr) {
+        this.arrayOfCartOrders = this.extractCartOrdersArray(arr);
+        console.log(` this.arrayOfCartOrders in updateCartContentBasedOnDeletedItemsOnServer `, this.arrayOfCartOrders);
+        // let's make sure our totalPriceOfAllDishes is up-to-date
+        this.sumUpTotalPriceOfAllDishes(arr);
+        const updatedCart = {
+            orderedProducts: this.arrayOfCartOrders,
+            // when cart is first created total price is the price of a clicked product
+            totalPriceOfAllDishes: this.totalPriceOfAllDishes
+        };
+        return updatedCart;
+    }
+
     private extractCartOrdersArray(arr) {
         const arrayOfCartOrders = [];
-
+        console.log(` I'm in extractCartOrdersArray`);
         arr.forEach(data => {
+            console.log(` I'm in extractCartOrdersArray ${data}`);
             const priceForAProduct = this.getPriceById(data.id);
             arrayOfCartOrders.push(
                 {
@@ -183,28 +191,42 @@ export class CartBoxComponent implements OnInit, OnDestroy {
             return price;
     }
 
-    handler(str, e) {
-        console.log(str, e);
-    }
 
     hideAndRoute() {
         this.bsModalRef.hide();
+                if (JSON.parse(localStorage.getItem('cartContentObjCreated'))) {
+                    const updatedCart = this.extractArrayOfProductData(this.arrayOfDishNamesAndPrices);
+                    const {orderedProducts, totalPriceOfAllDishes} = updatedCart;
 
-        // let's make an Order object and send it to checkout
-        const cartOrdersArray = this.extractCartOrdersArray(this.arrayOfDishNamesAndPrices);
-        const newOrder: Order = {
-            username: 'string',
-            city: 'string',
-            price: this.totalPriceOfAllDishes,
-            address: 'string',
-            status: 'string',
-            products: cartOrdersArray
+                    const newOrder: Order = {
+                        username: 'string',
+                        city: 'string',
+                        price: totalPriceOfAllDishes,
+                        address: 'string',
+                        status: 'string',
+                        products: orderedProducts
+                    }
+                    console.log(`=======cartOrdersArray from cart-box======`, newOrder);
+                    localStorage.setItem('newOrder', JSON.stringify(newOrder));
+
+                    this.router.navigate(['/checkout']);
+                }else {
+                    return;
+                }
+
         }
-        this.router.navigate(['/checkout'], {queryParams: newOrder});
-    }
 
     private getIdOfLoggedInUserFromLocalStorage() {
+        if (JSON.parse(localStorage.getItem('currentUser'))) {
             const id = JSON.parse(localStorage.getItem('currentUser'));
             return id;
+        } else {
+            return;
+        }
     }
+
 }
+
+
+
+

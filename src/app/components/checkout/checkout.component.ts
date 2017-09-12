@@ -17,7 +17,23 @@ export class CheckoutComponent implements OnInit {
 
 
   ngOnInit() {
-      console.log(this.route.snapshot.queryParams);
+      if (JSON.parse(localStorage.getItem('newOrder'))) {
+          const passedObjFromCart = JSON.parse(localStorage.getItem('newOrder'));
+
+          // const passedObjFromCart = this.route.snapshot.queryParams;
+          console.log(passedObjFromCart);
+          const arrayOfPassedObjs = passedObjFromCart.products;
+          arrayOfPassedObjs.forEach((data, i) => {
+                  const {productId, quantity} = data;
+                  console.log(`productId #${i} ${productId}, quantity #${i} ${quantity}`);
+
+              }
+
+          );
+      }
+
+
+
       function validateCardNumber(value) {
           const v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
           const matches = v.match(/\d{4,16}/g);

@@ -75,7 +75,7 @@ export class ProductlistComponent implements OnInit {
 
                 // let's push new CartOrder into arrayOfCartOrders
               this.arrayOfCartOrders.push({productId: parseInt(e.target.id), quantity: 1});
-                console.log(' this.arrayOfCartOrders ',  this.arrayOfCartOrders);
+                // console.log(' this.arrayOfCartOrders ',  this.arrayOfCartOrders);
                 // let's created updatedCartOrder
                     console.log('array with added items ', this.arrayOfCartOrders);
                 const updatedCart = {

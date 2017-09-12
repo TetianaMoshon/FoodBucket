@@ -58,6 +58,7 @@ import { FlashMessagesModule } from 'ngx-flash-messages';
 import {appRouting} from './app.routing';
 import {AdminIngredientsFormComponent} from './components/admin-ingredients/adminingredients-form/adminingredients-form.component';
 
+
 @NgModule({
   declarations: [
       AppComponent,
@@ -101,7 +102,7 @@ import {AdminIngredientsFormComponent} from './components/admin-ingredients/admi
       Error404Component,
       OrdersFiltersPipe,
       AdmincategoriesFormComponent,
-      AdminIngredientsFormComponent,
+      AdminIngredientsFormComponent
   ],
   entryComponents: [
       ModalCongratulationComponent,
