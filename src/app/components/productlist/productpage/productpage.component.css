@@ -1,19 +1,11 @@
-.scrollable {
-    overflow-y: scroll;
-    overflow-x: hidden;
-    height: 300px;
+.dish_title {
+    text-transform: uppercase;
 }
-.scrollable::-webkit-scrollbar-thumb
-{
-    border-radius: 10px;
-    background-color: grey;
-}
+
 .you-will-get {
     margin-left: 5%;
 }
-.details-p__big-text{
-    font-size: 16px;
-}
+
 .border-fruits {
     border: none;
     background: white;
@@ -33,35 +25,42 @@
     background-image: none;
 }
 .button-padding{
-    padding: 50px 15px 20px 15px;
+    padding: 20px 15px 20px;
     position: absolute;
     bottom: 0;
     right: 0;
     width: 100%;
 }
+
 .under-line {
     text-decoration: underline;
     color: blue;
 }
+
 .button-details{
     background-color: white;
     color: black;
     border: none;
     outline: none;
 }
+
 h1 {
     font-family: Oswald;
 }
+
 h3 {
     font-family: Oswald;
 }
+
 table {
     font-family: Roboto;
 }
+
 p {
     font-family: Roboto;
 }
-.product-price {
+
+p .product-price {
     font-size: 20px;
 }
 
@@ -81,8 +80,37 @@ i.glyphicon-chevron-left, i.glyphicon-chevron-right {
     top: 30%;
 }
 
-.price-wrapper {
+.price-wrapper p.product-price {
     margin-bottom: 20px;
+   text-align: right;
+}
+
+.ingredient-icon {
+    margin: 0 auto 5px;
+    display: block;
+    padding: 10px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: 1px solid #14A9BA;
+}
+
+.ingredient-row figure {
+    margin-bottom: 15px;
+}
+
+.counter {
+    line-height: 35px;
+}
+.counter button {
+    display: inline-block;
+}
+
+.counter-result {
+    display: inline-block;
+    width: 50px;
+    font-size: 20px;
+    text-align: center;
 }
 
 @media (max-width: 990px) {

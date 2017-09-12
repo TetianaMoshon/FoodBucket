@@ -15,7 +15,6 @@ import { DataService } from '../../../services/data/data.service';
 export class NewAccountComponent implements OnInit {
     public title = 'Create Your Account';
     model: Register;
-    destructedObj = {};
     constructor(public bsModalRef: BsModalRef,
                 private registerAPI: AuthService,
                 private modalService: BsModalService,
@@ -24,10 +23,7 @@ export class NewAccountComponent implements OnInit {
         this.model = new User('', '', '', '', '', '');
     }
     public sendNewAccToDB() {
-        const {firstName, lastName, email, password, city, address} = this.model;
-        /*this.destructedObj = { firstName, lastName, email, password, city, address };
-        console.log(this.destructedObj);*/
-        this.registerAPI.registerWithHttpInfo({firstName, lastName, email, password, city, address})
+        this.registerAPI.registerWithHttpInfo(this.model)
             .subscribe(reg => {
             if (reg.ok ) {
                 this.openModal('Registration is completed');

@@ -35,14 +35,6 @@ paths:
       produces:
       - application/json
       parameters:
-        - name: category_id
-          in: query
-          description: returns products only from specified category
-          required: false
-          type: array
-          items:
-            type: string
-          collectionFormat: multi
         - name: isActive
           in: query
           description: returns active products
@@ -608,92 +600,92 @@ paths:
           schema:
             $ref: "#/definitions/Error"
   /contacts:
-    post:
-      x-swagger-router-controller: Contacts
-      operationId: sendMessage
-      tags:
-      - "contacts"
-      consumes:
-      - application/json
-      summary: Send message
-      description: |
-        This endpoint allows to send message.
-      parameters:
-      - in: body
-        name: body
-        description: Contacts/message object
-        required: true
-        schema:
-          $ref: '#/definitions/Contacts'
-      responses:
-        200:
-          description: Existing message was found and updated
+      post:
+        x-swagger-router-controller: Contacts
+        operationId: sendMessage
+        tags:
+        - "contacts"
+        consumes:
+        - application/json
+        summary: Send message
+        description: |
+          This endpoint allows to send message.
+        parameters:
+        - in: body
+          name: body
+          description: Contacts/message object
+          required: true
           schema:
             $ref: '#/definitions/Contacts'
-        201:
-          description: Contacts/message added
-          schema:
-            $ref: '#/definitions/Contacts'
-        400:
-          description: Invalid input
+        responses:
+          200:
+            description: Existing message was found and updated
+            schema:
+              $ref: '#/definitions/Contacts'
+          201:
+            description: Contacts/message added
+            schema:
+              $ref: '#/definitions/Contacts'
+          400:
+            description: Invalid input
   /auth/login:
-    post:
-      x-swagger-router-controller: Auth
-      operationId: login
-      tags:
-      - "auth"
-      consumes:
-      - application/json
-      summary: Login operation
-      description: |
-        This endpoint allows to login.
-      parameters:
-      - in: body
-        name: body
-        description: Login object
-        required: true
-        schema:
-          $ref: '#/definitions/Login'
-      responses:
-        200:
-          description: Existing login was found and updated
+      post:
+        x-swagger-router-controller: Auth
+        operationId: login
+        tags:
+        - "auth"
+        consumes:
+        - application/json
+        summary: Login operation
+        description: |
+          This endpoint allows to login.
+        parameters:
+        - in: body
+          name: body
+          description: Login object
+          required: true
           schema:
             $ref: '#/definitions/Login'
-        201:
-          description: Accepted
-          schema:
-            $ref: '#/definitions/Login'
-        400:
-          description: Invalid input
+        responses:
+          200:
+            description: Existing login was found and updated
+            schema:
+              $ref: '#/definitions/Login'
+          201:
+            description: Accepted
+            schema:
+              $ref: '#/definitions/Login'
+          400:
+            description: Invalid input
   /auth/register:
-    post:
-      x-swagger-router-controller: Auth
-      operationId: register
-      tags:
-      - "auth"
-      consumes:
-      - application/json
-      summary: Register operation
-      description: |
-        This endpoint allows to register.
-      parameters:
-      - in: body
-        name: body
-        description: Register object
-        required: true
-        schema:
-          $ref: '#/definitions/Register'
-      responses:
-        200:
-          description: Existing registration was found and updated
+      post:
+        x-swagger-router-controller: Auth
+        operationId: register
+        tags:
+        - "auth"
+        consumes:
+        - application/json
+        summary: Register operation
+        description: |
+          This endpoint allows to register.
+        parameters:
+        - in: body
+          name: body
+          description: Register object
+          required: true
           schema:
             $ref: '#/definitions/Register'
-        201:
-          description: Accepted
-          schema:
-            $ref: '#/definitions/Register'
-        400:
-          description: Invalid input
+        responses:
+          200:
+            description: Existing registration was found and updated
+            schema:
+              $ref: '#/definitions/Register'
+          201:
+            description: Accepted
+            schema:
+              $ref: '#/definitions/Register'
+          400:
+            description: Invalid input
   /user/{id}/cart:
     get:
       x-swagger-router-controller: Cart
@@ -794,6 +786,149 @@ paths:
           description: cartContent is updated
         400:
           description: An error!
+  /users:
+    get:
+      x-swagger-router-controller: User
+      operationId: getAllUsers
+      summary: Get all users
+      tags:
+      - "user"
+      produces:
+      - application/json
+      parameters:
+        - name: isActive
+          in: query
+          description: returns active users
+          required: false
+          type: boolean
+        - name: offset
+          in: query
+          description: start position for quering from DB
+          required: true
+          type: integer
+          format: int32
+          minimum: 0
+          default: 0
+        - name: limit
+          in: query
+          description: number of items to query from DB
+          required: true
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 27
+          default: 9
+      responses:
+        200:
+          description: Successful users response
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/User"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+  /user/{id}:
+    get:
+      x-swagger-router-controller: User
+      operationId: findUserById
+      summary: Find user
+      tags:
+      - "user"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the user to get
+        required: true
+        type: integer
+        format: int64
+      responses:
+        200:
+          description: User response
+          schema:
+            $ref: "#/definitions/User"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+    delete:
+      x-swagger-router-controller: User
+      operationId: deleteUserById
+      summary: Delete user
+      tags:
+      - "user"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the user to delete
+        required: true
+        type: integer
+        format: int64
+      responses:
+        204:
+          description: User is deleted
+          schema:
+            $ref: "#/definitions/User"
+    put:
+      x-swagger-router-controller: User
+      operationId: updateUserById
+      summary: Update user
+      tags:
+      - "user"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: Id of the User being updated
+        required: true
+        type: integer
+        format: int64
+      - name: "updatedUser"
+        in: "body"
+        description: The updated User
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        200:
+          description: User is updated
+        400:
+          description: An error!
+  /user:
+    post:
+      x-swagger-router-controller: User
+      operationId: createUser
+      tags:
+      - "user"
+      consumes:
+      - application/json
+      summary: Create user
+      description: |
+        This endpoint allows to create new user.
+      parameters:
+      - in: body
+        name: body
+        description: User object
+        required: true
+        schema:
+          $ref: '#/definitions/User'
+      responses:
+        200:
+          description: Existing category was found and updated
+          schema:
+            $ref: "#/definitions/User"
+        201:
+          description: User added
+          schema:
+            $ref: "#/definitions/User"
+        400:
+          description: Invalid input
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
@@ -801,9 +936,9 @@ definitions:
   Product:
     type: object
     required:
+      - price
       - title
       - description
-      - price
     properties:
       productId:
         type: integer
@@ -852,6 +987,8 @@ definitions:
       quantity:
         type: integer
         format: int64
+      measure:
+        type: string
   Cart:
     type: object
     required:
@@ -877,6 +1014,7 @@ definitions:
       quantity:
         type: integer
         format: int64
+
   Category:
     type: object
     required:
@@ -893,6 +1031,37 @@ definitions:
         type: string
       description:
         type: string
+  User:
+    type: object
+    required:
+      - firstName
+      - lastName
+      - email
+      - password
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      phone:
+        type: integer
+        format: int64
+      city:
+        type: string
+      address:
+        type: string
+      image:
+        type: string
+      favourites:
+        type: array
+        items:
+          type: number
+      active:
+        type: boolean
   Ingredient:
     type: object
     required:

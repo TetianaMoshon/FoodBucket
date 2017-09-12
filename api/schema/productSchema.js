@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const counter = require('../model/counter');
+const ingredient = require('../model/ingredients');
 
 const productSchema = mongoose.Schema({
     productId: Number,
@@ -7,20 +8,16 @@ const productSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    description: {
-        type: String,
-        required: true
-    },
     image: String,
+    description: String,
     price: {
         type: Number,
         required: true
     },
     category: String,
-    recommended: [String],
+    status: Boolean,
     discount: Number,
     promotions: Boolean,
-    status: Boolean,
     caloricity: Number,
     servingSize: Number,
     difficulty: String,
@@ -29,12 +26,10 @@ const productSchema = mongoose.Schema({
         {
             ingredientId: Number,
             ingredientName: String,
-            quantity: Number
+            quantity: Number,
+            measure: String
         }
     ]
-    // rate: {
-    //     users_quantity: Number
-    // }
 });
 
 productSchema.pre('save', function(next) {
@@ -45,6 +40,7 @@ productSchema.pre('save', function(next) {
         doc.productId = counter.seq;
         next();
     });
+
 });
 
 module.exports = productSchema;

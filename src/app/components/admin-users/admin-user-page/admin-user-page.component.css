@@ -1,0 +1,23 @@
+.container-max-width {
+    max-width: 500px;
+    padding-bottom: 50px;
+}
+
+h2 {
+    font-family: Oswald, sans-serif;
+}
+
+hr {
+    margin-top: 0;
+    margin-bottom: 40px;
+    border-color: black;
+}
+
+.btn-group>.btn:first-child:not(:last-child):not(.dropdown-toggle) {
+    border-radius: 10%;
+    margin-right: 10px;
+}
+.btn-group>.btn:last-child:not(:first-child), .btn-group>.dropdown-toggle:not(:first-child) {
+    border-radius: 10%;
+}
+

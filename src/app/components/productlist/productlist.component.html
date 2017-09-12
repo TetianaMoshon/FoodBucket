@@ -27,44 +27,29 @@
     <div class="product-list-header">
 
         <div class="row">
-            <div class="col-xs-4">
+            <div class="col-xs-6">
                 <h1>Pastas</h1>
             </div>
 
             <!--Category tag buttons begin-->
-            <div class="col-xs-4 sort-product-tags text-center">
-                    <div class="label_row" id="sort_types">
-                        <a class="label blue" data-type ="2" data-toggle="tooltip" data-placement="top" title="Top">
-                            <p class="text">Top</p>
-                        </a>
-                        <a class="label green" data-type ="3" data-toggle="tooltip" data-placement="top" title="Vegeterian">
-                            <p class="text"></p>
-                        </a>
-                        <a class="label orange" data-type ="4" data-toggle="tooltip" data-placement="top" title="Spicy">
-                            <p class="text"></p>
-                        </a>
-                        <a class="label yellow" data-type ="5" data-toggle="tooltip" data-placement="top" title="New">
-                            <p class="text">New</p>
-                        </a>
-                    </div>
+            <div class="col-xs-6 sort-product-tags right">
+                <div class="label_row" id="sort_types">
+                    <a class="label top" data-type ="2" data-toggle="tooltip" data-placement="top" title="Top">
+                        <p class="text">Top</p>
+                    </a>
+                    <a class="label vegeterian" data-type ="3" data-toggle="tooltip" data-placement="top" title="Vegeterian">
+                        <p class="text"></p>
+                    </a>
+                    <a class="label spicy" data-type ="4" data-toggle="tooltip" data-placement="top" title="Spicy">
+                        <p class="text"></p>
+                    </a>
+                    <a class="label new" data-type ="5" data-toggle="tooltip" data-placement="top" title="New">
+                        <p class="text">New</p>
+                    </a>
+                </div>
             </div>
             <!--Category tag buttons end-->
-
-            <!--Search box begins-->
-            <div class="col-xs-4 search-box pull-right">
-                <form>
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search">
-                        <div class="input-group-btn">
-                            <button class="btn btn-default" type="submit" routerLink="" routerLinkActive="active">
-                                <i class="glyphicon glyphicon-search"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
         </div>
-        <!--Search box ends-->
 
     </div>
     <!--Product list header ends-->
@@ -72,23 +57,41 @@
     <!--Product list block starts-->
     <div class="product-list-blocks">
 
-        <ng-container *ngFor="let product of products">
-            <div class="col-md-4 col-sm-6 hero-feature">
-                <div class="thumbnail">
-                    <a routerLink={{product.routerLink}}> <img src={{product.image}}></a>
-                    <div class="caption product-desc">
-                        <h3>{{product.title}}</h3>
-                        <p>{{product.description}}</p>
-                        <p>
-                            <button class="btn btn-primary" [id]="product.id" (click)="addProductToCart($event)">Buy Now!</button>
-                            <a routerLink="productpage" routerLinkActive="active" class="btn btn-default">More Info</a>
-                        </p>
+        <div class="row text-center">
+
+            <ng-container *ngFor="let product of pagedItems">
+                <div class="col-md-4 col-sm-6 hero-feature">
+                    <div class="thumbnail">
+                        <a routerLink={{product.routerLink}}> <img src={{product.image}}></a>
+                        <div class="caption product-desc">
+                            <h3>{{product.title}}</h3>
+                            <p>{{product.description}}</p>
+                            <p>
+                                <button class="btn btn-primary" [id]="product.id" (click)="addProductToCart($event)">Buy Now!</button>
+                                <a routerLink={{product.routerLink}} routerLinkActive="active" class="btn btn-default">More Info</a>
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </ng-container>
+            </ng-container>
 
-        <!--Product list block ends-->
+            <div class="row text-center">
+                <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                    <li [ngClass]="{disabled:pager.currentPage === 1}">
+                        <a class="cursor-pointer" (click)="setPage(1)">«</a>
+                    </li>
+                    <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                        <a class="cursor-pointer" (click)="setPage(page)">{{page}}</a>
+                    </li>
+                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                        <a class="cursor-pointer" (click)="setPage(pager.totalPages)">»</a>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+    <!--Product list block ends-->
 
 </div>
 <!--Product list ends-->

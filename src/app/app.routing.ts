@@ -18,6 +18,7 @@ import {AdminUsersComponent} from './components/admin-users/admin-users.componen
 import {ProductpageComponent} from './components/productlist/productpage/productpage.component';
 import { AdminProductPageComponent } from './components/admin-product-list/admin-product-page/admin-product-page.component';
 import {UserProfileComponent} from './components/user-profile/user-profile.component';
+import { AdminUserPageComponent } from './components/admin-users/admin-user-page/admin-user-page.component';
 import {AdmincategoriesFormComponent} from './components/admincategories/admincategories-form/admincategories-form.component';
 
 import {Error404Component} from './components/error404/error404.component';
@@ -40,11 +41,17 @@ const appRoutes: Routes = [
       {path: '', component: AdminMainComponent},
       { path: 'orders', component: AdminOrdersComponent},
       { path: 'productlist', children: [
-          {path: '', component: AdminProductListComponent},
-          { path: 'productpage', component: AdminProductPageComponent},
+          { path: '', component: AdminProductListComponent },
+          { path: ':id/edit', component: AdminProductPageComponent},
+          { path: 'create', component: AdminProductPageComponent},
       ]},
       { path: 'comments', component: AdminCommentsComponent},
-      { path: 'users', component: AdminUsersComponent},
+      { path: 'users', children: [
+          { path: '', component: AdminUsersComponent },
+          { path: ':id/edit', component: AdminUserPageComponent },
+          { path: 'create', component: AdminUserPageComponent },
+      ]},
+
       { path: 'categories', children: [
           { path: '', component: AdmincategoriesComponent },
           { path: ':id/edit', component: AdmincategoriesFormComponent },

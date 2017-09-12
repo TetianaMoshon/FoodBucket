@@ -1,6 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Ng2SmartTableComponent} from 'ng2-smart-table/ng2-smart-table.component';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {LocalDataSource} from 'ng2-smart-table';
 
 
+import {UserService} from '../../client/api/user.service';
 
 @Component({
   selector: 'app-admin-users',
@@ -8,28 +12,32 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin-users.component.css']
 })
 export class AdminUsersComponent implements OnInit {
-
     settings = {
         actions: {
             position: 'right',
+            delete: 'true',
             columnTitle: ' ',
+        },
+        delete: {
+            addButtonContent: 'OFF'
+        },
+        add: {
+            addButtonContent: 'Add'
         },
         pager: {
             display: true,
             perPage: 5,
         },
-        add: {
-            addButtonContent: 'Add'
-        },
+        mode: 'external',
         columns: {
-            id: {
+            user_id: {
                 title: 'ID',
                 width: '6%'
             },
-            name: {
+            firstName: {
                 title: 'Name'
             },
-            surname: {
+            lastName: {
                 title: 'Surname'
             },
             email: {
@@ -41,125 +49,63 @@ export class AdminUsersComponent implements OnInit {
             city: {
                 title: 'City'
             },
-            adress: {
-                title: 'Adress'
+            address: {
+                title: 'Address'
+            },
+            active: {
+                title: 'Active'
             },
         }
     };
+    public data;
+    public newUser;
 
-    data = [
-        {
-            id: 1,
-            name: 'Leanne',
-            surname: 'Bret',
-            email: 'Sincere@april.biz',
-            phone: '06566565',
-            city: 'Kiev',
-            adress: 'St.Peremogy, 95'
-        },
-        {
-            id: 2,
-            name: 'Katya',
-            surname: 'Kvitka',
-            email: 'kvitka@april.biz',
-            phone: '06566565',
-            city: 'Zhytomir',
-            adress: 'St.Peremogy, 95'
-        },
-        {
-            id: 3,
-            name: 'Katya',
-            surname: 'Kvitka',
-            email: 'kvitka@april.biz',
-            phone: '06566565',
-            city: 'Zhytomir',
-            adress: 'St.Peremogy, 95'
-        },
-        {
-            id: 4,
-            name: 'Katya',
-            surname: 'Kvitka',
-            email: 'kvitka@april.biz',
-            phone: '06566565',
-            city: 'Zhytomir',
-            adress: 'St.Peremogy, 95'
-        },
-        {
-            id: 5,
-            name: 'Katya',
-            surname: 'Kvitka',
-            email: 'kvitka@april.biz',
-            phone: '06566565',
-            city: 'Zhytomir',
-            adress: 'St.Peremogy, 95'
-        },
-        {
-            id: 6,
-            name: 'Katya',
-            surname: 'Kvitka',
-            email: 'kvitka@april.biz',
-            phone: '06566565',
-            city: 'Zhytomir',
-            adress: 'St.Peremogy, 95'
-        },
-        {
-            id: 7,
-            name: 'Katya',
-            surname: 'Kvitka',
-            email: 'kvitka@april.biz',
-            phone: '06566565',
-            city: 'Zhytomir',
-            adress: 'St.Peremogy, 95'
-        },
-        {
-            id: 8,
-            name: 'Katya',
-            surname: 'Kvitka',
-            email: 'kvitka@april.biz',
-            phone: '06566565',
-            city: 'Zhytomir',
-            adress: 'St.Peremogy, 95'
-        },
-        {
-            id: 9,
-            name: 'Katya',
-            surname: 'Kvitka',
-            email: 'kvitka@april.biz',
-            phone: '06566565',
-            city: 'Zhytomir',
-            adress: 'St.Peremogy, 95'
-        },
-        {
-            id: 10,
-            name: 'Katya',
-            surname: 'Kvitka',
-            email: 'kvitka@april.biz',
-            phone: '06566565',
-            city: 'Zhytomir',
-            adress: 'St.Peremogy, 95'
-        },
-        {
-            id: 11,
-            name: 'Katya',
-            surname: 'Kvitka',
-            email: 'kvitka@april.biz',
-            phone: '06566565',
-            city: 'Zhytomir',
-            adress: 'St.Peremogy, 95'
-        },
-        {
-            id: 12,
-            name: 'Katya',
-            surname: 'Kvitka',
-            email: 'kvitka@april.biz',
-            phone: '06566565',
-            city: 'Zhytomir',
-            adress: 'St.Peremogy, 95'
-        }
-    ];
+    constructor(protected userService: UserService, private router: Router) {
+        this.userService.getAllUsers(1, 2, true)
+            .subscribe(
+                user => {
+                    this.data =  user;
+                },
+                err => console.log(err)
+            );
+    }
 
+    onCreateClick(event, eventName: string): void {
+        this.changeRoute('/admin/users/create');
+    }
 
-    constructor() { }
+    onEditClick(event, eventName: string): void {
+        this.changeRoute(`/admin/users/${event.data.user_id}/edit`);
+
+    }
+
+    onDeleteClick(event, eventName: string): void {
+        this.userService.findUserById(event.data.user_id)
+            .subscribe(
+                user => {
+                    this.newUser = user;
+                    this.newUser.active = false;
+                    this.userService.updateUserById(this.newUser.user_id, this.newUser)
+                        .subscribe(
+                            updateUser => {
+                                this.userService.getAllUsers(1, 2, true)
+                                    .subscribe(
+                                        addUser => {
+                                            this.data =  addUser;
+                                        },
+                                        err => console.log(err)
+                                    );
+                            },
+                            err => console.log(err)
+                        );
+                },
+                err => console.log(err)
+            );
+    }
+
+    changeRoute(routeValue) {
+        this.router.navigateByUrl(routeValue,) ;
+    }
 
     ngOnInit() {
     }

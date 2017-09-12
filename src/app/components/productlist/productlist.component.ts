@@ -11,59 +11,70 @@ import {Product} from '../../client/model/product';
   styleUrls: ['./productlist.component.css']
 })
 export class ProductlistComponent implements OnInit {
+    showHide: boolean;
+    products = [];
     id: number;
     priceOfChosenProduct;
     cartContentObjCreated = false;
     idOfLoggedinUser = 4444;
     arrayOfCartOrders = [];
-
-    showHide: boolean;
-    products = [];
-
+    pager: any = {};
+    pagedItems: any[];
     constructor(
-      private cartService: CartService,
-      private productService: ProductService,
-      private pagerService: PagerService
-  ) { }
+        private cartService: CartService,
+        private productService: ProductService,
+        private pagerService: PagerService
+    ) {
+        this.showHide = false;
+    }
 
   ngOnInit() {
-        this.idOfLoggedinUser = this.getIdOfLoggedInUserFromLocalStorage().userId;
-        this.populateIdFieldOfProduct();
+      this.idOfLoggedinUser = this.getIdOfLoggedInUserFromLocalStorage().userId;
+      this.populateIdFieldOfProduct();
+      this.setPage(1);
   }
+    setPage(page: number) {
+        if (page < 1 || page > this.pager.totalPages) {
+            return;
+        }
+
+        this.pager = this.pagerService.getPager(this.products.length, page);
+        this.pagedItems = this.products.slice(this.pager.startIndex, this.pager.endIndex + 1);
+    }
 
     addProductToCart(e) {
         this.cartContentObjCreated = JSON.parse(localStorage.getItem('cartContentObjCreated'));
-                if (!this.cartContentObjCreated) {
-                    // use POST method
+        if (!this.cartContentObjCreated) {
+            // use POST method
 
-                    // let's create cartOrder
-                    const newCartOrder = {
-                        productId: parseInt(e.target.id),
-                        // when cart is first created quantity is 1
-                        quantity: 1
-                    };
-                    const newCart = {
-                        orderedProducts: [
-                            newCartOrder
-                        ],
-                        // when cart is first created total price is initialized to zero as it's calculated in cart-box.component.ts
-                        totalPriceOfAllDishes: 0
-                    };
+            // let's create cartOrder
+            const newCartOrder = {
+                productId: parseInt(e.target.id),
+                // when cart is first created quantity is 1
+                quantity: 1
+            };
+            const newCart = {
+                orderedProducts: [
+                    newCartOrder
+                ],
+                // when cart is first created total price is initialized to zero as it's calculated in cart-box.component.ts
+                totalPriceOfAllDishes: 0
+            };
 
-                    this.cartService.createCartForUserById(this.idOfLoggedinUser, newCart).subscribe(
-                        cart => {
-                            localStorage.setItem('showAPhrase', JSON.stringify(false));
-                            console.log('What is in the cart ', cart);
-                            const {orderedProducts} = cart;
-                            orderedProducts.forEach(cartOrder => {
-                                this.arrayOfCartOrders.push(cartOrder);
-                                localStorage.setItem('cartContentObjCreated', JSON.stringify(true));
-                            });
-                        },
-                        err => console.log('Error has happened ' + err )
-                    );
+            this.cartService.createCartForUserById(this.idOfLoggedinUser, newCart).subscribe(
+                cart => {
+                    localStorage.setItem('showAPhrase', JSON.stringify(false));
+                    console.log('What is in the cart ', cart);
+                    const {orderedProducts} = cart;
+                    orderedProducts.forEach(cartOrder => {
+                        this.arrayOfCartOrders.push(cartOrder);
+                        localStorage.setItem('cartContentObjCreated', JSON.stringify(true));
+                    });
+                },
+                err => console.log('Error has happened ' + err )
+            );
 
-            } else {
+        } else {
             if (this.findIdInArray(e)) {
 
                 console.log('You have already added this product to your cart');
@@ -74,13 +85,13 @@ export class ProductlistComponent implements OnInit {
                 // add cartOrders to the created cartContentObjCreated
 
                 // let's push new CartOrder into arrayOfCartOrders
-              this.arrayOfCartOrders.push({productId: parseInt(e.target.id), quantity: 1});
+                this.arrayOfCartOrders.push({productId: parseInt(e.target.id), quantity: 1});
                 // console.log(' this.arrayOfCartOrders ',  this.arrayOfCartOrders);
                 // let's created updatedCartOrder
-                    console.log('array with added items ', this.arrayOfCartOrders);
+                console.log('array with added items ', this.arrayOfCartOrders);
                 const updatedCart = {
                     orderedProducts:
-                        this.arrayOfCartOrders,
+                    this.arrayOfCartOrders,
                     // when cart is first created total price is the price of a clicked product
                     totalPriceOfAllDishes: 0
                 };
@@ -110,7 +121,7 @@ export class ProductlistComponent implements OnInit {
                 this.products.push({id, title, description, image});
             });
 
-          });
+        });
 
     }
 
@@ -119,4 +130,3 @@ export class ProductlistComponent implements OnInit {
         return user;
     }
 }
-
