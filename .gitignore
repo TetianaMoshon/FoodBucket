@@ -59,4 +59,6 @@ api/utils/writer.js
 /src/app/client/api/
 /src/app/client/model/
 /src/app/client/encoder.ts
+/src/app/client/.gitignore
+/src/app/client/git_push.sh
 
