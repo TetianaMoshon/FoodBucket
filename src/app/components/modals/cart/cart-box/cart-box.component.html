@@ -8,14 +8,13 @@
 <div class="colorOfBackground modal-body">
     <p class="phraseToShow text-center" *ngIf="showAPhrase">Make your order please...</p>
        <div *ngIf="!showAPhrase" class="scrollable">
-          <ul *ngFor="let information of arrayOfDishNamesAndPrices" class="list-group">
+          <ul *ngFor="let information of dataReferenceArray" class="list-group">
 
               <li class="list-group-item">
                 <app-cart-item
                     [info]="information"
                     (ItemWasDeleted)="renewArray($event)"
-                    (moneyToPayForADish)="calculateTotalPriceToPay($event)"
-                ></app-cart-item> </li>
+                      ></app-cart-item> </li>
         </ul>
     </div>
 

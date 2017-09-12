@@ -67,7 +67,8 @@
                             <h3>{{product.title}}</h3>
                             <p>{{product.description}}</p>
                             <p>
-                                <a class="btn btn-primary">Buy Now!</a> <a routerLink={{product.routerLink}} routerLinkActive="active" class="btn btn-default">More Info</a>
+                                <button class="btn btn-primary" [id]="product.id" (click)="addProductToCart($event)">Buy Now!</button>
+                                <a routerLink={{product.routerLink}} routerLinkActive="active" class="btn btn-default">More Info</a>
                             </p>
                         </div>
                     </div>
@@ -91,7 +92,6 @@
         </div>
     </div>
     <!--Product list block ends-->
-
 
 </div>
 <!--Product list ends-->

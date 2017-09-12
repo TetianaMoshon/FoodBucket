@@ -49,8 +49,7 @@ controllers/ProductService.js
 service/IngredientService.js
 controllers/IngredientService.js
 
-service/OrderService.js
-controllers/OrderService.js
+
 
 service/PromotionService.js
 controllers/PromotionService.js
