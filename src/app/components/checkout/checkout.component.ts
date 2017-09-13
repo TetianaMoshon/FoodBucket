@@ -83,6 +83,7 @@ export class CheckoutComponent implements OnInit {
             "products": this.prodIdsArr
         }).subscribe(res => {
             console.log(res);
+
         });
     }
 }
