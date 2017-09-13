@@ -59,7 +59,7 @@
 
         <div class="row text-center">
 
-            <ng-container *ngFor="let product of pagedItems">
+            <ng-container *ngFor="let product of products">
                 <div class="col-md-4 col-sm-6 hero-feature">
                     <div class="thumbnail">
                         <a routerLink={{product.routerLink}}> <img src={{product.image}}></a>
@@ -68,7 +68,7 @@
                             <p>{{product.description}}</p>
                             <p>
                                 <button class="btn btn-primary" [id]="product.id" (click)="addProductToCart($event)">Buy Now!</button>
-                                <a routerLink={{product.routerLink}} routerLinkActive="active" class="btn btn-default">More Info</a>
+                                <a routerLink='productpage' routerLinkActive="active" class="btn btn-default">More Info</a>
                             </p>
                         </div>
                     </div>

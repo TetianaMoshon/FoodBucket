@@ -3,5 +3,5 @@ foodbucket:
     - orderId
     - categoryId
     - productId
-    - user_id
+    - userId
     - ingredientId
