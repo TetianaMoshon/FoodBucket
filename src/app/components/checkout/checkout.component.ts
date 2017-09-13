@@ -18,7 +18,6 @@ export class CheckoutComponent implements OnInit {
     prodIdsArr = [];
     passedObjFromCart;
     orderInfo;
-
   ngOnInit() {
       if (JSON.parse(localStorage.getItem('newOrder'))) {
           this.passedObjFromCart = JSON.parse(localStorage.getItem('newOrder'));
@@ -35,8 +34,8 @@ export class CheckoutComponent implements OnInit {
 
           this.passedObjFromCart.products = this.prodIdsArr;
           console.log(` this.passedObjFromCart returns us this `,  this.passedObjFromCart);
-
-
+          this.firstName = this.passedObjFromCart.username.split(' ')[0];
+          this.surname = this.passedObjFromCart.username.split(' ')[1];
       }
         this.orderInfo = JSON.parse(localStorage.getItem('newOrder'));
         console.log('ORDER INFO returns us this', this.orderInfo);

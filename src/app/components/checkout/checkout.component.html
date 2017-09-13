@@ -8,11 +8,11 @@
         <div class="col-md-6 col-sm-6">
                 <div class="form-group">
                     <label for="firstName">First name:</label>
-                    <input [(ngModel)]='firstName' [value]='passedObjFromCart.username' name="firstName" type="text" class="form-control" id="firstName" required>
+                    <input [(ngModel)]='firstName'  name="firstName" type="text" class="form-control" id="firstName" required>
                 </div>
                 <div class="form-group">
                     <label for="address">Address:</label>
-                    <input [(ngModel)]='address' [value]='passedObjFromCart.address' name="address" type="text" class="form-control" id="address" required>
+                    <input [(ngModel)]='passedObjFromCart.address' name="address" type="text" class="form-control" id="address" required>
                 </div>
                 <div class="form-group">
                     <label for="phone">Phone number:</label>
@@ -22,11 +22,11 @@
         <div class="col-md-6 col-sm-6">
             <div class="form-group">
                 <label for="surname">Last name:</label>
-                <input [(ngModel)]='surname' [value]='passedObjFromCart.username'name="surname" type="text" class="form-control" id="surname" required>
+                <input [(ngModel)]='surname' name="surname" type="text" class="form-control" id="surname" required>
             </div>
             <div class="form-group">
                 <label for="city">City:</label>
-                <input [(ngModel)]='city' [value]='passedObjFromCart.city' name="city" type="text" class="form-control" id="city" required>
+                <input [(ngModel)]='passedObjFromCart.city' name="city" type="text" class="form-control" id="city" required>
             </div>
         </div>
     </div>
@@ -68,18 +68,12 @@
 <div class=" col-md-4 col-xs-12">
     <div class="row">
         <h3>Order summary</h3>
-        <ul class="list-group">
-            <li class="list-group-item">Item 1 <span class="badge">12</span></li>
-            <li class="list-group-item">Item 2 <span class="badge">5</span></li>
-            <li class="list-group-item">Item 3 <span class="badge">3</span></li>
-            <li class="list-group-item">Item 4 <span class="badge">34</span></li>
-            <li class="list-group-item">Item 5 <span class="badge">36</span></li>
-            <li class="list-group-item">Item 6 <span class="badge">3345</span></li>
-            <li class="list-group-item">Item 7 <span class="badge">395784</span></li>
+        <ul *ngFor="let product of passedObjFromCart.products" class="list-group">
+            <li class="list-group-item">{{product}}</li>
         </ul>
-        <p class="bigger-font text-right">Subtotal <strong>99$</strong></p>
+        <p class="bigger-font text-right">Subtotal <strong>{{passedObjFromCart.price}}</strong></p>
         <p class="bigger-font text-right">Delivery <strong>free</strong></p>
-        <p class="bigger-font text-right">Total <strong>99$</strong></p>
+        <p class="bigger-font text-right">Total <strong>{{passedObjFromCart.price}}</strong></p>
     </div>
 </div>
 </div>

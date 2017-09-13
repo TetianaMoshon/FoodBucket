@@ -1,5 +1,5 @@
-import {Component, OnInit, OnDestroy, TemplateRef} from '@angular/core';
-import {BsModalRef, BsModalService} from 'ngx-bootstrap';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {BsModalRef} from 'ngx-bootstrap';
 import {Router} from '@angular/router';
 import {CartService} from '../../../../client/api/cart.service';
 import {ProductService} from '../../../../client/api/product.service';
@@ -16,13 +16,13 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
     title = 'Cart';
     idOfLoggedinUser = 4444;
-    cancelPrice = false;
     showAPhrase = true;
     totalPriceOfAllDishes = 0;
     arrayOfDishNamesAndPrices = [];
     dataReferenceArray = [];
     subscription: Subscription;
     arrayOfCartOrders = [];
+    nameAndSurname;
 
     constructor(
         public bsModalRef: BsModalRef,
@@ -37,6 +37,7 @@ export class CartBoxComponent implements OnInit, OnDestroy {
         this.idOfLoggedinUser = this.getIdOfLoggedInUserFromLocalStorage().userId;
         this.showAPhrase = JSON.parse(localStorage.getItem('showAPhrase'));
         this.populateArrayOfDishNamesAndPrices();
+        this.nameAndSurname = this.getIdOfLoggedInUserFromLocalStorage().firstName + ' ' + this.getIdOfLoggedInUserFromLocalStorage().lastName;
         this.subscription = this.cartCommunicationService.passedData.subscribe(
             data => {
                 this.calculateTotalPriceToPay(data);
@@ -70,7 +71,8 @@ export class CartBoxComponent implements OnInit, OnDestroy {
                                     const {title : name, image, price, productId} =  product;
                                     this.arrayOfDishNamesAndPrices.push({image, id : productId, name, price,
                                         quantityOrdered: cartOrder.quantity});
-                                    // let's have a copy of arrayOfDishNamesAndPrices so we can refer to it later instead of calling our server
+                                    // let's have a copy of arrayOfDishNamesAndPrices
+                                    // so we can refer to it later instead of calling our server
                                     this.dataReferenceArray.push({image, id : productId, name, price,
                                         quantityOrdered: cartOrder.quantity});
                                     this.sumUpTotalPriceOfAllDishes(this.arrayOfDishNamesAndPrices);
@@ -175,7 +177,7 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
     private sumUpTotalPriceOfAllDishes(arr) {
         this.totalPriceOfAllDishes = 0;
-        arr.forEach((currValue, index) => {
+        arr.forEach((currValue) => {
             this.totalPriceOfAllDishes += currValue.price;
         });
     }
@@ -199,13 +201,13 @@ export class CartBoxComponent implements OnInit, OnDestroy {
                     const {orderedProducts, totalPriceOfAllDishes} = updatedCart;
 
                     const newOrder: Order = {
-                        username: this.getIdOfLoggedInUserFromLocalStorage().firstName,
+                        username: this.nameAndSurname,
                         city: this.getIdOfLoggedInUserFromLocalStorage().city,
                         price: totalPriceOfAllDishes,
                         address: this.getIdOfLoggedInUserFromLocalStorage().address,
                         status: 'New',
                         products: orderedProducts
-                    }
+                    };
                     console.log(`=======cartOrdersArray from cart-box======`, newOrder);
                     localStorage.setItem('newOrder', JSON.stringify(newOrder));
 
@@ -218,8 +220,7 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
     private getIdOfLoggedInUserFromLocalStorage() {
         if (JSON.parse(localStorage.getItem('currentUser'))) {
-            const user = JSON.parse(localStorage.getItem('currentUser'));
-            return user;
+            return JSON.parse(localStorage.getItem('currentUser'));
         } else {
             return;
         }
