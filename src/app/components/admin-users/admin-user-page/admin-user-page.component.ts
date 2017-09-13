@@ -88,7 +88,7 @@ export class AdminUserPageComponent implements OnInit, OnDestroy {
         this.userService.updateUserById(id, userModel)
             .subscribe(
                 user => {
-                    this.flashMessagesService.show(`User with id:${user['user_id']} was successfully updated!`, {
+                    this.flashMessagesService.show(`User with id:${user['userId']} was successfully updated!`, {
                         classes: ['alert', 'alert-success'],
                         timeout: 3000,
                     });
