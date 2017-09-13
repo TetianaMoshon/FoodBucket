@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
 import {NgForm} from '@angular/forms';
-import {OrderService} from "../../client/api/order.service";
+import {OrderService} from '../../client/api/order.service';
 
 @Component({
   selector: 'app-checkout',
@@ -10,7 +9,7 @@ import {OrderService} from "../../client/api/order.service";
 })
 export class CheckoutComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private orderService: OrderService ) { }
+  constructor(private orderService: OrderService ) { }
     surname: string;
     phone: string;
     city: string;
@@ -18,6 +17,7 @@ export class CheckoutComponent implements OnInit {
     firstName: string;
     prodIdsArr = [];
     passedObjFromCart;
+    orderInfo;
 
   ngOnInit() {
       if (JSON.parse(localStorage.getItem('newOrder'))) {
@@ -29,18 +29,17 @@ export class CheckoutComponent implements OnInit {
                   const {productId, quantity} = data;
                   this.prodIdsArr.push(productId);
                   console.log(`productId #${i} ${productId}, quantity #${i} ${quantity}`);
-                  console.log(` this.prodIdsArr `,  this.prodIdsArr);
-
               }
 
           );
 
           this.passedObjFromCart.products = this.prodIdsArr;
-          console.log(` this.passedObjFromCart `,  this.passedObjFromCart);
+          console.log(` this.passedObjFromCart returns us this `,  this.passedObjFromCart);
 
 
       }
-
+        this.orderInfo = JSON.parse(localStorage.getItem('newOrder'));
+        console.log('ORDER INFO returns us this', this.orderInfo);
 
 
       function validateCardNumber(value) {
@@ -63,26 +62,22 @@ export class CheckoutComponent implements OnInit {
           });
   }
     onSubmit(form: NgForm) {
-    // this.orderService.putOrder(this.passedObjFromCart).subscribe(data=>{
-    //     console.log(data);
-    // });
-        let username = this.passedObjFromCart.username;
-        let city = this.passedObjFromCart.city;
-        let address = this.passedObjFromCart.address;
-        let price = this.passedObjFromCart.price;
-        console.log(price);
-        let status = 'NEW';
-        let phone = form.value.phone;
+        const username = this.passedObjFromCart.username;
+        const city = this.passedObjFromCart.city;
+        const address = this.passedObjFromCart.address;
+        const price = this.passedObjFromCart.price;
+        const status = 'NEW';
+        const phone = form.value.phone;
         this.orderService.putOrder({
-            "username": username,
-            "city": city,
-            "price": price,
-            "address": address,
-            "status": status,
-            "phone": phone,
-            "products": this.prodIdsArr
+            'username': username,
+            'city': city,
+            'price': price,
+            'address': address,
+            'status': status,
+            'phone': phone,
+            'products': this.prodIdsArr
         }).subscribe(res => {
-            console.log(res);
+            console.log('Result from subscribe', res);
 
         });
     }
