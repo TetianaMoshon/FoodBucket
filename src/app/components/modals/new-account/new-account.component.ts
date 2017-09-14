@@ -26,6 +26,7 @@ export class NewAccountComponent implements OnInit {
         this.registerAPI.registerWithHttpInfo(this.model)
             .subscribe(reg => {
             if (reg.ok ) {
+                console.log(reg.json());
                 this.openModal('Registration is completed');
             } else {
                 this.openModal('Ooops, smth went wrong!');
