@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { FlashMessagesService } from 'ngx-flash-messages';
 import { NgForm } from '@angular/forms';
 import { IngredientService } from '../../../client/api/ingredient.service';
+import { ProductModel } from './productModel';
 
 @Component({
     selector: 'app-admin-product-page',
@@ -15,22 +16,22 @@ import { IngredientService } from '../../../client/api/ingredient.service';
 export class AdminProductPageComponent implements OnInit, OnDestroy {
     public productData;
     public productIngredients = [];
-    title: string;
-    description: string;
-    image: string;
-    price: number;
-    category: string;
-    status: boolean;
-    discount: number;
-    promotions: boolean;
-    caloricity: number;
-    servingSize: number;
-    difficulty: string;
-    spiceLevel: string;
-    ingredients: any;
-    ingredientName: string;
-    quantity: number;
-    measure: string;
+    // title: string;
+    // description: string;
+    // price: number;
+    // image: string;
+    // category: string;
+    // status: boolean;
+    // discount: number;
+    // promotions: boolean;
+    // caloricity: number;
+    // servingSize: number;
+    // difficulty: string;
+    // spiceLevel: string;
+    // ingredients: any;
+    // ingredientName: string;
+    // quantity: number;
+    // measure: string;
 
     action: {
         id: number,
@@ -43,6 +44,8 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
         protected route: ActivatedRoute,
         private flashMessagesService: FlashMessagesService
     ) { }
+
+    productModel = new ProductModel('', '', null, '', '', true, null, false, null, null, '', '', [{ingredientName: '', quantity: null, measure: ''}]);
 
     ngOnInit() {
         this.urlSubscription = this.route.url
@@ -73,61 +76,29 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
         this.urlSubscription.unsubscribe();
     }
 
-    onSubmit(form: NgForm) {
-        const productObject = {
-            title: form.value.title,
-            description: form.value.description,
-            image: form.value.image,
-            price: Number(form.value.price),
-            category: form.value.category,
-            status: Boolean(form.value.status),
-            discount: Number(form.value.discount),
-            promotions: Boolean(form.value.promotions),
-            caloricity: Number(form.value.caloricity),
-            servingSize: Number(form.value.servingSize),
-            difficulty: form.value.difficulty,
-            spiceLevel: form.value.spiceLevel,
-            ingredients: [{
-                ingredientName: form.value.ingredientName,
-                quantity: Number(form.value.quantity),
-                measure: form.value.measure
-            }]
-        };
+    onSubmit() {
+            this.productModel.price = Number(this.productModel.price);
+            this.productModel.status = Boolean(this.productModel.status);
+            this.productModel.discount = Number(this.productModel.discount);
+            this.productModel.promotions = Boolean(this.productModel.promotions);
+            this.productModel.caloricity = Number(this.productModel.caloricity);
+            this.productModel.servingSize = Number(this.productModel.servingSize);
+            this.productModel.ingredients[0].quantity = Number(this.productModel.ingredients[0].quantity);
 
         if (this.action.name === 'create') {
-            // const p = {
-            //     productId: 150,
-            //     title: "string",
-            //     description: "string333",
-            //     image: "string",
-            //     price: 0,
-            //     category: "string",
-            //     status: true,
-            //     discount: 0,
-            //     promotions: true,
-            //     caloricity: 0,
-            //     servingSize: 0,
-            //     difficulty: "string",
-            //     spiceLevel: "string",
-            //     ingredients: [
-            //         {
-            //             ingredientId: 0,
-            //             ingredientName: "stfchring",
-            //             quantity: 0
-            //         }
-            //     ]
-            // }
-            this.createProduct(productObject);
+            this.createProduct(this.productModel);
+            // this.resetFormFields();
         } else {
-            this.updateProduct(this.action.id, productObject);
+            this.updateProduct(this.action.id, this.productModel);
         }
         // console.log(productObject);
+        console.log(this.productModel);
     }
 
-    createProduct(productObject) {
+    createProduct(productModel) {
         // console.log(productObject);
-
-        this.productService.createProduct(productObject)
+        console.log(this.productModel);
+        this.productService.createProduct(productModel)
             .subscribe(
                 product => {
                     this.flashMessagesService.show(`Product with id:${product['productId']} was successfully created!`, {
@@ -140,9 +111,9 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
             );
     }
 
-    updateProduct(id: number, productObject) {
-        console.log(productObject);
-        this.productService.updateProductById(id, productObject)
+    updateProduct(id: number, productModel) {
+        console.log(productModel);
+        this.productService.updateProductById(id, productModel)
             .subscribe(
                 product => {
                     this.productData = product;
@@ -162,41 +133,42 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
         this.productService.findProductById(id)
             .subscribe(
                 product => {
-                    this.title = product.title;
-                    this.description = product.description;
-                    this.image = product.image;
-                    this.price = product.price;
-                    this.category = product.category;
-                    this.status = product.status;
-                    this.discount = product.discount;
-                    this.promotions = product.promotions;
-                    this.caloricity = product.caloricity;
-                    this.servingSize = product.servingSize;
-                    this.difficulty = product.difficulty;
-                    this.spiceLevel = product.spiceLevel;
+                    this.productModel.title = product.title;
+                    this.productModel.description = product.description;
+                    this.productModel.price = product.price;
+                    this.productModel.image = product.image;
+                    this.productModel.category = product.category;
+                    this.productModel.status = product.status;
+                    this.productModel.discount = product.discount;
+                    this.productModel.promotions = product.promotions;
+                    this.productModel.caloricity = product.caloricity;
+                    this.productModel.servingSize = product.servingSize;
+                    this.productModel.difficulty = product.difficulty;
+                    this.productModel.spiceLevel = product.spiceLevel;
                     // this.ingredients = product.ingredients;
-                    this.ingredientName = product.ingredients[0].ingredientName;
-                    this.quantity = product.ingredients[0].quantity;
-                    this.measure = product.ingredients[0].measure;
+                    this.productModel.ingredients[0].ingredientName = product.ingredients[0].ingredientName;
+                    this.productModel.ingredients[0].quantity = product.ingredients[0].quantity;
+                    this.productModel.ingredients[0].measure = product.ingredients[0].measure;
                 }
             );
     }
 
     resetFormFields() {
-        this.title = '';
-        this.description = '';
-        this.image = '';
-        this.price = null;
-        this.category = '';
-        this.status = false;
-        this.discount = null;
-        this.promotions = false;
-        this.caloricity = null;
-        this.servingSize = null;
-        this.difficulty = '';
-        this.spiceLevel = '';
-        this.ingredientName = '';
-        this.quantity = null;
-        this.measure = '';
+        // this.title = '';
+        // this.description = '';
+        // this.price = null;
+        // this.image = '';
+        // this.category = '';
+        // this.status = false;
+        // this.discount = null;
+        // this.promotions = false;
+        // this.caloricity = null;
+        // this.servingSize = null;
+        // this.difficulty = '';
+        // this.spiceLevel = '';
+        // this.ingredientName = '';
+        // this.quantity = null;
+        // this.measure = '';
+        this.productModel = new ProductModel('', '', null, '', '', true, null, false, null, null, '', '', [{ingredientName: '', quantity: null, measure: ''}])
     }
 }

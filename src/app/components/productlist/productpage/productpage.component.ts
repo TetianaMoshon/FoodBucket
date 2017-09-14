@@ -29,7 +29,7 @@ export class ProductpageComponent implements OnInit {
     ];
 
   constructor(public productService: ProductService, public ingredientService: IngredientService) {
-      this.productService.findProductById(1)
+      this.productService.findProductById(37)
           .subscribe(
               product => {
                   this.productData = product;
@@ -41,7 +41,7 @@ export class ProductpageComponent implements OnInit {
                               current.productIngredients.push(ingr);
                           }
                       );
-                  })
+                  });
 
               },
               err => console.log(err)
