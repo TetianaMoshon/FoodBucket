@@ -31,7 +31,6 @@ export class LoginComponent implements OnInit {
         this.loginAPI.loginWithHttpInfo(this.model).subscribe(reg => {
             if (reg.ok) {
                 localStorage.setItem('currentUser', JSON.stringify(reg.json().userId));
-                /*console.log(localStorage.getItem('currentUser'));*/
                 this.openModal('You are Logged');
                 this.changeLogBtnText(false, reg.json().firstName);
             } else {
@@ -39,7 +38,6 @@ export class LoginComponent implements OnInit {
             }
         },
             err => {
-                console.log('error reg' + err);
                 this.openModal('Sorry, you are\'t logged. Try again please!');
             });
     }
