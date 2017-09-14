@@ -13,7 +13,7 @@ export class UserProfileComponent implements OnInit {
 
   constructor(private findUserByIdAPI: UserService) {
       this.user = new User(0, ' ', ' ', ' ', 0, ' ', ' ', false);
-      this.findUserByIdAPI.findUserById(JSON.parse(localStorage.getItem('currentUser')))
+      this.findUserByIdAPI.findUserById(JSON.parse(sessionStorage.getItem('currentUser')))
           .subscribe(reg => {
               this.user.firstName = reg.firstName;
               this.user.lastName = reg.lastName;
