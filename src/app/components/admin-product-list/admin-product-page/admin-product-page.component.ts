@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../../client/api/product.service';
@@ -7,6 +7,7 @@ import { FlashMessagesService } from 'ngx-flash-messages';
 import { NgForm } from '@angular/forms';
 import { IngredientService } from '../../../client/api/ingredient.service';
 import { ProductModel } from './productModel';
+import { IngredientModel } from './ingredient-edit/ingredientModel';
 
 @Component({
     selector: 'app-admin-product-page',
@@ -32,6 +33,11 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     // ingredientName: string;
     // quantity: number;
     // measure: string;
+
+    ingredientList: IngredientModel[] = [
+        new IngredientModel('Apples', 5),
+        new IngredientModel('Tomatoes', 10),
+    ];
 
     action: {
         id: number,
@@ -93,6 +99,11 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
         }
         // console.log(productObject);
         console.log(this.productModel);
+    }
+
+
+    onIngredientAdded(ingredient: IngredientModel) {
+        this.ingredientList.push(ingredient);
     }
 
     createProduct(productModel) {
