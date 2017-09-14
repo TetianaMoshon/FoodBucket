@@ -74,21 +74,19 @@
                     </div>
                 </div>
             </ng-container>
-
-            <div class="row text-center">
-                <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
-                    <li [ngClass]="{disabled:pager.currentPage === 1}">
-                        <a class="cursor-pointer" (click)="setPage(1)">«</a>
-                    </li>
-                    <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
-                        <a class="cursor-pointer" (click)="setPage(page)">{{page}}</a>
-                    </li>
-                    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
-                        <a class="cursor-pointer" (click)="setPage(pager.totalPages)">»</a>
-                    </li>
-                </ul>
-            </div>
-
+        </div>
+        <div class="row text-center">
+            <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                <li [ngClass]="{disabled:pager.currentPage === 1}">
+                    <a class="cursor-pointer" (click)="setPage(1)">«</a>
+                </li>
+                <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                    <a class="cursor-pointer" (click)="setPage(page)">{{page}}</a>
+                </li>
+                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                    <a class="cursor-pointer" (click)="setPage(pager.totalPages)">»</a>
+                </li>
+            </ul>
         </div>
     </div>
     <!--Product list block ends-->
