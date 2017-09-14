@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
         this.loginAPI.loginWithHttpInfo(this.model).subscribe(reg => {
             if (reg.ok) {
                 localStorage.setItem('currentUser', JSON.stringify(reg.json().userId));
-                this.openModal('You are Logged');
+                this.openModal('You are Logged In');
                 this.changeLogBtnText(false, reg.json().firstName);
             } else {
                 this.openModal('Sorry, you are\'t logged. Try again please!');
