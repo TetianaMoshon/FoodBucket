@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {OrderService} from '../../client/api/order.service';
+import {ProductService} from "../../client/api/product.service";
 
 @Component({
   selector: 'app-checkout',
@@ -9,7 +10,7 @@ import {OrderService} from '../../client/api/order.service';
 })
 export class CheckoutComponent implements OnInit {
 
-  constructor(private orderService: OrderService ) { }
+  constructor(private orderService: OrderService, private productService: ProductService) { }
     surname: string;
     phone: string;
     city: string;
@@ -18,6 +19,8 @@ export class CheckoutComponent implements OnInit {
     prodIdsArr = [];
     passedObjFromCart;
     orderInfo;
+    tempArray;
+    productTitlesArray;
   ngOnInit() {
       if (JSON.parse(localStorage.getItem('newOrder'))) {
           this.passedObjFromCart = JSON.parse(localStorage.getItem('newOrder'));
@@ -31,8 +34,13 @@ export class CheckoutComponent implements OnInit {
               }
 
           );
-
           this.passedObjFromCart.products = this.prodIdsArr;
+          this.prodIdsArr.forEach(productId => {
+              console.log('this.prodIdsArray is next:::', this.prodIdsArr);
+              this.productService.findProductById(productId).subscribe(res => {
+                  this.productTitlesArray.push(res.title);
+              });
+          });
           console.log(` this.passedObjFromCart returns us this `,  this.passedObjFromCart);
           this.firstName = this.passedObjFromCart.username.split(' ')[0];
           this.surname = this.passedObjFromCart.username.split(' ')[1];

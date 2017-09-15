@@ -68,7 +68,7 @@
 <div class=" col-md-4 col-xs-12">
     <div class="row">
         <h3>Order summary</h3>
-        <ul *ngFor="let product of passedObjFromCart.products" class="list-group">
+        <ul *ngFor="let product of productTitlesArray" class="list-group">
             <li class="list-group-item">{{product}}</li>
         </ul>
         <p class="bigger-font text-right">Subtotal <strong>{{passedObjFromCart.price}}</strong></p>
