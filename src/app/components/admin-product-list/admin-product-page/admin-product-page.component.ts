@@ -52,7 +52,7 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
         private flashMessagesService: FlashMessagesService
     ) { }
 
-    productModel = new ProductModel('', '', null, '', '', true, null, false, null, null, '', '', [{ingredientName: '', quantity: null, measure: ''}], [{ingName: '', ingQuantity: null, ingMeasure: ''}]);
+    productModel = new ProductModel('', '', null, '', '', true, null, false, null, null, '', '',  [{ingredientName: '', quantity: null, measure: ''}]);
 
     ngOnInit() {
         this.urlSubscription = this.route.url
@@ -90,12 +90,14 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
             this.productModel.promotions = Boolean(this.productModel.promotions);
             this.productModel.caloricity = Number(this.productModel.caloricity);
             this.productModel.servingSize = Number(this.productModel.servingSize);
-            this.productModel.ingredients[0].quantity = Number(this.productModel.ingredients[0].quantity);
+            // this.productModel.ingredients[0].quantity = Number(this.productModel.ingredients[0].quantity);
             // this.ingredientList.quantity = this.productModel.ingredients;
 
             for (let ingredient in this.ingredientList) {
                 // console.log( this.ingredientList[ingredient] );
-                this.productModel.ingredientListAll[ingredient] = this.ingredientList[ingredient];
+
+                this.productModel.ingredients[ingredient] = this.ingredientList[ingredient];
+                this.productModel.ingredients[ingredient].quantity = Number(this.productModel.ingredients[ingredient].quantity);
                 // this.productModel.ingredients[ingredient] = this.ingredientList[ingredient];
             }
             // this.productModel.ingredientListAll[0].ingName = this.ingredientList[0].ingName;
@@ -139,8 +141,8 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
         this.productService.updateProductById(id, productModel)
             .subscribe(
                 product => {
-                    this.productData = product;
-                    console.log(this.productData);
+                    // this.productData = product;
+                    // console.log(this.productData);
                     this.flashMessagesService.show(`Product with id:${id} was successfully updated!`, {
                         classes: ['alert', 'alert-warning'],
                         timeout: 3000,
@@ -169,9 +171,17 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
                     this.productModel.difficulty = product.difficulty;
                     this.productModel.spiceLevel = product.spiceLevel;
                     // this.ingredients = product.ingredients;
-                    this.productModel.ingredients[0].ingredientName = product.ingredients[0].ingredientName;
-                    this.productModel.ingredients[0].quantity = product.ingredients[0].quantity;
-                    // this.productModel.ingredients[0].measure = product.ingredients[0].measure;
+                    // this.productModel.ingredients[0].ingredientName = product.ingredients[0].ingredientName;
+                    // this.productModel.ingredients[0].quantity = product.ingredients[0].quantity;
+                    console.log(product);
+
+                    // for (let ingredient2 in product.ingredients) {
+                    //     product.ingredients[ingredient2] = this.productModel.ingredients;
+                    //     // this.productModel.ingredients[ingredient2] = product.ingredients[ingredient2];
+                    //     // this.productIngredients.[ingredient2] = this.ingredientList[ingredient2];
+                    // }
+
+
                 }
             );
     }
@@ -192,6 +202,6 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
         // this.ingredientName = '';
         // this.quantity = null;
         // this.measure = '';
-        this.productModel = new ProductModel('', '', null, '', '', true, null, false, null, null, '', '', [{ingredientName: '', quantity: null, measure: ''}], [{ingName: '', ingQuantity: null, ingMeasure: ''}]);
+        this.productModel = new ProductModel('', '', null, '', '', true, null, false, null, null, '', '', [{ingredientName: '', quantity: null, measure: ''}]);
     }
 }

@@ -81,10 +81,15 @@
                                 <th>Quantity</th>
                                 <th>Measure</th>
                             </tr>
+                            <!--<tr *ngFor="let ingredient of ingredientList; let i = index">-->
+                                <!--<td>{{ ingredient.ingName }}</td>-->
+                                <!--<td>{{ ingredient.ingQuantity }}</td>-->
+                                <!--<td>{{ ingredient.ingMeasure }}</td>-->
+                            <!--</tr>-->
                             <tr *ngFor="let ingredient of ingredientList; let i = index">
-                                <td>{{ ingredient.ingName }}</td>
-                                <td>{{ ingredient.ingQuantity }}</td>
-                                <td>{{ ingredient.ingMeasure }}</td>
+                                <td>{{ ingredient.ingredientName }}</td>
+                                <td>{{ ingredient.quantity }}</td>
+                                <td>{{ ingredient.measure }}</td>
                             </tr>
                         </table>
                         <br>
