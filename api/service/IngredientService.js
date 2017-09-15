@@ -90,9 +90,9 @@ exports.findIngredientById = function(id) {
  * isActive Boolean returns active ingredient (optional)
  * returns List
  **/
-exports.getAllIngredients = function(offset,limit,isActive) {
+exports.getAllIngredients = function(offset,limit,isActive, sort, sort_col) {
     return new Promise( (resolve, reject) => {
-        Ingredient.find().then(
+        Ingredient.find().sort({[sort_col]: sort}).then(
             ingredientsDoc => {
                 ingredientsDoc = ingredientsDoc || [];
                 if (Object.keys(ingredientsDoc).length > 0) {
