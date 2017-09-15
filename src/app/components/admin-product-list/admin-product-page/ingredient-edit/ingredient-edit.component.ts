@@ -10,6 +10,7 @@ export class IngredientEditComponent implements OnInit {
 
     @ViewChild('nameInput') nameInputRef: ElementRef;
     @ViewChild('amountInput') amountInputRef: ElementRef;
+    @ViewChild('measureInput') measureInputRef: ElementRef;
     @Output() ingredientAdded = new EventEmitter<IngredientModel>();
 
     constructor() { }
@@ -18,9 +19,10 @@ export class IngredientEditComponent implements OnInit {
     }
 
     onAddItem() {
-        const ingName = this.nameInputRef.nativeElement.value;
-        const ingQuantity = this.amountInputRef.nativeElement.value;
-        const newIngredient = new IngredientModel(ingName, ingQuantity);
+        const ingredName = this.nameInputRef.nativeElement.value;
+        const ingredQuantity = this.amountInputRef.nativeElement.value;
+        const ingredMeasure = this.measureInputRef.nativeElement.value;
+        const newIngredient = new IngredientModel(ingredName, ingredQuantity, ingredMeasure);
         this.ingredientAdded.emit(newIngredient);
     }
 

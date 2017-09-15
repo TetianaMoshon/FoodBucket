@@ -22,7 +22,7 @@
                         </div>
                         <div class="form-group">
                             <label for="price">Price:</label>
-                            <input [(ngModel)]="productModel.price" name="price" type="text" class="form-control" id="price" required>
+                            <input [(ngModel)]="productModel.price" name="price" type="number" class="form-control" id="price" required>
                         </div>
                         <div class="form-group">
                             <label for="image">Image:</label>
@@ -38,7 +38,7 @@
                         </div>
                         <div class="form-group">
                             <label for="discount">Discount:</label>
-                            <input [(ngModel)]="productModel.discount" name="discount" type="text" class="form-control" id="discount">
+                            <input [(ngModel)]="productModel.discount" name="discount" type="number" class="form-control" id="discount">
                         </div>
                         <div class="form-group">
                             <label for="promotions">Promotions:</label>
@@ -72,27 +72,26 @@
                             <!--<td><input [(ngModel)]="productModel.ingredients[0].measure" name="measure" name="measure" type="text" class="form-control"></td>-->
                         <!--</tr>-->
                     <!--</table>-->
-                    <br><br><br>
+                    <br><br>
 
                     <div>
+                        <table class="table" border="1" width="80%">
+                            <tr>
+                                <th>Ingredient name</th>
+                                <th>Quantity</th>
+                                <th>Measure</th>
+                            </tr>
+                            <tr *ngFor="let ingredient of ingredientList; let i = index">
+                                <td>{{ ingredient.ingName }}</td>
+                                <td>{{ ingredient.ingQuantity }}</td>
+                                <td>{{ ingredient.ingMeasure }}</td>
+                            </tr>
+                        </table>
+                        <br>
+
                         <app-ingredient-edit
                             (ingredientAdded)="onIngredientAdded($event)">
                         </app-ingredient-edit>
-
-                        <!--<ul class="list-group">-->
-                            <!--<a-->
-                                <!--class="list-group-item"-->
-                                <!--*ngFor="let ingredient of ingredientList"-->
-                            <!--&gt;-->
-                                <!--{{ ingredient.name }} ({{ ingredient.quantity }})-->
-                            <!--</a>-->
-                        <!--</ul>-->
-                        <table>
-                            <tr *ngFor="let ingredient of ingredientList">
-                                <td>{{ ingredient.name }}</td>
-                                <td>{{ ingredient.quantity }}</td>
-                            </tr>
-                        </table>
                     </div>
 
                 </div>
@@ -101,11 +100,11 @@
 
                         <div class="form-group">
                             <label for="caloricity">Caloricity:</label>
-                            <input [(ngModel)]="productModel.caloricity" name="caloricity" type="text" class="form-control" id="caloricity">
+                            <input [(ngModel)]="productModel.caloricity" name="caloricity" type="number" class="form-control" id="caloricity">
                         </div>
                         <div class="form-group">
                             <label for="servingSize">Serving size:</label>
-                            <input [(ngModel)]="productModel.servingSize" name="servingSize" type="text" class="form-control" id="servingSize">
+                            <input [(ngModel)]="productModel.servingSize" name="servingSize" type="number" class="form-control" id="servingSize">
                         </div>
 
                         <div class="form-group">

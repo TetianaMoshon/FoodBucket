@@ -19,6 +19,13 @@ export class ProductModel {
                 quantity: number,
                 measure: string
             }
+        ],
+        public ingredientListAll: [
+            {
+                ingName: string,
+                ingQuantity: number,
+                ingMeasure: string
+            }
         ]
     ) {}
 }
