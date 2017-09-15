@@ -13,7 +13,6 @@ export class SliderComponent implements OnInit {
     sourceForFirstImage: any;
     sourceForSecondImage: any;
     sourceForThirdImage: any;
-    productLinks: string[] = [];
     counter = 1;
 
     time = 3000;
@@ -46,19 +45,27 @@ export class SliderComponent implements OnInit {
     constructor(private productService: ProductService) {}
 
     ngOnInit() {
-        this.productService.getAllProducts(0, 20, false, true).subscribe(res = > {
-            console.log(res);
+        this.productService.getAllProducts(0, 20, true, true).subscribe(products => {
+            products.forEach(product => {
+                this.ListOfImageLinks.push(product.image);
+            });
+        console.log(this.ListOfImageLinks);
+            this.InitImageSource();
+            this.quantityOfPhotos = this.ListOfImageLinks.length;
+            console.log('List length', this.ListOfImageLinks.length);
+            this.changeImageSourceWithInterval();
+            console.log('Change image', this.changeImageSourceWithInterval());
+            this.sourceForFirstImage = this.ListOfImageLinks[this.initialSourceForFirstImage];
+            this.sourceForSecondImage = this.ListOfImageLinks[this.initialSourceForSecondImage];
+            this.sourceForThirdImage = this.ListOfImageLinks[this.initialSourceForThirdImage];
+            console.log('Sources for image 1 ', this.sourceForFirstImage);
+            console.log('Sources for image 2', this.sourceForSecondImage);
+            console.log('Sources for image 3', this.sourceForThirdImage);
         });
-        this.InitImageSource();
-        this.quantityOfPhotos = this.ListOfImageLinks.length;
-        this.changeImageSourceWithInterval();
     }
 
 
     InitImageSource() {
-        this.sourceForFirstImage = this.ListOfImageLinks[this.initialSourceForFirstImage];
-        this.sourceForSecondImage = this.ListOfImageLinks[this.initialSourceForSecondImage];
-        this.sourceForThirdImage = this.ListOfImageLinks[this.initialSourceForThirdImage];
     }
 
     changeImageSourceWithInterval() {
