@@ -22,12 +22,12 @@ exports.createCartForUserById = function(id,body) {
            .then(
              cartDoc => { console.log('Saved cart content', cartDoc);
             if (Object.keys(cartDoc).length > 0) {
-                resolve(utils.respondWithCode(201, {cartDoc}));
+                resolve(cartDoc);
             } else {
                 reject(utils.respondWithCode(404, {"code": 404, "message": "Cart is not created, please try again."}));
             }
              },
-               error => { debug('Unable to save cart content: ', error); }
+               error => { console.log('Unable to save cart content: ', error); }
       );
 
     });
@@ -47,12 +47,12 @@ exports.deleteCartContentById = function(id) {
             oneCartDoc => {
             oneCart = oneCartDoc;
         if (Object.keys(oneCart).length > 0) {
-            resolve(utils.respondWithCode(200, oneCart));
+            resolve(oneCart);
         } else {
             reject(utils.respondWithCode(404, {"code": 404, "message": "Cart is not deleted, please try again."}));
         }
     },
-            error => { debug('Unable to remove cart content of a particular user ', error); }
+            error => { console.log('Unable to remove cart content of a particular user ', error); }
         );
     });
 }
@@ -71,12 +71,12 @@ exports.findCartContentById = function(id) {
             oneCartDoc => {
             oneCart = oneCartDoc;
         if (Object.keys(oneCart).length > 0) {
-            resolve(utils.respondWithCode(200, oneCart));
+            resolve(oneCart);
         } else {
             reject(utils.respondWithCode(404, {"code": 404, "message": "Cart is not found, please try again."}));
         }
     },
-            error => { debug('Unable to get cart content of a particular user ', error); }
+            error => { console.log('Unable to get cart content of a particular user ', error); }
         );
     });
 }
@@ -100,12 +100,12 @@ exports.updateCartContentById = function(id,updatedcartContent) {
         ).then(
                 () => {
         if (Object.keys(updatedcartContent).length > 0) {
-            resolve(utils.respondWithCode(200, updatedcartContent));
+            resolve(updatedcartContent);
         } else {
             reject(utils.respondWithCode(400, {"code": 404, "message": "Cart is not updated, please try again."}));
         }
     },
-            error => { debug('Unable to update cart content of a particular user', error); }
+            error => { console.log('Unable to update cart content of a particular user', error); }
         );
     });
 }
