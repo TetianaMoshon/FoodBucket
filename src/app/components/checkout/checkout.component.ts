@@ -9,7 +9,7 @@ import {OrderService} from '../../client/api/order.service';
 })
 export class CheckoutComponent implements OnInit {
 
-  constructor(private orderService: OrderService ) { }
+  constructor(private orderService: OrderService) { }
     surname: string;
     phone: string;
     city: string;

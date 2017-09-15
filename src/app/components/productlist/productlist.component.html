@@ -67,8 +67,9 @@
                             <h3>{{product.title}}</h3>
                             <p>{{product.description}}</p>
                             <p>
-                                <button class="btn btn-primary" [id]="product.productId" (click)="addProductToCart($event)">Buy Now!</button>
-                                <a [routerLink]="['productpage']" routerLinkActive="active" class="btn btn-default">More Info</a>
+                                <add-to-cart-button [id]="product.productId" ></add-to-cart-button>
+                                <!--<button class="btn btn-primary" [id]="product.productId" (click)="addProductToCart($event)">Buy Now!</button>-->
+                                <a [routerLink]="['productpage', product.productId]" routerLinkActive="active" class="btn btn-default">More Info</a>
                             </p>
                         </div>
                     </div>

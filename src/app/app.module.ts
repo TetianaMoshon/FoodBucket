@@ -58,6 +58,7 @@ import {CartCommunicationService} from './services/cart-communication.service';
 import { FlashMessagesModule } from 'ngx-flash-messages';
 import {appRouting} from './app.routing';
 import {AdminIngredientsFormComponent} from './components/admin-ingredients/adminingredients-form/adminingredients-form.component';
+import { AddToCartButtonComponent } from './components/add-to-cart-button/add-to-cart-button.component';
 
 
 @NgModule({
@@ -104,7 +105,8 @@ import {AdminIngredientsFormComponent} from './components/admin-ingredients/admi
       OrdersFiltersPipe,
       AdminUserPageComponent,
       AdmincategoriesFormComponent,
-      AdminIngredientsFormComponent
+      AdminIngredientsFormComponent,
+      AddToCartButtonComponent
   ],
   entryComponents: [
       ModalCongratulationComponent,

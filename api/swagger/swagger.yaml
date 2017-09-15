@@ -123,8 +123,8 @@ paths:
         required: true
         type: integer
         format: int64
-      - name: "updatedProduct"
-        in: "body"
+      - name: updatedProduct
+        in: body
         description: The updated product
         required: true
         schema:
@@ -388,8 +388,8 @@ paths:
         required: true
         type: integer
         format: int64
-      - name: "updatedCategory"
-        in: "body"
+      - name: updatedCategory
+        in: body
         description: The updated Category
         required: true
         schema:
@@ -525,8 +525,8 @@ paths:
         required: true
         type: integer
         format: int64
-      - name: "updated_ingredient"
-        in: "body"
+      - name: updated_ingredient
+        in: body
         description: The updated Ingredient
         required: true
         schema:
@@ -889,8 +889,8 @@ paths:
         required: true
         type: integer
         format: int64
-      - name: "updatedUser"
-        in: "body"
+      - name: updatedUser
+        in: body
         description: The updated User
         required: true
         schema:
