@@ -16,10 +16,6 @@ export class DataService {
     changeMessage(message: string) {
         this.messageSource.next(message);
     }
-    changeIsLogged(isLogged: boolean){
-        this.isLogged.next(isLogged);
-    }
-    changeLogBtnText(text: string){
-        this.messageSourceLogBtn.next(text);
-    }
+    changeIsLogged(isLogged: boolean) { this.isLogged.next(isLogged); }
+    changeLogBtnText(text: string) { this.messageSourceLogBtn.next(text); }
 }
