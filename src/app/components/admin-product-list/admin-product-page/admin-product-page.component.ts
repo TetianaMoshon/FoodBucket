@@ -36,8 +36,8 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     // measure: string;
 
     ingredientList: IngredientModel[] = [
-        new IngredientModel('apples', 5, 'kg'),
-        new IngredientModel('tomatoes', 10, 'kg')
+        new IngredientModel(1, 'Apples', 5, 'kg'),
+        new IngredientModel(2, 'Tomatoes', 10, 'kg')
     ];
 
     action: {
@@ -52,7 +52,7 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
         private flashMessagesService: FlashMessagesService
     ) { }
 
-    productModel = new ProductModel('', '', null, '', '', true, null, false, null, null, '', '',  [{ingredientName: '', quantity: null, measure: ''}]);
+    productModel = new ProductModel('', '', null, '', '', true, null, false, null, null, '', '',  [{ ingredientId: null, ingredientName: '', quantity: null, measure: '' }]);
 
     ngOnInit() {
         this.urlSubscription = this.route.url
@@ -77,6 +77,12 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
                     }
                 }
             );
+        // console.log(this.productModel); // shows only first ingredient -___-
+
+        // for (let ingredient in this.ingredientList) {
+        //     // console.log(this.productModel.ingredients[ingredient]);
+        //     console.log(this.ingredientList[ingredient]); // shows all ingredients
+        // }
     }
 
     ngOnDestroy() {
@@ -91,12 +97,10 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
             this.productModel.caloricity = Number(this.productModel.caloricity);
             this.productModel.servingSize = Number(this.productModel.servingSize);
             // this.productModel.ingredients[0].quantity = Number(this.productModel.ingredients[0].quantity);
-            // this.ingredientList.quantity = this.productModel.ingredients;
 
             for (let ingredient in this.ingredientList) {
-                // console.log( this.ingredientList[ingredient] );
-
                 this.productModel.ingredients[ingredient] = this.ingredientList[ingredient];
+                this.productModel.ingredients[ingredient].ingredientId = Number(this.productModel.ingredients[ingredient].ingredientId);
                 this.productModel.ingredients[ingredient].quantity = Number(this.productModel.ingredients[ingredient].quantity);
                 // this.productModel.ingredients[ingredient] = this.ingredientList[ingredient];
             }
@@ -109,12 +113,9 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
         } else {
             this.updateProduct(this.action.id, this.productModel);
         }
-        // console.log(productObject);
         // console.log(this.ingredientList);
         console.log(this.productModel);
-        // console.log(this.ingredientListAll);
     }
-
 
     onIngredientAdded(ingredient: IngredientModel) {
         this.ingredientList.push(ingredient);
@@ -122,7 +123,7 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
 
     createProduct(productModel) {
         // console.log(productObject);
-        console.log(this.productModel);
+        // console.log(this.productModel);
         this.productService.createProduct(productModel)
             .subscribe(
                 product => {
@@ -137,18 +138,16 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     }
 
     updateProduct(id: number, productModel) {
-        console.log(productModel);
         this.productService.updateProductById(id, productModel)
             .subscribe(
                 product => {
                     // this.productData = product;
                     // console.log(this.productData);
+                    // console.log(productModel);
                     this.flashMessagesService.show(`Product with id:${id} was successfully updated!`, {
                         classes: ['alert', 'alert-warning'],
                         timeout: 3000,
                     });
-                    console.log(this.productIngredients);
-
                 },
                 err => console.log(err)
             );
@@ -170,18 +169,35 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
                     this.productModel.servingSize = product.servingSize;
                     this.productModel.difficulty = product.difficulty;
                     this.productModel.spiceLevel = product.spiceLevel;
-                    // this.ingredients = product.ingredients;
-                    // this.productModel.ingredients[0].ingredientName = product.ingredients[0].ingredientName;
-                    // this.productModel.ingredients[0].quantity = product.ingredients[0].quantity;
-                    console.log(product);
 
-                    // for (let ingredient2 in product.ingredients) {
-                    //     product.ingredients[ingredient2] = this.productModel.ingredients;
-                    //     // this.productModel.ingredients[ingredient2] = product.ingredients[ingredient2];
-                    //     // this.productIngredients.[ingredient2] = this.ingredientList[ingredient2];
+                    console.log(this.productModel.ingredients); // shows nothing
+
+                    console.log(product.ingredients); // shows all ingredients +++++
+
+                    // for (let ingredient in product.ingredients) {
+                    //     this.productModel.ingredients[ingredient].ingredientName = product.ingredients[ingredient].ingredientName;
+                    // }
+                    // console.log(this.productModel.ingredients[2].ingredientName);
+
+                    // console.log(this.productModel.ingredients);
+                    // this.productModel.ingredients[0].ingredientName = product.ingredients[0].ingredientName;
+                    // console.log(this.productModel.ingredients[0].ingredientName); // Apples
+                    // this.productModel.ingredients[2].ingredientName = product.ingredients[2].ingredientName;
+                    // console.log(this.productModel.ingredients[2].ingredientName);
+
+                    // this.productModel.ingredients[0].quantity = product.ingredients[0].quantity;
+                    // this.productModel.ingredients[0].measure = product.ingredients[0].measure;
+                    // for (let ingredient in this.ingredientList) {
+                    //     this.productModel.ingredients = product.ingredients;
                     // }
 
-
+                    // for (let ingredient in this.ingredientList) {
+                    //     console.log(this.ingredientList[ingredient]); // shows all ingredients
+                    // }
+                    // for (let ingredient2 in this.ingredientList) {
+                    //     this.productModel.ingredients.push(this.ingredientList[ingredient2]);
+                    // }
+                    console.log(this.productModel.ingredients);
                 }
             );
     }
@@ -202,6 +218,6 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
         // this.ingredientName = '';
         // this.quantity = null;
         // this.measure = '';
-        this.productModel = new ProductModel('', '', null, '', '', true, null, false, null, null, '', '', [{ingredientName: '', quantity: null, measure: ''}]);
+        this.productModel = new ProductModel('', '', null, '', '', true, null, false, null, null, '', '', [{ ingredientId: null, ingredientName: '', quantity: null, measure: ''}]);
     }
 }

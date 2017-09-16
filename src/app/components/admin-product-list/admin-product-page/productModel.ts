@@ -22,6 +22,7 @@ export class ProductModel {
         // ],
         public ingredients: [
             {
+                ingredientId: number,
                 ingredientName: string,
                 quantity: number,
                 measure: string
