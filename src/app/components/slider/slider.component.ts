@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {ProductService} from "../../client/api/product.service";
+import {ProductService} from '../../client/api/product.service';
 
 @Component({
-  selector: 'app-slider',
-  templateUrl: './slider.component.html',
-  styleUrls: ['./slider.component.css']
+    selector: 'app-slider',
+    templateUrl: './slider.component.html',
+    styleUrls: ['./slider.component.css']
 })
 export class SliderComponent implements OnInit {
 
@@ -13,6 +13,7 @@ export class SliderComponent implements OnInit {
     sourceForFirstImage: any;
     sourceForSecondImage: any;
     sourceForThirdImage: any;
+
     counter = 1;
 
     time = 3000;
@@ -26,22 +27,9 @@ export class SliderComponent implements OnInit {
     PartialView = false;
     FullScreenView = true;
 
-    // ListOfImageLinks: string [] = [
-    //     'https://www.bzl.co/story/Delicious-Food-Sandwich-friedclams-1480470367.png',
-    //     'https://1.bp.blogspot.com/-BFHNsu-lK9M/VxtLPQXpowI/AAAAAAAAABU/Y2gPcR24ABYl9fzBimby6jO_' +
-    //     'P6H-GCgWwCLcB/s640/Allgauer%2527s-Restaurant-Chicago-food.jpg',
-    //     'http://www.westmarkhotels.com/wp-content/uploads/HAP-Westmark-Food-Fairbanks-600x300.jpg',
-    //     'https://www.stack3d.com/wp-content/uploads/2016/08/questketoone.jpg',
-    //     'http://2momsintheraw.com/wp-content/uploads/2017/03/2.jpg',
-    //     'http://simplybarbaramckay.com/wp-content/uploads/2017/03/unnamed-600x300.jpg',
-    //     'http://keepitrelax.com/wp-content/uploads/2014/06/cherry-cake-1-718x404-600x300.jpg',
-    //     'https://irp-cdn.multiscreensite.com/edf87f6a/dms3rep/multi/mobile/6ee3572971854827b083fdcf02acebd9-600x300.dm.edit_rf3aco.jpg',
-    //     'http://brewskibar.com.au/img/home/menu-panel-600b.jpg',
-    //     'http://ameripackfoods.com/wp-content/uploads/2017/04/APF_BLAZIN_SHRIMP_PRODUCT_IMG_17_SM.jpg'
-    //
-    // ];
+    ListOfImageLinks: string [] = [];
 
-    ListOfImageLinks: string[] = [];
+
     constructor(private productService: ProductService) {}
 
     ngOnInit() {
@@ -49,23 +37,20 @@ export class SliderComponent implements OnInit {
             products.forEach(product => {
                 this.ListOfImageLinks.push(product.image);
             });
-        console.log(this.ListOfImageLinks);
+
             this.InitImageSource();
             this.quantityOfPhotos = this.ListOfImageLinks.length;
-            console.log('List length', this.ListOfImageLinks.length);
             this.changeImageSourceWithInterval();
-            console.log('Change image', this.changeImageSourceWithInterval());
-            this.sourceForFirstImage = this.ListOfImageLinks[this.initialSourceForFirstImage];
-            this.sourceForSecondImage = this.ListOfImageLinks[this.initialSourceForSecondImage];
-            this.sourceForThirdImage = this.ListOfImageLinks[this.initialSourceForThirdImage];
-            console.log('Sources for image 1 ', this.sourceForFirstImage);
-            console.log('Sources for image 2', this.sourceForSecondImage);
-            console.log('Sources for image 3', this.sourceForThirdImage);
+
         });
+
     }
 
 
     InitImageSource() {
+        this.sourceForFirstImage = this.ListOfImageLinks[this.initialSourceForFirstImage];
+        this.sourceForSecondImage = this.ListOfImageLinks[this.initialSourceForSecondImage];
+        this.sourceForThirdImage = this.ListOfImageLinks[this.initialSourceForThirdImage];
     }
 
     changeImageSourceWithInterval() {
@@ -85,7 +70,7 @@ export class SliderComponent implements OnInit {
     }
 
 
-    slideToTheRight() {
+    slideToTheLeft() {
         this.sourceForThirdImage = this.ListOfImageLinks[(this.initialSourceForThirdImage + this.counter) % this.quantityOfPhotos];
         this.sourceForSecondImage = this.ListOfImageLinks[this.initialSourceForThirdImage];
         this.sourceForFirstImage = this.ListOfImageLinks[this.initialSourceForSecondImage];
@@ -99,7 +84,7 @@ export class SliderComponent implements OnInit {
 
     }
 
-    slideToTheLeft() {
+    slideToTheRight() {
         this.sourceForThirdImage = this.ListOfImageLinks[this.initialSourceForSecondImage];
         this.sourceForSecondImage = this.ListOfImageLinks[this.initialSourceForFirstImage];
         this.sourceForFirstImage = this.ListOfImageLinks[ this.initialSourceForFirstImage === 0  ? this.quantityOfPhotos - this.counter :
