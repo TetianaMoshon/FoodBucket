@@ -23,7 +23,7 @@ export class AdminIngredientsComponent implements OnInit {
         private router: Router
     ) {
 
-        this.ingredientService.getAllIngredients(1, 2, true)
+        this.ingredientService.getAllIngredients(1, 2, 'asc')
             .subscribe(
                 ingredients => {
                     this.source = new LocalDataSource();

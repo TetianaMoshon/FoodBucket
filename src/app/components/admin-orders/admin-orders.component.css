@@ -13,7 +13,56 @@ thead th {
     border: 1px solid gray;
     font-size: 19px;
     vertical-align: middle;
+    padding-left: 3px;
 }
+
+thead a.sort_icon  {
+    background: url("../../../assets/icons/sort_arrow.svg") no-repeat;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-size: 10px 10px;
+    cursor: pointer;
+    -webkit-transition: transform 0.8s; /* For Safari 3.1 to 6.0 */
+    transition: transform 0.8s;
+}
+
+thead a.sort_icon:hover {
+    background: url("../../../assets/icons/sort_arrow_dark.svg") no-repeat;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-size: 10px 10px;
+    cursor: pointer;
+}
+
+thead a.sort_asc {
+    background: url("../../../assets/icons/sort_arrow_dark.svg") no-repeat;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-size: 10px 10px;
+    cursor: pointer;
+    -ms-transform: rotate(180deg); /* IE 9 */
+    -webkit-transform: rotate(180deg); /* Safari */
+    transform: rotate(180deg);
+}
+
+thead a.sort_desc {
+    background: url("../../../assets/icons/sort_arrow_dark.svg") no-repeat;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-size: 10px 10px;
+    cursor: pointer;
+}
+
+
+input.form-control {
+    display: inline-block;
+    width: 90%;
+}
+
 td.gray-border {
     vertical-align: middle;
     font-size: 14px;

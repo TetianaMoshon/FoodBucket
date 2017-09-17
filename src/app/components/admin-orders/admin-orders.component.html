@@ -11,22 +11,30 @@
         <tr>
             <th class="text-center">
                 <div class="form-group">
-                <input  class="form-control" type="number" name="name" [(ngModel)]="filter.orderId" placeholder="ID">
+                <input  class="form-control" type="number" name="id" [(ngModel)]="filter.orderId" placeholder="ID">
+                    <a class="sort_icon" (click)="onSortClick('orderId')" [ngClass]="{
+                        'sort_asc': (sort == 'asc' && value == 'orderId'), 'sort_desc': (sort == 'desc' && value == 'orderId')}"></a>
                 </div>
             </th>
             <th>
                 <div class="form-group">
-                <input class="form-control"  type="text" name="id" [(ngModel)]="filter.username" min="1"  step="1" placeholder="Username">
+                <input class="form-control"  type="text" name="name" [(ngModel)]="filter.username" min="1"  step="1" placeholder="Username">
+                    <a class="sort_icon" (click)="onSortClick('username')" [ngClass]="{
+                        'sort_asc': (sort == 'asc' && value == 'username'), 'sort_desc': (sort == 'desc' && value == 'username')}"></a>
                 </div>
             </th>
             <th class="text-center">
                 <div class="form-group">
-                <input  class="form-control" type="text" name="name" [(ngModel)]="filter.city" placeholder="City">
+                <input  class="form-control" type="text" name="city" [(ngModel)]="filter.city" placeholder="City">
+                    <a class="sort_icon" (click)="onSortClick('city')" [ngClass]="{
+                        'sort_asc': (sort == 'asc' && value == 'city'), 'sort_desc': (sort == 'desc' && value == 'city')}"></a>
                 </div>
             </th>
             <th class="text-center">
                 <div class="form-group">
-                <input  class="form-control" type="number" name="tel" [(ngModel)]="filter.price" placeholder="Price">
+                <input  class="form-control" type="number" name="price" [(ngModel)]="filter.price" placeholder="Price">
+                    <a class="sort_icon" (click)="onSortClick('price')" [ngClass]="{
+                        'sort_asc': (sort == 'asc' && value == 'price'), 'sort_desc': (sort == 'desc' && value == 'price')}"></a>
                 </div>
             </th>
             <th class="text-center">Products</th>

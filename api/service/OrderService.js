@@ -32,10 +32,10 @@ exports.findOrderById = function(id) {
  * limit Integer number of items to query from DB
  * returns List
  **/
-exports.getAllOrders = function (offset, limit) {
+exports.getAllOrders = function (offset, limit, sort, sort_col) {
     return new Promise(function (resolve, reject) {
 
-        Order.find().then(
+        Order.find().sort({[sort_col]: sort}).then(
             (ordersDoc) => {
                 ordersDoc = ordersDoc || [];
                 if (Object.keys(ordersDoc).length > 0) {
