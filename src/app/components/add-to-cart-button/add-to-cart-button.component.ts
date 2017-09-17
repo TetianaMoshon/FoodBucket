@@ -9,11 +9,11 @@ import {ProductService} from '../../client/api/product.service';
 })
 export class AddToCartButtonComponent implements OnInit {
 
-    @Input() productId: number;
     title = `Buy Now`;
     cartContentObjCreated = false;
     arrayOfCartOrders = [];
     idOfLoggedinUser: number;
+    thereIsSthInDB;
 
   constructor(
       private cartService: CartService,
@@ -74,28 +74,45 @@ export class AddToCartButtonComponent implements OnInit {
             );
 
         } else {
-            if (this.findIdInArray(parseInt(id))) { // here we also update this.arrayOfCartOrders
+            if (this.findIdInArray(parseInt(id))) { // here we also sink in this.arrayOfCartOrders with LocalStorage
                 console.log('You have already added this product to your cart');
             }else {
                 console.log('Let us add new cartOrder to your cart');
                 // add cartOrders to the created cartContentObjCreated
 
-                // let's push new CartOrder into arrayOfCartOrders
-                this.arrayOfCartOrders.push({productId: parseInt(id), quantity: 1});
-                localStorage.setItem('arrayOfCartOrders', JSON.stringify(this.arrayOfCartOrders));
-                // console.log(' this.arrayOfCartOrders ',  this.arrayOfCartOrders);
-                // let's created updatedCartOrder
-                console.log('array with added items ', this.arrayOfCartOrders);
-                const updatedCart = {
-                    orderedProducts:
-                    this.arrayOfCartOrders,
-                    // when cart is first created total price is the price of a clicked product
-                    totalPriceOfAllDishes: 0
-                };
+                // let's sink this.arrayOfCartOrders with db as user may have changed amount of products
 
-                this.cartService.updateCartContentById(this.idOfLoggedinUser, updatedCart).subscribe(updatedData => {
-                    console.log('updatedCart returned from backend ', updatedData);
-                });
+                this.cartService.findCartContentById(this.idOfLoggedinUser).subscribe(
+                    cartData => {
+
+                            // retrieve array of cartOrders of logged in user
+                            const {orderedProducts} = cartData;
+                            this.arrayOfCartOrders = orderedProducts;
+                        console.log(`this.arrayOfCartOrders = [...orderedProducts]; `, this.arrayOfCartOrders);
+
+                        // let's push new CartOrder into arrayOfCartOrders
+                        this.arrayOfCartOrders.push({productId: parseInt(id), quantity: 1});
+                        localStorage.setItem('arrayOfCartOrders', JSON.stringify(this.arrayOfCartOrders));
+                        // console.log(' this.arrayOfCartOrders ',  this.arrayOfCartOrders);
+                        // let's created updatedCartOrder
+                        console.log('array with added items ', this.arrayOfCartOrders);
+                        const updatedCart = {
+                            orderedProducts:
+                            this.arrayOfCartOrders,
+                            // when cart is first created total price is the price of a clicked product
+                            totalPriceOfAllDishes: 0
+                        };
+
+                        this.cartService.updateCartContentById(this.idOfLoggedinUser, updatedCart).subscribe(updatedData => {
+                            console.log('updatedCart returned from backend ', updatedData);
+                        });
+
+                    }
+                );
+
+
+
+
 
             }
 
@@ -103,14 +120,6 @@ export class AddToCartButtonComponent implements OnInit {
     }
 
     private findIdInArray(id) {
-        // const isAlreadyInIdArray = this.arrayOfCartOrders.find(cartOrder => {
-        //     return cartOrder.productId === parseInt(id);
-        //
-        // });
-        // console.log(`isAlreadyInIdArray ${isAlreadyInIdArray}`);
-        // console.log(`isAlreadyInIdArray array`, isAlreadyInIdArray);
-        // return isAlreadyInIdArray;
-
         // get up-to-date arrayOfCartOrders
         this.arrayOfCartOrders = JSON.parse(localStorage.getItem('arrayOfCartOrders'));
         this.arrayOfCartOrders.forEach(cartOrder => {
