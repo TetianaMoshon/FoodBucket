@@ -38,11 +38,8 @@ export class ProductpageComponent implements OnInit {
   ngOnInit() {
       this.InitImageSource();
       this.quantityOfPhotos = this.ListOfImageLinks.length;
-      this.sub = this.route.params.subscribe(params => {
-          this.urlId = +params['id'];
-          return this.urlId;
-      });
-      this.showProduct(this.urlId);
+      const id = this.route.snapshot.paramMap.get('id');
+      this.showProduct(id);
   }
     showProduct(id) {
         this.productService.findProductById(id)
