@@ -87,10 +87,9 @@ exports.findIngredientById = function(id) {
  *
  * offset Integer start position for quering from DB
  * limit Integer number of items to query from DB
- * isActive Boolean returns active ingredient (optional)
  * returns List
  **/
-exports.getAllIngredients = function(offset,limit,isActive, sort, sort_col) {
+exports.getAllIngredients = function(offset,limit, sort, sort_col) {
     return new Promise( (resolve, reject) => {
         Ingredient.find().sort({[sort_col]: sort}).then(
             ingredientsDoc => {

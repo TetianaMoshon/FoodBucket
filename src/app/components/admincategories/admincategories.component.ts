@@ -24,7 +24,7 @@ export class AdmincategoriesComponent implements OnInit {
         private router: Router
     ) {
 
-        this.categoryService.getAllCategories(1, 2, true)
+        this.categoryService.getAllCategories(1, 2, 'desc', 'category_id')
             .subscribe(
                 categories => {
                     this.source = new LocalDataSource();

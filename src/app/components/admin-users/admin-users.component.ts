@@ -61,7 +61,7 @@ export class AdminUsersComponent implements OnInit {
     public newUser;
 
     constructor(protected userService: UserService, private router: Router) {
-        this.userService.getAllUsers(1, 2, true)
+        this.userService.getAllUsers(1, 2, true, 'desc', 'userId')
             .subscribe(
                 user => {
                     this.data =  user;

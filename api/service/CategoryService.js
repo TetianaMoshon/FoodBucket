@@ -88,9 +88,9 @@ exports.findCategoryById = function (id) {
  * isActive Boolean returns active categories (optional)
  * returns List
  **/
-exports.getAllCategories = function (offset, limit, isActive) {
+exports.getAllCategories = function (offset, limit, sort, sort_col) {
     return new Promise((resolve, reject) => {
-        Category.find().then(
+        Category.find().sort({[sort_col]: sort}).then(
             categoriesDoc => {
                 categoriesDoc = categoriesDoc || [];
                 if (Object.keys(categoriesDoc).length > 0) {

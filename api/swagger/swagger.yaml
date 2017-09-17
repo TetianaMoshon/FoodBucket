@@ -35,11 +35,6 @@ paths:
       produces:
       - application/json
       parameters:
-        - name: isActive
-          in: query
-          description: returns active products
-          required: false
-          type: boolean
         - name: offset
           in: query
           description: start position for quering from DB
@@ -57,6 +52,25 @@ paths:
           minimum: 0
           maximum: 50
           default: 20
+        - name: sort
+          in: query
+          description: sort order
+          required: false
+          type: string
+          enum:
+            - asc
+            - desc
+        - name: sort_col
+          in: query
+          description: column to sort 
+          required: false
+          type: string
+          enum:
+            - userId
+            - firstName
+            - lastName
+            - email
+            - phone            
       responses:
         200:
           description: Successful products response
@@ -318,11 +332,6 @@ paths:
       produces:
       - application/json
       parameters:
-        - name: isActive
-          in: query
-          description: returns active categories
-          required: false
-          type: boolean
         - name: offset
           in: query
           description: start position for quering from DB
@@ -340,6 +349,23 @@ paths:
           minimum: 0
           maximum: 27
           default: 9
+        - name: sort
+          in: query
+          description: sort order
+          required: false
+          type: string
+          enum:
+            - asc
+            - desc
+        - name: sort_col
+          in: query
+          description: column to sort 
+          required: false
+          type: string
+          enum:
+            - category_id
+            - title
+            - description          
       responses:
         200:
           description: Successful categories response
@@ -849,6 +875,28 @@ paths:
           minimum: 0
           maximum: 27
           default: 9
+        - name: sort
+          in: query
+          description: sort order
+          required: false
+          type: string
+          enum:
+            - asc
+            - desc
+        - name: sort_col
+          in: query
+          description: column to sort 
+          required: false
+          type: string
+          enum:
+            - userId
+            - firstName
+            - lastName
+            - email
+            - phone          
+            - city          
+            - address          
+            - active
       responses:
         200:
           description: Successful users response

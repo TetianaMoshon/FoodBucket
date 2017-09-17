@@ -95,9 +95,9 @@ exports.findUserById = function (id) {
  * isActive Boolean returns active users (optional)
  * returns List
  **/
-exports.getAllUsers = function (offset, limit, isActive) {
+exports.getAllUsers = function (offset, limit, isActive, sort, sort_col) {
     return new Promise((resolve, reject) => {
-        User.find().where({
+        User.find().sort({[sort_col]: sort}).where({
             'active': {
                 $gte: true
             }
