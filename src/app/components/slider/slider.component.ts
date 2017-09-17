@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductService} from '../../client/api/product.service';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
     selector: 'app-slider',
@@ -30,7 +31,13 @@ export class SliderComponent implements OnInit {
     ListOfImageLinks: string [] = [];
 
 
-    constructor(private productService: ProductService) {}
+    constructor(private productService: ProductService) {
+        Observable.fromEvent(window, 'resize')
+            .debounceTime(1500)
+            .subscribe((event) => {
+                this.onResize(event);
+            });
+    }
 
     ngOnInit() {
         this.productService.getAllProducts(0, 20, true, true).subscribe(products => {
@@ -70,7 +77,7 @@ export class SliderComponent implements OnInit {
     }
 
 
-    slideToTheLeft() {
+    slideToTheRight() {
         this.sourceForThirdImage = this.ListOfImageLinks[(this.initialSourceForThirdImage + this.counter) % this.quantityOfPhotos];
         this.sourceForSecondImage = this.ListOfImageLinks[this.initialSourceForThirdImage];
         this.sourceForFirstImage = this.ListOfImageLinks[this.initialSourceForSecondImage];
@@ -84,7 +91,7 @@ export class SliderComponent implements OnInit {
 
     }
 
-    slideToTheRight() {
+    slideToTheLeft() {
         this.sourceForThirdImage = this.ListOfImageLinks[this.initialSourceForSecondImage];
         this.sourceForSecondImage = this.ListOfImageLinks[this.initialSourceForFirstImage];
         this.sourceForFirstImage = this.ListOfImageLinks[ this.initialSourceForFirstImage === 0  ? this.quantityOfPhotos - this.counter :
