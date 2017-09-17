@@ -57,5 +57,6 @@ controllers/PromotionService.js
 service/TopratedService.js
 controllers/TopratedService.js
 
-
+service/SearchService.js
+controllers/SearchService.js
 
