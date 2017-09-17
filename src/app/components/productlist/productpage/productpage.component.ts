@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {ProductService} from '../../../client/api/product.service';
-import {IngredientService} from '../../../client/api/ingredient.service';
+import { ProductService } from '../../../client/api/product.service';
+import { IngredientService } from '../../../client/api/ingredient.service';
+import {Subscription} from 'rxjs/Subscription';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-productpage',
@@ -11,8 +13,11 @@ import {IngredientService} from '../../../client/api/ingredient.service';
 export class ProductpageComponent implements OnInit {
     public productData;
     public productIngredients = [];
-    show = false;
+    public data;
+    private sub: any;
+    urlId: number;
 
+    show = false;
     quantityOfPhotos: number;
 
     sourceForPreviousImage: any;
@@ -28,32 +33,37 @@ export class ProductpageComponent implements OnInit {
         '/assets/images/pasta-carbonara.jpg'
     ];
 
-  constructor(public productService: ProductService, public ingredientService: IngredientService) {
-      this.productService.findProductById(85)
-          .subscribe(
-              product => {
-                  this.productData = product;
-                  console.log(this.productData);
-                  const current = this;
-                  this.productData.ingredients.forEach(function (ingredient) {
-                      current.ingredientService.findIngredientById(ingredient.ingredientId).subscribe(
-                          ingr => {
-                              current.productIngredients.push(ingr);
-                          }
-                      );
-                  });
-
-              },
-              err => console.log(err)
-          );
-  }
+  constructor(public productService: ProductService, public ingredientService: IngredientService, protected route: ActivatedRoute) {}
 
   ngOnInit() {
       this.InitImageSource();
       this.quantityOfPhotos = this.ListOfImageLinks.length;
-
-
+      this.sub = this.route.params.subscribe(params => {
+          this.urlId = +params['id'];
+          return this.urlId;
+      });
+      this.showProduct(this.urlId);
   }
+    showProduct(id) {
+        this.productService.findProductById(id)
+            .subscribe(
+                product => {
+                    this.productData = product;
+                    const current = this;
+                    this.productData.ingredients.forEach(function (ingredient) {
+                        current.ingredientService.findIngredientById(ingredient.ingredientId)
+                            .subscribe(
+                                ingr => {
+                                    current.productIngredients.push(ingr);
+                                }
+                            );
+                    });
+
+                },
+                err => console.log(err)
+            );
+    }
+
     InitImageSource() {
         this.sourceForPreviousImage = this.ListOfImageLinks[this.initialSourceForPreviousImage];
         this.sourceForNextImage = this.ListOfImageLinks[this.initialSourceForNextImage];

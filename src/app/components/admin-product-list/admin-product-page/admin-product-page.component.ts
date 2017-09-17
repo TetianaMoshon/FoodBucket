@@ -170,15 +170,23 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
                     this.productModel.difficulty = product.difficulty;
                     this.productModel.spiceLevel = product.spiceLevel;
 
-                    console.log(this.productModel.ingredients); // shows nothing
+                    console.log(this.productModel.ingredients); // shows only 1st ingredient
 
                     console.log(product.ingredients); // shows all ingredients +++++
 
-                    // for (let ingredient in product.ingredients) {
-                    //     this.productModel.ingredients[ingredient].ingredientName = product.ingredients[ingredient].ingredientName;
-                    // }
-                    // console.log(this.productModel.ingredients[2].ingredientName);
+                    console.log(product.ingredients[2]);
 
+                    for (let ingredient in product.ingredients) {
+                        this.productModel.ingredients[ingredient].ingredientId = product.ingredients[ingredient].ingredientId;
+                        this.productModel.ingredients[ingredient].ingredientName = product.ingredients[ingredient].ingredientName;
+                        this.productModel.ingredients[ingredient].quantity = Number(product.ingredients[ingredient].quantity);
+                        this.productModel.ingredients[ingredient].measure = product.ingredients[ingredient].measure;
+                        this.productModel.ingredients.push();
+
+                        // console.log(this.productModel.ingredients[ingredient]);
+                    }
+
+                    console.log(this.productModel.ingredients);
                     // console.log(this.productModel.ingredients);
                     // this.productModel.ingredients[0].ingredientName = product.ingredients[0].ingredientName;
                     // console.log(this.productModel.ingredients[0].ingredientName); // Apples
@@ -197,7 +205,6 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
                     // for (let ingredient2 in this.ingredientList) {
                     //     this.productModel.ingredients.push(this.ingredientList[ingredient2]);
                     // }
-                    console.log(this.productModel.ingredients);
                 }
             );
     }
