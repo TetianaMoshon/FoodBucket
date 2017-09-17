@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductService} from '../../client/api/product.service';
-import {Observable} from 'rxjs/Observable';
 
 @Component({
     selector: 'app-slider',
@@ -9,6 +8,7 @@ import {Observable} from 'rxjs/Observable';
 })
 export class SliderComponent implements OnInit {
 
+    windowWidth;
     quantityOfPhotos: number;
 
     sourceForFirstImage: any;
@@ -31,15 +31,16 @@ export class SliderComponent implements OnInit {
     ListOfImageLinks: string [] = [];
 
 
-    constructor(private productService: ProductService) {
-        Observable.fromEvent(window, 'resize')
-            .debounceTime(1500)
-            .subscribe((event) => {
-                this.onResize(event);
-            });
-    }
+    constructor(private productService: ProductService) {}
 
     ngOnInit() {
+        this.windowWidth = {
+            target : {
+                innerWidth: window.innerWidth
+            }
+        };
+
+        this.onResize(this.windowWidth);
         this.productService.getAllProducts(0, 20, true, true).subscribe(products => {
             products.forEach(product => {
                 this.ListOfImageLinks.push(product.image);
@@ -105,23 +106,24 @@ export class SliderComponent implements OnInit {
     }
 
     onResize(event) {
-        if (event.target.innerWidth < 768) {
+        this.windowWidth = event.target.innerWidth;
+        if (this.windowWidth < 768) {
             this.OneImageView = true;
             this.PartialView = false;
             this.FullScreenView = false;
-        }else if (event.target.innerWidth >= 768  && event.target.innerWidth < 991) {
+        }else if (this.windowWidth >= 768  && event.target.innerWidth < 991) {
             this.PartialView = true;
             this.OneImageView = false;
             this.FullScreenView = false;
-        } else if (event.target.innerWidth >= 991  && event.target.innerWidth < 1170) {
+        } else if (this.windowWidth >= 991  && event.target.innerWidth < 1170) {
             this.PartialView = true;
             this.OneImageView = false;
             this.FullScreenView = false;
-        } else if (event.target.innerWidth >= 1170  && event.target.innerWidth < 1200) {
+        } else if (this.windowWidth >= 1170  && event.target.innerWidth < 1200) {
             this.PartialView = true;
             this.OneImageView = false;
             this.FullScreenView = false;
-        } else if (event.target.innerWidth >= 1200) {
+        } else if (this.windowWidth >= 1200) {
             this.FullScreenView  = true;
             this.PartialView = false;
             this.OneImageView = false;
