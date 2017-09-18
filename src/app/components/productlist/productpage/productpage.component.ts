@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductService} from '../../../client/api/product.service';
 import {IngredientService} from '../../../client/api/ingredient.service';
+import {UserService} from '../../../client/api/user.service';
+import { UpdateUser } from './updateUser';
 
 @Component({
   selector: 'app-productpage',
@@ -28,7 +30,27 @@ export class ProductpageComponent implements OnInit {
         '/assets/images/pasta-carbonara.jpg'
     ];
 
-  constructor(public productService: ProductService, public ingredientService: IngredientService) {
+    updateUser = new UpdateUser('', '' , '', '', 0, '', '', '', [], false);
+
+    userId = 1;
+    productId = 2;
+
+    addFavourite() {
+        this.updateUser.favourites.push(this.productId);
+        this.updaterUser(this.userId, this.updateUser);
+    }
+
+    updaterUser(id: number, updateUser) {
+        this.userService.updateUserById(id, updateUser)
+            .subscribe(
+                user => {
+                    console.log(user);
+                },
+                err => console.log(err)
+            );
+    }
+
+  constructor(public productService: ProductService, public ingredientService: IngredientService, public userService: UserService) {
       this.productService.findProductById(1)
           .subscribe(
               product => {
@@ -41,12 +63,13 @@ export class ProductpageComponent implements OnInit {
                               current.productIngredients.push(ingr);
                           }
                       );
-                  })
-
+                  });
               },
               err => console.log(err)
           );
+
   }
+
 
   ngOnInit() {
       this.InitImageSource();
@@ -89,5 +112,10 @@ export class ProductpageComponent implements OnInit {
         this.initialSourceForPreviousImage = this.initialSourceForPreviousImage === 0  ? this.quantityOfPhotos - this.counter :
             this.initialSourceForPreviousImage - this.counter;
     }
+
+
+
+
+
 
 }
