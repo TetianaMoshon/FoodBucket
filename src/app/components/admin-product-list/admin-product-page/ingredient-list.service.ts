@@ -1,8 +1,44 @@
-import { Injectable } from '@angular/core';
+import { IngredientModel } from './ingredient-edit/ingredientModel';
+import { Subject } from 'rxjs/Subject';
 
-@Injectable()
 export class IngredientListService {
 
-  constructor() { }
+    ingredientsChanged = new Subject<IngredientModel[]>();
+    startedEditing = new Subject<number>();
+    private ingredientList: IngredientModel[] = [
+        new IngredientModel(1, 'Apples', 5, 'g'),
+        new IngredientModel(2, 'Tomatoes', 10, 'g'),
+    ];
 
+    getIngredients() {
+        return this.ingredientList.slice();
+    }
+
+    getIngredient(index: number) {
+        return this.ingredientList[index];
+    }
+
+    addIngredient(ingredient: IngredientModel) {
+        this.ingredientList.push(ingredient);
+        this.ingredientsChanged.next(this.ingredientList.slice());
+    }
+
+    addIngredients(ingredients: IngredientModel[]) {
+        // for (let ingredient of ingredients) {
+        //   this.addIngredient(ingredient);
+        // }
+        this.ingredientList.push(...ingredients);
+        this.ingredientsChanged.next(this.ingredientList.slice());
+    }
+
+    updateIngredient(index: number, newIngredient: IngredientModel) {
+        this.ingredientList[index] = newIngredient;
+        this.ingredientsChanged.next(this.ingredientList.slice());
+    }
+
+    deleteIngredient(index: number) {
+        this.ingredientList.splice(index, 1);
+        this.ingredientsChanged.next(this.ingredientList.slice());
+    }
 }
+

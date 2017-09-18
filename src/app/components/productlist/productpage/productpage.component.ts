@@ -14,9 +14,6 @@ export class ProductpageComponent implements OnInit {
     public productData;
     public productIngredients = [];
     public data;
-    private sub: any;
-    urlId: number;
-
     show = false;
     quantityOfPhotos: number;
 

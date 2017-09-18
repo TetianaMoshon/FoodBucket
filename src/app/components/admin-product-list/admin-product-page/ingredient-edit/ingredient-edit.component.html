@@ -1,42 +1,71 @@
-<form>
+<form (ngSubmit)="onSubmit(f2)" #f2="ngForm">
     <div class="row">
         <div class="col-xs-2 form-group">
-            <label for="ingId">Ingredient ID</label>
+            <label for="ingredientId">Ingredient ID</label>
             <input
                 type="number"
-                id="ingId"
+                id="ingredientId"
+                name="ingredientId"
                 class="form-control"
                 #idInput>
         </div>
         <div class="col-xs-5 form-group">
-            <label for="ingName">Ingredient name</label>
+            <label for="ingredientName">Ingredient name</label>
             <input
                 type="text"
-                id="ingName"
+                id="ingredientName"
+                name="ingredientName"
                 class="form-control"
                 #nameInput>
         </div>
         <div class="col-xs-3 form-group">
-            <label for="ingQuantity">Quantity</label>
+            <label for="quantity">Quantity</label>
             <input
                 type="number"
-                id="ingQuantity"
+                id="quantity"
+                name="quantity"
                 class="form-control"
                 #amountInput>
         </div>
         <div class="col-xs-2 form-group">
-            <label for="ingMeasure">Measure</label>
+            <label for="measure">Measure</label>
             <input
                 type="text"
-                id="ingMeasure"
+                id="measure"
+                name="measure"
                 class="form-control"
                 #measureInput>
         </div>
     </div>
+    <!--<div class="row">-->
+        <!--<div class="col-xs-12">-->
+            <!--<button -->
+                <!--class="btn btn-success" -->
+                <!--type="submit" -->
+                <!--(click)="onAddItem()">Add-->
+            <!--</button>-->
+            <!--<button -->
+                <!--class="btn btn-danger" -->
+                <!--type="button">Delete-->
+            <!--</button>-->
+        <!--</div>-->
+    <!--</div>-->
     <div class="row">
         <div class="col-xs-12">
-            <button class="btn btn-success" type="submit" (click)="onAddItem()">Add</button>
-            <button class="btn btn-danger" type="button">Delete</button>
+            <button
+                class="btn btn-success"
+                type="submit"
+                [disabled]="!f.valid">{{ editMode ? 'Update' : 'Add' }}</button>
+            <button
+                class="btn btn-danger"
+                type="button"
+                (click)="onDelete()"
+                *ngIf="editMode">Delete</button>
+            <button
+                class="btn btn-primary"
+                type="button"
+                (click)="onClear()">Clear
+            </button>
         </div>
     </div>
 </form>

@@ -5,10 +5,9 @@ import { ProductService } from '../../../client/api/product.service';
 import { Subscription } from 'rxjs/Subscription';
 import { FlashMessagesService } from 'ngx-flash-messages';
 import { NgForm } from '@angular/forms';
-import { IngredientService } from '../../../client/api/ingredient.service';
 import { ProductModel } from './productModel';
 import { IngredientModel } from './ingredient-edit/ingredientModel';
-// import { Subject } from 'rxjs/Subject';
+import { IngredientListService } from './ingredient-list.service';
 
 @Component({
     selector: 'app-admin-product-page',
@@ -19,10 +18,9 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     public productData;
     public productIngredients = [];
 
-    ingredientList: IngredientModel[] = [
-        // new IngredientModel(1, 'Apples', 5, 'kg'),
-        // new IngredientModel(2, 'Tomatoes', 10, 'kg')
-    ];
+    ingredientList: IngredientModel[];
+    private subscription: Subscription;
+    // ingredientList: IngredientModel[] = [];
 
     action: {
         id: number,
@@ -34,9 +32,11 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     constructor(
         protected productService: ProductService,
         protected route: ActivatedRoute,
-        private flashMessagesService: FlashMessagesService
-    ) {
-    }
+        private flashMessagesService: FlashMessagesService,
+        private ingListService: IngredientListService
+    ) {}
+
+
 
     productModel = new ProductModel('', '', null, '', '', true, null, false, null, null, '', '',  [{ ingredientId: null, ingredientName: '', quantity: null, measure: '' }]);
 
@@ -63,10 +63,23 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
                     }
                 }
             );
+
+        this.ingredientList = this.ingListService.getIngredients();
+        this.subscription = this.ingListService.ingredientsChanged
+            .subscribe(
+                (ingredients: IngredientModel[]) => {
+                    this.ingredientList = ingredients;
+                }
+            );
+    }
+
+    onEditItem(index: number) {
+        this.ingListService.startedEditing.next(index);
     }
 
     ngOnDestroy() {
         this.urlSubscription.unsubscribe();
+        this.subscription.unsubscribe();
     }
 
     onSubmit() {
@@ -92,9 +105,9 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
         console.log(this.productModel);
     }
 
-    onIngredientAdded(ingredient: IngredientModel) {
-        this.ingredientList.push(ingredient);
-    }
+    // onIngredientAdded(ingredient: IngredientModel) {
+    //     this.ingredientList.push(ingredient);
+    // }
 
     createProduct(productModel) {
         // console.log(this.productModel);

@@ -1,5 +1,8 @@
-import { Component, OnInit, ElementRef, ViewChild, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, OnDestroy, ElementRef, ViewChild, EventEmitter, Output } from '@angular/core';
 import { IngredientModel } from './ingredientModel';
+import { Subscription } from 'rxjs/Subscription';
+import { IngredientListService } from './../ingredient-list.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-ingredient-edit',
@@ -7,24 +10,50 @@ import { IngredientModel } from './ingredientModel';
   styleUrls: ['./ingredient-edit.component.css']
 })
 export class IngredientEditComponent implements OnInit {
-    @ViewChild('idInput') idInputRef: ElementRef;
-    @ViewChild('nameInput') nameInputRef: ElementRef;
-    @ViewChild('amountInput') amountInputRef: ElementRef;
-    @ViewChild('measureInput') measureInputRef: ElementRef;
-    @Output() ingredientAdded = new EventEmitter<IngredientModel>();
+    @ViewChild('f2') ingForm: NgForm;
+    subscription: Subscription;
+    editMode = false;
+    editedItemIndex: number;
+    editedItem: IngredientModel;
 
-    constructor() { }
+    constructor(private ingListService: IngredientListService) { }
 
     ngOnInit() {
+        this.subscription = this.ingListService.startedEditing
+            .subscribe(
+                (index: number) => {
+                    this.editedItemIndex = index;
+                    this.editMode = true;
+                    this.editedItem = this.ingListService.getIngredient(index);
+                    this.ingForm.setValue({
+                        id: this.editedItem.ingredientId,
+                        ingName: this.editedItem.ingredientName,
+                        quantity: this.editedItem.quantity,
+                        measure: this.editedItem.measure
+                    });
+                }
+            );
     }
 
-    onAddItem() {
-        const ingredId = this.idInputRef.nativeElement.value;
-        const ingredName = this.nameInputRef.nativeElement.value;
-        const ingredQuantity = this.amountInputRef.nativeElement.value;
-        const ingredMeasure = this.measureInputRef.nativeElement.value;
-        const newIngredient = new IngredientModel(ingredId, ingredName, ingredQuantity, ingredMeasure);
-        this.ingredientAdded.emit(newIngredient);
+    onSubmit(form: NgForm) {
+        const value = form.value;
+        const newIngredient = new IngredientModel(value.ingredientId, value.ingredientName, value.quantity, value.measure);
+        if (this.editMode) {
+            this.ingListService.updateIngredient(this.editedItemIndex, newIngredient);
+        } else {
+            this.ingListService.addIngredient(newIngredient);
+        }
+        this.editMode = false;
+        form.reset();
     }
 
+    onClear() {
+        this.ingForm.reset();
+        this.editMode = false;
+    }
+
+    onDelete() {
+        this.ingListService.deleteIngredient(this.editedItemIndex);
+        this.onClear();
+    }
 }
