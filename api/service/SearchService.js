@@ -1,5 +1,5 @@
 'use strict';
-
+const Product = require('../model/product');
 
 /**
  *
@@ -8,38 +8,24 @@
  **/
 exports.searchForProducts = function(q) {
   return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "image" : "image",
-  "productId" : 0,
-  "caloricity" : 5,
-  "description" : "description",
-  "discount" : 1,
-  "title" : "title",
-  "difficulty" : "difficulty",
-  "promotions" : true,
-  "price" : 6,
-  "ingredients" : [ {
-    "ingredientId" : 2,
-    "quantity" : 7,
-    "measure" : "measure",
-    "ingredientName" : "ingredientName"
-  }, {
-    "ingredientId" : 2,
-    "quantity" : 7,
-    "measure" : "measure",
-    "ingredientName" : "ingredientName"
-  } ],
-  "category" : "category",
-  "spiceLevel" : "spiceLevel",
-  "servingSize" : 5,
-  "status" : true
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
+      let products = {};
+      Product.find({
+        $text: {
+            $search: q
+        }
+    }, {
+        score: {$meta: 'textScore'}
+    })
+   .then(oneProductDoc => {
+                   products = oneProductDoc || {};
+                   if (Object.keys(products).length > 0) {
+                       resolve(products);
+                   } else {
+                       reject( console.log('Product is not found, please try again.'));
+                   }
+               },
+               error => { console.log('Unable to get product or category', error); }
+               );
   });
 }
 
