@@ -91,22 +91,27 @@ exports.findIngredientById = function(id) {
  **/
 exports.getAllIngredients = function(offset,limit, sort, sort_col) {
     return new Promise( (resolve, reject) => {
-        Ingredient.find().sort({[sort_col]: sort}).then(
-            ingredientsDoc => {
-                ingredientsDoc = ingredientsDoc || [];
-                if (Object.keys(ingredientsDoc).length > 0) {
-                    ingredientsDoc = ingredientsDoc.map( ({ ingredient_id, title, image,  measure, quantity, price}) => {
-                        return { ingredient_id, title, image,  measure, quantity, price };
-                    });
-                    resolve(utils.respondWithCode(200, ingredientsDoc));
-                } else {
-                    reject(utils.respondWithCode(404, {"code": 404, "message": "Ingredients are not found, please try again."}));
+         return Ingredient.count().
+            then(
+                total => {
+                     Ingredient.find().sort({[sort_col]: sort}).then(
+                         (ingredientsDoc) => {
+                            ingredientsDoc = ingredientsDoc || [];
+                            if (Object.keys(ingredientsDoc).length > 0) {
+                                ingredientsDoc = ingredientsDoc.map( ({ ingredient_id, title, image,  measure, quantity, price}) => {
+                                    return { ingredient_id, title, image,  measure, quantity, price };
+                                });
+                                resolve({total: total, body: utils.respondWithCode(200, ingredientsDoc)});
+                            } else {
+                                reject(utils.respondWithCode(404, {"code": 404, "message": "Ingredients are not found, please try again."}));
+                            }
+                        },
+                        error => { debug('Unable to get ingredients: %O', error); }
+                    );
                 }
-            },
-            error => { debug('Unable to get ingredients: %O', error); }
-         );
+        );
     });
-}
+};
 
 
 
