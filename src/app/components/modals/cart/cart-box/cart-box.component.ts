@@ -6,6 +6,8 @@ import {ProductService} from '../../../../client/api/product.service';
 import {CartCommunicationService} from '../../../../services/cart-communication.service';
 import {Order} from '../../../../client/model/order';
 import {Subscription} from 'rxjs/Subscription';
+import {UserService} from "../../../../client/api/user.service";
+import {User} from "../../../../client/model/user";
 
 @Component({
   selector: 'app-cart-box',
@@ -23,21 +25,25 @@ export class CartBoxComponent implements OnInit, OnDestroy {
     subscription: Subscription;
     arrayOfCartOrders = [];
     nameAndSurname;
+    userObject: User;
 
     constructor(
         public bsModalRef: BsModalRef,
         private router: Router,
         private cartService: CartService,
         private productService: ProductService,
-        private cartCommunicationService: CartCommunicationService
+        private cartCommunicationService: CartCommunicationService,
+        private userService: UserService
     ) { }
 
 
     ngOnInit() {
-        this.idOfLoggedinUser = this.getIdOfLoggedInUserFromLocalStorage().userId;
+        this.idOfLoggedinUser = this.getIdOfLoggedInUserFromLocalStorage();
         this.showAPhrase = JSON.parse(localStorage.getItem('showAPhrase'));
         this.populateArrayOfDishNamesAndPrices();
-        this.nameAndSurname = this.getIdOfLoggedInUserFromLocalStorage().firstName + ' ' + this.getIdOfLoggedInUserFromLocalStorage().lastName;
+        this.userService.findUserById(this.idOfLoggedinUser).subscribe(user => {
+            this.userObject = user;
+        });
         this.subscription = this.cartCommunicationService.passedData.subscribe(
             data => {
                 this.calculateTotalPriceToPay(data);
@@ -201,10 +207,10 @@ export class CartBoxComponent implements OnInit, OnDestroy {
                     const {orderedProducts, totalPriceOfAllDishes} = updatedCart;
 
                     const newOrder: Order = {
-                        username: this.nameAndSurname,
-                        city: this.getIdOfLoggedInUserFromLocalStorage().city,
+                        username: this.userObject.firstName + ' ' + this.userObject.lastName,
+                        city: this.userObject.city,
                         price: totalPriceOfAllDishes,
-                        address: this.getIdOfLoggedInUserFromLocalStorage().address,
+                        address: this.userObject.address,
                         status: 'New',
                         products: orderedProducts
                     };

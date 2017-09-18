@@ -30,7 +30,9 @@ export class ProductlistComponent implements OnInit {
 
   ngOnInit() {
       this.populateIdFieldOfProduct();
-      this.idOfLoggedinUser = this.getIdOfLoggedInUserFromLocalStorage().userId;
+      this.idOfLoggedinUser = this.getIdOfLoggedInUserFromLocalStorage();
+      console.log('USER', this.idOfLoggedinUser);
+      console.log('ID of user', this.idOfLoggedinUser);
   }
     setPage(page: number) {
         if (page < 1 || page > this.pager.totalPages) {
