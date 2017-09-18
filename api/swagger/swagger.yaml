@@ -936,9 +936,9 @@ definitions:
   Product:
     type: object
     required:
-      - price
       - title
       - description
+      - price
     properties:
       productId:
         type: integer
@@ -947,11 +947,11 @@ definitions:
         type: string
       description:
         type: string
-      image:
-        type: string
       price:
         type: integer
         format: int64
+      image:
+        type: string
       category:
         type: string
       status:
@@ -1014,7 +1014,6 @@ definitions:
       quantity:
         type: integer
         format: int64
-
   Category:
     type: object
     required:

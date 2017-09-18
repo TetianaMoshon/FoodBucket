@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {ProductService} from '../../../client/api/product.service';
 import {IngredientService} from '../../../client/api/ingredient.service';
 import {UserService} from '../../../client/api/user.service';
 import { UpdateUser } from './updateUser';
+import { ProductService } from '../../../client/api/product.service';
+import {Subscription} from 'rxjs/Subscription';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-productpage',
@@ -13,8 +15,10 @@ import { UpdateUser } from './updateUser';
 export class ProductpageComponent implements OnInit {
     public productData;
     public productIngredients = [];
-    show = false;
+    public data;
+    private sub: any;
 
+    show = false;
     quantityOfPhotos: number;
 
     sourceForPreviousImage: any;
@@ -30,53 +34,79 @@ export class ProductpageComponent implements OnInit {
         '/assets/images/pasta-carbonara.jpg'
     ];
 
-    updateUser = new UpdateUser('', '' , '', '', 0, '', '', '', [], false);
 
-    userId = 1;
-    productId = 2;
+    updateUser = new UpdateUser('', '' , '', '', null, '', '', '', [], false);
+    userId = 2;
+    id = this.route.snapshot.paramMap.get('id');
 
-    addFavourite() {
-        this.updateUser.favourites.push(this.productId);
-        this.updaterUser(this.userId, this.updateUser);
+    constructor(
+        public productService: ProductService,
+        public ingredientService: IngredientService,
+        public userService: UserService,
+        protected route: ActivatedRoute
+    ) {}
+
+    ngOnInit() {
+        this.InitImageSource();
+        this.quantityOfPhotos = this.ListOfImageLinks.length;
+        this.showProduct(this.id);
     }
 
-    updaterUser(id: number, updateUser) {
-        this.userService.updateUserById(id, updateUser)
+    showProduct(id) {
+        this.productService.findProductById(id)
             .subscribe(
-                user => {
-                    console.log(user);
+                product => {
+                    this.productData = product;
+                    console.log(product);
+                    const current = this;
+                    this.productData.ingredients.forEach(function (ingredient) {
+                        current.ingredientService.findIngredientById(ingredient.ingredientId)
+                            .subscribe(
+                                ingr => {
+                                    current.productIngredients.push(ingr);
+                                }
+                            );
+                    });
+
                 },
                 err => console.log(err)
             );
     }
 
-  constructor(public productService: ProductService, public ingredientService: IngredientService, public userService: UserService) {
-      this.productService.findProductById(1)
-          .subscribe(
-              product => {
-                  this.productData = product;
-                  console.log(this.productData);
-                  const current = this;
-                  this.productData.ingredients.forEach(function (ingredient) {
-                      current.ingredientService.findIngredientById(ingredient.ingredientId).subscribe(
-                          ingr => {
-                              current.productIngredients.push(ingr);
-                          }
-                      );
-                  });
-              },
-              err => console.log(err)
-          );
-
-  }
 
 
-  ngOnInit() {
-      this.InitImageSource();
-      this.quantityOfPhotos = this.ListOfImageLinks.length;
+    addFavourite() {
+        this.userService.findUserById(this.userId)
+            .subscribe(
+                user => {
+                    this.updateUser.firstName = user.firstName;
+                    this.updateUser.lastName = user.lastName;
+                    this.updateUser.email = user.email;
+                    this.updateUser.password = user.password;
+                    this.updateUser.phone = user.phone;
+                    this.updateUser.city = user.city;
+                    this.updateUser.address = user.address;
+                    this.updateUser.image = user.image;
+                    this.updateUser.favourites = user.favourites;
+                    this.updateUser.active = user.active;
+
+                    this.updateUser.favourites.push(Number(this.id));
+
+                    this.userService.updateUserById(this.userId, this.updateUser)
+                        .subscribe(
+                            userUpdate => {
+                                console.log(user);
+                            },
+                            err => console.log(err)
+                        );
+                },
+                err => console.log(err)
+            );
+
+    }
 
 
-  }
+
     InitImageSource() {
         this.sourceForPreviousImage = this.ListOfImageLinks[this.initialSourceForPreviousImage];
         this.sourceForNextImage = this.ListOfImageLinks[this.initialSourceForNextImage];
@@ -112,10 +142,5 @@ export class ProductpageComponent implements OnInit {
         this.initialSourceForPreviousImage = this.initialSourceForPreviousImage === 0  ? this.quantityOfPhotos - this.counter :
             this.initialSourceForPreviousImage - this.counter;
     }
-
-
-
-
-
 
 }
