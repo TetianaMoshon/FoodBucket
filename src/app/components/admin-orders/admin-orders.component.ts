@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {PagerService} from '../../services/pagination.service';
 import {OrderService} from '../../client/api/order.service';
-import {Order} from "../../models/order";
+import {Order} from '../../models/order';
 
 @Component({
   selector: 'app-admin-orders',
@@ -33,6 +33,29 @@ pagedItems: any[];
           this.setPage(1);
       });
   }
+    updateOrder(value) {
+      console.log(value);
+        this.ApiService.updateOrderById({
+            'orderId': 0,
+            'date': 'string',
+            'username': 'string',
+            'city': 'string',
+            'price': 0,
+            'address': 'string',
+            'status': value,
+            'phone': 'string',
+            'products': [
+                0
+            ],
+            'measure': 'string',
+            'quantity': 0,
+            'discount': 0
+        }, 47).subscribe(
+            res => {
+                console.log(res);
+            }
+        );
+    }
 setPage(page: number) {
       if (page < 1 || page > this.pager.totalPages) {
           return;
