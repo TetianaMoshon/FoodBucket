@@ -9,6 +9,7 @@ import {Order} from '../../models/order';
     styleUrls: ['./admin-orders.component.css']
 })
 export class AdminOrdersComponent implements OnInit {
+    total
     expanded = false
     value: string
     state = true

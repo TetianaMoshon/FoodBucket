@@ -34,23 +34,28 @@ exports.findOrderById = function(id) {
  **/
 exports.getAllOrders = function (offset, limit, sort, sort_col) {
     return new Promise(function (resolve, reject) {
+        return Order.count().
+            then(
+                total => {
+                    Order.find().sort({[sort_col]: sort}).then(
+                        (ordersDoc) => {
+                            ordersDoc = ordersDoc || [];
+                            if (Object.keys(ordersDoc).length > 0) {
+                                ordersDoc = ordersDoc.map( ({ date,orderId,username, phone,city, address, products,price,status }) => {
+                                    date = new Date(date).getDate()+'/'+ (new Date(date).getMonth()+1)+'/'+new Date(date).getFullYear();
+                                    return { date,orderId,username, city,phone, address, products,price,status };
+                                });
+                                resolve({total: total, body: utils.respondWithCode(200, ordersDoc)});
+                            }
+                            else {
+                                reject(utils.respondWithCode(404, {"code": 404, "message": "Orders are not found, please try again."}));
+                            }
+                        },
+                        (error) => {debug('Unable to find order. View error:' + error.toString());}
+                    );
+                }
+        )
 
-        Order.find().sort({[sort_col]: sort}).then(
-            (ordersDoc) => {
-                ordersDoc = ordersDoc || [];
-                if (Object.keys(ordersDoc).length > 0) {
-                    ordersDoc = ordersDoc.map( ({ date,orderId,username, phone,city, address, products,price,status }) => {
-                        date = new Date(date).getDate()+'/'+ (new Date(date).getMonth()+1)+'/'+new Date(date).getFullYear();
-                        return { date,orderId,username, city,phone, address, products,price,status };
-                    });
-                    resolve(utils.respondWithCode(200, ordersDoc));
-                }
-                else {
-                reject(utils.respondWithCode(404, {"code": 404, "message": "Orders are not found, please try again."}));
-                }
-            },
-            (error) => {debug('Unable to find order. View error:' + error.toString());}
-        );
     })
 };
 /**

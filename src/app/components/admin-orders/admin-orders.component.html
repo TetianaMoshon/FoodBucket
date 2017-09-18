@@ -11,7 +11,7 @@
         <tr>
             <th class="text-center">
                 <div class="form-group">
-                <input  class="form-control" type="number" name="id" [(ngModel)]="filter.orderId" placeholder="ID">
+                <input  class="form-control id-form-control" type="number" name="id" [(ngModel)]="filter.orderId" placeholder="ID">
                     <a class="sort_icon" (click)="onSortClick('orderId')" [ngClass]="{
                         'sort_asc': (sort == 'asc' && value == 'orderId'), 'sort_desc': (sort == 'desc' && value == 'orderId')}"></a>
                 </div>

@@ -99,9 +99,31 @@ tbody tr:hover {
     padding-top:20px;
 }
 
+@media (max-width: 768px) {
+    input.form-control {
+        display: inline-block;
+        width: 80%;
+        padding: 6px 5px;
+    }
+
+    input.id-form-control {
+        width: 73%;
+    }
+}
+
 @media (max-width: 991px) {
     .padding-top {
         padding-top: 0;
         padding-bottom:20px;
     }
 }
+
+@media (max-width: 1200px) {
+    input.form-control {
+        display: inline-block;
+        width: 78%;
+        padding: 6px 5px;
+    }
+}
+
+
