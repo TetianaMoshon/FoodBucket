@@ -33,8 +33,9 @@ pagedItems: any[];
           this.setPage(1);
       });
   }
-    updateOrder(value) {
+    updateOrder(value, orderIdValue) {
       console.log(value);
+      console.log(orderIdValue);
         this.ApiService.updateOrderById({
             'orderId': 0,
             'date': 'string',
@@ -50,7 +51,7 @@ pagedItems: any[];
             'measure': 'string',
             'quantity': 0,
             'discount': 0
-        }, 47).subscribe(
+        }, orderIdValue).subscribe(
             res => {
                 console.log(res);
             }

@@ -48,7 +48,7 @@
             <td class="gray-border text-center">{{order.price}}</td>
             <td class="gray-border text-center">{{order.products}}</td>
             <td class="gray-border text-center">
-                <select #s (change)="updateOrder(s.value)" class="form-control">
+                <select #s (change)="updateOrder(s.value,order.orderId)" class="form-control">
                     <option>{{order.status}}</option>
                     <option>Delivered</option>
                     <option>Cancelled</option>
