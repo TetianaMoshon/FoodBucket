@@ -9,14 +9,11 @@ const Product = require('../model/product');
 exports.searchForProducts = function(q) {
   return new Promise(function(resolve, reject) {
       let products = {};
-      Product.find({
-        $text: {
-            $search: q
-        }
-    }, {
-        score: {$meta: 'textScore'}
-    })
-   .then(oneProductDoc => {
+
+      const regex = new RegExp(q, 'i');
+      Product.find(
+          { $or: [ {title: regex}, {category: regex} ] }
+          ).then(oneProductDoc => {
                    products = oneProductDoc || {};
                    if (Object.keys(products).length > 0) {
                        resolve(products);
