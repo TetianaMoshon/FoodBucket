@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, Input } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../../client/api/product.service';
@@ -18,26 +18,10 @@ import { IngredientModel } from './ingredient-edit/ingredientModel';
 export class AdminProductPageComponent implements OnInit, OnDestroy {
     public productData;
     public productIngredients = [];
-    // title: string;
-    // description: string;
-    // price: number;
-    // image: string;
-    // category: string;
-    // status: boolean;
-    // discount: number;
-    // promotions: boolean;
-    // caloricity: number;
-    // servingSize: number;
-    // difficulty: string;
-    // spiceLevel: string;
-    // ingredients: any;
-    // ingredientName: string;
-    // quantity: number;
-    // measure: string;
 
     ingredientList: IngredientModel[] = [
-        new IngredientModel(1, 'Apples', 5, 'kg'),
-        new IngredientModel(2, 'Tomatoes', 10, 'kg')
+        // new IngredientModel(1, 'Apples', 5, 'kg'),
+        // new IngredientModel(2, 'Tomatoes', 10, 'kg')
     ];
 
     action: {
@@ -45,12 +29,14 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
         name: string
     };
     urlSubscription: Subscription;
+    rows: any[] = [];
 
     constructor(
         protected productService: ProductService,
         protected route: ActivatedRoute,
         private flashMessagesService: FlashMessagesService
-    ) { }
+    ) {
+    }
 
     productModel = new ProductModel('', '', null, '', '', true, null, false, null, null, '', '',  [{ ingredientId: null, ingredientName: '', quantity: null, measure: '' }]);
 
@@ -77,12 +63,6 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
                     }
                 }
             );
-        // console.log(this.productModel); // shows only first ingredient -___-
-
-        // for (let ingredient in this.ingredientList) {
-        //     // console.log(this.productModel.ingredients[ingredient]);
-        //     console.log(this.ingredientList[ingredient]); // shows all ingredients
-        // }
     }
 
     ngOnDestroy() {
@@ -96,20 +76,15 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
             this.productModel.promotions = Boolean(this.productModel.promotions);
             this.productModel.caloricity = Number(this.productModel.caloricity);
             this.productModel.servingSize = Number(this.productModel.servingSize);
-            // this.productModel.ingredients[0].quantity = Number(this.productModel.ingredients[0].quantity);
 
             for (let ingredient in this.ingredientList) {
                 this.productModel.ingredients[ingredient] = this.ingredientList[ingredient];
                 this.productModel.ingredients[ingredient].ingredientId = Number(this.productModel.ingredients[ingredient].ingredientId);
                 this.productModel.ingredients[ingredient].quantity = Number(this.productModel.ingredients[ingredient].quantity);
-                // this.productModel.ingredients[ingredient] = this.ingredientList[ingredient];
             }
-            // this.productModel.ingredientListAll[0].ingName = this.ingredientList[0].ingName;
-            // this.productModel.ingredientListAll[0].ingQuantity = this.ingredientList[0].ingQuantity;
 
         if (this.action.name === 'create') {
             this.createProduct(this.productModel);
-            // this.resetFormFields();
         } else {
             this.updateProduct(this.action.id, this.productModel);
         }
@@ -122,7 +97,6 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     }
 
     createProduct(productModel) {
-        // console.log(productObject);
         // console.log(this.productModel);
         this.productService.createProduct(productModel)
             .subscribe(
@@ -141,9 +115,6 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
         this.productService.updateProductById(id, productModel)
             .subscribe(
                 product => {
-                    // this.productData = product;
-                    // console.log(this.productData);
-                    // console.log(productModel);
                     this.flashMessagesService.show(`Product with id:${id} was successfully updated!`, {
                         classes: ['alert', 'alert-warning'],
                         timeout: 3000,
@@ -170,61 +141,35 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
                     this.productModel.difficulty = product.difficulty;
                     this.productModel.spiceLevel = product.spiceLevel;
 
-                    console.log(this.productModel.ingredients); // shows only 1st ingredient
+                    console.log(product.ingredients); // shows all ingredients from db
 
-                    console.log(product.ingredients); // shows all ingredients +++++
+                    console.log(product.ingredients.length);
+                    const productLength = product.ingredients.length;
 
-                    console.log(product.ingredients[2]);
+                    for (let ingredientItem = 0;  ingredientItem <= productLength; ingredientItem++) {
+                        // const table: HTMLTableElement = <HTMLTableElement> document.getElementById('myTable');
+                        // this.ingredientList.forEach(x => table.insertRow(table.rows.length + 1));
+                    }
 
                     for (let ingredient in product.ingredients) {
+                        // this.productModel.ingredients[ingredient].ingredientId = 12;
+                        // this.productModel.ingredients[ingredient].ingredientName = "Test";
+                        // this.productModel.ingredients[ingredient].quantity = 3;
+                        // this.productModel.ingredients[ingredient].measure = "g";
                         this.productModel.ingredients[ingredient].ingredientId = product.ingredients[ingredient].ingredientId;
                         this.productModel.ingredients[ingredient].ingredientName = product.ingredients[ingredient].ingredientName;
                         this.productModel.ingredients[ingredient].quantity = Number(product.ingredients[ingredient].quantity);
                         this.productModel.ingredients[ingredient].measure = product.ingredients[ingredient].measure;
-                        this.productModel.ingredients.push();
-
-                        // console.log(this.productModel.ingredients[ingredient]);
+                        console.log(this.productModel.ingredients[ingredient]);
                     }
 
                     console.log(this.productModel.ingredients);
-                    // console.log(this.productModel.ingredients);
-                    // this.productModel.ingredients[0].ingredientName = product.ingredients[0].ingredientName;
-                    // console.log(this.productModel.ingredients[0].ingredientName); // Apples
-                    // this.productModel.ingredients[2].ingredientName = product.ingredients[2].ingredientName;
-                    // console.log(this.productModel.ingredients[2].ingredientName);
-
-                    // this.productModel.ingredients[0].quantity = product.ingredients[0].quantity;
-                    // this.productModel.ingredients[0].measure = product.ingredients[0].measure;
-                    // for (let ingredient in this.ingredientList) {
-                    //     this.productModel.ingredients = product.ingredients;
-                    // }
-
-                    // for (let ingredient in this.ingredientList) {
-                    //     console.log(this.ingredientList[ingredient]); // shows all ingredients
-                    // }
-                    // for (let ingredient2 in this.ingredientList) {
-                    //     this.productModel.ingredients.push(this.ingredientList[ingredient2]);
-                    // }
                 }
             );
     }
 
     resetFormFields() {
-        // this.title = '';
-        // this.description = '';
-        // this.price = null;
-        // this.image = '';
-        // this.category = '';
-        // this.status = false;
-        // this.discount = null;
-        // this.promotions = false;
-        // this.caloricity = null;
-        // this.servingSize = null;
-        // this.difficulty = '';
-        // this.spiceLevel = '';
-        // this.ingredientName = '';
-        // this.quantity = null;
-        // this.measure = '';
-        this.productModel = new ProductModel('', '', null, '', '', true, null, false, null, null, '', '', [{ ingredientId: null, ingredientName: '', quantity: null, measure: ''}]);
+        this.productModel = new ProductModel('', '', null, '', '', true, null, false, null, null, '', '',
+            [{ ingredientId: null, ingredientName: '', quantity: null, measure: ''}]);
     }
 }

@@ -74,20 +74,16 @@
                     <!--</table>-->
                     <br><br>
 
+
                     <div>
-                        <table class="table" border="1" width="80%">
+                        <table class="table" border="1" width="80%" id="myTable">
                             <tr>
                                 <th>Ingredient ID</th>
                                 <th>Ingredient name</th>
                                 <th>Quantity</th>
                                 <th>Measure</th>
                             </tr>
-                            <!--<tr *ngFor="let ingredient of ingredientList; let i = index">-->
-                                <!--<td>{{ ingredient.ingName }}</td>-->
-                                <!--<td>{{ ingredient.ingQuantity }}</td>-->
-                                <!--<td>{{ ingredient.ingMeasure }}</td>-->
-                            <!--</tr>-->
-                            <tr *ngFor="let ingredient of ingredientList; let i = index">
+                            <tr *ngFor="let ingredient of ingredientList">
                                 <td>{{ ingredient.ingredientId }}</td>
                                 <td>{{ ingredient.ingredientName }}</td>
                                 <td>{{ ingredient.quantity }}</td>
