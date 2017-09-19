@@ -37,9 +37,10 @@ export class ProductpageComponent implements OnInit {
     ];
 
 
-    updateUser = new UpdateUser('', '' , '', '', null, '', '', '', [], false);
-    /*JSON.parse(sessionStorage.getItem('currentUserId'))*/
-    userId = 3;
+    updateUser = new UpdateUser('', '' , '',  '');
+
+    userId;
+    login;
     id = this.route.snapshot.paramMap.get('id');
 
     constructor(
@@ -53,7 +54,14 @@ export class ProductpageComponent implements OnInit {
         this.InitImageSource();
         this.quantityOfPhotos = this.ListOfImageLinks.length;
         this.showProduct(this.id);
-        this.userService.findUserById(this.userId).subscribe(
+        if ( JSON.parse(sessionStorage.getItem('currentUserId')) == null) {
+            this.login = false;
+        }else {
+            this.userId = JSON.parse(sessionStorage.getItem('currentUserId'));
+            this.login = true;
+        }
+
+         this.userService.findUserById(this.userId).subscribe(
             user => {
                     if (user.favourites.indexOf(Number(this.id)) === -1) {
                         this.select = false;
@@ -79,7 +87,6 @@ export class ProductpageComponent implements OnInit {
                                 }
                             );
                     });
-
                 },
                 err => console.log(err)
             );
@@ -89,43 +96,23 @@ export class ProductpageComponent implements OnInit {
         this.userService.findUserById(this.userId)
             .subscribe(
                 user => {
+
                     if (this.select === false) {
                         this.select = true;
                         user.favourites.push(Number(this.id));
-
-                        this.updateUser.firstName = user.firstName;
-                        this.updateUser.lastName = user.lastName;
-                        this.updateUser.email = user.email;
-                        this.updateUser.password = user.password;
-                        this.updateUser.phone = user.phone;
-                        this.updateUser.city = user.city;
-                        this.updateUser.address = user.address;
-                        this.updateUser.image = user.image;
-                        this.updateUser.favourites = user.favourites;
-                        this.updateUser.active = user.active;
-
+                        this.updateUser = user;
                         this.userService.updateUserById(this.userId, this.updateUser)
                             .subscribe(
                                 userUpdate => {
-
+                                    console.log(user);
                                 },
-                                err => console.log(err)
+                                err => console.log(user)
                             );
+
                     } else {
                         this.select = false;
                         user.favourites.splice(user.favourites.indexOf(Number(this.id)), 1);
-
-                        this.updateUser.firstName = user.firstName;
-                        this.updateUser.lastName = user.lastName;
-                        this.updateUser.email = user.email;
-                        this.updateUser.password = user.password;
-                        this.updateUser.phone = user.phone;
-                        this.updateUser.city = user.city;
-                        this.updateUser.address = user.address;
-                        this.updateUser.image = user.image;
-                        this.updateUser.favourites = user.favourites;
-                        this.updateUser.active = user.active;
-
+                        this.updateUser = user;
                         this.userService.updateUserById(this.userId, this.updateUser)
                             .subscribe(
                                 userUpdate => {
@@ -134,7 +121,6 @@ export class ProductpageComponent implements OnInit {
                                 err => console.log(err)
                             );
                     }
-
                 },
                 err => console.log(err)
             );
