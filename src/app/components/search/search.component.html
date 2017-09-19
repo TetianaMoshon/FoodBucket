@@ -1,0 +1,27 @@
+<div class="cont">
+
+    <form (submit)="searchInput$.next($event.target.value)">
+        <div class="input-group">
+            <input type="text" autocomplete="off" (input)="searchInput$.next($event.target.value)" class="form-control" placeholder="Search">
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="submit"  routerLinkActive="active">
+                    <i class="glyphicon glyphicon-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+    <div class="searcRes" *ngIf="searcRes">
+        <div *ngFor = "let item of searcRes">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="search-res well">
+                        <a routerLink="productpage/{{item['productId']}}">
+                            <h5>{{item['title']}} <span class="label label-default">{{item['category']}}</span></h5>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
