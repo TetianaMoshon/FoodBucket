@@ -1,6 +1,10 @@
 a {
     cursor: pointer;
 }
+span.log-out-glyph-text{
+    display: none;
+    visibility: hidden;
+}
 
 span.bucket{
     display: inline-block;
@@ -31,10 +35,20 @@ span.bucket-mobile {
     span.bucket {
         display: none;
     }
+    span.log-out-glyph-text{
+        visibility: visible;
+        display: block;
+    }
+    span.glyphicon-log-out{
+        display: none;
+    }
 }
 .navbar-foodbucket{
     font-family: Oswald;
 }
 .navbar-default .navbar-nav>li>a{
     font-size: 15px;
+}
+.log-out-glyph {
+   padding-left: 5px;
 }

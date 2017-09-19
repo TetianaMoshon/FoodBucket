@@ -22,7 +22,7 @@ import { AdminUserPageComponent } from './components/admin-users/admin-user-page
 import {AdmincategoriesFormComponent} from './components/admincategories/admincategories-form/admincategories-form.component';
 
 import {Error404Component} from './components/error404/error404.component';
-import {AdminIngredientsFormComponent} from "./components/admin-ingredients/adminingredients-form/adminingredients-form.component";
+import {AdminIngredientsFormComponent} from './components/admin-ingredients/adminingredients-form/adminingredients-form.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },

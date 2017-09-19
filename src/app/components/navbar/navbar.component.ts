@@ -23,6 +23,11 @@ export class NavbarComponent implements OnInit {
         this.data.currentLogBtn.subscribe(message => this.LogBtnText = message);
     }
 
+    public logOutFunc() {
+        sessionStorage.clear();
+        this.isLogged = false;
+        window.location.reload();
+    }
     public openNewAccount() {
         this.modalService.show(NewAccountComponent);
     }
