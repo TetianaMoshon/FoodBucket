@@ -6,8 +6,8 @@ import {ProductService} from '../../../../client/api/product.service';
 import {CartCommunicationService} from '../../../../services/cart-communication.service';
 import {Order} from '../../../../client/model/order';
 import {Subscription} from 'rxjs/Subscription';
-import {UserService} from "../../../../client/api/user.service";
-import {User} from "../../../../client/model/user";
+import {UserService} from '../../../../client/api/user.service';
+import {User} from '../../../../client/model/user';
 
 @Component({
   selector: 'app-cart-box',
@@ -24,7 +24,6 @@ export class CartBoxComponent implements OnInit, OnDestroy {
     dataReferenceArray = [];
     subscription: Subscription;
     arrayOfCartOrders = [];
-    nameAndSurname;
     userObject: User;
 
     constructor(
@@ -59,6 +58,7 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
 
     populateArrayOfDishNamesAndPrices() {
+        console.log(this.idOfLoggedinUser);
         if (JSON.parse(localStorage.getItem('cartContentObjCreated'))) {
             this.cartService.findCartContentById(this.idOfLoggedinUser).subscribe(
                 cartData => {
@@ -225,8 +225,8 @@ export class CartBoxComponent implements OnInit, OnDestroy {
         }
 
     private getIdOfLoggedInUserFromLocalStorage() {
-        if (JSON.parse(localStorage.getItem('currentUser'))) {
-            return JSON.parse(localStorage.getItem('currentUser'));
+        if (JSON.parse(sessionStorage.getItem('currentUserId'))) {
+            return JSON.parse(sessionStorage.getItem('currentUserId'));
         } else {
             return;
         }
