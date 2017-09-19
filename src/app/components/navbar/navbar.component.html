@@ -58,18 +58,9 @@
                 </span></li>
                 <li *ngIf="isLogged"><a (click)="openLoginModal();isCollapsed = true">Log In / Registration</a></li>
                 <li *ngIf="!isLogged"><a (click)="isCollapsed = true"routerLink="profile" routerLinkActive="active">{{LogBtnText}}</a></li>
-
+                <app-search class="navbar-form navbar-right"></app-search>
             </ul>
-            <form class="navbar-form navbar-right">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                    <div class="input-group-btn">
-                        <button class="btn btn-default" type="submit"  routerLinkActive="active">
-                            <i class="glyphicon glyphicon-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
+
         </div>
 
     </div>
