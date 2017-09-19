@@ -127,8 +127,8 @@ export class ProductlistComponent implements OnInit {
     }
 
     private getIdOfLoggedInUserFromLocalStorage() {
-        if (JSON.parse(localStorage.getItem('currentUser'))) {
-            const user = JSON.parse(localStorage.getItem('currentUser'));
+        if (JSON.parse(sessionStorage.getItem('currentUserId'))) {
+            const user = JSON.parse(sessionStorage.getItem('currentUserId'));
             return user;
         } else {
             return;
