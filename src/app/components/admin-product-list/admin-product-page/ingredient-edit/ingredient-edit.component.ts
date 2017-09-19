@@ -46,10 +46,12 @@ export class IngredientEditComponent implements OnInit {
         this.editMode = false;
         form.reset();
     }
+
     onClear() {
         this.ingListForm.reset();
         this.editMode = false;
     }
+
     onDelete() {
         this.ingListService.deleteIngredient(this.editedItemIndex);
     }
