@@ -72,9 +72,10 @@ exports.findProductById = function(id) {
     });
 }
 
-exports.getAllProducts = function(offset,limit,isActive) {
+exports.getAllProducts = function(offset,limit,isActive,isPromotion) {
     return new Promise((resolve, reject) => {
-        Product.find().then(
+            const query = isPromotion!==undefined? {promotions:isPromotion}: {};
+        Product.find(query).then(
             productsDoc => {
                 productsDoc = productsDoc || {};
                 if (Object.keys(productsDoc).length > 0) {

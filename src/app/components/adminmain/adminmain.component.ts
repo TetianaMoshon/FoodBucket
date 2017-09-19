@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Color} from 'ng2-charts';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-adminmain',
@@ -9,7 +10,7 @@ import {Color} from 'ng2-charts';
 export class AdminMainComponent implements OnInit {
     public comments = 134;
     public orders = 85;
-
+    public location = '';
     public barChartOptions: any = {
         scaleShowVerticalLines: false,
         responsive: true
@@ -72,7 +73,10 @@ export class AdminMainComponent implements OnInit {
             pointHoverBackgroundColor: '#fff',
             pointHoverBorderColor: '#64D678'
         }];
-    constructor() { }
+    constructor(private  _router: Router) {
+        this.location = _router.url;
+        console.log('Location of this', this.location);
+    }
 
     ngOnInit() {
   }

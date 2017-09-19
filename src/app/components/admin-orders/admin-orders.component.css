@@ -6,7 +6,7 @@ thead {
 }
 
 h1 {
-    font-family: Oswald;
+    font-family: Oswald, sans-serif;
 }
 
 thead th {
@@ -29,12 +29,12 @@ hr {
 }
 
 button.btn-primary {
-    font-family: Roboto;
+    font-family: Roboto, sans-serif;
 }
 
 tbody tr td {
     font-size: 16px;
-    font-family: Roboto;
+    font-family: Roboto, sans-serif;
 }
 
 tbody tr:hover {
@@ -49,7 +49,11 @@ tbody tr:hover {
 .padding-top {
     padding-top:20px;
 }
+.form-control {
+    width: 80%;
+    margin: 0 auto;
 
+}
 @media (max-width: 991px) {
     .padding-top {
         padding-top: 0;
