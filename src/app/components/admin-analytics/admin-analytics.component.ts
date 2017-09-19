@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {Color} from 'ng2-charts';
 
 @Component({
   selector: 'app-admin-analytics',
@@ -14,7 +13,7 @@ export class AdminAnalyticsComponent implements OnInit {
     // Chart Orders
     public chartOrdersData: Array<any> = [
         {data: [65, 59, 80, 81, 56, 55, 40], label: 'Total'},
-        {data: [28, 48, 40, 19, 86, 27, 90], label: 'Complited'},
+        {data: [28, 48, 40, 19, 86, 27, 90], label: 'Completed'},
         {data: [18, 48, 77, 9, 100, 27, 40], label: 'Canceled'}
     ];
     public chartOrdersLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
