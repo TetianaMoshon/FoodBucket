@@ -59,7 +59,7 @@ import { FlashMessagesModule } from 'ngx-flash-messages';
 import {appRouting} from './app.routing';
 import {AdminIngredientsFormComponent} from './components/admin-ingredients/adminingredients-form/adminingredients-form.component';
 import { IngredientEditComponent } from './components/admin-product-list/admin-product-page/ingredient-edit/ingredient-edit.component';
-
+import { IngredientListService } from './components/admin-product-list/admin-product-page/ingredient-list.service';
 
 @NgModule({
   declarations: [
@@ -135,7 +135,7 @@ import { IngredientEditComponent } from './components/admin-product-list/admin-p
       ChartsModule,
       [TabsModule.forRoot()],
   ],
-  providers: [PagerService, CommentsService, CartCommunicationService, DataService],
+  providers: [PagerService, CommentsService, CartCommunicationService, DataService, IngredientListService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -45,20 +45,6 @@
                             <input [(ngModel)]="productModel.promotions" name="promotions" type="text" class="form-control" id="promotions">
                         </div>
 
-
-                        <!--<div class="ingredients">-->
-                            <!--<table width="100%" border="1">-->
-                                <!--<tr>-->
-                                    <!--<th>Ingredient name</th>-->
-                                    <!--<th>Quantity</th>-->
-                                    <!--</tr>-->
-                            <!--<tr *ngFor="let ingredient of ingredients">-->
-                                <!--<td>{{ingredient.ingredientName}}</td>-->
-                                <!--<td>{{ingredient.quantity}}</td>-->
-                            <!--</tr>-->
-                            <!--</table>-->
-                        <!--</div>-->
-
                 <div class="ingredients">
                     <!--<table width="100%" border="1">-->
                         <!--<tr>-->
@@ -83,9 +69,8 @@
                                 <th>Quantity</th>
                                 <th>Measure</th>
                             </tr>
-                            <tr
-                                *ngFor="let ingredient of ingredientList; let i = index"
-                                (click)="onEditItem(i)">
+                            <tr *ngFor="let ingredient of ingredientList; let i = index"
+                                (click)="onEditItem(i)" style="cursor: pointer">
                                     <td>{{ ingredient.ingredientId }}</td>
                                     <td>{{ ingredient.ingredientName }}</td>
                                     <td>{{ ingredient.quantity }}</td>
@@ -94,8 +79,7 @@
                         </table>
                         <br>
 
-                        <app-ingredient-edit>
-                        </app-ingredient-edit>
+                        <app-ingredient-edit></app-ingredient-edit>
                     </div>
 
                 </div>

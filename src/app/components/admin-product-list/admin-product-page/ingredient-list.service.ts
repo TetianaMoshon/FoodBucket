@@ -5,12 +5,9 @@ export class IngredientListService {
 
     ingredientsChanged = new Subject<IngredientModel[]>();
     startedEditing = new Subject<number>();
-    private ingredientList: IngredientModel[] = [
-        new IngredientModel(1, 'Apples', 5, 'g'),
-        new IngredientModel(2, 'Tomatoes', 10, 'g'),
-    ];
+    private ingredientList: IngredientModel[] = [];
 
-    getIngredients() {
+    getIngredientList() {
         return this.ingredientList.slice();
     }
 
@@ -23,11 +20,11 @@ export class IngredientListService {
         this.ingredientsChanged.next(this.ingredientList.slice());
     }
 
-    addIngredients(ingredients: IngredientModel[]) {
+    addIngredients(ingredientList: IngredientModel[]) {
         // for (let ingredient of ingredients) {
         //   this.addIngredient(ingredient);
         // }
-        this.ingredientList.push(...ingredients);
+        this.ingredientList.push(...ingredientList);
         this.ingredientsChanged.next(this.ingredientList.slice());
     }
 

@@ -15,19 +15,8 @@ import { IngredientListService } from './ingredient-list.service';
     styleUrls: ['./admin-product-page.component.css']
 })
 export class AdminProductPageComponent implements OnInit, OnDestroy {
-    public productData;
-    public productIngredients = [];
-
     ingredientList: IngredientModel[];
     private subscription: Subscription;
-    // ingredientList: IngredientModel[] = [];
-
-    action: {
-        id: number,
-        name: string
-    };
-    urlSubscription: Subscription;
-    rows: any[] = [];
 
     constructor(
         protected productService: ProductService,
@@ -36,7 +25,11 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
         private ingListService: IngredientListService
     ) {}
 
-
+    action: {
+        id: number,
+        name: string
+    };
+    urlSubscription: Subscription;
 
     productModel = new ProductModel('', '', null, '', '', true, null, false, null, null, '', '',  [{ ingredientId: null, ingredientName: '', quantity: null, measure: '' }]);
 
@@ -64,22 +57,17 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
                 }
             );
 
-        this.ingredientList = this.ingListService.getIngredients();
+        this.ingredientList = this.ingListService.getIngredientList();
         this.subscription = this.ingListService.ingredientsChanged
             .subscribe(
-                (ingredients: IngredientModel[]) => {
-                    this.ingredientList = ingredients;
+                (ingredientList: IngredientModel[]) => {
+                    this.ingredientList = ingredientList;
                 }
             );
     }
 
     onEditItem(index: number) {
         this.ingListService.startedEditing.next(index);
-    }
-
-    ngOnDestroy() {
-        this.urlSubscription.unsubscribe();
-        this.subscription.unsubscribe();
     }
 
     onSubmit() {
@@ -101,13 +89,7 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
         } else {
             this.updateProduct(this.action.id, this.productModel);
         }
-        // console.log(this.ingredientList);
-        console.log(this.productModel);
     }
-
-    // onIngredientAdded(ingredient: IngredientModel) {
-    //     this.ingredientList.push(ingredient);
-    // }
 
     createProduct(productModel) {
         // console.log(this.productModel);
@@ -154,29 +136,10 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
                     this.productModel.difficulty = product.difficulty;
                     this.productModel.spiceLevel = product.spiceLevel;
 
-                    console.log(product.ingredients); // shows all ingredients from db
-
-                    console.log(product.ingredients.length);
-                    const productLength = product.ingredients.length;
-
-                    for (let ingredientItem = 0;  ingredientItem <= productLength; ingredientItem++) {
-                        // const table: HTMLTableElement = <HTMLTableElement> document.getElementById('myTable');
-                        // this.ingredientList.forEach(x => table.insertRow(table.rows.length + 1));
-                    }
-
-                    for (let ingredient in product.ingredients) {
-                        // this.productModel.ingredients[ingredient].ingredientId = 12;
-                        // this.productModel.ingredients[ingredient].ingredientName = "Test";
-                        // this.productModel.ingredients[ingredient].quantity = 3;
-                        // this.productModel.ingredients[ingredient].measure = "g";
-                        this.productModel.ingredients[ingredient].ingredientId = product.ingredients[ingredient].ingredientId;
-                        this.productModel.ingredients[ingredient].ingredientName = product.ingredients[ingredient].ingredientName;
-                        this.productModel.ingredients[ingredient].quantity = Number(product.ingredients[ingredient].quantity);
-                        this.productModel.ingredients[ingredient].measure = product.ingredients[ingredient].measure;
-                        console.log(this.productModel.ingredients[ingredient]);
-                    }
-
-                    console.log(this.productModel.ingredients);
+                    product.ingredients.forEach(({ ingredientId, ingredientName, quantity, measure}, index) => {
+                        this.productModel.ingredients[index] = { ingredientId, ingredientName, quantity, measure};
+                    });
+                    this.ingredientList = this.productModel.ingredients;
                 }
             );
     }
@@ -184,5 +147,10 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     resetFormFields() {
         this.productModel = new ProductModel('', '', null, '', '', true, null, false, null, null, '', '',
             [{ ingredientId: null, ingredientName: '', quantity: null, measure: ''}]);
+    }
+
+    ngOnDestroy() {
+        this.urlSubscription.unsubscribe();
+        this.subscription.unsubscribe();
     }
 }

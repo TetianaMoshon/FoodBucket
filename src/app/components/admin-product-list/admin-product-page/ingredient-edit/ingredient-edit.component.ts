@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ElementRef, ViewChild, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { IngredientModel } from './ingredientModel';
 import { Subscription } from 'rxjs/Subscription';
 import { IngredientListService } from './../ingredient-list.service';
@@ -10,7 +10,7 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./ingredient-edit.component.css']
 })
 export class IngredientEditComponent implements OnInit {
-    @ViewChild('f2') ingForm: NgForm;
+    @ViewChild('f2') ingListForm: NgForm;
     subscription: Subscription;
     editMode = false;
     editedItemIndex: number;
@@ -25,9 +25,9 @@ export class IngredientEditComponent implements OnInit {
                     this.editedItemIndex = index;
                     this.editMode = true;
                     this.editedItem = this.ingListService.getIngredient(index);
-                    this.ingForm.setValue({
-                        id: this.editedItem.ingredientId,
-                        ingName: this.editedItem.ingredientName,
+                    this.ingListForm.setValue({
+                        ingredientId: this.editedItem.ingredientId,
+                        ingredientName: this.editedItem.ingredientName,
                         quantity: this.editedItem.quantity,
                         measure: this.editedItem.measure
                     });
@@ -46,14 +46,15 @@ export class IngredientEditComponent implements OnInit {
         this.editMode = false;
         form.reset();
     }
-
     onClear() {
-        this.ingForm.reset();
+        this.ingListForm.reset();
         this.editMode = false;
     }
-
     onDelete() {
         this.ingListService.deleteIngredient(this.editedItemIndex);
-        this.onClear();
+    }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
     }
 }
