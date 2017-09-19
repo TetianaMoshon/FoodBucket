@@ -50,8 +50,8 @@
             <td class="gray-border text-center">
                 <select #s (change)="updateOrder(s.value,order.orderId)" class="form-control">
                     <option>{{order.status}}</option>
-                    <option>Delivered</option>
-                    <option>Cancelled</option>
+                    <option *ngIf="order.status != 'Delivered'">Delivered</option>
+                    <option *ngIf="order.status != 'Cancelled'">Cancelled</option>
                 </select>
             </td>
             <td class="gray-border text-center">
