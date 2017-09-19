@@ -1,11 +1,13 @@
-import {Component, OnInit, OnDestroy, TemplateRef} from '@angular/core';
-import {BsModalRef, BsModalService} from 'ngx-bootstrap';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {BsModalRef} from 'ngx-bootstrap';
 import {Router} from '@angular/router';
 import {CartService} from '../../../../client/api/cart.service';
 import {ProductService} from '../../../../client/api/product.service';
 import {CartCommunicationService} from '../../../../services/cart-communication.service';
 import {Order} from '../../../../client/model/order';
 import {Subscription} from 'rxjs/Subscription';
+import {UserService} from '../../../../client/api/user.service';
+import {User} from '../../../../client/model/user';
 
 @Component({
   selector: 'app-cart-box',
@@ -16,27 +18,31 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
     title = 'Cart';
     idOfLoggedinUser = 4444;
-    cancelPrice = false;
     showAPhrase = true;
     totalPriceOfAllDishes = 0;
     arrayOfDishNamesAndPrices = [];
     dataReferenceArray = [];
     subscription: Subscription;
     arrayOfCartOrders = [];
+    userObject: User;
 
     constructor(
         public bsModalRef: BsModalRef,
         private router: Router,
         private cartService: CartService,
         private productService: ProductService,
-        private cartCommunicationService: CartCommunicationService
+        private cartCommunicationService: CartCommunicationService,
+        private userService: UserService
     ) { }
 
 
     ngOnInit() {
-        this.idOfLoggedinUser = this.getIdOfLoggedInUserFromLocalStorage().userId;
+        this.idOfLoggedinUser = this.getIdOfLoggedInUserFromLocalStorage();
         this.showAPhrase = JSON.parse(localStorage.getItem('showAPhrase'));
         this.populateArrayOfDishNamesAndPrices();
+        this.userService.findUserById(this.idOfLoggedinUser).subscribe(user => {
+            this.userObject = user;
+        });
         this.subscription = this.cartCommunicationService.passedData.subscribe(
             data => {
                 this.calculateTotalPriceToPay(data);
@@ -52,6 +58,7 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
 
     populateArrayOfDishNamesAndPrices() {
+        console.log(this.idOfLoggedinUser);
         if (JSON.parse(localStorage.getItem('cartContentObjCreated'))) {
             this.cartService.findCartContentById(this.idOfLoggedinUser).subscribe(
                 cartData => {
@@ -70,7 +77,8 @@ export class CartBoxComponent implements OnInit, OnDestroy {
                                     const {title : name, image, price, productId} =  product;
                                     this.arrayOfDishNamesAndPrices.push({image, id : productId, name, price,
                                         quantityOrdered: cartOrder.quantity});
-                                    // let's have a copy of arrayOfDishNamesAndPrices so we can refer to it later instead of calling our server
+                                    // let's have a copy of arrayOfDishNamesAndPrices
+                                    // so we can refer to it later instead of calling our server
                                     this.dataReferenceArray.push({image, id : productId, name, price,
                                         quantityOrdered: cartOrder.quantity});
                                     this.sumUpTotalPriceOfAllDishes(this.arrayOfDishNamesAndPrices);
@@ -175,7 +183,7 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
     private sumUpTotalPriceOfAllDishes(arr) {
         this.totalPriceOfAllDishes = 0;
-        arr.forEach((currValue, index) => {
+        arr.forEach((currValue) => {
             this.totalPriceOfAllDishes += currValue.price;
         });
     }
@@ -199,13 +207,13 @@ export class CartBoxComponent implements OnInit, OnDestroy {
                     const {orderedProducts, totalPriceOfAllDishes} = updatedCart;
 
                     const newOrder: Order = {
-                        username: this.getIdOfLoggedInUserFromLocalStorage().firstName,
-                        city: this.getIdOfLoggedInUserFromLocalStorage().city,
+                        username: this.userObject.firstName + ' ' + this.userObject.lastName,
+                        city: this.userObject.city,
                         price: totalPriceOfAllDishes,
-                        address: this.getIdOfLoggedInUserFromLocalStorage().address,
+                        address: this.userObject.address,
                         status: 'New',
                         products: orderedProducts
-                    }
+                    };
                     console.log(`=======cartOrdersArray from cart-box======`, newOrder);
                     localStorage.setItem('newOrder', JSON.stringify(newOrder));
 
@@ -217,9 +225,8 @@ export class CartBoxComponent implements OnInit, OnDestroy {
         }
 
     private getIdOfLoggedInUserFromLocalStorage() {
-        if (JSON.parse(localStorage.getItem('currentUser'))) {
-            const user = JSON.parse(localStorage.getItem('currentUser'));
-            return user;
+        if (JSON.parse(sessionStorage.getItem('currentUserId'))) {
+            return JSON.parse(sessionStorage.getItem('currentUserId'));
         } else {
             return;
         }

@@ -780,8 +780,8 @@ paths:
         required: true
         type: integer
         format: int64
-      - name: "updated_cartContent"
-        in: "body"
+      - name: updatedcartContent
+        in: body
         description: The updated cartContent
         required: true
         schema:

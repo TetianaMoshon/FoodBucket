@@ -56,8 +56,15 @@
                       </g>
                     </svg>
                 </span></li>
-                <li *ngIf="isLogged"><a (click)="openLoginModal();isCollapsed = true">Log In / Registration</a></li>
-                <li *ngIf="!isLogged"><a (click)="isCollapsed = true"routerLink="profile" routerLinkActive="active">{{LogBtnText}}</a></li>
+                <li *ngIf="isLogged">
+                    <a (click)="openLoginModal();isCollapsed = true">Log In / Registration</a>
+                </li>
+                <li *ngIf="!isLogged">
+                    <a (click)="isCollapsed = true"routerLink="profile" routerLinkActive="active">{{LogBtnText}}</a>
+                </li>
+                <li *ngIf="!isLogged">
+                    <a class="log-out-glyph" (click)="logOutFunc()"><span class="log-out-glyph-text">Log Out  </span><span class="glyphicon glyphicon-log-out"></span></a>
+                </li>
 
             </ul>
             <form class="navbar-form navbar-right">
