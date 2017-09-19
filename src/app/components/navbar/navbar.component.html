@@ -57,11 +57,13 @@
                     </svg>
                 </span></li>
                 <li *ngIf="isLogged"><a (click)="openLoginModal();isCollapsed = true">Log In / Registration</a></li>
-                <li *ngIf="!isLogged"><a (click)="isCollapsed = true"routerLink="profile" routerLinkActive="active">{{LogBtnText}}</a></li>
-                <app-search class="navbar-form navbar-right"></app-search>
+                <li *ngIf="!isLogged"><a (click)="isCollapsed = true" routerLink="profile" routerLinkActive="active">{{LogBtnText}}</a></li>
+
             </ul>
 
         </div>
+        <app-search class="navbar-form navbar-right"></app-search>
 
     </div>
+
 </nav>
