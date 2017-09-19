@@ -40,6 +40,11 @@ paths:
           description: returns active products
           required: false
           type: boolean
+        - name: isPromotion
+          in: query
+          description: returns promotion products
+          required: false
+          type: boolean
         - name: offset
           in: query
           description: start position for quering from DB
