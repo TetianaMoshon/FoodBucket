@@ -22,7 +22,7 @@
                         </div>
                         <div class="form-group">
                             <label for="price">Price:</label>
-                            <input [(ngModel)]="productModel.price" name="price" type="number" class="form-control" id="price" required>
+                            <input [(ngModel)]="productModel.price" name="price" type="number" min="1" class="form-control" id="price" required>
                         </div>
                         <div class="form-group">
                             <label for="image">Image:</label>
@@ -33,12 +33,8 @@
                             <input [(ngModel)]="productModel.category" name="category" type="text" class="form-control" id="category">
                         </div>
                         <div class="form-group">
-                            <label for="status">Status:</label>
-                            <input [(ngModel)]="productModel.status" name="status" type="text" class="form-control" id="status">
-                        </div>
-                        <div class="form-group">
                             <label for="discount">Discount:</label>
-                            <input [(ngModel)]="productModel.discount" name="discount" type="number" class="form-control" id="discount">
+                            <input [(ngModel)]="productModel.discount" name="discount" type="number" min="1" class="form-control" id="discount">
                         </div>
                         <div class="form-group">
                             <label for="promotions">Promotions:</label>
@@ -46,22 +42,7 @@
                         </div>
 
                 <div class="ingredients">
-                    <!--<table width="100%" border="1">-->
-                        <!--<tr>-->
-                            <!--<th>Ingredient name</th>-->
-                            <!--<th>Quantity</th>-->
-                            <!--<th>Measure</th>-->
-                        <!--</tr>-->
-                        <!--<tr>-->
-                            <!--<td><input [(ngModel)]="productModel.ingredients[0].ingredientName" name="ingredientName" type="text" class="form-control"></td>-->
-                            <!--<td><input [(ngModel)]="productModel.ingredients[0].quantity" name="quantity" name="quantity" type="text" class="form-control"></td>-->
-                            <!--<td><input [(ngModel)]="productModel.ingredients[0].measure" name="measure" name="measure" type="text" class="form-control"></td>-->
-                        <!--</tr>-->
-                    <!--</table>-->
-                    <br><br>
-
-
-                    <div>
+                   <div>
                         <table class="table" border="1" width="80%" id="myTable">
                             <tr>
                                 <th>Ingredient ID</th>
@@ -70,39 +51,52 @@
                                 <th>Measure</th>
                             </tr>
                             <tr *ngFor="let ingredient of ingredientList; let i = index" (click)="onEditItem(i)" style="cursor: pointer">
-                                    <td>{{ ingredient.ingredientId }}</td>
-                                    <td>{{ ingredient.ingredientName }}</td>
-                                    <td>{{ ingredient.quantity }}</td>
-                                    <td>{{ ingredient.measure }}</td>
+                                <td>{{ ingredient.ingredientId }}</td>
+                                <td>{{ ingredient.ingredientName }}</td>
+                                <td>{{ ingredient.quantity }}</td>
+                                <td>{{ ingredient.measure }}</td>
                             </tr>
                         </table>
                         <br>
 
                         <app-ingredient-edit></app-ingredient-edit>
                     </div>
-
                 </div>
                 <!--</tab>-->
                     <!--<tab heading="Data">-->
 
                         <div class="form-group">
                             <label for="caloricity">Caloricity:</label>
-                            <input [(ngModel)]="productModel.caloricity" name="caloricity" type="number" class="form-control" id="caloricity">
+                            <input [(ngModel)]="productModel.caloricity" name="caloricity" type="number" min="1" class="form-control" id="caloricity">
                         </div>
                         <div class="form-group">
                             <label for="servingSize">Serving size:</label>
-                            <input [(ngModel)]="productModel.servingSize" name="servingSize" type="number" class="form-control" id="servingSize">
+                            <input [(ngModel)]="productModel.servingSize" name="servingSize" type="number" min="1" class="form-control" id="servingSize">
                         </div>
 
                         <div class="form-group">
                             <label for="difficulty">Difficulty:</label>
-                            <input [(ngModel)]="productModel.difficulty" name="difficulty" type="text" class="form-control" id="difficulty">
+                            <select [(ngModel)]="productModel.difficulty" name="difficulty" type="text" class="form-control" id="difficulty">
+                                <option>low</option>
+                                <option>normal</option>
+                                <option>high</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="spiceLevel">Spice level:</label>
-                            <input [(ngModel)]="productModel.spiceLevel" name="spiceLevel" type="text" class="form-control" id="spiceLevel">
+                            <select [(ngModel)]="productModel.spiceLevel" name="spiceLevel" type="text" class="form-control" id="spiceLevel">
+                                <option>low</option>
+                                <option>normal</option>
+                                <option>high</option>
+                            </select>
                         </div>
-
+                        <div class="form-group">
+                            <label for="status">Status:</label>
+                            <select [(ngModel)]="productModel.status" name="status" type="text" class="form-control" id="status">
+                                <option>Published</option>
+                                <option>Unpublished</option>
+                            </select>
+                        </div>
                     <!--</tab>-->
 
                     <div class="btn-group action-buttons">
