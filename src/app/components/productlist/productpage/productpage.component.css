@@ -1,5 +1,6 @@
 .dish_title {
     text-transform: uppercase;
+    cursor: pointer;
 }
 
 .you-will-get {

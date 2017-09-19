@@ -17,7 +17,9 @@ export class ProductpageComponent implements OnInit {
     public productIngredients = [];
     public data;
     private sub: any;
+    public uniqueMass;
 
+    select;
     show = false;
     quantityOfPhotos: number;
 
@@ -36,7 +38,8 @@ export class ProductpageComponent implements OnInit {
 
 
     updateUser = new UpdateUser('', '' , '', '', null, '', '', '', [], false);
-    userId = 2;
+    /*JSON.parse(sessionStorage.getItem('currentUserId'))*/
+    userId = 3;
     id = this.route.snapshot.paramMap.get('id');
 
     constructor(
@@ -50,6 +53,15 @@ export class ProductpageComponent implements OnInit {
         this.InitImageSource();
         this.quantityOfPhotos = this.ListOfImageLinks.length;
         this.showProduct(this.id);
+        this.userService.findUserById(this.userId).subscribe(
+            user => {
+                    if (user.favourites.indexOf(Number(this.id)) === -1) {
+                        this.select = false;
+                    } else {
+                        this.select = true;
+                    }
+                }, err => console.log(err)
+            );
     }
 
     showProduct(id) {
@@ -73,32 +85,56 @@ export class ProductpageComponent implements OnInit {
             );
     }
 
-
-
     addFavourite() {
         this.userService.findUserById(this.userId)
             .subscribe(
                 user => {
-                    this.updateUser.firstName = user.firstName;
-                    this.updateUser.lastName = user.lastName;
-                    this.updateUser.email = user.email;
-                    this.updateUser.password = user.password;
-                    this.updateUser.phone = user.phone;
-                    this.updateUser.city = user.city;
-                    this.updateUser.address = user.address;
-                    this.updateUser.image = user.image;
-                    this.updateUser.favourites = user.favourites;
-                    this.updateUser.active = user.active;
+                    if (this.select === false) {
+                        this.select = true;
+                        user.favourites.push(Number(this.id));
 
-                    this.updateUser.favourites.push(Number(this.id));
+                        this.updateUser.firstName = user.firstName;
+                        this.updateUser.lastName = user.lastName;
+                        this.updateUser.email = user.email;
+                        this.updateUser.password = user.password;
+                        this.updateUser.phone = user.phone;
+                        this.updateUser.city = user.city;
+                        this.updateUser.address = user.address;
+                        this.updateUser.image = user.image;
+                        this.updateUser.favourites = user.favourites;
+                        this.updateUser.active = user.active;
 
-                    this.userService.updateUserById(this.userId, this.updateUser)
-                        .subscribe(
-                            userUpdate => {
-                                console.log(user);
-                            },
-                            err => console.log(err)
-                        );
+                        this.userService.updateUserById(this.userId, this.updateUser)
+                            .subscribe(
+                                userUpdate => {
+
+                                },
+                                err => console.log(err)
+                            );
+                    } else {
+                        this.select = false;
+                        user.favourites.splice(user.favourites.indexOf(Number(this.id)), 1);
+
+                        this.updateUser.firstName = user.firstName;
+                        this.updateUser.lastName = user.lastName;
+                        this.updateUser.email = user.email;
+                        this.updateUser.password = user.password;
+                        this.updateUser.phone = user.phone;
+                        this.updateUser.city = user.city;
+                        this.updateUser.address = user.address;
+                        this.updateUser.image = user.image;
+                        this.updateUser.favourites = user.favourites;
+                        this.updateUser.active = user.active;
+
+                        this.userService.updateUserById(this.userId, this.updateUser)
+                            .subscribe(
+                                userUpdate => {
+
+                                },
+                                err => console.log(err)
+                            );
+                    }
+
                 },
                 err => console.log(err)
             );
