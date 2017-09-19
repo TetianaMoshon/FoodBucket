@@ -7,14 +7,34 @@
                 <h1 class="ingredients_header">Categories</h1>
             </div>
         </div>
+
         <div class="row margin-row">
-            <ng2-smart-table
-                [settings]="settings"
-                [source]="source"
-                (create)="onCreateClick($event, 'create')"
-                (edit)="onEditClick($event, 'edit')"
-                (delete)="onDeleteClick($event, 'delete')"
-            ></ng2-smart-table>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Image</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of source">
+                        <td>{{item['category_id']}}</td>
+                        <td>
+                            <img src="image/{{item.image}}" class="max-width-100" alt="There is no image for this category">
+                        </td>
+                        <td>{{item.title}}</td>
+                        <td>{{item.description}}</td>
+                        <td>
+                            <button (click)="onCreateClick($event)">Create</button>
+                            <button (click)="onEditClick($event, item['category_id'])">Edit</button>
+                            <button (click)="onDeleteClick($event, item['category_id'])">Delete</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

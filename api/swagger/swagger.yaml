@@ -399,6 +399,35 @@ paths:
           description: Category is updated
         400:
           description: An error!
+  /category/{id}/image:
+    post:
+      x-swagger-router-controller: Category
+      operationId: uploadCategoryImageById
+      tags:
+      - "category"
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the category image upload for
+        required: true
+        type: integer
+        format: int64
+      - name: file
+        in: formData
+        required: false
+        type: file
+      - name: additionalMetadata
+        in: formData
+        description: Additional data to pass to server
+        required: false
+        type: string
+      responses:
+        default:
+          description: Successful operation
   /category:
     post:
       x-swagger-router-controller: Category

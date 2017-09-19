@@ -24,3 +24,7 @@ h1.ingredients_header {
 :host /deep/ ng2-smart-table table tr td img {
     height: 33px;
 }
+
+.max-width-100 {
+    max-width: 100px;
+}

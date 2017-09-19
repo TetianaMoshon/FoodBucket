@@ -1,10 +1,10 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {LocalDataSource} from 'ng2-smart-table';
 import {Router, ActivatedRoute} from '@angular/router';
 import {CategoryService} from '../../../client/api/category.service';
 import {NgForm} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';
 import {FlashMessagesService} from 'ngx-flash-messages';
+import Buffer from 'buffer/';
 
 @Component({
     selector: 'app-admincategories-form',
@@ -16,6 +16,10 @@ export class AdmincategoriesFormComponent implements OnInit, OnDestroy {
     title: string;
     image: string;
     description: string;
+    imageSrc: string = '';
+    imageBuffer;
+    file;
+
     action: {
         id: number,
         name: string
@@ -65,10 +69,46 @@ export class AdmincategoriesFormComponent implements OnInit, OnDestroy {
         };
 
         if (this.action.name === 'create') {
-            this.createCategory(categoryObject);
+            console.log(this.imageBuffer);
+
+            this.categoryService.uploadCategoryImageById(85, this.imageBuffer)
+                .subscribe(arg => {
+                    console.log(arg);
+                }, err => {console.log(err);});
+
+            //this.createCategory(categoryObject);
         } else {
             this.updateCategory(this.action.id, categoryObject);
         }
+    }
+
+    onFileChange(e) {
+        const file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+
+        const pattern = /image-*/;
+        const reader = new FileReader();
+
+        if (!file.type.match(pattern)) {
+            alert('invalid format');
+            return;
+        }
+
+        reader.onloadend = this.onReaderLoaded.bind(this);
+        reader.readAsDataURL(file);
+        // reader.readAsArrayBuffer(this.file);
+    }
+
+    private onReaderLoaded(e) {
+        const reader = e.target;
+        this.imageSrc = reader.result;
+
+        // const matches = this.imageSrc.match(/^data:.+\/(.+);base64,(.*)$/);
+        // const ext = matches[1];
+        // const base64_data = matches[2];
+        // this.imageBuffer = new Buffer(base64_data, 'base64');
+        // this.imageBuffer = Buffer.from(arrayBuffer)
+        // this.imageBuffer = Buffer.Buffer.from(base64_data);
+        this.imageBuffer = Buffer.Buffer.from(this.imageSrc);
     }
 
     createCategory(categoryObject) {
