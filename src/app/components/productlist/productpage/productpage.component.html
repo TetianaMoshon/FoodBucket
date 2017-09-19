@@ -1,8 +1,8 @@
 <div class="container">
     <div class="row text-center">
         <div class="col-md-6 col-sm-6">
-            <h1 class="dish_title" (click)="addFavourite()" >{{productData.title}}
-                <span class="glyphicon glyphicon-star-empty" [class.color-gold]="select" *ngIf="login"></span>
+            <h1 class="dish_title">{{productData.title}}
+                <span class="glyphicon glyphicon-star-empty" [class.color-gold]="select" *ngIf="login" (click)="addFavourite()"></span>
             </h1>
         </div>
         <div class="col-md-6 col-sm-6">
