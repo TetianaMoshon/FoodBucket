@@ -52,11 +52,12 @@ export class IngredientEditComponent implements OnInit {
         this.editMode = false;
     }
 
-    onDelete() {
-        this.ingListService.deleteIngredient(this.editedItemIndex);
-    }
+    // onDelete() {
+    //     this.ingListService.deleteIngredient(this.editedItemIndex);
+    //     this.onClear();
+    // }
 
-    ngOnDestroy() {
-        this.subscription.unsubscribe();
-    }
+    // ngOnDestroy() {
+    //     this.subscription.unsubscribe();
+    // }
 }

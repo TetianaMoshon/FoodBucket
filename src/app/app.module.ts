@@ -52,7 +52,7 @@ import { OrdersFiltersPipe } from './pipes/orders-filters.pipe';
 import { ApiModule } from './client/index';
 import { apiConfig } from './client/api.config';
 import { AdminUserPageComponent } from './components/admin-users/admin-user-page/admin-user-page.component';
- import {DataService} from './services/data/data.service';
+import {DataService} from './services/data/data.service';
 import {CartCommunicationService} from './services/cart-communication.service';
 
 import { FlashMessagesModule } from 'ngx-flash-messages';
