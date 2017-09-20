@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {OrderService} from '../../client/api/order.service';
 
 @Component({
   selector: 'app-admin-analytics',
@@ -29,7 +30,7 @@ export class AdminAnalyticsComponent implements OnInit {
             pointHoverBackgroundColor: '#fff',
             pointHoverBorderColor: '#14a9ba'
         },
-        { // Complited
+        { // Completed
             backgroundColor: 'rgba(110, 235, 131, 0.2)',
             borderColor: '#51ab60',
             pointBackgroundColor: '#51ab60',
@@ -67,7 +68,7 @@ export class AdminAnalyticsComponent implements OnInit {
             pointHoverBackgroundColor: '#fff',
             pointHoverBorderColor: '#14a9ba'
         },
-        { // Complited
+        { // Completed
             backgroundColor: 'rgba(110, 235, 131, 0.2)',
             borderColor: '#51ab60',
             pointBackgroundColor: '#51ab60',
@@ -113,7 +114,7 @@ export class AdminAnalyticsComponent implements OnInit {
         { backgroundColor: '#19D2E8', borderColor: '#19D2E8', hoverBackgroundColor: '#1be7ff', hoverBorderColor: '#14A9BA'},
         { backgroundColor: '#E85013', borderColor: '#E85013', hoverBackgroundColor: '#ff5714', hoverBorderColor: '#BA400F'}];
 
-    constructor() {
+    constructor(private orderService: OrderService) {
     }
 
     ngOnInit() {

@@ -26,6 +26,44 @@ produces:
   - application/json
 paths:
 # root path
+  /statistics/orders:
+    get:
+      x-swagger-router-controller: Statistics
+      operationId: getOrderStatistics
+      tags:
+      - "statistics"
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Successful order statistics response
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/GeneralStatistics"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+  /statistics/users:
+    get:
+      x-swagger-router-controller: Statistics
+      operationId: getUsersStatistics
+      tags:
+      - "statistics"
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Successful users statistics response
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/GeneralStatistics"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
   /products:
     get:
       x-swagger-router-controller: Product
@@ -939,6 +977,26 @@ paths:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
 definitions:
+  GeneralStatistics:
+    type: object
+    required:
+      - totalOrders
+      - totalMoney
+      - totalUsers
+      - completedOrders
+    properties:
+      totalOrders:
+        type: integer
+        format: int64
+      totalMoney:
+        type: integer
+        format: int64
+      totalUsers:
+        type: integer
+        format: int64
+      completedOrders:
+        type: integer
+        format: int64
   Product:
     type: object
     required:
