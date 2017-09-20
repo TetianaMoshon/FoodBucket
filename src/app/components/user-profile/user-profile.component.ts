@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Register} from "../../client/model/register";
+import { UserService } from '../../client/api/user.service';
+import { User } from './user';
 
 @Component({
   selector: 'app-user-profile',
@@ -8,10 +9,20 @@ import {Register} from "../../client/model/register";
 })
 
 export class UserProfileComponent implements OnInit {
-    public user: Register;
+    public user: User;
 
-  constructor() {
-      this.user = JSON.parse(localStorage.getItem('currentUser'));
+  constructor(private findUserByIdAPI: UserService) {
+      this.user = new User(0, ' ', ' ', ' ', 0, ' ', ' ', false);
+      this.findUserByIdAPI.findUserById(JSON.parse(sessionStorage.getItem('currentUserId')))
+          .subscribe(reg => {
+              this.user.firstName = reg.firstName;
+              this.user.lastName = reg.lastName;
+              this.user.email = reg.email;
+              this.user.city = reg.city;
+              this.user.address = reg.address;
+          }, err => {
+              console.log('error reg' + err);
+          });
   }
 
   changeEditability(event) {

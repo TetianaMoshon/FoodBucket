@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {OrderService} from '../../client/api/order.service';
 import {ActivatedRoute} from '@angular/router';
+import {ProductService} from '../../client/api/product.service';
 
 @Component({
   selector: 'app-checkout',
@@ -10,7 +11,7 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class CheckoutComponent implements OnInit {
 
-  constructor(private orderService: OrderService, private router: ActivatedRoute) { }
+  constructor(private orderService: OrderService, private router: ActivatedRoute, private productService: ProductService) { }
     surname: string;
     phone: string;
     city: string;
@@ -19,6 +20,7 @@ export class CheckoutComponent implements OnInit {
     prodIdsArr = [];
     passedObjFromCart;
     orderInfo;
+    productTitlesArray: string[] = [];
   ngOnInit() {
       console.log(this.router.snapshot.queryParams);
       if (JSON.parse(localStorage.getItem('newOrder'))) {
@@ -29,18 +31,19 @@ export class CheckoutComponent implements OnInit {
           arrayOfPassedObjs.forEach((data, i) => {
                   const {productId, quantity} = data;
                   this.prodIdsArr.push(productId);
-                  console.log(`productId #${i} ${productId}, quantity #${i} ${quantity}`);
               }
 
           );
-
           this.passedObjFromCart.products = this.prodIdsArr;
-          console.log(` this.passedObjFromCart returns us this `,  this.passedObjFromCart);
+          this.prodIdsArr.forEach(productId => {
+              this.productService.findProductById(productId).subscribe(res => {
+                  this.productTitlesArray.push(res.title);
+              });
+          });
           this.firstName = this.passedObjFromCart.username.split(' ')[0];
           this.surname = this.passedObjFromCart.username.split(' ')[1];
       }
         this.orderInfo = JSON.parse(localStorage.getItem('newOrder'));
-        console.log('ORDER INFO returns us this', this.orderInfo);
 
 
       function validateCardNumber(value) {
@@ -78,7 +81,7 @@ export class CheckoutComponent implements OnInit {
             'phone': phone,
             'products': this.prodIdsArr
         }).subscribe(res => {
-            console.log('Result from subscribe', res);
+            console.log('Result from subscribe that goes to putOrder', res);
 
         });
     }

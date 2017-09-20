@@ -15,8 +15,10 @@ exports.login = function ({email, password}) {
     return new Promise((resolve, reject) => {
         Users.findOne({ email: email }).then(
             oneUserDoc => {
-                if(Bcrypt.compareSync(password, oneUserDoc.password)) {
-                    return oneUserDoc;
+                if(oneUserDoc) {
+                    if (Bcrypt.compareSync(password, oneUserDoc.password)) {
+                        return oneUserDoc;
+                    }
                 }
             },
             error => { reject(utils.respondWithCode(403, {"code": 403, "message": "User is not found, please try again."})); }
@@ -63,8 +65,8 @@ exports.register = function ({ firstName, lastName, email, password, phone, city
         newUser.save().then(
             userDoc => {
                 if (Object.keys(userDoc).length > 0) {
-                    let {userId, firstName, lastName, email, password, phone, city, address, image, create_at, update_at, active} = userDoc;
-                    resolve(utils.respondWithCode(201, {userId, firstName, lastName, email, password, phone, city, address, image, create_at, update_at, active}));
+                    let {userId, firstName, lastName, email, phone, city, address, image, create_at, update_at, active} = userDoc;
+                    resolve(utils.respondWithCode(201, {userId, firstName, lastName, email, phone, city, address, image, create_at, update_at, active}));
                 } else {
                     reject(utils.respondWithCode(404, {"code": 404, "message": "User is not register, please try again."}));
                 }

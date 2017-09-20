@@ -30,7 +30,7 @@ export class AdminUsersComponent implements OnInit {
         },
         mode: 'external',
         columns: {
-            user_id: {
+            userId: {
                 title: 'ID',
                 width: '6%'
             },
@@ -75,17 +75,17 @@ export class AdminUsersComponent implements OnInit {
     }
 
     onEditClick(event, eventName: string): void {
-        this.changeRoute(`/admin/users/${event.data.user_id}/edit`);
+        this.changeRoute(`/admin/users/${event.data.userId}/edit`);
 
     }
 
     onDeleteClick(event, eventName: string): void {
-        this.userService.findUserById(event.data.user_id)
+        this.userService.findUserById(event.data.userId)
             .subscribe(
                 user => {
                     this.newUser = user;
                     this.newUser.active = false;
-                    this.userService.updateUserById(this.newUser.user_id, this.newUser)
+                    this.userService.updateUserById(this.newUser.userId, this.newUser)
                         .subscribe(
                             updateUser => {
                                 this.userService.getAllUsers(1, 2, true)

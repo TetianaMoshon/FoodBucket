@@ -4,7 +4,7 @@ const counter = require('../model/counter');
 
 const
     userSchema = mongoose.Schema({
-    user_id: Number,
+    userId: Number,
     firstName: {
         type: String,
         required: true
@@ -34,7 +34,7 @@ userSchema.pre('save', function(next) {
     counter.findByIdAndUpdate({_id: 'userId'}, {$inc: { seq: 1} }, function(error, counter)   {
         if(error)
             return next(error);
-        doc.user_id = counter.seq;
+        doc.userId = counter.seq;
         next();
     });
 });
