@@ -48,6 +48,7 @@ api/swagger-codegen-cli.jar
 download.vbs
 
 api/controllers
+!api/controllers/Order.js
 api/utils/writer.js
 /api/.swagger-codegen/VERSION
 /src/app/client/.swagger-codegen/VERSION

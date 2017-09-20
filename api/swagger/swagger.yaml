@@ -25,7 +25,7 @@ consumes:
 produces:
   - application/json
 paths:
-# root path
+# root pathor
   /products:
     get:
       x-swagger-router-controller: Product
@@ -203,7 +203,7 @@ paths:
             - city
             - price
       responses:
-        200:
+        '200':
           description: Successful products response
           schema:
             type: array

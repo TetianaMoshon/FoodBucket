@@ -32,12 +32,15 @@ export class AdminOrdersComponent implements OnInit {
         this.showHide = false;
     }
 
+
     ngOnInit() {
-        this.ApiService.getAllOrders(25, 20, 'desc', 'orderId' ).subscribe(orders => {
-            this.orders = orders;
-            this.setPage(1);
+        this.ApiService.getAllOrdersWithHttpInfo(25, 20, 'desc', 'orderId' ).subscribe(response => {
+            this.orders = response.json();
+            this.total = response.headers.get('x-total-records');
+            this.setPage(2);
         });
     }
+
     toggle(state: boolean) {
         this.state = state;
         this.sort = this.state ? 'desc' : 'asc';
@@ -49,7 +52,7 @@ export class AdminOrdersComponent implements OnInit {
         }
 
 
-        this.pager = this.pagerService.getPager(this.orders.length, page);
+        this.pager = this.pagerService.getPager(this.total, page);
         this.pagedItems = this.orders.slice(this.pager.startIndex, this.pager.endIndex + 1);
     }
 
