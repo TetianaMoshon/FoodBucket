@@ -26,7 +26,8 @@ const
     address: String,
     image: String,
     favourites: [Number],
-    active: Boolean
+    active: Boolean,
+    isAdmin: Boolean
 });
 
 userSchema.pre('save', function(next) {

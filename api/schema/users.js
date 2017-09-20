@@ -27,7 +27,8 @@ var UsersSchema = new Schema({
     favourites: [Number],
     create_at: Date,
     update_at: Date,
-    active: Boolean
+    active: Boolean,
+    isAdmin: Boolean
 });
 
 UsersSchema.pre('save', function(next) {

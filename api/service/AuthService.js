@@ -2,6 +2,7 @@
 const utils = require('../utils/writer.js');
 const Users = require('../model/users');
 const Bcrypt = require('bcrypt-nodejs');
+const JWT = require('./JWTService');
 
 /**
  * Login operation
@@ -28,7 +29,10 @@ exports.login = function ({email, password}) {
                     oneUserDoc = oneUserDoc || {};
                     if (Object.keys(oneUserDoc).length > 0) {
                         let {email, userId, firstName, lastName, city, address} = oneUserDoc;
-                        resolve(utils.respondWithCode(200, {email, userId, firstName, lastName, city, address}));
+                        let tokenBody = {userId, isAdmin: true};
+                        let token = JWT.createJWT(tokenBody.userId, tokenBody.isAdmin);
+                        console.log({email, userId, firstName, lastName, city, address});
+                        resolve({token: token, body: utils.respondWithCode(200, {email, userId, firstName, lastName, city, address})});
                     } else {
                         reject(utils.respondWithCode(403, {
                             "code": 403,
@@ -76,6 +80,3 @@ exports.register = function ({ firstName, lastName, email, password, phone, city
         );
     });
 };
-
-
-
