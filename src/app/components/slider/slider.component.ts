@@ -2,18 +2,24 @@ import { Component, OnInit } from '@angular/core';
 import {ProductService} from '../../client/api/product.service';
 
 @Component({
-  selector: 'app-slider',
-  templateUrl: './slider.component.html',
-  styleUrls: ['./slider.component.css']
+    selector: 'app-slider',
+    templateUrl: './slider.component.html',
+    styleUrls: ['./slider.component.css']
 })
 export class SliderComponent implements OnInit {
 
+    windowWidth;
     quantityOfPhotos: number;
 
     sourceForFirstImage: any;
     sourceForSecondImage: any;
     sourceForThirdImage: any;
-
+    captionForFirstImage: any;
+    captionForSecondImage: any;
+    captionForThirdImage: any;
+    descriptionForFirstImage: any;
+    descriptionForSecondImage: any;
+    descriptionForThirdImage: any;
     counter = 1;
 
     time = 3000;
@@ -28,20 +34,31 @@ export class SliderComponent implements OnInit {
     FullScreenView = true;
 
     ListOfImageLinks: string [] = [];
-
+    arrayOfTitles: string[] = [];
+    descriptionArray: string[] = [];
 
     constructor(private productService: ProductService) {}
 
     ngOnInit() {
+        this.windowWidth = {
+            target : {
+                innerWidth: window.innerWidth
+            }
+        };
+
+        this.onResize(this.windowWidth);
         this.productService.getAllProducts(0, 20, true, true).subscribe(products => {
             products.forEach(product => {
                 this.ListOfImageLinks.push(product.image);
+                this.arrayOfTitles.push(product.title);
+                this.descriptionArray.push(product.description);
             });
+
             this.InitImageSource();
             this.quantityOfPhotos = this.ListOfImageLinks.length;
             this.changeImageSourceWithInterval();
-        });
 
+        });
     }
 
 
@@ -68,10 +85,16 @@ export class SliderComponent implements OnInit {
     }
 
 
-    slideToTheLeft() {
+    slideToTheRight() {
         this.sourceForThirdImage = this.ListOfImageLinks[(this.initialSourceForThirdImage + this.counter) % this.quantityOfPhotos];
         this.sourceForSecondImage = this.ListOfImageLinks[this.initialSourceForThirdImage];
         this.sourceForFirstImage = this.ListOfImageLinks[this.initialSourceForSecondImage];
+        this.captionForThirdImage = this.arrayOfTitles[(this.initialSourceForThirdImage + this.counter) % this.quantityOfPhotos];
+        this.captionForSecondImage = this.arrayOfTitles[this.initialSourceForThirdImage];
+        this.captionForFirstImage = this.arrayOfTitles[this.initialSourceForSecondImage];
+        this.descriptionForThirdImage = this.descriptionArray[(this.initialSourceForThirdImage + this.counter) % this.quantityOfPhotos];
+        this.descriptionForSecondImage = this.descriptionArray[this.initialSourceForThirdImage];
+        this.descriptionForFirstImage = this.descriptionArray[this.initialSourceForSecondImage];
 
 
         const temp3 = this.initialSourceForThirdImage;
@@ -82,10 +105,20 @@ export class SliderComponent implements OnInit {
 
     }
 
-    slideToTheRight() {
+    slideToTheLeft() {
         this.sourceForThirdImage = this.ListOfImageLinks[this.initialSourceForSecondImage];
         this.sourceForSecondImage = this.ListOfImageLinks[this.initialSourceForFirstImage];
         this.sourceForFirstImage = this.ListOfImageLinks[ this.initialSourceForFirstImage === 0  ? this.quantityOfPhotos - this.counter :
+            this.initialSourceForFirstImage - this.counter
+            ];
+        this.captionForThirdImage = this.arrayOfTitles[this.initialSourceForSecondImage];
+        this.captionForSecondImage = this.arrayOfTitles[this.initialSourceForFirstImage];
+        this.captionForFirstImage = this.arrayOfTitles[ this.initialSourceForFirstImage === 0  ? this.quantityOfPhotos - this.counter :
+            this.initialSourceForFirstImage - this.counter
+            ];
+        this.descriptionForThirdImage = this.descriptionArray[this.initialSourceForSecondImage];
+        this.descriptionForSecondImage = this.descriptionArray[this.initialSourceForFirstImage];
+        this.descriptionForFirstImage = this.descriptionArray[ this.initialSourceForFirstImage === 0  ? this.quantityOfPhotos - this.counter :
             this.initialSourceForFirstImage - this.counter
             ];
 
@@ -96,23 +129,24 @@ export class SliderComponent implements OnInit {
     }
 
     onResize(event) {
-        if (event.target.innerWidth < 768) {
+        this.windowWidth = event.target.innerWidth;
+        if (this.windowWidth < 768) {
             this.OneImageView = true;
             this.PartialView = false;
             this.FullScreenView = false;
-        }else if (event.target.innerWidth >= 768  && event.target.innerWidth < 991) {
+        }else if (this.windowWidth >= 768  && event.target.innerWidth < 991) {
             this.PartialView = true;
             this.OneImageView = false;
             this.FullScreenView = false;
-        } else if (event.target.innerWidth >= 991  && event.target.innerWidth < 1170) {
+        } else if (this.windowWidth >= 991  && event.target.innerWidth < 1170) {
             this.PartialView = true;
             this.OneImageView = false;
             this.FullScreenView = false;
-        } else if (event.target.innerWidth >= 1170  && event.target.innerWidth < 1200) {
+        } else if (this.windowWidth >= 1170  && event.target.innerWidth < 1200) {
             this.PartialView = true;
             this.OneImageView = false;
             this.FullScreenView = false;
-        } else if (event.target.innerWidth >= 1200) {
+        } else if (this.windowWidth >= 1200) {
             this.FullScreenView  = true;
             this.PartialView = false;
             this.OneImageView = false;
