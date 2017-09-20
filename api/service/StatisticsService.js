@@ -31,9 +31,29 @@ exports.getUsersStatistics = function() {
 
 
 exports.getCompletedOrdersStatistics = function() {
-  return new Promise(function(resolve, reject) {
-      Order.count({status:'Delivered'}).then(completedOrders => {
-          resolve({completedOrders});
-      });
-  });
+    return new Promise(function(resolve, reject) {
+        Order.count({status:'Delivered'}).then(completedOrders => {
+            resolve({completedOrders});
+        });
+    });
+};
+
+exports.getRevenue = function() {
+    let revenue;
+    return new Promise(function(resolve, reject) {
+        Order.aggregate({
+            $match: {status:'Delivered'}},
+            {
+                $group : {
+                    _id : null,
+                    total : {
+                        $sum : "$price"
+                    }
+                }}
+        ).then(totalMoney=> {
+            console.log(totalMoney[0].total);
+            revenue = totalMoney[0].total;
+            resolve({revenue});
+        });
+    });
 };

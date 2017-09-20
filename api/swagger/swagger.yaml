@@ -77,6 +77,23 @@ paths:
           description: invalid input
           schema:
             $ref: "#/definitions/Error"
+  /statistics/totalMoney:
+    get:
+      x-swagger-router-controller: Statistics
+      operationId: getRevenue
+      tags:
+      - "statistics"
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Successful completed revenue statistics response
+          schema:
+              $ref: "#/definitions/GeneralStatistics"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
   /products:
     get:
       x-swagger-router-controller: Product

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import {OrderService} from '../../client/api/order.service';
 import {StatisticsService} from '../../client/api/statistics.service';
 
 @Component({
@@ -14,6 +13,7 @@ export class AdminAnalyticsComponent implements OnInit {
     totalOrders;
     totalUsers;
     completedOrders;
+    revenue;
     // Chart Orders
     public chartOrdersData: Array<any> = [
         {data: [65, 59, 80, 81, 56, 55, 40], label: 'Total'},
@@ -129,6 +129,9 @@ export class AdminAnalyticsComponent implements OnInit {
         });
         this.statService.getCompletedOrdersStatistics().subscribe(res => {
             this.completedOrders = res.completedOrders;
+        });
+        this.statService.getRevenue().subscribe(res => {
+            this.revenue = res['revenue'];
         });
     }
 }
