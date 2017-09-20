@@ -3,7 +3,9 @@ import {CartService} from '../../client/api/cart.service';
 import {ProductService} from '../../client/api/product.service';
 import {PagerService} from '../../services/pagination.service';
 import {Product} from '../../models/product';
-
+import {ProductModel} from '../admin-product-list/admin-product-page/productModel';
+import { Router} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-productlist',
@@ -23,7 +25,9 @@ export class ProductlistComponent implements OnInit {
     constructor(
         private cartService: CartService,
         private productService: ProductService,
-        private pagerService: PagerService
+        private pagerService: PagerService,
+        private router: Router,
+        protected route: ActivatedRoute
     ) {
         this.showHide = false;
     }
@@ -34,6 +38,18 @@ export class ProductlistComponent implements OnInit {
       console.log('USER', this.idOfLoggedinUser);
       console.log('ID of user', this.idOfLoggedinUser);
   }
+
+    goToProductDetails(product: Product): void {
+        // const link = ['category/productlist', product.productId];
+        // this.router.navigate(link);
+
+        this.changeRoute(`/category/productlist/${product.productId}`);
+    }
+
+    changeRoute(routeValue) {
+        this.router.navigateByUrl(routeValue);
+    }
+
     setPage(page: number) {
         if (page < 1 || page > this.pager.totalPages) {
             return;

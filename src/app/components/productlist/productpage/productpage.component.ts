@@ -30,7 +30,10 @@ export class ProductpageComponent implements OnInit {
         '/assets/images/pasta-carbonara.jpg'
     ];
 
-  constructor(public productService: ProductService, public ingredientService: IngredientService, protected route: ActivatedRoute) {}
+  constructor(
+      public productService: ProductService,
+      public ingredientService: IngredientService,
+      protected route: ActivatedRoute) {}
 
   ngOnInit() {
       this.InitImageSource();
