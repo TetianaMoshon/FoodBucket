@@ -95,6 +95,7 @@ export class AdmincategoriesFormComponent implements OnInit, OnDestroy {
 
         reader.onloadend = this.onReaderLoaded.bind(this);
         reader.readAsDataURL(file);
+        // reader.readAsBinaryString(file);
         // reader.readAsArrayBuffer(this.file);
     }
 
@@ -108,7 +109,9 @@ export class AdmincategoriesFormComponent implements OnInit, OnDestroy {
         // this.imageBuffer = new Buffer(base64_data, 'base64');
         // this.imageBuffer = Buffer.from(arrayBuffer)
         // this.imageBuffer = Buffer.Buffer.from(base64_data);
-        this.imageBuffer = Buffer.Buffer.from(this.imageSrc);
+        // this.imageBuffer = Buffer.Buffer.from(this.imageSrc);
+        // this.imageBuffer = Buffer.Buffer.from(this.imageSrc);
+        this.imageBuffer = this.imageSrc;
     }
 
     createCategory(categoryObject) {
