@@ -8,12 +8,11 @@ const utils = require('../utils/writer.js');
  **/
 exports.getOrderStatistics = function() {
     return new Promise(function (resolve, reject) {
-    Order.count().then((totalOrders) =>{
-        console.log(totalOrders);
-        resolve({totalOrders});
-        }
-    )
-});
+        Order.count().then((totalOrders) =>{
+                resolve({totalOrders});
+            }
+        )
+    });
 };
 
 
@@ -23,10 +22,18 @@ exports.getOrderStatistics = function() {
  **/
 exports.getUsersStatistics = function() {
     return new Promise(function (resolve, reject) {
-    User.count().then(totalUsers => {
-        console.log(totalUsers);
-        resolve({totalUsers});
-    });
+        User.count().then(totalUsers => {
+            resolve({totalUsers});
+        });
     });
 };
 
+
+
+exports.getCompletedOrdersStatistics = function() {
+  return new Promise(function(resolve, reject) {
+      Order.count({status:'Delivered'}).then(completedOrders => {
+          resolve({completedOrders});
+      });
+  });
+};

@@ -60,6 +60,23 @@ paths:
           description: invalid input
           schema:
             $ref: "#/definitions/Error"
+  /statistics/completedOrders:
+    get:
+      x-swagger-router-controller: Statistics
+      operationId: getCompletedOrdersStatistics
+      tags:
+      - "statistics"
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Successful completed orders statistics response
+          schema:
+              $ref: "#/definitions/GeneralStatistics"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
   /products:
     get:
       x-swagger-router-controller: Product
