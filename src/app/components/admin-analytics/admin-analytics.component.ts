@@ -12,6 +12,7 @@ export class AdminAnalyticsComponent implements OnInit {
 
     // Charts
     totalOrders;
+    totalUsers;
     // Chart Orders
     public chartOrdersData: Array<any> = [
         {data: [65, 59, 80, 81, 56, 55, 40], label: 'Total'},
@@ -121,6 +122,9 @@ export class AdminAnalyticsComponent implements OnInit {
     ngOnInit() {
         this.statService.getOrderStatistics().subscribe(res => {
             this.totalOrders = res.totalOrders;
+        });
+        this.statService.getUsersStatistics().subscribe(res => {
+            this.totalUsers = res.totalUsers;
         });
     }
 }

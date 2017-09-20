@@ -22,24 +22,11 @@ exports.getOrderStatistics = function() {
  * returns List
  **/
 exports.getUsersStatistics = function() {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = [ {
-  "totalUsers" : 1,
-  "totalMoney" : 6,
-  "completedOrders" : 5,
-  "totalOrders" : 0
-}, {
-  "totalUsers" : 1,
-  "totalMoney" : 6,
-  "completedOrders" : 5,
-  "totalOrders" : 0
-} ];
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
-}
+    return new Promise(function (resolve, reject) {
+    User.count().then(totalUsers => {
+        console.log(totalUsers);
+        resolve({totalUsers});
+    });
+    });
+};
 
