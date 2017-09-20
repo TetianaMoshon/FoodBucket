@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {OrderService} from '../../client/api/order.service';
+import {StatisticsService} from '../../client/api/statistics.service';
 
 @Component({
   selector: 'app-admin-analytics',
@@ -10,7 +11,7 @@ import {OrderService} from '../../client/api/order.service';
 export class AdminAnalyticsComponent implements OnInit {
 
     // Charts
-
+    totalOrders;
     // Chart Orders
     public chartOrdersData: Array<any> = [
         {data: [65, 59, 80, 81, 56, 55, 40], label: 'Total'},
@@ -114,10 +115,13 @@ export class AdminAnalyticsComponent implements OnInit {
         { backgroundColor: '#19D2E8', borderColor: '#19D2E8', hoverBackgroundColor: '#1be7ff', hoverBorderColor: '#14A9BA'},
         { backgroundColor: '#E85013', borderColor: '#E85013', hoverBackgroundColor: '#ff5714', hoverBorderColor: '#BA400F'}];
 
-    constructor(private orderService: OrderService) {
+    constructor(private statService: StatisticsService) {
     }
 
     ngOnInit() {
+        this.statService.getOrderStatistics().subscribe(res => {
+            this.totalOrders = res.totalOrders;
+        });
     }
 }
 

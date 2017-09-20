@@ -38,8 +38,6 @@ paths:
         200:
           description: Successful order statistics response
           schema:
-            type: array
-            items:
               $ref: "#/definitions/GeneralStatistics"
         default:
           description: invalid input
@@ -57,8 +55,6 @@ paths:
         200:
           description: Successful users statistics response
           schema:
-            type: array
-            items:
               $ref: "#/definitions/GeneralStatistics"
         default:
           description: invalid input

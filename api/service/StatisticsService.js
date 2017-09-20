@@ -8,19 +8,12 @@ const utils = require('../utils/writer.js');
  **/
 exports.getOrderStatistics = function() {
     return new Promise(function (resolve, reject) {
-        return Order.count()
-    }).then((totalOrders) =>{
-         return Order.count({status:'Delivered'}).then((deliveredOrders)=>{
-             return {totalOrders, deliveredOrders}
-         })
+    Order.count().then((totalOrders) =>{
+        console.log(totalOrders);
+        resolve({totalOrders});
         }
-    ).then(twoFieldsObject=>{
-        return User.count().then(users=>{
-            return twoFieldsObject.totalUsers = users;
-        });
-    }).then(money=>{
-        return Order.aggregate([])
-    });
+    )
+});
 };
 
 

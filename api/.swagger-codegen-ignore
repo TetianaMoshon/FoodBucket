@@ -58,7 +58,7 @@ service/TopratedService.js
 controllers/TopratedService.js
 
 service/StatisticsService.js
-controllers/Statistics.js
+controllers/StatisticsService.js
 
 
 
