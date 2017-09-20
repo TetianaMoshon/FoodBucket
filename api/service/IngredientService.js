@@ -94,7 +94,7 @@ exports.getAllIngredients = function(offset,limit, sort, sort_col) {
          return Ingredient.count().
             then(
                 total => {
-                     Ingredient.find().sort({[sort_col]: sort}).then(
+                     Ingredient.find().skip(offset).limit(limit).sort({[sort_col]: sort}).then(
                          (ingredientsDoc) => {
                             ingredientsDoc = ingredientsDoc || [];
                             if (Object.keys(ingredientsDoc).length > 0) {

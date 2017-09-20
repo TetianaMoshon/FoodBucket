@@ -90,20 +90,26 @@ exports.findCategoryById = function (id) {
  **/
 exports.getAllCategories = function (offset, limit, sort, sort_col) {
     return new Promise((resolve, reject) => {
-        Category.find().sort({[sort_col]: sort}).then(
-            categoriesDoc => {
-                categoriesDoc = categoriesDoc || [];
-                if (Object.keys(categoriesDoc).length > 0) {
-                    categoriesDoc = categoriesDoc.map( ({ category_id, title, image, description }) => {
-                        return { category_id, title, image, description };
-                    });
-                    resolve(utils.respondWithCode(200, categoriesDoc));
-                } else {
-                    reject(utils.respondWithCode(404, {"code": 404, "message": "Categories are not found, please try again."}));
+        return Category.count().
+            then (
+                total => {
+                    Category.find().skip(offset).limit(limit).sort({[sort_col]: sort}).then(
+                        categoriesDoc => {
+                            categoriesDoc = categoriesDoc || [];
+                            if (Object.keys(categoriesDoc).length > 0) {
+                                categoriesDoc = categoriesDoc.map( ({ category_id, title, image, description }) => {
+                                    return { category_id, title, image, description };
+                                });
+                                resolve({total: total, body: utils.respondWithCode(200, categoriesDoc)});
+                            } else {
+                                reject(utils.respondWithCode(404, {"code": 404, "message": "Categories are not found, please try again."}));
+                            }
+                        },
+                        error => { debug('Unable to get categories: %O', error); }
+                    );
                 }
-            },
-            error => { debug('Unable to get categories: %O', error); }
-        );
+        )
+
     });
 };
 

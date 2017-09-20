@@ -38,7 +38,8 @@ const appRoutes: Routes = [
       { path: 'checkout', component: CheckoutComponent},
       { path: 'profile', component: UserProfileComponent},
   { path: 'admin', children: [
-      {path: '', component: AdminMainComponent},
+      {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
+      {path: 'dashboard', component: AdminMainComponent},
       { path: 'orders', component: AdminOrdersComponent},
       { path: 'productlist', children: [
           { path: '', component: AdminProductListComponent },

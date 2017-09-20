@@ -37,7 +37,7 @@ exports.getAllOrders = function (offset, limit, sort, sort_col) {
         return Order.count().
             then(
                 total => {
-                    Order.find().sort({[sort_col]: sort}).then(
+                    Order.find().skip(offset).limit(limit).sort({[sort_col]: sort}).then(
                         (ordersDoc) => {
                             ordersDoc = ordersDoc || [];
                             if (Object.keys(ordersDoc).length > 0) {

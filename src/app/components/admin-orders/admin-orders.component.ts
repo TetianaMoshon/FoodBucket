@@ -37,7 +37,7 @@ export class AdminOrdersComponent implements OnInit {
         this.ApiService.getAllOrdersWithHttpInfo(25, 20, 'desc', 'orderId' ).subscribe(response => {
             this.orders = response.json();
             this.total = response.headers.get('x-total-records');
-            this.setPage(2);
+            this.setPage(1);
         });
     }
 
