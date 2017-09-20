@@ -7,12 +7,12 @@ export class CartCommunicationService {
   constructor() { }
 
     getIdOfLoggedInUserFromSessionStorage() {
-        if (JSON.parse(localStorage.getItem('currentUser'))) {
-            const user = JSON.parse(localStorage.getItem('currentUser'));
-            return user.userId;
+        if (JSON.parse(sessionStorage.getItem('currentUserId'))) {
+            return JSON.parse(sessionStorage.getItem('currentUserId'));
         } else {
-            return;
+            return -1;
         }
+
     }
 
 }
