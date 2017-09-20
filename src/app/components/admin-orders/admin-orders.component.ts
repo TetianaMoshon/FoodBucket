@@ -4,33 +4,32 @@ import {OrderService} from '../../client/api/order.service';
 import {Order} from '../../models/order';
 
 @Component({
-    selector: 'app-admin-orders',
-    templateUrl: './admin-orders.component.html',
-    styleUrls: ['./admin-orders.component.css']
+  selector: 'app-admin-orders',
+  templateUrl: './admin-orders.component.html',
+  styleUrls: ['./admin-orders.component.css']
 })
 export class AdminOrdersComponent implements OnInit {
     total
-    expanded = false
     value: string
     state = true
     sort: string
     showHide: boolean;
     orders: Order[] = [];
-    pager: any = {};
-    pagedItems: any[];
-    filter: Order = {
-        date: '',
-        orderId: null,
-        username: '',
-        city: '',
-        products: [],
-        price : null,
-        address: '' ,
-        status: ''
-    };
-    constructor(private pagerService: PagerService, private ApiService: OrderService) {
-        this.showHide = false;
-    }
+pager: any = {};
+pagedItems: any[];
+ filter: Order = {
+     date: '',
+     orderId: null,
+     username: '',
+     city: '',
+     products: [],
+     price : null,
+     address: '' ,
+     status: ''
+ };
+  constructor(private pagerService: PagerService, private ApiService: OrderService) {
+      this.showHide = false;
+  }
 
 
     ngOnInit() {
@@ -39,6 +38,29 @@ export class AdminOrdersComponent implements OnInit {
             this.total = response.headers.get('x-total-records');
             this.setPage(1);
         });
+    }
+
+    updateOrder(value, orderIdValue) {
+        this.ApiService.updateOrderById({
+            'orderId': 0,
+            'date': 'string',
+            'username': 'string',
+            'city': 'string',
+            'price': 0,
+            'address': 'string',
+            'status': value,
+            'phone': 'string',
+            'products': [
+                0
+            ],
+            'measure': 'string',
+            'quantity': 0,
+            'discount': 0
+        }, orderIdValue).subscribe(
+            res => {
+                console.log(res);
+            }
+        );
     }
 
     toggle(state: boolean) {

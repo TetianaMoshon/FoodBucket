@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {CartService} from '../../client/api/cart.service';
 import {ProductService} from '../../client/api/product.service';
 import {PagerService} from '../../services/pagination.service';
-import {Product} from '../../client/model/product';
+import {Product} from '../../models/product';
 
 
 @Component({
@@ -12,7 +12,7 @@ import {Product} from '../../client/model/product';
 })
 export class ProductlistComponent implements OnInit {
     showHide: boolean;
-    products = [];
+    products: Product[] = [];
     id: number;
     priceOfChosenProduct;
     cartContentObjCreated = false;
@@ -29,9 +29,10 @@ export class ProductlistComponent implements OnInit {
     }
 
   ngOnInit() {
-      this.idOfLoggedinUser = this.getIdOfLoggedInUserFromLocalStorage().userId;
       this.populateIdFieldOfProduct();
-      this.setPage(1);
+      this.idOfLoggedinUser = this.getIdOfLoggedInUserFromLocalStorage();
+      console.log('USER', this.idOfLoggedinUser);
+      console.log('ID of user', this.idOfLoggedinUser);
   }
     setPage(page: number) {
         if (page < 1 || page > this.pager.totalPages) {
@@ -116,17 +117,21 @@ export class ProductlistComponent implements OnInit {
     populateIdFieldOfProduct() {
         this.productService.getAllProducts(0, 20).subscribe(products => {
             products.forEach(product => {
-                const {productId : id, title, description, image, price} =  product;
+                const {productId, title, description, image, price} =  product;
                 this.priceOfChosenProduct = price;
-                this.products.push({id, title, description, image});
+                this.products.push({productId, title, description, image});
             });
-
+            this.setPage(1);
         });
 
     }
 
-    getIdOfLoggedInUserFromLocalStorage() {
-        const user = JSON.parse(localStorage.getItem('currentUser'));
-        return user;
+    private getIdOfLoggedInUserFromLocalStorage() {
+        if (JSON.parse(sessionStorage.getItem('currentUserId'))) {
+            const user = JSON.parse(sessionStorage.getItem('currentUserId'));
+            return user;
+        } else {
+            return;
+        }
     }
 }

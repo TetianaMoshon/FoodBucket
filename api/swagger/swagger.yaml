@@ -25,7 +25,7 @@ consumes:
 produces:
   - application/json
 paths:
-# root pathor
+# root path
   /products:
     get:
       x-swagger-router-controller: Product
@@ -35,6 +35,11 @@ paths:
       produces:
       - application/json
       parameters:
+        - name: isPromotion
+          in: query
+          description: returns promotion products
+          required: false
+          type: boolean
         - name: offset
           in: query
           description: start position for quering from DB
@@ -62,7 +67,7 @@ paths:
             - desc
         - name: sort_col
           in: query
-          description: column to sort 
+          description: column to sort
           required: false
           type: string
           enum:
@@ -212,7 +217,7 @@ paths:
             - desc
         - name: sort_col
           in: query
-          description: column to sort 
+          description: column to sort
           required: false
           type: string
           enum:
@@ -221,7 +226,7 @@ paths:
             - city
             - price
       responses:
-        '200':
+        200:
           description: Successful products response
           schema:
             type: array
@@ -294,7 +299,8 @@ paths:
         in: path
         description: ID of the order to delete
         required: true
-        type: string
+        type: number
+        format: int64
       responses:
         204:
           description: Order is deleted
@@ -316,7 +322,7 @@ paths:
         in: path
         description: ID of the order to update
         required: true
-        type: string
+        type: number
       responses:
         200:
           description: Order is updated
@@ -358,13 +364,13 @@ paths:
             - desc
         - name: sort_col
           in: query
-          description: column to sort 
+          description: column to sort
           required: false
           type: string
           enum:
             - category_id
             - title
-            - description          
+            - description
       responses:
         200:
           description: Successful categories response
@@ -507,7 +513,7 @@ paths:
             - desc
         - name: sort_col
           in: query
-          description: column to sort 
+          description: column to sort
           required: false
           type: string
           enum:
@@ -831,8 +837,8 @@ paths:
         required: true
         type: integer
         format: int64
-      - name: "updated_cartContent"
-        in: "body"
+      - name: updatedcartContent
+        in: body
         description: The updated cartContent
         required: true
         schema:
@@ -884,7 +890,7 @@ paths:
             - desc
         - name: sort_col
           in: query
-          description: column to sort 
+          description: column to sort
           required: false
           type: string
           enum:
@@ -892,9 +898,9 @@ paths:
             - firstName
             - lastName
             - email
-            - phone          
-            - city          
-            - address          
+            - phone
+            - city
+            - address
             - active
       responses:
         200:

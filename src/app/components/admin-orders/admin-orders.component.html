@@ -55,7 +55,13 @@
             <td class="gray-border text-center">{{order.city}}</td>
             <td class="gray-border text-center">{{order.price}}</td>
             <td class="gray-border text-center">{{order.products}}</td>
-            <td class="gray-border text-center">{{order.status}}</td>
+            <td class="gray-border text-center">
+                <select #s (change)="updateOrder(s.value,order.orderId)" class="form-control">
+                    <option>{{order.status}}</option>
+                    <option *ngIf="order.status != 'Delivered'">Delivered</option>
+                    <option *ngIf="order.status != 'Cancelled'">Cancelled</option>
+                </select>
+            </td>
             <td class="gray-border text-center">
                 <button class="btn btn-primary" *ngIf="order.expanded" (click)="order.expanded = false">Close</button>
                 <button class="btn btn-primary" *ngIf="!order.expanded" (click)="order.expanded = true">Details</button>
