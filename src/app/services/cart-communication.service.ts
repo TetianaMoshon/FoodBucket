@@ -6,4 +6,13 @@ export class CartCommunicationService {
     passedData = new Subject();
   constructor() { }
 
+    getIdOfLoggedInUserFromSessionStorage() {
+        if (JSON.parse(localStorage.getItem('currentUser'))) {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            return user.userId;
+        } else {
+            return;
+        }
+    }
+
 }

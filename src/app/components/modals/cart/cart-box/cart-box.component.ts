@@ -4,7 +4,6 @@ import {Router} from '@angular/router';
 import {CartService} from '../../../../client/api/cart.service';
 import {ProductService} from '../../../../client/api/product.service';
 import {CartCommunicationService} from '../../../../services/cart-communication.service';
-import {Order} from '../../../../client/model/order';
 import {Subscription} from 'rxjs/Subscription';
 
 @Component({
@@ -34,10 +33,9 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
 
     ngOnInit() {
-        this.idOfLoggedinUser = this.getIdOfLoggedInUserFromLocalStorage().userId;
+        this.idOfLoggedinUser = this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage();
         this.showAPhrase = JSON.parse(localStorage.getItem('showAPhrase'));
         this.populateArrayOfDishNamesAndPrices();
-        this.nameAndSurname = this.getIdOfLoggedInUserFromLocalStorage().firstName + ' ' + this.getIdOfLoggedInUserFromLocalStorage().lastName;
         this.subscription = this.cartCommunicationService.passedData.subscribe(
             data => {
                 this.calculateTotalPriceToPay(data);
@@ -196,35 +194,9 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
     hideAndRoute() {
         this.bsModalRef.hide();
-                if (JSON.parse(localStorage.getItem('cartContentObjCreated'))) {
-                    const updatedCart = this.extractArrayOfProductData(this.arrayOfDishNamesAndPrices);
-                    const {orderedProducts, totalPriceOfAllDishes} = updatedCart;
-
-                    const newOrder: Order = {
-                        username: this.nameAndSurname,
-                        city: this.getIdOfLoggedInUserFromLocalStorage().city,
-                        price: totalPriceOfAllDishes,
-                        address: this.getIdOfLoggedInUserFromLocalStorage().address,
-                        status: 'New',
-                        products: orderedProducts
-                    };
-                    console.log(`=======cartOrdersArray from cart-box======`, newOrder);
-                    localStorage.setItem('newOrder', JSON.stringify(newOrder));
-
-                    this.router.navigate(['/checkout']);
-                }else {
-                    return;
-                }
-
-        }
-
-    private getIdOfLoggedInUserFromLocalStorage() {
-        if (JSON.parse(localStorage.getItem('currentUser'))) {
-            return JSON.parse(localStorage.getItem('currentUser'));
-        } else {
-            return;
-        }
+        this.router.navigate(['/checkout'], { queryParams: { userId: this.idOfLoggedinUser } });
     }
+
 
 }
 

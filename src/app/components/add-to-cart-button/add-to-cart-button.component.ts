@@ -1,6 +1,7 @@
 import {Component, ElementRef, Input, OnInit, Renderer2} from '@angular/core';
 import {CartService} from '../../client/api/cart.service';
 import {ProductService} from '../../client/api/product.service';
+import {CartCommunicationService} from '../../services/cart-communication.service';
 
 @Component({
   selector: 'add-to-cart-button',
@@ -18,22 +19,17 @@ export class AddToCartButtonComponent implements OnInit {
   constructor(
       private cartService: CartService,
       private productService: ProductService,
+      private cartCommunicationService: CartCommunicationService,
       private elementRef: ElementRef, private renderer: Renderer2
   ) {}
 
   ngOnInit() {
-      // if (!JSON.parse(localStorage.getItem('currentUser'))) {
-          this.idOfLoggedinUser = this.getIdOfLoggedInUserFromLocalStorage();
+          this.idOfLoggedinUser = this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage();
       this.arrayOfCartOrders = JSON.parse(localStorage.getItem('arrayOfCartOrders')) || [];
-      // } else {
-      //     console.log(`You can't buy anything until you log in.`);
-      // }
 
       this.renderer.listen(this.elementRef.nativeElement, 'click', (event) => {
-
-          this.addProductToCart(event.path[1].attributes.id.nodeValue);
+         this.addProductToCart(event.path[1].attributes.id.nodeValue);
       });
-
   }
 
     addProductToCart(id) {
@@ -56,9 +52,7 @@ export class AddToCartButtonComponent implements OnInit {
                 totalPriceOfAllDishes: 0
             };
 
-            console.log('===== newCart =====', newCart);
-
-            this.cartService.createCartForUserById(this.idOfLoggedinUser, newCart).subscribe(
+              this.cartService.createCartForUserById(this.idOfLoggedinUser, newCart).subscribe(
                 cart => {
                     localStorage.setItem('cartContentObjCreated', JSON.stringify(true));
                     localStorage.setItem('showAPhrase', JSON.stringify(false));
@@ -68,7 +62,6 @@ export class AddToCartButtonComponent implements OnInit {
                     });
                     // let's make this.arrayOfCartOrders available throughout eht whole app
                     localStorage.setItem('arrayOfCartOrders', JSON.stringify(this.arrayOfCartOrders));
-                    console.log('cart saved ' + cart )
                 },
                 err => console.log('Error has happened ' + err )
             );
@@ -111,9 +104,6 @@ export class AddToCartButtonComponent implements OnInit {
                 );
 
 
-
-
-
             }
 
         }
@@ -131,15 +121,6 @@ export class AddToCartButtonComponent implements OnInit {
             return false;
         });
 
-    }
-
-    private getIdOfLoggedInUserFromLocalStorage() {
-        if (JSON.parse(localStorage.getItem('currentUser'))) {
-            const user = JSON.parse(localStorage.getItem('currentUser'));
-            return user.userId;
-        } else {
-            return;
-        }
     }
 
 }

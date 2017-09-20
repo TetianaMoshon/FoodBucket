@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {OrderService} from '../../client/api/order.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -9,7 +10,7 @@ import {OrderService} from '../../client/api/order.service';
 })
 export class CheckoutComponent implements OnInit {
 
-  constructor(private orderService: OrderService) { }
+  constructor(private orderService: OrderService, private router: ActivatedRoute) { }
     surname: string;
     phone: string;
     city: string;
@@ -19,6 +20,7 @@ export class CheckoutComponent implements OnInit {
     passedObjFromCart;
     orderInfo;
   ngOnInit() {
+      console.log(this.router.snapshot.queryParams);
       if (JSON.parse(localStorage.getItem('newOrder'))) {
           this.passedObjFromCart = JSON.parse(localStorage.getItem('newOrder'));
 
