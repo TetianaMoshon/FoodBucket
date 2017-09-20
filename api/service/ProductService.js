@@ -77,44 +77,7 @@ exports.getAllProducts = function(offset,limit, sort, sort_col,isPromotion) {
         return Product.count().
             then(
                 total => {
-                    Product.find(query).then(
-                        productsDoc => {
-                            productsDoc = productsDoc || {};
-                            if (Object.keys(productsDoc).length > 0) {
-                                productsDoc = productsDoc.map(({productId, title, description, image, price, category, caloricity, servingSize, difficulty, spiceLevel, recommended, discount, promotions, status, ingredients}) => {
-                                    return {
-                                        productId,
-                                        title,
-                                        description,
-                                        image,
-                                        price,
-                                        category,
-                                        caloricity,
-                                        servingSize,
-                                        difficulty,
-                                        spiceLevel,
-                                        recommended,
-                                        discount,
-                                        promotions,
-                                        status,
-                                        ingredients
-                                    };
-                                });
-                                resolve({total: total, body: utils.respondWithCode(200, productsDoc)});
-                            }
-                            else {
-                                reject(utils.respondWithCode(404, {"code": 404, "message": "Products are not found, please try again."}));
-                            }
-                        },
-                        error => { console.log('Unable to get products', error); }
-                    );
-                }
-        )
-
-        return Product.count().
-            then(
-                total => {
-                    Product.find().skip(offset).limit(limit).sort({[sort_col]: sort}).then(
+                    Product.find(query).skip(offset).limit(limit).sort({[sort_col]: sort}).then(
                         productsDoc => {
                             productsDoc = productsDoc || {};
                             if (Object.keys(productsDoc).length > 0) {
