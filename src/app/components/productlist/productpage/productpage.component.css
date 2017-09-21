@@ -68,13 +68,13 @@ p .product-price {
     position: relative;
 }
 
-.second-block {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    padding: 0px;
-}
+/*.second-block {*/
+    /*position: absolute;*/
+    /*top: 0px;*/
+    /*right: 0px;*/
+    /*bottom: 0px;*/
+    /*padding: 0px;*/
+/*}*/
 
 i.glyphicon-chevron-left, i.glyphicon-chevron-right {
     top: 30%;
@@ -111,6 +111,11 @@ i.glyphicon-chevron-left, i.glyphicon-chevron-right {
     width: 50px;
     font-size: 20px;
     text-align: center;
+}
+
+.price-block{
+    width: 130px;
+    margin-top: 20px;
 }
 
 @media (max-width: 990px) {
