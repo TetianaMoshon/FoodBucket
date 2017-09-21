@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {IngredientService} from '../../../client/api/ingredient.service';
+import {UserService} from '../../../client/api/user.service';
+import { UpdateUser } from './updateUser';
 import { ProductService } from '../../../client/api/product.service';
-import { IngredientService } from '../../../client/api/ingredient.service';
 import {Subscription} from 'rxjs/Subscription';
 import { ActivatedRoute } from '@angular/router';
 
@@ -14,6 +16,9 @@ export class ProductpageComponent implements OnInit {
     public productData;
     public productIngredients = [];
     public data;
+    private sub: any;
+    urlId: number;
+
     show = false;
     quantityOfPhotos: number;
 
@@ -30,17 +35,41 @@ export class ProductpageComponent implements OnInit {
         '/assets/images/pasta-carbonara.jpg'
     ];
 
-  constructor(
-      public productService: ProductService,
-      public ingredientService: IngredientService,
-      protected route: ActivatedRoute) {}
+    updateUser = new UpdateUser('', '' , '',  '');
+    select;
+    userId;
+    login;
+    id = this.route.snapshot.paramMap.get('id');
 
-  ngOnInit() {
-      this.InitImageSource();
-      this.quantityOfPhotos = this.ListOfImageLinks.length;
-      const id = this.route.snapshot.paramMap.get('id');
-      this.showProduct(id);
-  }
+    constructor(
+        public productService: ProductService,
+        public ingredientService: IngredientService,
+        public userService: UserService,
+        protected route: ActivatedRoute
+    ) {}
+
+    ngOnInit() {
+        this.InitImageSource();
+        this.quantityOfPhotos = this.ListOfImageLinks.length;
+        this.showProduct(this.id);
+        if ( JSON.parse(sessionStorage.getItem('currentUserId')) == null) {
+            this.login = false;
+        }else {
+            this.userId = JSON.parse(sessionStorage.getItem('currentUserId'));
+            this.login = true;
+        }
+
+         this.userService.findUserById(this.userId).subscribe(
+            user => {
+                    if (user.favourites.indexOf(Number(this.id)) === -1) {
+                        this.select = false;
+                    } else {
+                        this.select = true;
+                    }
+                }, err => console.log(err)
+            );
+    }
+
     showProduct(id) {
         this.productService.findProductById(id)
             .subscribe(
@@ -55,11 +84,42 @@ export class ProductpageComponent implements OnInit {
                                 }
                             );
                     });
-                console.log(current.productIngredients);
                 },
                 err => console.log(err)
             );
     }
+
+    addFavourite() {
+        this.userService.findUserById(this.userId)
+            .subscribe(
+                user => {
+                    if (this.select === false) {
+                        this.select = true;
+                        user.favourites.push(Number(this.id));
+                        this.updateUser = user;
+                        this.userService.updateUserById(this.userId, this.updateUser)
+                            .subscribe(
+                                userUpdate => {
+                                },
+                                err => console.log(user)
+                            );
+                    } else {
+                        this.select = false;
+                        user.favourites.splice(user.favourites.indexOf(Number(this.id)), 1);
+                        this.updateUser = user;
+                        this.userService.updateUserById(this.userId, this.updateUser)
+                            .subscribe(
+                                userUpdate => {
+                                },
+                                err => console.log(err)
+                            );
+                    }
+                },
+                err => console.log(err)
+            );
+    }
+
+
 
     InitImageSource() {
         this.sourceForPreviousImage = this.ListOfImageLinks[this.initialSourceForPreviousImage];
@@ -94,7 +154,7 @@ export class ProductpageComponent implements OnInit {
 
         this.initialSourceForNextImage = this.initialSourceForPreviousImage;
         this.initialSourceForPreviousImage = this.initialSourceForPreviousImage === 0  ? this.quantityOfPhotos - this.counter :
-            this.initialSourceForPreviousImage - this.counter;
+        this.initialSourceForPreviousImage - this.counter;
     }
 
 }

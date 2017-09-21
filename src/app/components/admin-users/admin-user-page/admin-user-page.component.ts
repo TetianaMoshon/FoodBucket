@@ -23,7 +23,7 @@ export class AdminUserPageComponent implements OnInit, OnDestroy {
     urlSubscription: Subscription;
 
     constructor(
-      protected userService: UserService,
+        protected userService: UserService,
       protected route: ActivatedRoute,
       private flashMessagesService: FlashMessagesService,
     ) {}

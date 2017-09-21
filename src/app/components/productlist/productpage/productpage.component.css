@@ -1,6 +1,9 @@
 .dish_title {
     text-transform: uppercase;
 }
+.glyphicon-star-empty{
+    cursor: pointer;
+}
 
 .you-will-get {
     margin-left: 5%;
