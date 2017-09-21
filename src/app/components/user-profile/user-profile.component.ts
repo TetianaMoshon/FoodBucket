@@ -37,14 +37,11 @@ export class UserProfileComponent implements OnInit {
                 user => {
                     this.userData = user;
                     const current = this;
-                    console.log(this.userData);
                     this.userData.favourites.forEach(function (product) {
-                        console.log(product);
                         current.productService.findProductById(product)
                             .subscribe(
                                 prod => {
                                     current.favouritesProduct.push(prod);
-                                    console.log(current.favouritesProduct);
                                 }
                             );
                     });
