@@ -43,38 +43,26 @@
     border: none;
     outline: none;
 }
-
-h1 {
+.instructions ol li{
+    font-size: 16px;
+}
+h1, h3, p {
     font-family: Oswald;
 }
 
-h3 {
-    font-family: Oswald;
-}
-
-table {
-    font-family: Roboto;
-}
-
-p {
+table tr td {
     font-family: Roboto;
 }
 
 p .product-price {
     font-size: 20px;
 }
-
+.serving-size, .price-block{
+    height: 170px;
+}
 .stickToBottom {
     position: relative;
 }
-
-/*.second-block {*/
-    /*position: absolute;*/
-    /*top: 0px;*/
-    /*right: 0px;*/
-    /*bottom: 0px;*/
-    /*padding: 0px;*/
-/*}*/
 
 i.glyphicon-chevron-left, i.glyphicon-chevron-right {
     top: 30%;
@@ -82,7 +70,8 @@ i.glyphicon-chevron-left, i.glyphicon-chevron-right {
 
 .price-wrapper p.product-price {
     margin-bottom: 20px;
-   text-align: right;
+    text-align: right;
+    font-size: 22px;
 }
 
 .ingredient-icon {
@@ -114,7 +103,7 @@ i.glyphicon-chevron-left, i.glyphicon-chevron-right {
 }
 
 .price-block{
-    width: 130px;
+    /*width: 130px;*/
     margin-top: 20px;
 }
 
