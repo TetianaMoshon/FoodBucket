@@ -24,7 +24,7 @@ export class AddToCartButtonComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-          this.idOfLoggedinUser = this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage();
+      this.idOfLoggedinUser = this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage();
       this.arrayOfCartOrders = JSON.parse(localStorage.getItem('arrayOfCartOrders')) || [];
 
       this.renderer.listen(this.elementRef.nativeElement, 'click', (event) => {
@@ -33,11 +33,10 @@ export class AddToCartButtonComponent implements OnInit {
   }
 
     addProductToCart(id) {
+        // lets see if db has already cart of the user
+        this.cartCommunicationService.findOutWhetherCartCreated();
 
-        // this.cartContentObjCreated = JSON.parse(localStorage.getItem('cartContentObjCreated'));
         if (!JSON.parse(localStorage.getItem('cartContentObjCreated'))) {
-            // use POST method and create cart content
-
             // let's create cartOrder
             const newCartOrder = {
                 productId: parseInt(id),
@@ -60,7 +59,7 @@ export class AddToCartButtonComponent implements OnInit {
                     orderedProducts.forEach(cartOrder => {
                         this.arrayOfCartOrders.push(cartOrder);
                     });
-                    // let's make this.arrayOfCartOrders available throughout eht whole app
+                    // let's make this.arrayOfCartOrders available throughout the whole app
                     localStorage.setItem('arrayOfCartOrders', JSON.stringify(this.arrayOfCartOrders));
                 },
                 err => console.log('Error has happened ' + err )
@@ -70,43 +69,46 @@ export class AddToCartButtonComponent implements OnInit {
             if (this.findIdInArray(parseInt(id))) { // here we also sink in this.arrayOfCartOrders with LocalStorage
                 console.log('You have already added this product to your cart');
             }else {
+
                 console.log('Let us add new cartOrder to your cart');
                 // add cartOrders to the created cartContentObjCreated
-
-                // let's sink this.arrayOfCartOrders with db as user may have changed amount of products
-
-                this.cartService.findCartContentById(this.idOfLoggedinUser).subscribe(
-                    cartData => {
-
-                            // retrieve array of cartOrders of logged in user
-                            const {orderedProducts} = cartData;
-                            this.arrayOfCartOrders = orderedProducts;
-                        console.log(`this.arrayOfCartOrders = [...orderedProducts]; `, this.arrayOfCartOrders);
-
-                        // let's push new CartOrder into arrayOfCartOrders
-                        this.arrayOfCartOrders.push({productId: parseInt(id), quantity: 1});
-                        localStorage.setItem('arrayOfCartOrders', JSON.stringify(this.arrayOfCartOrders));
-                        // console.log(' this.arrayOfCartOrders ',  this.arrayOfCartOrders);
-                        // let's created updatedCartOrder
-                        console.log('array with added items ', this.arrayOfCartOrders);
-                        const updatedCart = {
-                            orderedProducts:
-                            this.arrayOfCartOrders,
-                            // when cart is first created total price is the price of a clicked product
-                            totalPriceOfAllDishes: 0
-                        };
-
-                        this.cartService.updateCartContentById(this.idOfLoggedinUser, updatedCart).subscribe(updatedData => {
-                            console.log('updatedCart returned from backend ', updatedData);
-                        });
-
-                    }
-                );
+                this.addNewProduct(id);
 
 
             }
 
         }
+    }
+
+    private addNewProduct(id) {
+// let's sink this.arrayOfCartOrders with db as user may have changed amount of products
+
+        this.cartService.findCartContentById(this.idOfLoggedinUser).subscribe(
+            cartData => {
+
+                // retrieve array of cartOrders of logged in user
+                const {orderedProducts} = cartData;
+                this.arrayOfCartOrders = orderedProducts;
+                console.log(`this.arrayOfCartOrders = [...orderedProducts]; `, this.arrayOfCartOrders);
+
+                // let's push new CartOrder into arrayOfCartOrders
+                this.arrayOfCartOrders.push({productId: parseInt(id), quantity: 1});
+                localStorage.setItem('arrayOfCartOrders', JSON.stringify(this.arrayOfCartOrders));
+                // console.log(' this.arrayOfCartOrders ',  this.arrayOfCartOrders);
+                // let's created updatedCartOrder
+                console.log('array with added items ', this.arrayOfCartOrders);
+                const updatedCart = {
+                    orderedProducts: this.arrayOfCartOrders,
+                    // when cart is first created total price is the price of a clicked product
+                    totalPriceOfAllDishes: 0
+                };
+
+                this.cartService.updateCartContentById(this.idOfLoggedinUser, updatedCart).subscribe(updatedData => {
+                    console.log('updatedCart returned from backend ', updatedData);
+                });
+
+            }
+        );
     }
 
     private findIdInArray(id) {

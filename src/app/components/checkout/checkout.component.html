@@ -7,26 +7,26 @@
         <h3>Delivery information</h3>
         <div class="col-md-6 col-sm-6">
                 <div class="form-group">
-                    <label for="firstName">First name:</label>
-                    <input [(ngModel)]='firstName'  name="firstName" type="text" class="form-control" id="firstName" required>
+                    <!--<label for="firstName">First name:</label>-->
+                    <!--<input [(ngModel)]='firstName'  name="firstName" type="text" class="form-control" id="firstName" required>-->
                 </div>
                 <div class="form-group">
-                    <label for="address">Address:</label>
-                    <input [(ngModel)]='passedObjFromCart.address' name="address" type="text" class="form-control" id="address" required>
+                    <!--<label for="address">Address:</label>-->
+                    <!--<input [(ngModel)]='passedObjFromCart.address' name="address" type="text" class="form-control" id="address" required>-->
                 </div>
                 <div class="form-group">
-                    <label for="phone">Phone number:</label>
-                    <input [(ngModel)]='phone' name="phone" type="tel" class="form-control" id="phone" required>
+                    <!--<label for="phone">Phone number:</label>-->
+                    <!--<input [(ngModel)]='phone' name="phone" type="tel" class="form-control" id="phone" required>-->
                 </div>
         </div>
         <div class="col-md-6 col-sm-6">
             <div class="form-group">
-                <label for="surname">Last name:</label>
-                <input [(ngModel)]='surname' name="surname" type="text" class="form-control" id="surname" required>
+                <!--<label for="surname">Last name:</label>-->
+                <!--<input [(ngModel)]='surname' name="surname" type="text" class="form-control" id="surname" required>-->
             </div>
             <div class="form-group">
-                <label for="city">City:</label>
-                <input [(ngModel)]='passedObjFromCart.city' name="city" type="text" class="form-control" id="city" required>
+                <!--<label for="city">City:</label>-->
+                <!--<input [(ngModel)]='passedObjFromCart.city' name="city" type="text" class="form-control" id="city" required>-->
             </div>
         </div>
     </div>
@@ -58,7 +58,7 @@
             </div>
         </div>
         <div class=" col-md-4 text-center">
-            <button (ngSubmit)="onSubmit()" class="height-fix btn btn-lg btn-block btn-success"  [disabled]="!f.form.valid">
+            <button (ngSubmit)="onSubmit()" class="height-fix btn btn-lg btn-block btn-success">
                 <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Place order
             </button>
         </div>
@@ -68,12 +68,12 @@
 <div class=" col-md-4 col-xs-12">
     <div class="row">
         <h3>Order summary</h3>
-        <ul *ngFor="let product of productTitlesArray" class="list-group">
-            <li class="list-group-item">{{product}}</li>
-        </ul>
-        <p class="bigger-font text-right">Subtotal <strong>{{passedObjFromCart.price}}</strong></p>
-        <p class="bigger-font text-right">Delivery <strong>free</strong></p>
-        <p class="bigger-font text-right">Total <strong>{{passedObjFromCart.price}}</strong></p>
+        <!--<ul *ngFor="let product of productTitlesArray" class="list-group">-->
+            <!--<li class="list-group-item">{{product}}</li>-->
+        <!--</ul>-->
+        <!--<p class="bigger-font text-right">Subtotal <strong>{{passedObjFromCart.price}}</strong></p>-->
+        <!--<p class="bigger-font text-right">Delivery <strong>free</strong></p>-->
+        <!--<p class="bigger-font text-right">Total <strong>{{passedObjFromCart.price}}</strong></p>-->
     </div>
 </div>
 </div>

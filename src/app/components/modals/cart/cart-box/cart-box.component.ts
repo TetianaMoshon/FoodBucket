@@ -14,14 +14,13 @@ import {Subscription} from 'rxjs/Subscription';
 export class CartBoxComponent implements OnInit, OnDestroy {
 
     title = 'Cart';
-    idOfLoggedinUser = 4444;
+    idOfLoggedinUser: number;
     showAPhrase = true;
     totalPriceOfAllDishes = 0;
     arrayOfDishNamesAndPrices = [];
     dataReferenceArray = [];
     subscription: Subscription;
     arrayOfCartOrders = [];
-    nameAndSurname;
 
     constructor(
         public bsModalRef: BsModalRef,
@@ -33,7 +32,7 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
 
     ngOnInit() {
-        this.idOfLoggedinUser = this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage();
+        this.cartCommunicationService.findOutWhetherCartCreated();
         this.showAPhrase = JSON.parse(localStorage.getItem('showAPhrase'));
         this.populateArrayOfDishNamesAndPrices();
         this.subscription = this.cartCommunicationService.passedData.subscribe(
@@ -51,8 +50,8 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
 
     populateArrayOfDishNamesAndPrices() {
-        if (JSON.parse(localStorage.getItem('cartContentObjCreated'))) {
-            this.cartService.findCartContentById(this.idOfLoggedinUser).subscribe(
+        if ((JSON.parse(localStorage.getItem('cartContentObjCreated')) && (this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage() > -1))) {
+            this.cartService.findCartContentById(this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage()).subscribe(
                 cartData => {
                     if (cartData === undefined || cartData === null) {
                         return;
@@ -93,21 +92,11 @@ export class CartBoxComponent implements OnInit, OnDestroy {
                 // delete item from arrayOfDishNamesAndPrices as it is used to calculate totalPriceOfAllDishes
                 this.arrayOfDishNamesAndPrices.splice(i, 1);
                 // let's update modyfied cartContent with some deleted items
-
                 this.updateCartContentBasedOnDeletedItemsOnServer(this.arrayOfDishNamesAndPrices);
-
                 if (this.dataReferenceArray.length === 0) {
                     // let's delete user's cart altogether
-                    this.cartService.deleteCartContentById(this.idOfLoggedinUser).subscribe(
-                        deletedCart => {
-                                        console.log('deletedCart: ', deletedCart);
-                                    },
-                                    err => console.log(err)
-                    );
-
+                    this.cartCommunicationService.deleteCartAndLocalReferences();
                     this.showAPhrase = true;
-                    localStorage.setItem('showAPhrase', JSON.stringify(true));
-                    localStorage.setItem('cartContentObjCreated', JSON.stringify(false));
                 }
             }
 
@@ -118,10 +107,12 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
     private updateCartContentBasedOnDeletedItemsOnServer(arr) {
         // let's created updatedCartOrder
-           if (JSON.parse(localStorage.getItem('cartContentObjCreated'))) {
+           if (JSON.parse(localStorage.getItem('cartContentObjCreated'))
+               && this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage() > -1) {
                const updatedCart = this.extractArrayOfProductData(arr);
 
-            this.cartService.updateCartContentById(this.idOfLoggedinUser, updatedCart).subscribe(updatedData => {
+            this.cartService.updateCartContentById(this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage(), updatedCart)
+                .subscribe(updatedData => {
                 console.log('updatedCart returned from backend ', updatedData);
             });
         } else {
@@ -193,8 +184,15 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
 
     hideAndRoute() {
+        this.updateCartContentBasedOnDeletedItemsOnServer(this.arrayOfDishNamesAndPrices);
+        console.log(`line 186`);
         this.bsModalRef.hide();
-        this.router.navigate(['/checkout'], { queryParams: { userId: this.idOfLoggedinUser } });
+        // this.router.navigate(['checkout']);
+        console.log(`line 189`);
+
+        // this.router.navigateByUrl('/checkout');
+        this.router.navigate(['/checkout'],
+            { queryParams: { userId: this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage() } });
     }
 
 

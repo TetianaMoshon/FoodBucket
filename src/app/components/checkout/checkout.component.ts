@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {OrderService} from '../../client/api/order.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ProductService} from '../../client/api/product.service';
+import {CartCommunicationService} from '../../services/cart-communication.service';
+import {FlashMessagesService} from 'ngx-flash-messages';
 
 @Component({
   selector: 'app-checkout',
@@ -11,7 +13,14 @@ import {ProductService} from '../../client/api/product.service';
 })
 export class CheckoutComponent implements OnInit {
 
-  constructor(private orderService: OrderService, private router: ActivatedRoute, private productService: ProductService) { }
+  constructor(
+      private orderService: OrderService,
+      private router: ActivatedRoute,
+      private routerService: Router,
+      private productService: ProductService,
+      private cartCommunicationService: CartCommunicationService,
+      private flashMessagesService: FlashMessagesService
+  ) { }
     surname: string;
     phone: string;
     city: string;
@@ -23,28 +32,29 @@ export class CheckoutComponent implements OnInit {
     productTitlesArray: string[] = [];
   ngOnInit() {
       console.log(this.router.snapshot.queryParams);
-      if (JSON.parse(localStorage.getItem('newOrder'))) {
-          this.passedObjFromCart = JSON.parse(localStorage.getItem('newOrder'));
 
-          console.log(this.passedObjFromCart);
-          const arrayOfPassedObjs = this.passedObjFromCart.products;
-          arrayOfPassedObjs.forEach((data, i) => {
-                  const {productId, quantity} = data;
-                  this.prodIdsArr.push(productId);
-              }
-
-          );
-          this.passedObjFromCart.products = this.prodIdsArr;
-          this.prodIdsArr.forEach(productId => {
-              this.productService.findProductById(productId).subscribe(res => {
-                  this.productTitlesArray.push(res.title);
-              });
-          });
-          this.firstName = this.passedObjFromCart.username.split(' ')[0];
-          this.surname = this.passedObjFromCart.username.split(' ')[1];
-      }
-        this.orderInfo = JSON.parse(localStorage.getItem('newOrder'));
-
+      // if (JSON.parse(localStorage.getItem('newOrder'))) {
+      //     this.passedObjFromCart = JSON.parse(localStorage.getItem('newOrder'));
+      //
+      //     console.log(this.passedObjFromCart);
+      //     const arrayOfPassedObjs = this.passedObjFromCart.products;
+      //     arrayOfPassedObjs.forEach((data, i) => {
+      //             const {productId, quantity} = data;
+      //             this.prodIdsArr.push(productId);
+      //         }
+      //
+      //     );
+      //     this.passedObjFromCart.products = this.prodIdsArr;
+      //     this.prodIdsArr.forEach(productId => {
+      //         this.productService.findProductById(productId).subscribe(res => {
+      //             this.productTitlesArray.push(res.title);
+      //         });
+      //     });
+      //     this.firstName = this.passedObjFromCart.username.split(' ')[0];
+      //     this.surname = this.passedObjFromCart.username.split(' ')[1];
+      // }
+      //   this.orderInfo = JSON.parse(localStorage.getItem('newOrder'));
+      //
 
       function validateCardNumber(value) {
           const v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
@@ -66,23 +76,32 @@ export class CheckoutComponent implements OnInit {
           });
   }
     onSubmit(form: NgForm) {
-        const username = this.passedObjFromCart.username;
-        const city = this.passedObjFromCart.city;
-        const address = this.passedObjFromCart.address;
-        const price = this.passedObjFromCart.price;
-        const status = 'NEW';
-        const phone = form.value.phone;
-        this.orderService.putOrder({
-            'username': username,
-            'city': city,
-            'price': price,
-            'address': address,
-            'status': status,
-            'phone': phone,
-            'products': this.prodIdsArr
-        }).subscribe(res => {
-            console.log('Result from subscribe that goes to putOrder', res);
+        // const username = this.passedObjFromCart.username;
+        // const city = this.passedObjFromCart.city;
+        // const address = this.passedObjFromCart.address;
+        // const price = this.passedObjFromCart.price;
+        // const status = 'NEW';
+        // const phone = form.value.phone;
+        // this.orderService.putOrder({
+        //     'username': username,
+        //     'city': city,
+        //     'price': price,
+        //     'address': address,
+        //     'status': status,
+        //     'phone': phone,
+        //     'products': this.prodIdsArr
+        // }).subscribe(res => {
+        //     console.log('Result from subscribe that goes to putOrder', res);
+        //
+        // });
 
+        // let's delete cartContent and its references
+        this.cartCommunicationService.deleteCartAndLocalReferences();
+
+        this.flashMessagesService.show(`You have placed your order successfully!`, {
+            classes: ['alert', 'alert-success'],
+            timeout: 7000,
         });
+        this.routerService.navigate(['/']);
     }
 }
