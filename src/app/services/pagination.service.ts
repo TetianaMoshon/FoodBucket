@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 @Injectable()
 export class PagerService {
 
-     getPager(totalItems: number, currentPage = 1, pageSize = 2) {
+     getPager(totalItems: number, currentPage = 1, pageSize = 5) {
         // calculating total amount of pages
         const totalPages = Math.ceil(totalItems / pageSize);
 

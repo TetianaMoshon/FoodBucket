@@ -33,7 +33,7 @@ pagedItems: any[];
 
 
     ngOnInit() {
-        this.ApiService.getAllOrdersWithHttpInfo(1, 20, 'desc', 'orderId' ).subscribe(response => {
+        this.ApiService.getAllOrdersWithHttpInfo(0, 20, 'desc', 'orderId' ).subscribe(response => {
             this.orders = response.json();
             this.total = response.headers.get('x-total-records');
             this.setPage(1);
@@ -80,7 +80,7 @@ pagedItems: any[];
 
     onSortClick(value: string): void {
         this.toggle(!this.state);
-        this.ApiService.getAllOrders(1, 20, this.sort, value ).subscribe(orders => {
+        this.ApiService.getAllOrders(0, 20, this.sort, value ).subscribe(orders => {
             this.value = value;
             this.orders = orders;
             this.setPage(1);

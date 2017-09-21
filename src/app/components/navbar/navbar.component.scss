@@ -1,0 +1,191 @@
+a, ul.snip1398 li {
+    cursor: pointer;
+}
+
+div.background {
+    background: #e2e2e2;
+}
+
+.text {
+    transition: background-size .4s ease;
+    background: linear-gradient(to bottom, transparent 62%, rgba(110, 235, 131, 0.58) 0) center center/0% 75% no-repeat;
+    font-family: Oswald;
+    font-size: 20px;
+    padding: 15px 20px 2px 20px;
+    cursor: pointer;
+    color: rgba(80, 89, 113, 0.7);
+    &:hover {
+        background-size: 80% 50%;
+    }
+
+    &-container {
+        z-index: 1;
+        position: relative;
+    }
+}
+
+a.text.active {
+    background-size: 80% 50%;
+    color: #5e5e5e;
+}
+
+
+
+span.log-out-glyph-text{
+    display: none;
+    visibility: hidden;
+}
+
+li.bucket {
+    padding: 0 7px;
+}
+
+span.bucket{
+    display: inline-block;
+    margin-top: 7px;
+    cursor: pointer;
+}
+
+span.bucket:hover .cls-3, span.bucket-mobile:hover .cls-3 {
+    fill: #727272;
+}
+
+span.bucket:focus, span.bucket-mobile:focus {
+    outline: none;
+}
+
+span.bucket-mobile {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    span.bucket-mobile {
+        position: absolute;
+        right: 80px;
+        display: inline-block;
+        margin-top: 7px;
+    }
+
+    span.bucket {
+        display: none;
+    }
+    span.log-out-glyph-text{
+        visibility: visible;
+        display: block;
+    }
+    span.glyphicon-log-out{
+        display: none;
+    }
+}
+.navbar-foodbucket{
+    font-family: Oswald;
+}
+.navbar-default .navbar-nav>li>a{
+    font-size: 15px;
+}
+.log-out-glyph {
+   padding-left: 5px;
+}
+
+
+/*My changes*/
+ul.snip1398 {
+    height: 50px;
+}
+
+.snip1398 * {
+    box-sizing: border-box;
+    -webkit-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+}
+
+ul.snip1398 li {
+    list-style: outside none none;
+    margin: 0em 0em;
+    overflow: hidden;
+    height: 50px;
+    outline: none;
+}
+
+ul.snip1398 a {
+    height: 100%;
+    backface-visibility: hidden;
+    color: #777787;
+    display: block;
+    padding: 0 1em;
+    padding-top: 15px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    -webkit-transform-origin: 0 50%;
+    -ms-transform-origin: 0 50%;
+    transform-origin: 0 50%;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+
+ul.snip1398 a.active {
+    height: 100%;
+    backface-visibility: hidden;
+    color: #777787;
+    display: block;
+    padding: 0 1em;
+    padding-top: 15px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    -webkit-transform-origin: 0 50%;
+    -ms-transform-origin: 0 50%;
+    transform-origin: 0 50%;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+
+ul.snip1398 a:after {
+    padding-top: 10px;
+    -webkit-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+    background-color: #707070;
+    color: transparent;
+    content: attr(data-hover);
+    left: 0;
+    line-height: 2em;
+    position: absolute;
+    top: 100%;
+    height: 100%;
+    width: 100%;
+    opacity: 0.4;
+}
+
+ul.snip1398 a:after.active {
+    padding-top: 10px;
+    -webkit-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+    background-color: #707070;
+    color: transparent;
+    content: attr(data-hover);
+    left: 0;
+    line-height: 2em;
+    position: absolute;
+    top: 100%;
+    height: 100%;
+    width: 100%;
+    opacity: 0.4;
+}
+
+.snip1398 li:hover a,
+.snip1398 li.active a {
+     -webkit-transform: rotateX(90deg);
+     transform: rotateX(90deg);
+     color: transparent;
+ }
+
+
+.snip1398 li:hover a:after,
+.snip1398 li.active a:after {
+    opacity: 1;
+    color: #ffffff;
+    -webkit-transform: rotateX(-90deg);
+    transform: rotateX(-90deg);
+}
+

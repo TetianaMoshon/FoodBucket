@@ -1,5 +1,7 @@
-body {
+nav.navbar-default {
+    background-color: #e2e2e2;
 }
+
 #sidebar-wrapper {
     top: 52px;
     left: -200px;
