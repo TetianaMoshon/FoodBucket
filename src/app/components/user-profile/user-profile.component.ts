@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../client/api/user.service';
+import { ProductService } from '../../client/api/product.service';
+
 import { User } from './user';
 
 @Component({
@@ -10,9 +12,12 @@ import { User } from './user';
 
 export class UserProfileComponent implements OnInit {
     public user: User;
-
-  constructor(private findUserByIdAPI: UserService) {
-      this.user = new User(0, ' ', ' ', ' ', 0, ' ', ' ', false);
+    public favouritesProduct = [];
+    public id = 5;
+    public userData;
+    public userProducts = [];
+  constructor(private findUserByIdAPI: UserService, private productService: ProductService) {
+      this.user = new User(JSON.parse(sessionStorage.getItem('currentUserId')), '', ' ', ' ', 0, ' ', ' ', false);
       this.findUserByIdAPI.findUserById(JSON.parse(sessionStorage.getItem('currentUserId')))
           .subscribe(reg => {
               this.user.firstName = reg.firstName;
@@ -20,10 +25,33 @@ export class UserProfileComponent implements OnInit {
               this.user.email = reg.email;
               this.user.city = reg.city;
               this.user.address = reg.address;
-          }, err => {
+            }, err => {
               console.log('error reg' + err);
           });
+      this.showFavouriteProducts(JSON.parse(sessionStorage.getItem('currentUserId')));
   }
+
+    showFavouriteProducts(id) {
+        this.findUserByIdAPI.findUserById(id)
+            .subscribe(
+                user => {
+                    this.userData = user;
+                    const current = this;
+                    console.log(this.userData);
+                    this.userData.favourites.forEach(function (product) {
+                        console.log(product);
+                        current.productService.findProductById(product)
+                            .subscribe(
+                                prod => {
+                                    current.favouritesProduct.push(prod);
+                                    console.log(current.favouritesProduct);
+                                }
+                            );
+                    });
+                },
+                err => console.log(err)
+            );
+    }
 
   changeEditability(event) {
      event.currentTarget.parentElement.setAttribute('contenteditable', 'true');
