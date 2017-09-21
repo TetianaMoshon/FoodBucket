@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit, Input, ViewChild } from '@angular/core';
-import { LocalDataSource } from 'ng2-smart-table';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../../client/api/product.service';
 import { Subscription } from 'rxjs/Subscription';
@@ -7,8 +6,6 @@ import { FlashMessagesService } from 'ngx-flash-messages';
 import { NgForm } from '@angular/forms';
 import { ProductModel } from './productModel';
 import { IngredientModel } from './ingredient-edit/ingredientModel';
-import { IngredientListService } from './ingredient-list.service';
-import { IngredientService } from '../../../client/api/ingredient.service';
 import { Subject } from 'rxjs/Subject';
 
 @Component({
@@ -18,6 +15,7 @@ import { Subject } from 'rxjs/Subject';
 })
 export class AdminProductPageComponent implements OnInit, OnDestroy {
     ingredientList: IngredientModel[];
+
     private subscription: Subscription;
     @ViewChild('f2') ingListForm: NgForm;
     editMode = false;
@@ -79,9 +77,9 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
                     });
                 }
             );
-        const id = this.route.snapshot.paramMap.get('id');
 
         this.ingredientList = this.getIngredientList();
+
         this.subscription = this.ingredientsChanged
             .subscribe(
                 (ingredientList: IngredientModel[]) => {
@@ -102,12 +100,6 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
         this.productModel.caloricity = Number(this.productModel.caloricity);
         this.productModel.servingSize = Number(this.productModel.servingSize);
 
-        // this.ingredientList.forEach(( ingredient, index ) => {
-        //     this.productModel.ingredients[index] = ingredient;
-        //     this.productModel.ingredients[index].ingredientId = Number(this.productModel.ingredients[index].ingredientId);
-        //     this.productModel.ingredients[index].quantity = Number(this.productModel.ingredients[index].quantity);
-        // });
-
         for (let ingredient in this.ingredientList) {
             this.productModel.ingredients[ingredient] = this.ingredientList[ingredient];
             this.productModel.ingredients[ingredient].ingredientId = Number(this.productModel.ingredients[ingredient].ingredientId);
@@ -122,7 +114,6 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
 
         const value = form.value;
         const newIngredient = new IngredientModel(value.ingredientId, value.ingredientName, value.quantity, value.measure);
-
         if (this.editMode) {
             this.updateIngredient(this.editedItemIndex, newIngredient);
         } else {
@@ -147,7 +138,6 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     }
 
     updateProduct(id: number, productModel) {
-        this.getProductIngredients(id);
         this.productService.updateProductById(id, productModel)
             .subscribe(
                 product => {
@@ -204,9 +194,14 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     }
 
     addIngredient(ingredient: IngredientModel) {
+        this.ingredientList = this.productModel.ingredients;
         this.ingredientList.push(ingredient);
-        console.log(this.ingredientList);
-        this.ingredientsChanged.next(this.ingredientList);
+        this.ingredientsChanged.next(this.ingredientList.slice());
+    }
+
+    addIngredients(ingredients: IngredientModel[]) {
+        this.ingredientList.push(...ingredients);
+        this.ingredientsChanged.next(this.ingredientList.slice());
     }
 
     updateIngredient(index: number, newIngredient: IngredientModel) {
@@ -217,21 +212,6 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     deleteIngredient(index: number) {
         this.ingredientList.splice(index, 1);
         this.ingredientsChanged.next(this.ingredientList.slice());
-    }
-
-    getProductIngredients(id) {
-        this.productService.findProductById(id)
-            .subscribe(
-                product => {
-                    product.ingredients.forEach(({ ingredientId, ingredientName, quantity, measure}, index) => {
-                        this.productModel.ingredients[index] = { ingredientId, ingredientName, quantity, measure};
-                    });
-                    this.ingredientList = this.productModel.ingredients;
-                    // console.log(this.ingredientList);
-                    return this.ingredientList;
-                },
-                err => console.log(err)
-            );
     }
 
     onClear() {
