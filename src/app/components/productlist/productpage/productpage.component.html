@@ -1,9 +1,9 @@
 <div class="container">
     <div class="row text-center">
         <div class="col-md-6 col-sm-6">
-            <h1 class="dish_title">{{productData.title}}
-                <span class="glyphicon glyphicon-star-empty color-gold"></span>
-            </h1>
+            <!--<h1 class="dish_title">{{productData.title}}-->
+                <!--<span class="glyphicon glyphicon-star-empty color-gold"></span>-->
+            <!--</h1>-->
         </div>
         <div class="col-md-6 col-sm-6">
             <div class="text-center ">
@@ -15,29 +15,29 @@
          <div class="col-md-6 col-sm-6">
             <div class="thumbnail">
                 <figure>
-                    <div>
-                        <a class="left carousel-control carousel-control-left" (click)="changeImageSourceByPressingLeftArrow()"><i class="glyphicon glyphicon-chevron-left"></i></a>
-                        <img class="img-responsive center-block" src="{{sourceForPreviousImage}}" alt="{{sourceForPreviousImage}} slide">
-                        <a class="right carousel-control carousel-control-right" (click)="changeImageSourceByPressingRightArrow()"><i class="glyphicon glyphicon-chevron-right"></i></a>
-                    </div>
+                    <!--<div>-->
+                        <!--<a class="left carousel-control carousel-control-left" (click)="changeImageSourceByPressingLeftArrow()"><i class="glyphicon glyphicon-chevron-left"></i></a>-->
+                        <!--<img class="img-responsive center-block" src="{{sourceForPreviousImage}}" alt="{{sourceForPreviousImage}} slide">-->
+                        <!--<a class="right carousel-control carousel-control-right" (click)="changeImageSourceByPressingRightArrow()"><i class="glyphicon glyphicon-chevron-right"></i></a>-->
+                    <!--</div>-->
                 <figcaption>
                     <table class="table table-bordered">
                         <tbody>
                         <tr>
                             <td>Calories</td>
-                            <td>{{productData.caloricity}}</td>
-                        </tr>
-                        <tr>
-                            <td>Spice level</td>
-                            <td>{{productData.spiceLevel}}</td>
-                        </tr>
-                        <tr>
-                            <td>Serving size</td>
-                            <td>{{productData.servingSize}}</td>
-                        </tr>
-                        <tr>
-                            <td>Difficulty</td>
-                            <td>{{productData.difficulty}}</td>
+                            <!--<td>{{productData.caloricity}}</td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                            <!--<td>Spice level</td>-->
+                            <!--<td>{{productData.spiceLevel}}</td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                            <!--<td>Serving size</td>-->
+                            <!--<td>{{productData.servingSize}}</td>-->
+                        <!--</tr>-->
+                        <!--<tr>-->
+                            <!--<td>Difficulty</td>-->
+                            <!--<td>{{productData.difficulty}}</td>-->
                         </tr>
                         </tbody>
                     </table>
@@ -49,14 +49,14 @@
             <div class="thumbnail">
                 <div class="border-fruits">
                     <div class="row text-center ingredient-row" >
-                        <div *ngFor="let ingredient of productIngredients" class="col-md-4 col-sm-6 col-xs-6">
-                            <figure >
-                                <div class="ingredient-icon">
-                                    <img  src={{ingredient.image}} width="40px" height="40px" alt={{ingredient.title}}>
-                                </div>
-                                <figcaption>{{ingredient.title}}</figcaption>
-                            </figure>
-                        </div>
+                        <!--<div *ngFor="let ingredient of productIngredients" class="col-md-4 col-sm-6 col-xs-6">-->
+                            <!--<figure >-->
+                                <!--<div class="ingredient-icon">-->
+                                    <!--<img  src={{ingredient.image}} width="40px" height="40px" alt={{ingredient.title}}>-->
+                                <!--</div>-->
+                                <!--<figcaption>{{ingredient.title}}</figcaption>-->
+                            <!--</figure>-->
+                        <!--</div>-->
                     </div>
                 </div>
             </div>
@@ -74,30 +74,25 @@
             </div>
             <div class="serving-size">
                 <h3>Portions</h3>
-                <div ng-app class="input-group counter" ng-init="counter = 1">
-                    <button (click)="counter = counter+1" class="btn btn-default btn-number">
-                        <span class="glyphicon glyphicon-plus"></span>
-                    </button>
-                    <span class="counter-result">{{counter}}</span>
-                    <button (click)="counter==1?counter=1:counter = counter-1" class="btn btn-default btn-number">
-                        <span class="glyphicon glyphicon-minus"></span>
-                    </button>
+                <!--<div ng-app class="input-group counter" ng-init="counter = 1">-->
+                    <!--<button (click)="counter = counter+1" class="btn btn-default btn-number">-->
+                        <!--<span class="glyphicon glyphicon-plus"></span>-->
+                    <!--</button>-->
+                    <!--<span class="counter-result">{{counter}}</span>-->
+                    <!--<button (click)="counter==1?counter=1:counter = counter-1" class="btn btn-default btn-number">-->
+                        <!--<span class="glyphicon glyphicon-minus"></span>-->
+                    <!--</button>-->
 
-                </div>
+                <!--</div>-->
             </div>
 
             <div class="row button-padding">
                 <div class="price-wrapper">
-                    <p class="text-right text-font product-price">Price <span>{{productData.price*counter}}$</span></p>
-                    <p class="text-right text-font product-price">Total <span>{{productData.price*counter - productData.discount}}$</span></p>
-                    <p class="text-right text-font product-price">Economy <span>{{productData.discount}}$</span></p>
+                    <!--<p class="text-right text-font product-price">Price <span>{{productData.price*counter}}$</span></p>-->
+                    <!--<p class="text-right text-font product-price">Total <span>{{productData.price*counter - productData.discount}}$</span></p>-->
+                    <!--<p class="text-right text-font product-price">Economy <span>{{productData.discount}}$</span></p>-->
                 </div>
-                <button class="btn btn-md btn-primary to-cart-btn pull-right custom-cart-button">
-                    <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add to cart
-                </button>
-                <button class="btn btn-md btn-primary custom-buy-button">
-                    <span class="glyphicon glyphicon-usd" aria-hidden="true"></span> Buy now!
-                </button>
+                <add-to-cart-button [id]="router.snapshot.params['id']"></add-to-cart-button>
             </div>
         </div>
     </div></div>

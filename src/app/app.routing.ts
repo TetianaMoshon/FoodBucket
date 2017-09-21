@@ -31,7 +31,7 @@ const appRoutes: Routes = [
           {path: '', component: CategoryComponent},
           { path: 'productlist', children: [
               {path: '', component: ProductlistComponent},
-              { path: 'productpage', component: ProductpageComponent}
+              { path: 'productpage/:id', component: ProductpageComponent}
           ]},
       ]},
       { path: 'aboutus', component: AboutusComponent},

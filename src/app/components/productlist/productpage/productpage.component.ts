@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ProductService} from '../../../client/api/product.service';
 import {IngredientService} from '../../../client/api/ingredient.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-productpage',
@@ -28,7 +29,11 @@ export class ProductpageComponent implements OnInit {
         '/assets/images/pasta-carbonara.jpg'
     ];
 
-  constructor(public productService: ProductService, public ingredientService: IngredientService) {
+  constructor(
+                public productService: ProductService,
+                public ingredientService: IngredientService,
+                public router: ActivatedRoute
+  ) {
       this.productService.findProductById(1)
           .subscribe(
               product => {
@@ -51,6 +56,7 @@ export class ProductpageComponent implements OnInit {
   ngOnInit() {
       this.InitImageSource();
       this.quantityOfPhotos = this.ListOfImageLinks.length;
+      console.log(this.router.snapshot.params['id']);
 
 
   }
