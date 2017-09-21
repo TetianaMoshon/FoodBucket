@@ -19,7 +19,6 @@ export class ProductpageComponent implements OnInit {
     private sub: any;
     public uniqueMass;
 
-    select;
     show = false;
     quantityOfPhotos: number;
 
@@ -38,7 +37,7 @@ export class ProductpageComponent implements OnInit {
 
 
     updateUser = new UpdateUser('', '' , '',  '');
-
+    select;
     userId;
     login;
     id = this.route.snapshot.paramMap.get('id');
@@ -77,7 +76,6 @@ export class ProductpageComponent implements OnInit {
             .subscribe(
                 product => {
                     this.productData = product;
-                    console.log(product);
                     const current = this;
                     this.productData.ingredients.forEach(function (ingredient) {
                         current.ingredientService.findIngredientById(ingredient.ingredientId)
@@ -96,7 +94,6 @@ export class ProductpageComponent implements OnInit {
         this.userService.findUserById(this.userId)
             .subscribe(
                 user => {
-
                     if (this.select === false) {
                         this.select = true;
                         user.favourites.push(Number(this.id));
@@ -104,11 +101,9 @@ export class ProductpageComponent implements OnInit {
                         this.userService.updateUserById(this.userId, this.updateUser)
                             .subscribe(
                                 userUpdate => {
-                                    console.log(user);
                                 },
                                 err => console.log(user)
                             );
-
                     } else {
                         this.select = false;
                         user.favourites.splice(user.favourites.indexOf(Number(this.id)), 1);
@@ -116,7 +111,6 @@ export class ProductpageComponent implements OnInit {
                         this.userService.updateUserById(this.userId, this.updateUser)
                             .subscribe(
                                 userUpdate => {
-
                                 },
                                 err => console.log(err)
                             );
@@ -124,7 +118,6 @@ export class ProductpageComponent implements OnInit {
                 },
                 err => console.log(err)
             );
-
     }
 
 
@@ -162,7 +155,7 @@ export class ProductpageComponent implements OnInit {
 
         this.initialSourceForNextImage = this.initialSourceForPreviousImage;
         this.initialSourceForPreviousImage = this.initialSourceForPreviousImage === 0  ? this.quantityOfPhotos - this.counter :
-            this.initialSourceForPreviousImage - this.counter;
+        this.initialSourceForPreviousImage - this.counter;
     }
 
 }

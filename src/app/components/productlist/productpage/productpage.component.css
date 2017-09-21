@@ -1,5 +1,7 @@
 .dish_title {
     text-transform: uppercase;
+}
+.glyphicon-star-empty{
     cursor: pointer;
 }
 
