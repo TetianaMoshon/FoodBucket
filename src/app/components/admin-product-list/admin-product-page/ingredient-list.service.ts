@@ -9,8 +9,8 @@ import { ProductModel } from './productModel';
 
 export class IngredientListService {
 
-    ingredientsChanged = new Subject<IngredientModel[]>();
-    startedEditing = new Subject<number>();
+    // ingredientsChanged = new Subject<IngredientModel[]>();
+    // startedEditing = new Subject<number>();
 
     public productService: ProductService;
     public ingredientService: IngredientService;
@@ -30,10 +30,10 @@ export class IngredientListService {
     //     return this.ingredientList[index];
     // }
 
-    addIngredient(ingredient: IngredientModel) {
-        this.ingredientList.push(ingredient);
-        this.ingredientsChanged.next(this.ingredientList.slice());
-    }
+    // addIngredient(ingredient: IngredientModel) {
+    //     this.ingredientList.push(ingredient);
+    //     this.ingredientsChanged.next(this.ingredientList.slice());
+    // }
 
     // addIngredients(ingredientList: IngredientModel[]) {
     //     // for (let ingredient of ingredientList) {
@@ -43,15 +43,15 @@ export class IngredientListService {
     //     this.ingredientsChanged.next(this.ingredientList.slice());
     // }
 
-    updateIngredient(index: number, newIngredient: IngredientModel) {
-        this.ingredientList[index] = newIngredient;
-        this.ingredientsChanged.next(this.ingredientList.slice());
-        console.log(this.ingredientList);
-    }
-
-    deleteIngredient(index: number) {
-        this.ingredientList.splice(index, 1);
-        this.ingredientsChanged.next(this.ingredientList.slice());
-    }
+    // updateIngredient(index: number, newIngredient: IngredientModel) {
+    //     this.ingredientList[index] = newIngredient;
+    //     this.ingredientsChanged.next(this.ingredientList.slice());
+    //     console.log(this.ingredientList);
+    // }
+    //
+    // deleteIngredient(index: number) {
+    //     this.ingredientList.splice(index, 1);
+    //     this.ingredientsChanged.next(this.ingredientList.slice());
+    // }
 }
 
