@@ -52,7 +52,7 @@ export class ProductpageComponent implements OnInit {
                                 }
                             );
                     });
-
+                console.log(current.productIngredients);
                 },
                 err => console.log(err)
             );

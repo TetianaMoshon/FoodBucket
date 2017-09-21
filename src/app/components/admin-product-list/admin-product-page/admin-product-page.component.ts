@@ -57,7 +57,7 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
                 }
             );
 
-        this.ingredientList = this.ingListService.getIngredientList();
+        // this.ingredientList = this.ingListService.getIngredientList();
         this.subscription = this.ingListService.ingredientsChanged
             .subscribe(
                 (ingredientList: IngredientModel[]) => {

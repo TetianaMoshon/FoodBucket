@@ -40,25 +40,39 @@
                             <label for="promotions">Promotions:</label>
                             <input [(ngModel)]="productModel.promotions" name="promotions" type="text" class="form-control" id="promotions">
                         </div>
-
+                <br><br>
                 <div class="ingredients">
                    <div>
-                        <table class="table" border="1" width="80%" id="myTable">
-                            <tr>
-                                <th>Ingredient ID</th>
-                                <th>Ingredient name</th>
-                                <th>Quantity</th>
-                                <th>Measure</th>
-                            </tr>
-                            <tr *ngFor="let ingredient of ingredientList; let i = index" (click)="onEditItem(i)" style="cursor: pointer">
-                                <td>{{ ingredient.ingredientId }}</td>
-                                <td>{{ ingredient.ingredientName }}</td>
-                                <td>{{ ingredient.quantity }}</td>
-                                <td>{{ ingredient.measure }}</td>
-                            </tr>
-                        </table>
+                        <!--<table class="table" border="1" width="80%" id="myTable">-->
+                            <!--<tr>-->
+                                <!--<th>Ingredient ID</th>-->
+                                <!--<th>Ingredient name</th>-->
+                                <!--<th>Quantity</th>-->
+                                <!--<th>Measure</th>-->
+                            <!--</tr>-->
+                            <!--<tr *ngFor="let ingredient of ingredientList; let i = index" (click)="onEditItem(i)" style="cursor: pointer">-->
+                                <!--<td>{{ ingredient.ingredientId }}</td>-->
+                                <!--<td>{{ ingredient.ingredientName }}</td>-->
+                                <!--<td>{{ ingredient.quantity }}</td>-->
+                                <!--<td>{{ ingredient.measure }}</td>-->
+                            <!--</tr>-->
+                        <!--</table>-->
+                       <app-ingredient-edit></app-ingredient-edit>
+                       <br><br>
+                       <ul class="list-group">
+                           <a
+                               class="list-group-item"
+                               style="cursor: pointer"
+                               *ngFor="let ingredient of ingredientList; let i = index"
+                               (click)="onEditItem(i)"
+                           >
+                               {{ ingredient.ingredientId }}
+                               {{ ingredient.ingredientName }}
+                               {{ ingredient.quantity }}
+                               {{ ingredient.measure }}
+                           </a>
+                       </ul>
 
-                        <app-ingredient-edit></app-ingredient-edit>
                     </div>
                 </div>
                 <!--</tab>-->
