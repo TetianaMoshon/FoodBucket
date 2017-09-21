@@ -25,27 +25,27 @@ import {Error404Component} from './components/error404/error404.component';
 import {AdminIngredientsFormComponent} from './components/admin-ingredients/adminingredients-form/adminingredients-form.component';
 
 const appRoutes: Routes = [
-  { path: '', component: HomeComponent},
-    { path: 'ingredients', component: IngredientsComponent},
+  { path: '', component: HomeComponent },
+    { path: 'ingredients', component: IngredientsComponent },
     { path: 'category', children: [
-          {path: '', component: CategoryComponent},
+          { path: '', component: CategoryComponent },
           { path: 'productlist', children: [
-              {path: '', component: ProductlistComponent},
-              { path: 'productpage', component: ProductpageComponent}
+              { path: '', component: ProductlistComponent },
+              { path: ':id', component: ProductpageComponent }
           ]},
       ]},
-      { path: 'aboutus', component: AboutusComponent},
-      { path: 'checkout', component: CheckoutComponent},
-      { path: 'profile', component: UserProfileComponent},
+      { path: 'aboutus', component: AboutusComponent },
+      { path: 'checkout', component: CheckoutComponent },
+      { path: 'profile', component: UserProfileComponent },
   { path: 'admin', children: [
-      {path: '', component: AdminMainComponent},
-      { path: 'orders', component: AdminOrdersComponent},
+      { path: '', component: AdminMainComponent },
+      { path: 'orders', component: AdminOrdersComponent },
       { path: 'productlist', children: [
           { path: '', component: AdminProductListComponent },
-          { path: ':id/edit', component: AdminProductPageComponent},
-          { path: 'create', component: AdminProductPageComponent},
+          { path: ':id/edit', component: AdminProductPageComponent },
+          { path: 'create', component: AdminProductPageComponent },
       ]},
-      { path: 'comments', component: AdminCommentsComponent},
+      { path: 'comments', component: AdminCommentsComponent },
       { path: 'users', children: [
           { path: '', component: AdminUsersComponent },
           { path: ':id/edit', component: AdminUserPageComponent },
@@ -57,14 +57,14 @@ const appRoutes: Routes = [
           { path: ':id/edit', component: AdmincategoriesFormComponent },
           { path: 'create', component: AdmincategoriesFormComponent },
       ]},
-      { path: 'analytics', component: AdminAnalyticsComponent},
+      { path: 'analytics', component: AdminAnalyticsComponent },
       { path: 'ingredients', children: [
           { path: '', component: AdminIngredientsComponent },
           { path: ':id/edit', component: AdminIngredientsFormComponent },
           { path: 'create', component: AdminIngredientsFormComponent },
        ]},
   ]},
-      {path: '**', component: Error404Component },
+      { path: '**', component: Error404Component },
 ];
 
 export  const appRouting: ModuleWithProviders = RouterModule.forRoot(appRoutes);
