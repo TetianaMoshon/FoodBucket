@@ -9,14 +9,16 @@ import {Order} from '../../models/order';
   styleUrls: ['./admin-orders.component.css']
 })
 export class AdminOrdersComponent implements OnInit {
-    res
-    total
-    offset
+    sorted: boolean;
+    nextSort: string;
+    res;
+    total;
+    offset;
     limit = this.pagerService.getPager(this.total, 1);
-    page
-    value: string
-    state = true
-    sort: string
+    page;
+    value: string;
+    state = true;
+    sort: string;
     showHide: boolean;
     orders: Order[] = [];
 pager: any = {};
@@ -34,8 +36,6 @@ pagedItems: any[];
   constructor(private pagerService: PagerService, private ApiService: OrderService) {
       this.showHide = false;
   }
-
-
 
 
     ngOnInit() {
@@ -83,12 +83,18 @@ pagedItems: any[];
 
 
     setPage(page: number) {
-      this.sort = '';
       this.pagedItems = [];
-        this.defineOffset(this.limit.pageSize, page);
-        this.ApiService.getAllOrders( this.offset, this.limit.pageSize, 'desc', 'orderId').subscribe(orders => {
-            this.pagedItems = orders;
-        });
+      this.defineOffset(this.limit.pageSize, page);
+      if (this.sorted) {
+          this.ApiService.getAllOrders(this.offset, this.limit.pageSize, this.nextSort, this.value ).subscribe(orders => {
+              this.pagedItems = orders;
+          });
+      } else  {
+          this.ApiService.getAllOrders( this.offset, this.limit.pageSize, 'desc', 'orderId').subscribe(orders => {
+              this.pagedItems = orders;
+          });
+      };
+
         this.pager.currentPage = page;
     }
 
@@ -99,5 +105,7 @@ pagedItems: any[];
             this.value = value;
             this.pagedItems = orders;
         });
+        this.sorted = true;
+        this.nextSort = this.sort;
     }
 }
