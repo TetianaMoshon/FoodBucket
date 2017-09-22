@@ -119,6 +119,7 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     onSubmit2(form: NgForm) {
         const value = form.value;
         const newIngredient = new IngredientModel(value.ingredientId, value.ingredientName, value.quantity, value.measure);
+
         if (this.editMode) {
             this.updateIngredient(this.editedItemIndex, newIngredient);
         } else {
@@ -202,7 +203,6 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
         this.ingredientList = this.productModel.ingredients;
 
         this.ingredientList.push(ingredient);
-        // this.ingredientsChanged.next(this.ingredientList.slice());
     }
 
     updateIngredient(index: number, newIngredient: IngredientModel) {
