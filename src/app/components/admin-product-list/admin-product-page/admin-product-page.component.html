@@ -9,9 +9,6 @@
     <div class="row">
         <div class="col-md-12">
             <form (ngSubmit)="onSubmit(f)" #f="ngForm">
-                <!--<tabset>-->
-                    <!--<tab heading="General">-->
-
                         <div class="form-group">
                             <label for="title">Title:</label>
                             <input [(ngModel)]="productModel.title" name="title" type="text" class="form-control" id="title" required>
@@ -38,7 +35,10 @@
                         </div>
                         <div class="form-group">
                             <label for="promotions">Promotions:</label>
-                            <input [(ngModel)]="productModel.promotions" name="promotions" type="text" class="form-control" id="promotions">
+                            <select [(ngModel)]="productModel.promotions" name="promotions" type="text" class="form-control" id="promotions">
+                                <option>true</option>
+                                <option>false</option>
+                            </select>
                         </div>
                 <br><br>
                 <div class="ingredients">
@@ -50,15 +50,14 @@
                                 <th>Quantity</th>
                                 <th>Measure</th>
                             </tr>
-                            <tr *ngFor="let ingredient of ingredientList; let i = index" (click)="onEditItem(i)" style="cursor: pointer">
+                            <tr *ngFor="let ingredient of ingredientList; let i = index" (click)="onEditItem(i)">
                                 <td>{{ ingredient.ingredientId }}</td>
                                 <td>{{ ingredient.ingredientName }}</td>
                                 <td>{{ ingredient.quantity }}</td>
                                 <td>{{ ingredient.measure }}</td>
                             </tr>
                         </table>
-                       <!--<app-ingredient-edit></app-ingredient-edit>-->
-                       <form (ngSubmit)="onSubmit(f2)" #f2="ngForm">
+                       <form name="data" (ngSubmit)="onSubmit(f2)" #f2="ngForm">
                            <div class="row">
                                <div class="col-xs-2 form-group">
                                    <label for="ingredientId">Ingredient ID</label>
@@ -106,7 +105,7 @@
                                    <button
                                        class="btn btn-success"
                                        type="submit"
-                                       [disabled]="!f2.valid">{{ editMode ? 'Update' : 'Add' }}</button>
+                                       >{{ editMode ? 'Update' : 'Add' }}</button>
                                    <button
                                        class="btn btn-danger"
                                        type="button"
@@ -116,64 +115,47 @@
                                </div>
                            </div>
                        </form>
-                       <!--<ul class="list-group">-->
-                           <!--<a-->
-                               <!--class="list-group-item"-->
-                               <!--style="cursor: pointer"-->
-                               <!--*ngFor="let ingredient of ingredientList; let i = index"-->
-                               <!--(click)="onEditItem(i)"-->
-                           <!--&gt;-->
-                               <!--{{ ingredient.ingredientId }}-->
-                               <!--{{ ingredient.ingredientName }}-->
-                               <!--{{ ingredient.quantity }}-->
-                               <!--{{ ingredient.measure }}-->
-                           <!--</a>-->
-                       <!--</ul>-->
-
                     </div>
-
-                    <br>
 
                 </div>
 
-                        <div class="form-group">
-                            <label for="caloricity">Caloricity:</label>
-                            <input [(ngModel)]="productModel.caloricity" name="caloricity" type="number" min="1" class="form-control" id="caloricity">
-                        </div>
-                        <div class="form-group">
-                            <label for="servingSize">Serving size:</label>
-                            <input [(ngModel)]="productModel.servingSize" name="servingSize" type="number" min="1" class="form-control" id="servingSize">
-                        </div>
+                <div class="form-group">
+                    <label for="caloricity">Caloricity:</label>
+                    <input [(ngModel)]="productModel.caloricity" name="caloricity" type="number" min="1" class="form-control" id="caloricity">
+                </div>
+                <div class="form-group">
+                    <label for="servingSize">Serving size:</label>
+                    <input [(ngModel)]="productModel.servingSize" name="servingSize" type="number" min="1" class="form-control" id="servingSize">
+                </div>
 
-                        <div class="form-group">
-                            <label for="difficulty">Difficulty:</label>
-                            <select [(ngModel)]="productModel.difficulty" name="difficulty" type="text" class="form-control" id="difficulty">
-                                <option>low</option>
-                                <option>normal</option>
-                                <option>high</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="spiceLevel">Spice level:</label>
-                            <select [(ngModel)]="productModel.spiceLevel" name="spiceLevel" type="text" class="form-control" id="spiceLevel">
-                                <option>low</option>
-                                <option>normal</option>
-                                <option>high</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="status">Status:</label>
-                            <select [(ngModel)]="productModel.status" name="status" type="text" class="form-control" id="status">
-                                <option>Published</option>
-                                <option>Unpublished</option>
-                            </select>
-                        </div>
+                <div class="form-group">
+                    <label for="difficulty">Difficulty:</label>
+                    <select [(ngModel)]="productModel.difficulty" name="difficulty" type="text" class="form-control" id="difficulty">
+                        <option>low</option>
+                        <option>normal</option>
+                        <option>high</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="spiceLevel">Spice level:</label>
+                    <select [(ngModel)]="productModel.spiceLevel" name="spiceLevel" type="text" class="form-control" id="spiceLevel">
+                        <option>low</option>
+                        <option>normal</option>
+                        <option>high</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="status">Status:</label>
+                    <select [(ngModel)]="productModel.status" name="status" type="text" class="form-control" id="status">
+                        <option>Published</option>
+                        <option>Unpublished</option>
+                    </select>
+                </div>
 
-                    <div class="btn-group action-buttons">
-                        <button class="btn btn-success" (Click)="onSubmit()" type="submit" [disabled]="!f.form.valid">Save</button>
-                        <a class="btn btn-danger" routerLink="/admin/productlist" routerLinkActive="active">Back</a>
-                    </div>
-                <!--</tabset>-->
+                <div class="btn-group action-buttons">
+                    <button class="btn btn-success" (Click)="onSubmit()" type="submit" [disabled]="!f.form.valid">Save</button>
+                    <a class="btn btn-danger" routerLink="/admin/productlist" routerLinkActive="active">Back</a>
+                </div>
             </form>
         </div>
     </div>

@@ -58,8 +58,6 @@ import {CartCommunicationService} from './services/cart-communication.service';
 import { FlashMessagesModule } from 'ngx-flash-messages';
 import {appRouting} from './app.routing';
 import {AdminIngredientsFormComponent} from './components/admin-ingredients/adminingredients-form/adminingredients-form.component';
-import { IngredientEditComponent } from './components/admin-product-list/admin-product-page/ingredient-edit/ingredient-edit.component';
-import { IngredientListService } from './components/admin-product-list/admin-product-page/ingredient-list.service';
 
 @NgModule({
   declarations: [
@@ -105,8 +103,7 @@ import { IngredientListService } from './components/admin-product-list/admin-pro
       OrdersFiltersPipe,
       AdminUserPageComponent,
       AdmincategoriesFormComponent,
-      AdminIngredientsFormComponent,
-      IngredientEditComponent
+      AdminIngredientsFormComponent
   ],
   entryComponents: [
       ModalCongratulationComponent,
@@ -135,7 +132,7 @@ import { IngredientListService } from './components/admin-product-list/admin-pro
       ChartsModule,
       [TabsModule.forRoot()],
   ],
-  providers: [PagerService, CommentsService, CartCommunicationService, DataService, IngredientListService],
+  providers: [PagerService, CommentsService, CartCommunicationService, DataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

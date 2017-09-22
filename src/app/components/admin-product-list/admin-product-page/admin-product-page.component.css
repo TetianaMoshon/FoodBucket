@@ -27,4 +27,5 @@ tab{
 
 .ingredients th, td {
     text-align: center;
+    cursor: pointer;
 }

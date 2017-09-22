@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { FlashMessagesService } from 'ngx-flash-messages';
 import { NgForm } from '@angular/forms';
 import { ProductModel } from './productModel';
-import { IngredientModel } from './ingredient-edit/ingredientModel';
+import { IngredientModel } from './ingredientModel';
 import { Subject } from 'rxjs/Subject';
 
 @Component({
@@ -63,6 +63,15 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
                 }
             );
 
+        this.ingredientList = this.getIngredientList();
+
+        this.subscription = this.ingredientsChanged
+            .subscribe(
+                (ingredientList: IngredientModel[]) => {
+                    this.ingredientList = ingredientList;
+                }
+            );
+
         this.subscription = this.startedEditing
             .subscribe(
                 (index: number) => {
@@ -75,15 +84,6 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
                         quantity: this.editedItem.quantity,
                         measure: this.editedItem.measure
                     });
-                }
-            );
-
-        this.ingredientList = this.getIngredientList();
-
-        this.subscription = this.ingredientsChanged
-            .subscribe(
-                (ingredientList: IngredientModel[]) => {
-                    this.ingredientList = ingredientList;
                 }
             );
     }
@@ -112,7 +112,7 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
             this.updateProduct(this.action.id, this.productModel);
         }
 
-        const value = form.value;
+        const value = this.ingListForm.value;
         const newIngredient = new IngredientModel(value.ingredientId, value.ingredientName, value.quantity, value.measure);
         if (this.editMode) {
             this.updateIngredient(this.editedItemIndex, newIngredient);
@@ -120,7 +120,7 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
             this.addIngredient(newIngredient);
         }
         this.editMode = false;
-        form.reset();
+        // form.reset();
     }
 
     createProduct(productModel) {
@@ -131,7 +131,7 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
                         classes: ['alert', 'alert-success'],
                         timeout: 3000,
                     });
-                    this.resetFormFields();
+                    // this.resetFormFields();
                 },
                 err => console.log(err)
             );
@@ -194,9 +194,11 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     }
 
     addIngredient(ingredient: IngredientModel) {
+        // this.productModel.shift();
         this.ingredientList = this.productModel.ingredients;
+
         this.ingredientList.push(ingredient);
-        this.ingredientsChanged.next(this.ingredientList.slice());
+        // this.ingredientsChanged.next(this.ingredientList.slice());
     }
 
     addIngredients(ingredients: IngredientModel[]) {
