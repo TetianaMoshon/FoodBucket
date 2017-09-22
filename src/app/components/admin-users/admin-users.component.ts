@@ -2,6 +2,7 @@ import {Ng2SmartTableComponent} from 'ng2-smart-table/ng2-smart-table.component'
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {LocalDataSource} from 'ng2-smart-table';
+import {Headers} from '@angular/http';
 
 
 import {UserService} from '../../client/api/user.service';
@@ -61,7 +62,11 @@ export class AdminUsersComponent implements OnInit {
     public newUser;
 
     constructor(protected userService: UserService, private router: Router) {
-        this.userService.getAllUsers(1, 2, true)
+        const headers = new Headers();
+        const token = sessionStorage.getItem('JWT');
+        console.log(token);
+        headers.append('x-my-jwt', token);
+        this.userService.getAllUsers(1, 2, true, {headers: headers})
             .subscribe(
                 user => {
                     this.data =  user;

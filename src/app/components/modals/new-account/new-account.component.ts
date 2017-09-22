@@ -32,7 +32,7 @@ export class NewAccountComponent implements OnInit {
             }
         }, err => {
                     console.log('error reg' + err);
-                    this.openModal('Sorry, you are\'t logged. Try again please!');
+                    this.openModal('Sorry, registration is failed. Try again please!');
                 });
     }
     public  openModal(text: string) {

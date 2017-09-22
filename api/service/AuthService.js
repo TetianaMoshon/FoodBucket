@@ -28,8 +28,8 @@ exports.login = function ({email, password}) {
                 oneUserDoc => {
                     oneUserDoc = oneUserDoc || {};
                     if (Object.keys(oneUserDoc).length > 0) {
-                        let {email, userId, firstName, lastName, city, address} = oneUserDoc;
-                        let tokenBody = {userId, isAdmin: true};
+                        let {email, userId, firstName, lastName, city, address, isAdmin} = oneUserDoc;
+                        let tokenBody = {userId, isAdmin};
                         let token = JWT.createJWT(tokenBody.userId, tokenBody.isAdmin);
                         console.log({email, userId, firstName, lastName, city, address});
                         resolve({token: token, body: utils.respondWithCode(200, {email, userId, firstName, lastName, city, address})});
@@ -53,20 +53,25 @@ exports.login = function ({email, password}) {
  **/
 exports.register = function ({ firstName, lastName, email, password, phone, city, address, image }) {
     return new Promise((resolve, reject) => {
-        const hashedPassword = Bcrypt.hashSync(password);
-        let newUser = new Users({
-            "firstName": firstName,
-            "lastName": lastName,
-            "email": email,
-            "password": hashedPassword,
-            "phone": phone,
-            "city": city,
-            "address": address,
-            "image": image,
-            "active": true
-        });
-
-        newUser.save().then(
+        Users.findOne({ email: email })
+            .then( obj => {
+                console.log(obj);
+                if (obj) {
+                    reject(utils.respondWithCode(403, {"code": 403, "message": "User is not unique, please try again."}));
+                    return;
+                }
+                const hashedPassword = Bcrypt.hashSync(password);
+                let newUser = new Users({
+                    firstName, lastName, email,
+                    "password": hashedPassword,
+                    phone, city, address, image,
+                    "active": true,
+                    "isAdmin": false
+                });
+                return newUser.save();
+            },
+            error => { reject(utils.respondWithCode(502, {"code": 503, "message": "Server Err"})); }
+        ).then(
             userDoc => {
                 if (Object.keys(userDoc).length > 0) {
                     let {userId, firstName, lastName, email, phone, city, address, image, create_at, update_at, active} = userDoc;

@@ -32,6 +32,8 @@ export class LoginComponent implements OnInit {
             if (reg.ok) {
                 sessionStorage.setItem('currentUserId', JSON.stringify(reg.json().userId));
                 sessionStorage.setItem('currentUserFirstName', JSON.stringify(reg.json().firstName));
+                console.log(reg.headers.get('x-my-jwt'));
+                sessionStorage.setItem('JWT', reg.headers.get('x-my-jwt'));
                 this.openModal('You are Logged In');
                 this.changeLogBtnText(false, reg.json().firstName);
             } else {
