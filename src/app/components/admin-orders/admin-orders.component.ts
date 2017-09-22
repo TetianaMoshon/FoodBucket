@@ -9,7 +9,11 @@ import {Order} from '../../models/order';
   styleUrls: ['./admin-orders.component.css']
 })
 export class AdminOrdersComponent implements OnInit {
+    res
     total
+    offset
+    limit = this.pagerService.getPager(this.total, 1);
+    page
     value: string
     state = true
     sort: string
@@ -32,13 +36,18 @@ pagedItems: any[];
   }
 
 
+
+
     ngOnInit() {
-        this.ApiService.getAllOrdersWithHttpInfo(0, 20, 'desc', 'orderId' ).subscribe(response => {
+        this.defineOffset(this.limit.pageSize, 1);
+        this.ApiService.getAllOrdersWithHttpInfo(this.offset, this.limit.pageSize, 'desc', 'orderId' ).subscribe(response => {
             this.orders = response.json();
             this.total = response.headers.get('x-total-records');
-            this.setPage(1);
+            this.pager = this.pagerService.getPager(this.total, 1);
+            this.pagedItems = this.orders;
         });
     }
+
 
     updateOrder(value, orderIdValue) {
         this.ApiService.updateOrderById({
@@ -68,22 +77,27 @@ pagedItems: any[];
         this.sort = this.state ? 'desc' : 'asc';
     }
 
+    defineOffset(limit: number, page: number) {
+        this.offset = page * limit - limit;
+    }
+
+
     setPage(page: number) {
-        if (page < 1 || page > this.pager.totalPages) {
-            return;
-        }
-
-
-        this.pager = this.pagerService.getPager(this.total, page);
-        this.pagedItems = this.orders.slice(this.pager.startIndex, this.pager.endIndex + 1);
+      this.sort = '';
+      this.pagedItems = [];
+        this.defineOffset(this.limit.pageSize, page);
+        this.ApiService.getAllOrders( this.offset, this.limit.pageSize, 'desc', 'orderId').subscribe(orders => {
+            this.pagedItems = orders;
+        });
+        this.pager.currentPage = page;
     }
 
     onSortClick(value: string): void {
         this.toggle(!this.state);
-        this.ApiService.getAllOrders(0, 20, this.sort, value ).subscribe(orders => {
+        this.defineOffset(this.limit.pageSize, this.pager.currentPage);
+        this.ApiService.getAllOrders(this.offset, this.limit.pageSize, this.sort, value ).subscribe(orders => {
             this.value = value;
-            this.orders = orders;
-            this.setPage(1);
+            this.pagedItems = orders;
         });
     }
 }
