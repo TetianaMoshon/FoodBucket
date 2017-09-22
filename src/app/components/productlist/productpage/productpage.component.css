@@ -86,6 +86,9 @@ i.glyphicon-chevron-left, i.glyphicon-chevron-right {
     border-radius: 50%;
     border: 1px solid #14A9BA;
 }
+figure img{
+    width: 100%;
+}
 
 .ingredient-row figure {
     margin-bottom: 15px;

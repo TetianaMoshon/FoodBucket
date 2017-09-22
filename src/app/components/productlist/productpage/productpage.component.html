@@ -16,9 +16,7 @@
             <div class="thumbnail">
                 <figure>
                     <div>
-                        <a class="left carousel-control carousel-control-left" (click)="changeImageSourceByPressingLeftArrow()"><i class="glyphicon glyphicon-chevron-left"></i></a>
-                        <img class="img-responsive center-block" src="{{sourceForPreviousImage}}" alt="{{sourceForPreviousImage}} slide">
-                        <a class="right carousel-control carousel-control-right" (click)="changeImageSourceByPressingRightArrow()"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                        <img src="{{productData.image}}" alt="{{productData.title}}">
                     </div>
                     <figcaption>
                         <table class="table table-bordered">
@@ -62,14 +60,8 @@
             </div>
             <div class="text-center instructions">
                 <div>
-                    <h3>INSTRUCTIONS</h3>
-                    <ol>
-                        <li>In a large pot cook the pasta in boiling water according to package directions. Drain and set aside.</li>
-                        <li>Using the same pan, heat olive oil and 2 Tablespoons of butter. Add the garlic and red pepper flakes and cook until fragrant.</li>
-                        <li>Add the shrimp and salt and pepper to taste. Cook until the shrimp start to turn pink. Add italian seasoning and spinach and cook until wilted.</li>
-                        <li>Add the pasta back to the pot with the remaining butter, parmesan, and parsley. Still until mixed and butter is melted.</li>
-                        <li>Add the lemon juice before serving and serve while hot</li>
-                    </ol>
+                    <h3>DESCRIPTION</h3>
+                    <p>{{productData.description}}</p>
                 </div>
             </div>
 
