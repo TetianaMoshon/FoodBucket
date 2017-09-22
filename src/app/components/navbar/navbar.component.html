@@ -1,5 +1,7 @@
 <nav class="navbar navbar-default navbar-foodbucket navbar-fixed-top">
     <div class="container-fluid">
+
+
         <div class="navbar-header">
             <span *ngIf="!isLogged && showCart" class="bucket-mobile" (click)="openCartModal()">
                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" width="30" height="30" viewBox="0 0 64 53">
@@ -77,7 +79,10 @@
                     </div>
                 </div>
             </form>
-        </div>
 
+        </div>
+        <div>
+            <ngx-flash-messages></ngx-flash-messages>
+        </div>
     </div>
 </nav>

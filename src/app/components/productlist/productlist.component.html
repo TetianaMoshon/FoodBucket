@@ -68,8 +68,10 @@
                             <p>{{product.description}}</p>
                             <p>
                                 <add-to-cart-button [id]="product.productId"></add-to-cart-button>
+
                                 <a [routerLink]="['productpage', product.productId]" routerLinkActive="active" class="btn btn-default">More Info</a>
                             </p>
+
                         </div>
                     </div>
                 </div>
