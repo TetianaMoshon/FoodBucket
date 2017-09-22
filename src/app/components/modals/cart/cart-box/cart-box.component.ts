@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap';
 import {Router} from '@angular/router';
 import {CartService} from '../../../../client/api/cart.service';
@@ -32,10 +32,11 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
 
     ngOnInit() {
+
         this.cartCommunicationService.findOutWhetherCartCreated();
         this.showAPhrase = JSON.parse(localStorage.getItem('showAPhrase'));
         this.populateArrayOfDishNamesAndPrices();
-        this.subscription = this.cartCommunicationService.passedData.subscribe(
+        this.subscription = this.cartCommunicationService.passedData$.subscribe(
             data => {
                 this.calculateTotalPriceToPay(data);
             }
@@ -50,13 +51,12 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
 
     populateArrayOfDishNamesAndPrices() {
-        if ((JSON.parse(localStorage.getItem('cartContentObjCreated')) && (this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage() > -1))) {
+        if (JSON.parse(localStorage.getItem('cartContentObjCreated')) && (this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage() > -1)) {
             this.cartService.findCartContentById(this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage()).subscribe(
                 cartData => {
                     if (cartData === undefined || cartData === null) {
                         return;
                     } else {
-                        // this.showAPhrase = false;
                         // retrieve array of cartOrders of logged in user
                         const {orderedProducts} = cartData;
 
@@ -80,10 +80,11 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
                 }
             );
+
         }
     }
 
-    renewArray(id: number) {
+    renewArray(id) {
         // delete dish from listview
         for (let i = 0; i < this.dataReferenceArray.length; i++) {
             if (this.dataReferenceArray[i].id === id) {

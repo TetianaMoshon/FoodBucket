@@ -4,6 +4,7 @@ import {LoginComponent} from '../modals/login/login.component';
 import {NewAccountComponent} from '../modals/new-account/new-account.component';
 import {CartBoxComponent} from '../modals/cart/cart-box/cart-box.component';
 import { DataService} from '../../services/data/data.service';
+import {CartCommunicationService} from '../../services/cart-communication.service';
 
 
 @Component({
@@ -16,11 +17,26 @@ export class NavbarComponent implements OnInit {
     LogBtnText = 'Log in / Registration'
     isCollapsed = true;
     isLogged = true;
-    constructor(private modalService: BsModalService, private data: DataService) { }
+    showCart = false;
+
+    constructor(private modalService: BsModalService,
+                private data: DataService,
+                private cartCommunicationService: CartCommunicationService
+    ) { }
 
     ngOnInit() {
         this.data.currentIsLogged.subscribe(message => this.isLogged = message);
         this.data.currentLogBtn.subscribe(message => this.LogBtnText = message);
+
+
+        this.cartCommunicationService.canShowCart$.subscribe(canShow => {
+            if (canShow) {
+                this.showCart = true;
+            } else {
+                this.showCart = false;
+            }
+
+        });
     }
 
     public logOutFunc() {

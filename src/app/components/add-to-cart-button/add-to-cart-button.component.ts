@@ -1,26 +1,31 @@
-import {Component, ElementRef, Input, OnInit, Renderer2} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, Renderer2} from '@angular/core';
 import {CartService} from '../../client/api/cart.service';
-import {ProductService} from '../../client/api/product.service';
 import {CartCommunicationService} from '../../services/cart-communication.service';
+import {Subject} from 'rxjs/Subject';
+import {FlashMessagesService} from 'ngx-flash-messages';
+import 'rxjs/add/operator/debounceTime';
+import {Subscription} from 'rxjs/Subscription';
 
 @Component({
   selector: 'add-to-cart-button',
   templateUrl: './add-to-cart-button.component.html',
   styleUrls: ['./add-to-cart-button.component.css']
 })
-export class AddToCartButtonComponent implements OnInit {
+export class AddToCartButtonComponent implements OnInit, OnDestroy {
 
     title = `Buy Now`;
     cartContentObjCreated = false;
     arrayOfCartOrders = [];
     idOfLoggedinUser: number;
-    thereIsSthInDB;
+    watchClickEvent$ = new Subject();
+    clicked = false;
+    subscription: Subscription;
 
   constructor(
       private cartService: CartService,
-      private productService: ProductService,
       private cartCommunicationService: CartCommunicationService,
-      private elementRef: ElementRef, private renderer: Renderer2
+      private elementRef: ElementRef, private renderer: Renderer2,
+      private flashMessagesService: FlashMessagesService
   ) {}
 
   ngOnInit() {
@@ -28,9 +33,35 @@ export class AddToCartButtonComponent implements OnInit {
       this.arrayOfCartOrders = JSON.parse(localStorage.getItem('arrayOfCartOrders')) || [];
 
       this.renderer.listen(this.elementRef.nativeElement, 'click', (event) => {
-         this.addProductToCart(event.path[1].attributes.id.nodeValue);
+         this.watchClickEvent$.next(event.path[1].attributes.id.nodeValue);
+      });
+      this.subscription = this.watchClickEvent$
+          .debounceTime(250)
+          .subscribe(id => {
+          if (!this.clicked) {
+              this.clicked = true;
+              if (this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage() > -1) {
+                  this.addProductToCart(id);
+              } else {
+                  this.flashMessagesService.show(`You need to log in first!`, {
+                      classes: ['alert', 'alert-danger'],
+                      timeout: 3000,
+                  });
+              }
+
+          } else {
+              this.flashMessagesService.show(`You have already added this product to cart!`, {
+                  classes: ['alert', 'alert-success'],
+                  timeout: 3000,
+              });
+          }
+
       });
   }
+
+    ngOnDestroy() {
+        this.subscription.unsubscribe();
+    }
 
     addProductToCart(id) {
         // lets see if db has already cart of the user
@@ -65,18 +96,23 @@ export class AddToCartButtonComponent implements OnInit {
                 err => console.log('Error has happened ' + err )
             );
 
+            this.flashMessagesService.show(`Added to cart!`, {
+                classes: ['alert', 'alert-success'],
+                timeout: 3000,
+            });
+
+            // let's show cart icon
+            this.cartCommunicationService.canShowCart$.next(true);
+
         } else {
-            if (this.findIdInArray(parseInt(id))) { // here we also sink in this.arrayOfCartOrders with LocalStorage
-                console.log('You have already added this product to your cart');
-            }else {
-
-                console.log('Let us add new cartOrder to your cart');
-                // add cartOrders to the created cartContentObjCreated
+                 // add cartOrders to the created cartContentObjCreated
                 this.addNewProduct(id);
-
-
-            }
-
+                this.flashMessagesService.show(`Added to cart!`, {
+                        classes: ['alert', 'alert-success'],
+                        timeout: 3000,
+                    });
+            // let's show cart icon
+            this.cartCommunicationService.canShowCart$.next(true);
         }
     }
 
@@ -89,12 +125,10 @@ export class AddToCartButtonComponent implements OnInit {
                 // retrieve array of cartOrders of logged in user
                 const {orderedProducts} = cartData;
                 this.arrayOfCartOrders = orderedProducts;
-                console.log(`this.arrayOfCartOrders = [...orderedProducts]; `, this.arrayOfCartOrders);
 
                 // let's push new CartOrder into arrayOfCartOrders
                 this.arrayOfCartOrders.push({productId: parseInt(id), quantity: 1});
                 localStorage.setItem('arrayOfCartOrders', JSON.stringify(this.arrayOfCartOrders));
-                // console.log(' this.arrayOfCartOrders ',  this.arrayOfCartOrders);
                 // let's created updatedCartOrder
                 console.log('array with added items ', this.arrayOfCartOrders);
                 const updatedCart = {
@@ -109,20 +143,6 @@ export class AddToCartButtonComponent implements OnInit {
 
             }
         );
-    }
-
-    private findIdInArray(id) {
-        // get up-to-date arrayOfCartOrders
-        this.arrayOfCartOrders = JSON.parse(localStorage.getItem('arrayOfCartOrders'));
-        this.arrayOfCartOrders.forEach(cartOrder => {
-            if (cartOrder.productId === id) {
-                console.log(`Is already in array`);
-                return true;
-            }
-            console.log(`Is'nt in array`);
-            return false;
-        });
-
     }
 
 }
