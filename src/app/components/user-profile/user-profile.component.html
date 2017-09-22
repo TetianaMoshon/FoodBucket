@@ -78,52 +78,10 @@
             <div class="favorite container">
                 <h3 class="title">Favorites</h3>
                 <div class="row center-block">
-                    <div class="col-md-3">
+                    <div class="col-md-3" *ngFor="let favourite of favouritesProduct">
                         <div class="favorite-item thumbnail">
-                            <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/HNCK5673.jpg?w=2210&quality=50" alt="dish-name" class="dish-image">
-                            <a routerLink="/category/productlist/productpage" routerLinkActive="active" class="dish-name">path to dish</a>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="favorite-item thumbnail">
-                            <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/HNCK5716.jpg?w=2210&quality=50" alt="dish-name" class="dish-image">
-                            <a routerLink="/category/productlist/productpage" routerLinkActive="active" class="dish-name">path to dish</a>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="favorite-item thumbnail">
-                            <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/foodiesfeed.com_DSC_0004.jpg?w=2210&quality=50" alt="dish-name" class="dish-image">
-                            <a routerLink="/category/productlist/productpage" routerLinkActive="active" class="dish-name">path to dish</a>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="favorite-item thumbnail">
-                            <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/20140314-DSC_0138.jpg?w=2210&quality=50" alt="dish-name" class="dish-image">
-                            <a routerLink="/category/productlist/productpage" routerLinkActive="active" class="dish-name">path to dish</a>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="favorite-item thumbnail">
-                            <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/HNCK5640.jpg?w=2210&quality=50" alt="dish-name" class="dish-image">
-                            <a routerLink="/category/productlist/productpage" routerLinkActive="active" class="dish-name">path to dish</a>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="favorite-item thumbnail">
-                            <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/HNCK2050.jpg?w=2210&quality=50" alt="dish-name" class="dish-image">
-                            <a routerLink="/category/productlist/productpage" routerLinkActive="active" class="dish-name">path to dish</a>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="favorite-item thumbnail">
-                            <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/HNCK4575.jpg?w=2210&quality=50" alt="dish-name" class="dish-image">
-                            <a routerLink="/category/productlist/productpage" routerLinkActive="active" class="dish-name">path to dish</a>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="favorite-item thumbnail">
-                            <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/20140501-DSC_0027.jpg?w=2210&quality=50" alt="dish-name" class="dish-image">
-                            <a  routerLink="/category/productlist/productpage" routerLinkActive="active" class="dish-name">path to dish</a>
+                            <img src="{{favourite.image}}" alt="{{favourite.title}}" class="dish-image">
+                            <a routerLink="/category/productlist/{{favourite.productId}}" routerLinkActive="active" class="dish-name">go to {{favourite.title}}</a>
                         </div>
                     </div>
                 </div>

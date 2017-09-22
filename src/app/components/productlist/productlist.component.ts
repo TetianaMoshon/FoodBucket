@@ -109,7 +109,6 @@ export class ProductlistComponent implements OnInit {
     private findIdInArray(e) {
         const isAlreadyInIdArray = this.arrayOfCartOrders.find(cartOrder => {
             return cartOrder.productId === parseInt(e.target.id);
-
         });
         return isAlreadyInIdArray;
     }

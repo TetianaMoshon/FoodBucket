@@ -2,7 +2,7 @@
     <div class="row text-center">
         <div class="col-md-6 col-sm-6">
             <h1 class="dish_title">{{productData.title}}
-                <span class="glyphicon glyphicon-star-empty color-gold"></span>
+                <span class="glyphicon glyphicon-star-empty" [class.color-gold]="select" *ngIf="login" (click)="addFavourite()"></span>
             </h1>
         </div>
         <div class="col-md-6 col-sm-6">
@@ -24,19 +24,19 @@
                     <table class="table table-bordered">
                         <tbody>
                         <tr>
-                            <td>Calories</td>
+                            <td>calories</td>
                             <td>{{productData.caloricity}}</td>
                         </tr>
                         <tr>
-                            <td>Spice level</td>
+                            <td>spice level</td>
                             <td>{{productData.spiceLevel}}</td>
                         </tr>
                         <tr>
-                            <td>Serving size</td>
+                            <td>serving size</td>
                             <td>{{productData.servingSize}}</td>
                         </tr>
                         <tr>
-                            <td>Difficulty</td>
+                            <td>difficulty</td>
                             <td>{{productData.difficulty}}</td>
                         </tr>
                         </tbody>
@@ -52,7 +52,7 @@
                         <div *ngFor="let ingredient of productIngredients" class="col-md-4 col-sm-6 col-xs-6">
                             <figure >
                                 <div class="ingredient-icon">
-                                    <img  src={{ingredient.image}} width="40px" height="40px" alt={{ingredient.title}}>
+                                    <img src={{ingredient.image}} width="40px" height="40px" alt={{ingredient.title}}>
                                 </div>
                                 <figcaption>{{ingredient.title}}</figcaption>
                             </figure>
