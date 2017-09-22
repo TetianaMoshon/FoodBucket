@@ -225,6 +225,22 @@ paths:
             - username
             - city
             - price
+        - name: search_txt
+          in: query
+          description: text to search
+          required: false
+          type: string
+        - name: search_col
+          in: query
+          description: text to search
+          required: false
+          type: string
+          enum:
+            - orderId
+            - username
+            - city
+            - price
+            - status
       responses:
         200:
           description: Successful products response

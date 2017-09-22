@@ -32,12 +32,22 @@ exports.findOrderById = function(id) {
  * limit Integer number of items to query from DB
  * returns List
  **/
-exports.getAllOrders = function (offset, limit, sort, sort_col) {
+exports.getAllOrders = function (offset, limit, sort, sort_col, search_txt, search_col) {
     return new Promise(function (resolve, reject) {
+        let query = {};
+        if (search_col && search_txt) {
+            if (isNaN(search_txt)) {
+                const regex = new RegExp(search_txt, "i");
+                query = {[search_col]: regex};
+            } else {
+                 query = {[search_col]: search_txt};
+            }
+
+        }
         return Order.count().
             then(
                 total => {
-                    Order.find().skip(offset).limit(limit).sort({[sort_col]: sort}).then(
+                    Order.find(query).skip(offset).limit(limit).sort({[sort_col]: sort}).then(
                         (ordersDoc) => {
                             ordersDoc = ordersDoc || [];
                             if (Object.keys(ordersDoc).length > 0) {

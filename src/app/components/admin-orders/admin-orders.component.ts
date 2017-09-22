@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {PagerService} from '../../services/pagination.service';
 import {OrderService} from '../../client/api/order.service';
 import {Order} from '../../models/order';
+import {Subject} from 'rxjs/Subject';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+
 
 @Component({
   selector: 'app-admin-orders',
@@ -9,8 +13,10 @@ import {Order} from '../../models/order';
   styleUrls: ['./admin-orders.component.css']
 })
 export class AdminOrdersComponent implements OnInit {
+    searchInput$ = new Subject<string>();
     sorted: boolean;
     nextSort: string;
+    column: string;
     res;
     total;
     offset;
@@ -46,7 +52,29 @@ pagedItems: any[];
             this.pager = this.pagerService.getPager(this.total, 1);
             this.pagedItems = this.orders;
         });
+
+        this.searchInput$
+            .debounceTime(400)
+            .distinctUntilChanged()
+            .subscribe(inputData => this.search(inputData));
+
     }
+
+    defineCol(value: string) {
+        this.column = value;
+    }
+
+    search(searchStr) {
+        if (searchStr.trim() !== '') {
+            this.ApiService.getAllOrdersWithHttpInfo(0, this.total, 'desc', 'orderId', searchStr, this.column).subscribe(res =>
+                this.pagedItems = res.json());
+        } else {
+            this.pagedItems = this.orders;
+        }
+
+        this.pager.currentPage = 1;
+    }
+
 
 
     updateOrder(value, orderIdValue) {
@@ -85,15 +113,15 @@ pagedItems: any[];
     setPage(page: number) {
       this.pagedItems = [];
       this.defineOffset(this.limit.pageSize, page);
-      if (this.sorted) {
-          this.ApiService.getAllOrders(this.offset, this.limit.pageSize, this.nextSort, this.value ).subscribe(orders => {
-              this.pagedItems = orders;
-          });
-      } else  {
-          this.ApiService.getAllOrders( this.offset, this.limit.pageSize, 'desc', 'orderId').subscribe(orders => {
-              this.pagedItems = orders;
-          });
-      };
+          if (this.sorted) {
+              this.ApiService.getAllOrders(this.offset, this.limit.pageSize, this.nextSort, this.value ).subscribe(orders => {
+                  this.pagedItems = orders;
+              });
+          } else  {
+              this.ApiService.getAllOrders( this.offset, this.limit.pageSize, 'desc', 'orderId').subscribe(orders => {
+                  this.pagedItems = orders;
+              });
+      }
 
         this.pager.currentPage = page;
     }
@@ -108,4 +136,6 @@ pagedItems: any[];
         this.sorted = true;
         this.nextSort = this.sort;
     }
+
+
 }
