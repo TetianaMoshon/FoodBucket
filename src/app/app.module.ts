@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { AgmCoreModule } from '@agm/core';
 import { DisqusModule } from 'ngx-disqus';
 import { ChartsModule } from 'ng2-charts';
@@ -119,6 +120,7 @@ import {AdminIngredientsFormComponent} from './components/admin-ingredients/admi
   imports: [
       ModalModule.forRoot(),
       BrowserModule,
+      BsDropdownModule.forRoot(),
       FlashMessagesModule,
       CollapseModule,
       FormsModule,

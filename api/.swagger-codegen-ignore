@@ -42,6 +42,7 @@ controllers/OrderService.js
 
 service/AuthService.js
 controllers/AuthService.js
+controllers/Auth.js
 
 service/ProductService.js
 controllers/ProductService.js

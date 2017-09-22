@@ -6,6 +6,7 @@ import {CartBoxComponent} from '../modals/cart/cart-box/cart-box.component';
 import { DataService} from '../../services/data/data.service';
 
 
+
 @Component({
     selector: 'app-navbar',
     templateUrl: './navbar.component.html',
