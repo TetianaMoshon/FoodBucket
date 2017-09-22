@@ -7,6 +7,7 @@ import { NgForm } from '@angular/forms';
 import { ProductModel } from './productModel';
 import { IngredientModel } from './ingredientModel';
 import { Subject } from 'rxjs/Subject';
+import {IngredientService} from '../../../client/api/ingredient.service';
 
 @Component({
     selector: 'app-admin-product-page',
@@ -28,7 +29,8 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     constructor(
         protected productService: ProductService,
         protected route: ActivatedRoute,
-        private flashMessagesService: FlashMessagesService
+        private flashMessagesService: FlashMessagesService,
+        protected ingredientService: IngredientService
     ) {}
 
     action: {
@@ -112,7 +114,10 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
             this.updateProduct(this.action.id, this.productModel);
         }
 
-        const value = this.ingListForm.value;
+    }
+
+    onSubmit2(form: NgForm) {
+        const value = form.value;
         const newIngredient = new IngredientModel(value.ingredientId, value.ingredientName, value.quantity, value.measure);
         if (this.editMode) {
             this.updateIngredient(this.editedItemIndex, newIngredient);
@@ -120,7 +125,7 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
             this.addIngredient(newIngredient);
         }
         this.editMode = false;
-        // form.reset();
+        form.reset();
     }
 
     createProduct(productModel) {
@@ -194,16 +199,10 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     }
 
     addIngredient(ingredient: IngredientModel) {
-        // this.productModel.shift();
         this.ingredientList = this.productModel.ingredients;
 
         this.ingredientList.push(ingredient);
         // this.ingredientsChanged.next(this.ingredientList.slice());
-    }
-
-    addIngredients(ingredients: IngredientModel[]) {
-        this.ingredientList.push(...ingredients);
-        this.ingredientsChanged.next(this.ingredientList.slice());
     }
 
     updateIngredient(index: number, newIngredient: IngredientModel) {
