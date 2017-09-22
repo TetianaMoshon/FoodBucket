@@ -2,6 +2,7 @@
 const utils = require('../utils/writer.js');
 const Category = require('../model/category');
 const debug = require('debug')('foodbucket:categoryService');
+const imageService = require('./common/ImageService');
 
 /**
  * Create category
@@ -131,3 +132,37 @@ exports.updateCategoryById = function(id, updatedCategory) {
         );
     });
 };
+
+
+
+/**
+ *
+ * id Long ID of the category image upload for
+ * file File  (optional)
+ * additionalMetadata String Additional data to pass to server (optional)
+ * no response value expected for this operation
+ **/
+exports.uploadCategoryImageById = function(id, file, additionalMetadata) {
+    let entityName = 'category';
+
+    return new Promise((resolve, reject) => {
+        Category.findOne({ category_id: id }).then(category => {
+            return imageService.uploadImage(category.category_id, entityName, file);
+        }).then(pathToStoreInDB => {
+            return Category.findOneAndUpdate({ category_id: id }, { $set: { image: pathToStoreInDB } }, { new: true }).then(
+                oneCategory => {
+                    if (pathToStoreInDB !== undefined && pathToStoreInDB !== null && oneCategory !== null) {
+                        let { category_id : categoryId, title, image, description } = oneCategory;
+                        resolve(utils.respondWithCode(200, {categoryId, title, image, description}));
+                    } else {
+                        reject(utils.respondWithCode(400, {"code": 404, "message": "Category is not updated, please try again."}));
+                    }
+                },
+                error => { debug('Unable to get category: %O', error); }
+            );
+        }).catch(e => {
+            debug(e);
+        });
+    });
+}
+

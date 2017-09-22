@@ -1,9 +1,6 @@
-import {Ng2SmartTableComponent} from 'ng2-smart-table/ng2-smart-table.component';
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
-import {LocalDataSource} from 'ng2-smart-table';
 import {CategoryService} from '../../client/api/category.service';
-import {settings} from './admincategories-settings';
 
 @Component({
     selector: 'app-admincategories',
@@ -12,8 +9,7 @@ import {settings} from './admincategories-settings';
 })
 export class AdmincategoriesComponent implements OnInit {
 
-    settings = settings;
-    source: LocalDataSource;
+    source;
 
     ngOnInit() {
 
@@ -27,34 +23,37 @@ export class AdmincategoriesComponent implements OnInit {
         this.categoryService.getAllCategories(1, 2, true)
             .subscribe(
                 categories => {
-                    this.source = new LocalDataSource();
-                    this.source.load(categories);
+                    this.source = categories;
                 },
                 err => console.log(err)
             );
     }
 
-    onCreateClick(event, eventName: string): void {
-
+    onCreateClick(event): void {
         this.changeRoute('/admin/categories/create');
     }
 
-    onEditClick(event, eventName: string): void {
-        const categoryId = parseInt(event.cells[0].value);
-        this.changeRoute(`/admin/categories/${categoryId}/edit`);
+    onEditClick(event, id): void {
+        this.changeRoute(`/admin/categories/${id}/edit`);
     }
 
-    onDeleteClick(event, eventName: string): void {
-        const categoryId = parseInt(event.cells[0].value);
-        if(confirm('Are you really want to delete category with id: ' + categoryId + ' ?')) {
-            this.categoryService.deleteCategoryById(categoryId).subscribe(
-                () => { this.source.remove(event.data); },
+    onDeleteClick(event, id): void {
+        if (confirm('Are you really want to delete category with id: ' + id + ' ?')) {
+            this.categoryService.deleteCategoryById(parseInt(id, 10)).subscribe(
+                category => {
+                    this.categoryService.getAllCategories(1, 2, true).subscribe(
+                        categories => {
+                            this.source = categories;
+                        },
+                        err => console.log(err)
+                    );
+                },
                 err => console.log(err)
             );
         }
     }
 
     changeRoute(routeValue) {
-        this.router.navigateByUrl(routeValue,);
+        this.router.navigateByUrl(routeValue);
     }
 }
