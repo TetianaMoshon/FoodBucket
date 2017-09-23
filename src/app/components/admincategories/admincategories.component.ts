@@ -12,14 +12,15 @@ export class AdmincategoriesComponent implements OnInit {
     source;
 
     ngOnInit() {
-
+        this.fetchData();
     }
 
     constructor(
         protected categoryService: CategoryService,
         private router: Router
-    ) {
+    ) { }
 
+    fetchData() {
         this.categoryService.getAllCategories(1, 2, true)
             .subscribe(
                 categories => {

@@ -13,3 +13,13 @@ exports.uploadImage = function(id, entityName, file) {
         });
     });
 }
+
+exports.deleteImage = function(entityName, fileName) {
+    return new Promise( (resolve, reject) => {
+        const filePath = 'public/image/' + fileName;
+
+        fs.unlink( filePath, err => {
+            err ? reject(err) : resolve(filePath);
+        });
+    });
+}

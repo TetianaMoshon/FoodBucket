@@ -16,16 +16,17 @@
                     <label for="title">Title:</label>
                     <input [(ngModel)]="title" name="title" type="text" class="form-control" id="title">
                 </div>
-                <div class="form-group">
-                    <label for="image">Image:</label>
-                    <input [(ngModel)]="image" name="image" type="text" class="form-control" id="image">
-                </div>
+
                 <div class="form-group">
                     <label for="description">Description:</label>
                     <input [(ngModel)]="description" name="description" type="text" class="form-control" id="description">
                 </div>
 
-                <input type="file" (change)="onFileChange($event)" placeholder="Upload file" accept=".jpg,.png">
+                <img class="preview" [src]="imageSrc" />
+                <div class="form-group">
+                    <label for="image">Image:</label>
+                    <input type="file" (change)="onFileChange($event)" name="imageUpload" [(ngModel)]="imageUpload" placeholder="Upload file" accept=".jpg,.png" id="image">
+                </div>
 
                 <div class="btn-group">
                     <button (Click)="onSubmit()" type="submit" class="btn btn-success">Save</button>

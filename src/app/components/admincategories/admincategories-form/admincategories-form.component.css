@@ -13,6 +13,7 @@ hr {
     border-color: black;
 }
 
-.preview img {
-    max-height: 50px;
+.preview {
+    max-width: 200px;
+    height: auto;
 }
