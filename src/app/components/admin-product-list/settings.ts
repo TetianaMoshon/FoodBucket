@@ -10,7 +10,7 @@ export const settings = {
     },
     pager: {
         display: true,
-            perPage: 5,
+            perPage: 10,
     },
     mode: 'external',
     columns: {

@@ -2,6 +2,7 @@
 
 # compiled output
 /dist
+/public/image
 /tmp
 /out-tsc
 

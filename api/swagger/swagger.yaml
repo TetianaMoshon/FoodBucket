@@ -26,6 +26,74 @@ produces:
   - application/json
 paths:
 # root path
+  /statistics/orders:
+    get:
+      x-swagger-router-controller: Statistics
+      operationId: getOrderStatistics
+      tags:
+      - "statistics"
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Successful order statistics response
+          schema:
+              $ref: "#/definitions/GeneralStatistics"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+  /statistics/users:
+    get:
+      x-swagger-router-controller: Statistics
+      operationId: getUsersStatistics
+      tags:
+      - "statistics"
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Successful users statistics response
+          schema:
+              $ref: "#/definitions/GeneralStatistics"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+  /statistics/completedOrders:
+    get:
+      x-swagger-router-controller: Statistics
+      operationId: getCompletedOrdersStatistics
+      tags:
+      - "statistics"
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Successful completed orders statistics response
+          schema:
+              $ref: "#/definitions/GeneralStatistics"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+  /statistics/totalMoney:
+    get:
+      x-swagger-router-controller: Statistics
+      operationId: getRevenue
+      tags:
+      - "statistics"
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Successful completed revenue statistics response
+          schema:
+              $ref: "#/definitions/GeneralStatistics"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
   /products:
     get:
       x-swagger-router-controller: Product
@@ -464,6 +532,80 @@ paths:
           description: Category is updated
         400:
           description: An error!
+  /category/{id}/image:
+    post:
+      x-swagger-router-controller: Category
+      operationId: postCategoryImageById
+      tags:
+      - "category"
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the category image upload for
+        required: true
+        type: integer
+        format: int64
+      - name: file
+        in: formData
+        required: false
+        type: file
+      - name: additionalMetadata
+        in: formData
+        description: Additional data to pass to server
+        required: false
+        type: string
+      responses:
+        default:
+          description: Successful operation
+    put:
+      x-swagger-router-controller: Category
+      operationId: putCategoryImageById
+      tags:
+      - "category"
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the category image upload for
+        required: true
+        type: integer
+        format: int64
+      - name: file
+        in: formData
+        required: false
+        type: file
+      - name: additionalMetadata
+        in: formData
+        description: Additional data to pass to server
+        required: false
+        type: string
+      responses:
+        default:
+          description: Successful operation
+    delete:
+      x-swagger-router-controller: Category
+      operationId: deleteCategoryImageById
+      tags:
+      - "category"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the category image to delete
+        required: true
+        type: integer
+        format: int64
+      responses:
+        default:
+          description: Successful operation
   /category:
     post:
       x-swagger-router-controller: Category
@@ -1033,12 +1175,32 @@ paths:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
 definitions:
+  GeneralStatistics:
+    type: object
+    required:
+      - totalOrders
+      - totalMoney
+      - totalUsers
+      - completedOrders
+    properties:
+      totalOrders:
+        type: integer
+        format: int64
+      totalMoney:
+        type: integer
+        format: int64
+      totalUsers:
+        type: integer
+        format: int64
+      completedOrders:
+        type: integer
+        format: int64
   Product:
     type: object
     required:
-      - price
       - title
       - description
+      - price
     properties:
       productId:
         type: integer
@@ -1047,11 +1209,11 @@ definitions:
         type: string
       description:
         type: string
-      image:
-        type: string
       price:
         type: integer
         format: int64
+      image:
+        type: string
       category:
         type: string
       status:
@@ -1114,7 +1276,6 @@ definitions:
       quantity:
         type: integer
         format: int64
-
   Category:
     type: object
     required:

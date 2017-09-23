@@ -20,7 +20,7 @@ export class NewAccountComponent implements OnInit {
                 private modalService: BsModalService,
                 public data: DataService
     ) {
-        this.model = new User('', '', '', '', '', '');
+        this.model = new User('', '', '', '', 0, '', '', '', [], true);
     }
     public sendNewAccToDB() {
         this.registerAPI.registerWithHttpInfo(this.model)
