@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="row stickToBottom">
-         <div class="col-md-6 col-sm-6">
+        <div class="col-md-6 col-sm-6">
             <div class="thumbnail">
                 <figure>
                     <div>
@@ -20,29 +20,29 @@
                         <img class="img-responsive center-block" src="{{sourceForPreviousImage}}" alt="{{sourceForPreviousImage}} slide">
                         <a class="right carousel-control carousel-control-right" (click)="changeImageSourceByPressingRightArrow()"><i class="glyphicon glyphicon-chevron-right"></i></a>
                     </div>
-                <figcaption>
-                    <table class="table table-bordered">
-                        <tbody>
-                        <tr>
-                            <td>calories</td>
-                            <td>{{productData.caloricity}}</td>
-                        </tr>
-                        <tr>
-                            <td>spice level</td>
-                            <td>{{productData.spiceLevel}}</td>
-                        </tr>
-                        <tr>
-                            <td>serving size</td>
-                            <td>{{productData.servingSize}}</td>
-                        </tr>
-                        <tr>
-                            <td>difficulty</td>
-                            <td>{{productData.difficulty}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </figcaption>
-            </figure>
+                    <figcaption>
+                        <table class="table table-bordered">
+                            <tbody>
+                            <tr>
+                                <td>calories</td>
+                                <td>{{productData.caloricity}}</td>
+                            </tr>
+                            <tr>
+                                <td>spice level</td>
+                                <td>{{productData.spiceLevel}}</td>
+                            </tr>
+                            <tr>
+                                <td>serving size</td>
+                                <td>{{productData.servingSize}}</td>
+                            </tr>
+                            <tr>
+                                <td>difficulty</td>
+                                <td>{{productData.difficulty}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </figcaption>
+                </figure>
             </div>
         </div>
         <div class="col-md-6 col-sm-6 second-block">
@@ -60,45 +60,56 @@
                     </div>
                 </div>
             </div>
-            <div class="text-center">
+            <div class="text-center instructions">
                 <div>
-                    <h5>INSTRUCTIONS</h5>
+                    <h3>INSTRUCTIONS</h3>
                     <ol>
-                        <li class="details-p__big-text">In a large pot cook the pasta in boiling water according to package directions. Drain and set aside.</li>
-                        <li class="details-p__big-text">Using the same pan, heat olive oil and 2 Tablespoons of butter. Add the garlic and red pepper flakes and cook until fragrant.</li>
-                        <li class="details-p__big-text">Add the shrimp and salt and pepper to taste. Cook until the shrimp start to turn pink. Add italian seasoning and spinach and cook until wilted.</li>
-                        <li class="details-p__big-text">Add the pasta back to the pot with the remaining butter, parmesan, and parsley. Still until mixed and butter is melted.</li>
-                        <li class="details-p__big-text">Add the lemon juice before serving and serve while hot</li>
+                        <li>In a large pot cook the pasta in boiling water according to package directions. Drain and set aside.</li>
+                        <li>Using the same pan, heat olive oil and 2 Tablespoons of butter. Add the garlic and red pepper flakes and cook until fragrant.</li>
+                        <li>Add the shrimp and salt and pepper to taste. Cook until the shrimp start to turn pink. Add italian seasoning and spinach and cook until wilted.</li>
+                        <li>Add the pasta back to the pot with the remaining butter, parmesan, and parsley. Still until mixed and butter is melted.</li>
+                        <li>Add the lemon juice before serving and serve while hot</li>
                     </ol>
                 </div>
             </div>
-            <div class="serving-size">
-                <h3>Portions</h3>
-                <div ng-app class="input-group counter" ng-init="counter = 1">
-                    <button (click)="counter = counter+1" class="btn btn-default btn-number">
-                        <span class="glyphicon glyphicon-plus"></span>
-                    </button>
-                    <span class="counter-result">{{counter}}</span>
-                    <button (click)="counter==1?counter=1:counter = counter-1" class="btn btn-default btn-number">
-                        <span class="glyphicon glyphicon-minus"></span>
-                    </button>
+
+
+            <div class="row">
+                <div class="serving-size col-md-6 col-sm-6 col-xs-6">
+                    <h3>Portions</h3>
+                    <div ng-app class="input-group counter" ng-init="counter = 1">
+                        <button (click)="counter = counter+1" class="btn btn-default btn-number">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                        <span class="counter-result">{{counter}}</span>
+                        <button (click)="counter==1?counter=1:counter = counter-1" class="btn btn-default btn-number">
+                            <span class="glyphicon glyphicon-minus"></span>
+                        </button>
+
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-6 price-block">
+                    <div class="price-wrapper">
+                        <p class="text-right text-font product-price">Price: <span>{{productData.price*counter}}$</span></p>
+                        <p class="text-right text-font product-price">Total: <span>{{productData.price*counter - productData.discount}}$</span></p>
+                        <p class="text-right text-font product-price">Economy: <span>{{productData.discount}}$</span></p>
+                    </div>
 
                 </div>
             </div>
-
-            <div class="row button-padding">
-                <div class="price-wrapper">
-                    <p class="text-right text-font product-price">Price <span>{{productData.price*counter}}$</span></p>
-                    <p class="text-right text-font product-price">Total <span>{{productData.price*counter - productData.discount}}$</span></p>
-                    <p class="text-right text-font product-price">Economy <span>{{productData.discount}}$</span></p>
+            <div class="row">
+                <div class="col-md-6">
+                    <button class="btn btn-md btn-primary to-cart-btn pull-right custom-cart-button">
+                        <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add to cart
+                    </button>
                 </div>
-                <button class="btn btn-md btn-primary to-cart-btn pull-right custom-cart-button">
-                    <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add to cart
-                </button>
-                <button class="btn btn-md btn-primary custom-buy-button">
-                    <span class="glyphicon glyphicon-usd" aria-hidden="true"></span> Buy now!
-                </button>
+                <div class="col-md-6">
+                    <button class="btn btn-md btn-primary custom-buy-button">
+                        <span class="glyphicon glyphicon-usd" aria-hidden="true"></span> Buy now!
+                    </button>
+                </div>
             </div>
         </div>
-    </div></div>
+    </div>
+</div>
 <app-disqus></app-disqus>
