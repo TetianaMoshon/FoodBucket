@@ -1,10 +1,11 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {LocalDataSource} from 'ng2-smart-table';
 import {Router, ActivatedRoute} from '@angular/router';
 import {CategoryService} from '../../../client/api/category.service';
 import {NgForm} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';
 import {FlashMessagesService} from 'ngx-flash-messages';
+import {Headers, Http, RequestOptions} from '@angular/http';
+import {Observable} from "rxjs";
 
 @Component({
     selector: 'app-admincategories-form',
@@ -21,11 +22,13 @@ export class AdmincategoriesFormComponent implements OnInit, OnDestroy {
         name: string
     };
     urlSubscription: Subscription;
+    fileList: FileList;
 
     constructor(
         protected categoryService: CategoryService,
         protected route: ActivatedRoute,
-        private flashMessagesService: FlashMessagesService
+        private flashMessagesService: FlashMessagesService,
+        private http: Http
     ) { }
 
     ngOnInit() {
@@ -53,6 +56,10 @@ export class AdmincategoriesFormComponent implements OnInit, OnDestroy {
             );
     }
 
+    onFileChange(event) {
+        this.fileList = event.target.files;
+    }
+
     ngOnDestroy() {
         this.urlSubscription.unsubscribe();
     }
@@ -75,6 +82,24 @@ export class AdmincategoriesFormComponent implements OnInit, OnDestroy {
         this.categoryService.createCategory(categoryObject)
             .subscribe(
                 category => {
+                    if (this.fileList.length > 0) {
+                        const file: File = this.fileList[0];
+                        const formData: FormData = new FormData();
+                        formData.append('file', file, file.name);
+                        const headers = new Headers();
+                        /** No need to include Content-Type in Angular 4 */
+                        // headers.append('Content-Type', 'multipart/form-data');
+                        headers.append('Accept', 'application/json');
+                        const options = new RequestOptions({ headers: headers });
+                        this.http.post(`/api/category/${category['category_id']}/image`, formData, options)
+                            .map(res => res.json())
+                            .catch(error => Observable.throw(error))
+                            .subscribe(
+                                data => console.log('success', data),
+                                error => console.log(error)
+                            );
+                    }
+
                     this.flashMessagesService.show(`Category with id:${category['category_id']} was successfully created!`, {
                         classes: ['alert', 'alert-success'],
                         timeout: 3000,

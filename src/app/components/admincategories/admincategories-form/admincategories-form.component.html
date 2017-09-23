@@ -25,6 +25,8 @@
                     <input [(ngModel)]="description" name="description" type="text" class="form-control" id="description">
                 </div>
 
+                <input type="file" (change)="onFileChange($event)" placeholder="Upload file" accept=".jpg,.png">
+
                 <div class="btn-group">
                     <button (Click)="onSubmit()" type="submit" class="btn btn-success">Save</button>
                     <a class="btn btn-danger" routerLink="/admin/categories" routerLinkActive="active">Back</a>
