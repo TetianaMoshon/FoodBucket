@@ -21,7 +21,7 @@ export class AdmincategoriesComponent implements OnInit {
     ) { }
 
     fetchData() {
-        this.categoryService.getAllCategories(1, 2, true)
+        this.categoryService.getAllCategories(0, 5, 'desc', 'category_id')
             .subscribe(
                 categories => {
                     this.source = categories;
@@ -42,7 +42,7 @@ export class AdmincategoriesComponent implements OnInit {
         if (confirm('Are you really want to delete category with id: ' + id + ' ?')) {
             this.categoryService.deleteCategoryById(parseInt(id, 10)).subscribe(
                 category => {
-                    this.categoryService.getAllCategories(1, 2, true).subscribe(
+                    this.categoryService.getAllCategories(1, 2, 'desc', 'category_id').subscribe(
                         categories => {
                             this.source = categories;
                         },

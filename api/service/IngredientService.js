@@ -1,6 +1,7 @@
 'use strict';
 const utils = require('../utils/writer.js');
 const Ingredient = require('../model/ingredient');
+const imageService = require('./common/ImageService');
 const debug = require('debug')('foodbucket:ingredientService');
 
 /**
@@ -52,12 +53,13 @@ exports.deleteIngredientById = function(id) {
                 } else {
                     reject(utils.respondWithCode(404, {"code": 404, "message": "Ingredient is not deleted, please try again."}));
                 }
-    },
-        error => { console.log('Unable to remove ingredient'); }
-    );
+            },
+            error => { console.log('Unable to remove ingredient'); }
+        );
 
     });
 }
+
 
 
 /**
@@ -89,12 +91,22 @@ exports.findIngredientById = function(id) {
  * limit Integer number of items to query from DB
  * returns List
  **/
-exports.getAllIngredients = function(offset,limit, sort, sort_col) {
+exports.getAllIngredients = function(offset,limit, sort, sort_col, search_txt, search_col) {
     return new Promise( (resolve, reject) => {
+        let query = {};
+        if (search_col && search_txt) {
+            if (isNaN(search_txt)) {
+                const regex = new RegExp(search_txt, "i");
+                query = {[search_col]: regex};
+            } else {
+                query = {[search_col]: search_txt};
+            }
+
+        }
          return Ingredient.count().
             then(
                 total => {
-                     Ingredient.find().skip(offset).limit(limit).sort({[sort_col]: sort}).then(
+                     Ingredient.find(query).skip(offset).limit(limit).sort({[sort_col]: sort}).then(
                          (ingredientsDoc) => {
                             ingredientsDoc = ingredientsDoc || [];
                             if (Object.keys(ingredientsDoc).length > 0) {
@@ -135,7 +147,8 @@ exports.updateIngredientById = function(id,updatedIngredient) {
                 }
             },
             error => { debug('Unable to get ingredient: %O', error); }
-         );
+        );
     });
 };
+
 

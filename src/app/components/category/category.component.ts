@@ -11,7 +11,7 @@ export class CategoryComponent implements OnInit {
     source;
 
     constructor(private categoryService: CategoryService) {
-        this.categoryService.getAllCategories(1, 2, true)
+        this.categoryService.getAllCategories(0, 20, 'desc', 'category_id')
             .subscribe(
                 categories => {
                     this.source = categories;

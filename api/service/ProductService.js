@@ -72,7 +72,7 @@ exports.findProductById = function(id) {
     });
 }
 
-exports.getAllProducts = function(offset,limit, sort, sort_col,isPromotion) {
+exports.getAllProducts = function(offset,limit, isPromotion, sort, sort_col) {
     return new Promise((resolve, reject) => {
         const query = isPromotion!==undefined? {promotions:isPromotion}: {};
         return Product.count().

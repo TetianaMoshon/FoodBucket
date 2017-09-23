@@ -29,16 +29,7 @@ export class AdminOrdersComponent implements OnInit {
     orders: Order[] = [];
 pager: any = {};
 pagedItems: any[];
- filter: Order = {
-     date: '',
-     orderId: null,
-     username: '',
-     city: '',
-     products: [],
-     price : null,
-     address: '' ,
-     status: ''
- };
+
   constructor(private pagerService: PagerService, private ApiService: OrderService) {
       this.showHide = false;
   }

@@ -679,6 +679,22 @@ paths:
             - title
             - quantity
             - price
+        - name: search_txt
+          in: query
+          description: text to search
+          required: false
+          type: string
+        - name: search_col
+          in: query
+          description: text to search
+          required: false
+          type: string
+          enum:
+            - ingredient_id
+            - title
+            - measure
+            - quantity
+            - price
       responses:
         200:
           description: Successful ingredient response
