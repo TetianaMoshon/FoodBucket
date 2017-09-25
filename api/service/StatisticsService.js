@@ -2,6 +2,7 @@
 const Order = require('../model/order');
 const User = require('../model/user');
 const utils = require('../utils/writer.js');
+const Product = require('../model/product');
 /**
  *
  * returns List
@@ -30,6 +31,20 @@ exports.getUsersStatistics = function() {
 
 
 
+exports.getNonpromotionalProducts = function() {
+    return new Promise(function(resolve, reject) {
+        Product.count({promotions:false}).then(nonpromotionalProducts => {
+            resolve({nonpromotionalProducts});
+        });
+    });
+};
+exports.getPromotionProductsCount = function() {
+    return new Promise(function(resolve, reject) {
+        Product.count({promotions:true}).then(promotionalProducts => {
+            resolve({promotionalProducts});
+        });
+    });
+};
 exports.getCompletedOrdersStatistics = function() {
     return new Promise(function(resolve, reject) {
         Order.count({status:'Delivered'}).then(completedOrders => {

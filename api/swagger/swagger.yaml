@@ -94,6 +94,40 @@ paths:
           description: invalid input
           schema:
             $ref: "#/definitions/Error"
+  /statistics/nonpromotionalProducts:
+    get:
+      x-swagger-router-controller: Statistics
+      operationId: getNonpromotionalProducts
+      tags:
+      - "statistics"
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Successful completed nonpromotional products statistics response
+          schema:
+              $ref: "#/definitions/GeneralStatistics"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+  /statistics/promotionalProducts:
+    get:
+      x-swagger-router-controller: Statistics
+      operationId: getPromotionProductsCount
+      tags:
+      - "statistics"
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Successful completed promotional products revenue statistics response
+          schema:
+              $ref: "#/definitions/GeneralStatistics"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
   /products:
     get:
       x-swagger-router-controller: Product
@@ -1088,6 +1122,8 @@ definitions:
       - totalMoney
       - totalUsers
       - completedOrders
+      - nonpromotionalProducts
+      - promotionalProducts
     properties:
       totalOrders:
         type: integer
@@ -1099,6 +1135,12 @@ definitions:
         type: integer
         format: int64
       completedOrders:
+        type: integer
+        format: int64
+      nonpromotionalProducts:
+        type: integer
+        format: int64
+      promotionalProducts:
         type: integer
         format: int64
   Product:
