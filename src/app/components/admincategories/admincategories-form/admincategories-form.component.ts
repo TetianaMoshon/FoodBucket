@@ -1,10 +1,10 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {LocalDataSource} from 'ng2-smart-table';
-import {Router, ActivatedRoute} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {CategoryService} from '../../../client/api/category.service';
 import {NgForm} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';
 import {FlashMessagesService} from 'ngx-flash-messages';
+import {ImageService} from '../../../services/image/image.service';
 
 @Component({
     selector: 'app-admincategories-form',
@@ -14,18 +14,21 @@ import {FlashMessagesService} from 'ngx-flash-messages';
 export class AdmincategoriesFormComponent implements OnInit, OnDestroy {
 
     title: string;
-    image: string;
+    imageUpload: string;
+    imageSrc: string = '';
     description: string;
     action: {
         id: number,
         name: string
     };
     urlSubscription: Subscription;
+    file: File = null;
 
     constructor(
         protected categoryService: CategoryService,
         protected route: ActivatedRoute,
-        private flashMessagesService: FlashMessagesService
+        private flashMessagesService: FlashMessagesService,
+        private imageService: ImageService
     ) { }
 
     ngOnInit() {
@@ -53,20 +56,47 @@ export class AdmincategoriesFormComponent implements OnInit, OnDestroy {
             );
     }
 
+    onFileChange(event) {
+        const fileList: FileList = event.target.files;
+        if (fileList.length > 0) {
+            this.file = fileList[0];
+
+            const pattern = /image-*/;
+            const reader = new FileReader();
+
+            if (!this.file.type.match(pattern)) {
+                alert('Invalid image format. Only .jpg and .png are available');
+                return;
+            }
+
+            reader.onloadend = this.onReaderLoaded.bind(this);
+            reader.readAsDataURL(this.file);
+        }
+    }
+
+    private onReaderLoaded(e) {
+        const reader = e.target;
+        this.imageSrc = reader.result;
+    }
+
     ngOnDestroy() {
         this.urlSubscription.unsubscribe();
     }
 
     onSubmit(form: NgForm) {
+
         const categoryObject = {
             title: form.value.title,
-            image: form.value.image,
+            image: 'empty path',
             description: form.value.description
         };
 
         if (this.action.name === 'create') {
             this.createCategory(categoryObject);
-        } else {
+        } else { // edit
+            if (this.file === null) {
+                categoryObject.image = this.imageSrc.replace('image/', '');
+            }
             this.updateCategory(this.action.id, categoryObject);
         }
     }
@@ -75,6 +105,10 @@ export class AdmincategoriesFormComponent implements OnInit, OnDestroy {
         this.categoryService.createCategory(categoryObject)
             .subscribe(
                 category => {
+                    if (this.file !== null) {
+                        this.uploadCategoryImageById(parseInt(category['category_id'], 10), this.file, 'post');
+                    }
+
                     this.flashMessagesService.show(`Category with id:${category['category_id']} was successfully created!`, {
                         classes: ['alert', 'alert-success'],
                         timeout: 3000,
@@ -89,11 +123,14 @@ export class AdmincategoriesFormComponent implements OnInit, OnDestroy {
         this.categoryService.updateCategoryById(id, categoryObject)
             .subscribe(
                 category => {
+                    if (this.file !== null) {
+                        this.uploadCategoryImageById(id, this.file, 'put');
+                    }
+
                     this.flashMessagesService.show(`Category with id:${id} was successfully updated!`, {
                         classes: ['alert', 'alert-warning'],
                         timeout: 3000,
                     });
-
                 },
                 err => console.log(err)
             );
@@ -104,16 +141,22 @@ export class AdmincategoriesFormComponent implements OnInit, OnDestroy {
             .subscribe(
                 category => {
                     this.title = category.title;
-                    this.image = category.image;
                     this.description = category.description;
+                    this.imageSrc = 'image/' + category.image;
                 },
                 err => console.log(err)
             );
     }
 
+    uploadCategoryImageById(id, file, method) {
+        const entityName = 'category';
+        this.imageService.uploadImageByEntityId(id, file, method, entityName);
+    }
+
     resetFormFields() {
         this.title = '';
-        this.image = '';
+        this.imageUpload = '';
         this.description = '';
+        this.imageSrc = '';
     }
 }
