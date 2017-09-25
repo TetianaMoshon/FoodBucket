@@ -35,8 +35,6 @@ export class ProductlistComponent implements OnInit {
   ngOnInit() {
       this.populateIdFieldOfProduct();
       this.idOfLoggedinUser = this.getIdOfLoggedInUserFromLocalStorage();
-      console.log('USER', this.idOfLoggedinUser);
-      console.log('ID of user', this.idOfLoggedinUser);
   }
 
     goToProductDetails(product: Product): void {
