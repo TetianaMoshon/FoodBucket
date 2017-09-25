@@ -16,6 +16,9 @@ export class AdminAnalyticsComponent implements OnInit {
     revenue;
     promotionalProducts;
     nonpromotionalProducts;
+    fishProducts;
+    meatProducts;
+    vegeterianProducts;
     doughnutProductsData: number[];
     // Chart Orders
     public chartOrdersData: Array<any> = [
@@ -140,6 +143,18 @@ export class AdminAnalyticsComponent implements OnInit {
         });
         this.statService.getNonpromotionalProducts().subscribe(res => {
             this.nonpromotionalProducts = res.nonpromotionalProducts;
+        });
+        this.statService.getCategoriesStatistics('Fish').subscribe(res => {
+            this.fishProducts = res['queryProducts'];
+            console.log(this.fishProducts);
+        });
+        this.statService.getCategoriesStatistics('Meat').subscribe(res => {
+            this.meatProducts = res['queryProducts'];
+            console.log(this.meatProducts);
+        });
+        this.statService.getCategoriesStatistics('Vegeterian').subscribe(res => {
+            this.vegeterianProducts = res['queryProducts'];
+            console.log(this.vegeterianProducts);
         });
     }
 }

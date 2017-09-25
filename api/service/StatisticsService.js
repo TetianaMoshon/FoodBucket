@@ -29,7 +29,13 @@ exports.getUsersStatistics = function() {
     });
 };
 
-
+exports.getCategoriesStatistics = function(categoryQuery) {
+    return new Promise(function (resolve, reject) {
+        Product.count({category: categoryQuery}).then((queryProducts) =>{
+                resolve({queryProducts});
+            }
+        )}
+    )};
 
 exports.getNonpromotionalProducts = function() {
     return new Promise(function(resolve, reject) {
@@ -57,7 +63,7 @@ exports.getRevenue = function() {
     let revenue;
     return new Promise(function(resolve, reject) {
         Order.aggregate({
-            $match: {status:'Delivered'}},
+                $match: {status:'Delivered'}},
             {
                 $group : {
                     _id : null,

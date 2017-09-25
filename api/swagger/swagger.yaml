@@ -128,6 +128,29 @@ paths:
           description: invalid input
           schema:
             $ref: "#/definitions/Error"
+  /statistics/categories:
+    get:
+      x-swagger-router-controller: Statistics
+      operationId: getCategoriesStatistics
+      tags:
+      - "statistics"
+      produces:
+      - application/json
+      parameters:
+      - name: categoryQuery
+        in: query
+        description: Category in string format to see how many products are there
+        required: true
+        type: string
+      responses:
+        200:
+          description: Successful categories statistics response
+          schema:
+              $ref: "#/definitions/GeneralStatistics"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
   /products:
     get:
       x-swagger-router-controller: Product
