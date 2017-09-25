@@ -42,7 +42,6 @@ export class AdminIngredientsComponent implements OnInit {
             this.ingredients = response.json();
             this.total = response.headers.get('x-total-records');
             this.pager = this.pagerService.getPager(this.total, 1);
-            console.log(this.ingredients);
             this.pagedItems = this.ingredients;
         });
 
@@ -113,12 +112,15 @@ export class AdminIngredientsComponent implements OnInit {
     }
 
     onDeleteClick(event, id): void {
+        this.defineOffset(this.limit.pageSize, this.pager.currentPage);
         if (confirm('Are you really want to delete ingredient with id: ' + id + ' ?')) {
             this.ingredientService.deleteIngredientById(parseInt(id, 10)).subscribe(
                 ingredient => {
-                    this.ingredientService.getAllIngredients(1, 2, 'desc', 'ingredient_id').subscribe(
+                    this.ingredientService.getAllIngredientsWithHttpInfo(0, this.limit.pageSize, 'desc', 'ingredient_id').subscribe(
                         ingredients => {
-                            this.pagedItems = ingredients;
+                            this.pagedItems = ingredients.json();
+                            this.total = ingredients.headers.get('x-total-records');
+                            this.pager = this.pagerService.getPager(this.total, this.pager.currentPage);
                         },
                         err => console.log(err)
                     );

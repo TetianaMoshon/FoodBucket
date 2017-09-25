@@ -9,6 +9,15 @@ h1 {
     font-family: Oswald, sans-serif;
 }
 
+img.max-width-100 {
+    width: 120px;
+}
+
+td.image-column {
+    padding-top: 3px!important;
+    padding-bottom: 3px!important;
+}
+
 thead th {
     border: 1px solid gray;
     font-size: 19px;

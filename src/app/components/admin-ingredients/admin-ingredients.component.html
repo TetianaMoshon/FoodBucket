@@ -77,10 +77,10 @@
                 <td class="gray-border text-center">{{ingredient.measure}}</td>
                 <td class="gray-border text-center">{{ingredient.quantity}}</td>
                 <td class="gray-border text-center">{{ingredient.price}}</td>
-                <td class="gray-border text-center">
+                <td class="gray-border text-center image-column">
                     <img src="image/{{ingredient.image}}" class="max-width-100" alt="There is no image for this category">
                 </td>
-                <td class="gray-border text-center">
+                <td class="gray-border text-center ">
                     <button class="btn btn-warning" (click)="onEditClick($event, ingredient['ingredient_id'])">Edit</button>
                     <button class="btn btn-danger" (click)="onDeleteClick($event, ingredient['ingredient_id'])">Delete</button>
                 </td>

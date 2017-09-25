@@ -46,7 +46,8 @@ controllers/AuthService.js
 service/ProductService.js
 controllers/ProductService.js
 
-
+service/IngredientService.js
+controllers/IngredientService.js
 
 
 service/PromotionService.js
@@ -63,6 +64,7 @@ controllers/User.js
 controllers/Category.js
 controllers/Product.js
 controllers/Order.js
+controllers/Ingredient.js
 
 
 
