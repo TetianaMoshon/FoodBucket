@@ -374,11 +374,6 @@ paths:
       produces:
       - application/json
       parameters:
-        - name: isActive
-          in: query
-          description: returns active categories
-          required: false
-          type: boolean
         - name: offset
           in: query
           description: start position for quering from DB
@@ -396,6 +391,37 @@ paths:
           minimum: 0
           maximum: 27
           default: 9
+        - name: sort
+          in: query
+          description: sort order
+          required: false
+          type: string
+          enum:
+            - asc
+            - desc
+        - name: sort_col
+          in: query
+          description: column to sort
+          required: false
+          type: string
+          enum:
+            - category_id
+            - title
+            - description
+        - name: search_txt
+          in: query
+          description: text to search
+          required: false
+          type: string
+        - name: search_col
+          in: query
+          description: text to search
+          required: false
+          type: string
+          enum:
+            - category_id
+            - title
+            - description
       responses:
         200:
           description: Successful categories response

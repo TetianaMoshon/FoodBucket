@@ -95,24 +95,41 @@ exports.findCategoryById = function (id) {
  * isActive Boolean returns active categories (optional)
  * returns List
  **/
-exports.getAllCategories = function (offset, limit, isActive) {
+exports.getAllCategories = function (offset, limit, sort, sort_col, search_txt, search_col) {
     return new Promise((resolve, reject) => {
-        Category.find().then(
-            categoriesDoc => {
-                categoriesDoc = categoriesDoc || [];
-                if (Object.keys(categoriesDoc).length > 0) {
-                    categoriesDoc = categoriesDoc.map( ({ category_id, title, image, description }) => {
-                        return { category_id, title, image, description };
-                    });
-                    resolve(utils.respondWithCode(200, categoriesDoc));
-                } else {
-                    reject(utils.respondWithCode(404, {"code": 404, "message": "Categories are not found, please try again."}));
-                }
-            },
-            error => { debug('Unable to get categories: %O', error); }
-        );
+        let query = {};
+        if (search_col && search_txt) {
+            if (isNaN(search_txt)) {
+                const regex = new RegExp(search_txt, "i");
+                query = {[search_col]: regex};
+            } else {
+                query = {[search_col]: search_txt};
+            }
+
+        }
+
+        return Category.count().then (
+            total => {
+                Category.find(query).skip(offset).limit(limit).sort({[sort_col]: sort}).then(
+                    categoriesDoc => {
+                        categoriesDoc = categoriesDoc || [];
+                        if (Object.keys(categoriesDoc).length > 0) {
+                            categoriesDoc = categoriesDoc.map( ({ category_id, title, image, description }) => {
+                                return { category_id, title, image, description };
+                            });
+                            resolve({total: total, body: utils.respondWithCode(200, categoriesDoc)});
+                        } else {
+                            reject(utils.respondWithCode(404, {"code": 404, "message": "Categories are not found, please try again."}));
+                        }
+                    },
+                    error => { debug('Unable to get categories: %O', error); }
+                );
+            }
+        )
+
     });
 };
+
 
 
 /**
