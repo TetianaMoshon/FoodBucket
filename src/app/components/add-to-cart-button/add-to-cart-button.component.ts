@@ -30,7 +30,7 @@ export class AddToCartButtonComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
       this.idOfLoggedinUser = this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage();
-      this.arrayOfCartOrders = JSON.parse(localStorage.getItem('arrayOfCartOrders')) || [];
+      // this.arrayOfCartOrders = JSON.parse(localStorage.getItem('arrayOfCartOrders')) || [];
 
       this.renderer.listen(this.elementRef.nativeElement, 'click', (event) => {
          this.watchClickEvent$.next(event.path[1].attributes.id.nodeValue);
@@ -38,6 +38,7 @@ export class AddToCartButtonComponent implements OnInit, OnDestroy {
       this.subscription = this.watchClickEvent$
           .debounceTime(250)
           .subscribe(id => {
+              this.cartService.findCartContentById(this.idOfLoggedinUser).subscribe(res => console.log(res));
           if (!this.clicked) {
               this.clicked = true;
               if (this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage() > -1) {
@@ -118,6 +119,8 @@ export class AddToCartButtonComponent implements OnInit, OnDestroy {
 
     private addNewProduct(id) {
 // let's sink this.arrayOfCartOrders with db as user may have changed amount of products
+
+
 
         this.cartService.findCartContentById(this.idOfLoggedinUser).subscribe(
             cartData => {
