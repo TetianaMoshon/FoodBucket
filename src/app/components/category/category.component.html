@@ -16,11 +16,11 @@
         </div>
 
         <div class="row">
-            <div *ngFor="let item of source" class="col-xxs-12 col-xs-6 col-sm-4">
+            <div *ngFor="let category of source" class="col-xxs-12 col-xs-6 col-sm-4">
                 <div class="category-item">
-                    <a routerLink="/category/productlist" routerLinkActive="active" (click)="isCollapsed = true">
-                        <img class="img-rounded" src="image/{{ item.image }}" alt="There is no image">
-                        <span class="lead">{{ item.title }}</span>
+                    <a [routerLink]="[category.category_id]" routerLinkActive="active" (click)="isCollapsed = true">
+                        <img class="img-rounded" src="image/{{ category.image }}" alt="There is no image">
+                        <span class="lead">{{ category.title }}</span>
                     </a>
                 </div>
             </div>

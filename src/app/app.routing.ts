@@ -29,9 +29,9 @@ const appRoutes: Routes = [
     { path: 'ingredients', component: IngredientsComponent },
     { path: 'category', children: [
           { path: '', component: CategoryComponent },
-          { path: 'productlist', children: [
-              { path: '', component: ProductlistComponent },
-              { path: ':id', component: ProductpageComponent }
+          { path: ':id', children: [
+            { path: '', component: ProductlistComponent },
+            { path: ':id', component: ProductpageComponent }
           ]},
       ]},
       { path: 'aboutus', component: AboutusComponent },

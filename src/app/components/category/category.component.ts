@@ -10,6 +10,7 @@ export class CategoryComponent implements OnInit {
 
     source;
 
+
     constructor(private categoryService: CategoryService) {
         this.categoryService.getAllCategories(1, 2, true)
             .subscribe(
@@ -21,6 +22,5 @@ export class CategoryComponent implements OnInit {
     }
 
     ngOnInit() {
-
     }
 }

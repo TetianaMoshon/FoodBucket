@@ -28,7 +28,7 @@
 
         <div class="row">
             <div class="col-xs-6">
-                <h1>Pastas</h1>
+                <h1>{{categoryTitle}}</h1>
             </div>
 
             <!--Category tag buttons begin-->
@@ -62,13 +62,13 @@
             <ng-container *ngFor="let product of pagedItems">
                 <div class="col-md-4 col-sm-6 hero-feature">
                     <div class="thumbnail">
-                        <a [routerLink]="['productpage']"> <img src={{product.image}}></a>
+                        <a [routerLink]="[product.productId]" routerLinkActive="active"> <img src={{product.image}}></a>
                         <div class="caption product-desc">
                             <h3>{{product.title}}</h3>
                             <p>{{product.description}}</p>
                             <p>
                                 <button class="btn btn-primary" [id]="product.productId" (click)="addProductToCart($event)">Buy Now!</button>
-                                <a [routerLink]="['productpage']" routerLinkActive="active" class="btn btn-default">More Info</a>
+                                <a [routerLink]="[product.productId]" routerLinkActive="active" class="btn btn-default">More Info</a>
                             </p>
                         </div>
                     </div>

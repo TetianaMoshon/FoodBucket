@@ -3,7 +3,8 @@ import {CartService} from '../../client/api/cart.service';
 import {ProductService} from '../../client/api/product.service';
 import {PagerService} from '../../services/pagination.service';
 import {Product} from '../../models/product';
-
+import { ActivatedRoute } from '@angular/router';
+import {CategoryService} from '../../client/api/category.service';
 
 @Component({
   selector: 'app-productlist',
@@ -20,20 +21,45 @@ export class ProductlistComponent implements OnInit {
     arrayOfCartOrders = [];
     pager: any = {};
     pagedItems: any[];
+    categoryId = this.route.snapshot.paramMap.get('id');
+    categoryTitle: string;
+
     constructor(
         private cartService: CartService,
         private productService: ProductService,
-        private pagerService: PagerService
+        private pagerService: PagerService,
+        protected route: ActivatedRoute,
+        private categoryService: CategoryService
     ) {
         this.showHide = false;
     }
 
   ngOnInit() {
-      this.populateIdFieldOfProduct();
+      // this.populateIdFieldOfProduct();
       this.idOfLoggedinUser = this.getIdOfLoggedInUserFromLocalStorage();
-      console.log('USER', this.idOfLoggedinUser);
-      console.log('ID of user', this.idOfLoggedinUser);
+      this.showProductsFromCategory(this.categoryId);
   }
+
+    showProductsFromCategory(categoryId) {
+        this.categoryService.findCategoryById(categoryId)
+            .subscribe(
+                category => {
+                        this.categoryTitle = category.title;
+                });
+
+        this.productService.getAllProducts(0, 20)
+            .subscribe(products => {
+                products.forEach(product => {
+                    if (product.category === this.categoryTitle) {
+                        const {productId, title, description, image, price} =  product;
+                        this.priceOfChosenProduct = price;
+                        this.products.push({productId, title, description, image});
+                    }
+                });
+                this.setPage(1);
+            });
+    }
+
     setPage(page: number) {
         if (page < 1 || page > this.pager.totalPages) {
             return;
@@ -113,17 +139,6 @@ export class ProductlistComponent implements OnInit {
         return isAlreadyInIdArray;
     }
 
-    populateIdFieldOfProduct() {
-        this.productService.getAllProducts(0, 20).subscribe(products => {
-            products.forEach(product => {
-                const {productId, title, description, image, price} =  product;
-                this.priceOfChosenProduct = price;
-                this.products.push({productId, title, description, image});
-            });
-            this.setPage(1);
-        });
-
-    }
 
     private getIdOfLoggedInUserFromLocalStorage() {
         if (JSON.parse(sessionStorage.getItem('currentUserId'))) {
