@@ -38,7 +38,6 @@ export class AddToCartButtonComponent implements OnInit, OnDestroy {
       this.subscription = this.watchClickEvent$
           .debounceTime(250)
           .subscribe(id => {
-              // this.cartService.findCartContentById(this.idOfLoggedinUser).subscribe(res => console.log(res));
           if (this.cartCommunicationService.userIsLoggedIn) {
               if (!this.clicked) {
                   this.clicked = true;
@@ -64,9 +63,7 @@ export class AddToCartButtonComponent implements OnInit, OnDestroy {
     }
 
     addProductToCart(id) {
-        // lets see if db has already cart of the user
-        // this.cartCommunicationService.findOutWhetherCartCreated();
-        this.cartService.findCartContentById(this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage())
+           this.cartService.findCartContentById(this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage())
             .subscribe(data => {
                 console.log(`data `, data);
                 if (data === undefined) {
@@ -84,7 +81,8 @@ export class AddToCartButtonComponent implements OnInit, OnDestroy {
                         totalPriceOfAllDishes: 0
                     };
 
-                    this.cartService.createCartForUserById(this.idOfLoggedinUser, newCart).subscribe(
+                    this.cartService.createCartForUserById(this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage(), newCart)
+                        .subscribe(
                         cart => {
                             localStorage.setItem('cartContentObjCreated', JSON.stringify(true));
                             localStorage.setItem('showAPhrase', JSON.stringify(false));
