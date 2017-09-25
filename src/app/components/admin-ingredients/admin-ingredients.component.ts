@@ -42,6 +42,7 @@ export class AdminIngredientsComponent implements OnInit {
             this.ingredients = response.json();
             this.total = response.headers.get('x-total-records');
             this.pager = this.pagerService.getPager(this.total, 1);
+            console.log(this.ingredients);
             this.pagedItems = this.ingredients;
         });
 

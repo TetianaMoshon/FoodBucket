@@ -114,7 +114,7 @@ export class AdminIngredientsFormComponent implements OnInit, OnDestroy {
             .subscribe(
                 ingredient => {
                     if (this.file !== null) {
-                        this.uploadCategoryImageById(parseInt(ingredient['ingredient_id'], 10), this.file, 'post');
+                        this.uploadIngredientImageById(parseInt(ingredient['ingredient_id'], 10), this.file, 'post');
                     }
 
                     this.flashMessagesService.show(`Ingredient with id:${ingredient['ingredient_id']} was successfully created!`, {
@@ -132,7 +132,7 @@ export class AdminIngredientsFormComponent implements OnInit, OnDestroy {
             .subscribe(
                 ingredient => {
                     if (this.file !== null) {
-                        this.uploadCategoryImageById(id, this.file, 'put');
+                        this.uploadIngredientImageById(id, this.file, 'put');
                     }
 
                     this.flashMessagesService.show(`Ingredient with id:${id} was successfully updated!`, {
@@ -159,8 +159,8 @@ export class AdminIngredientsFormComponent implements OnInit, OnDestroy {
             );
     }
 
-    uploadCategoryImageById(id, file, method) {
-        const entityName = 'inredient';
+    uploadIngredientImageById(id, file, method) {
+        const entityName = 'ingredient';
         this.imageService.uploadImageByEntityId(id, file, method, entityName);
     }
 
