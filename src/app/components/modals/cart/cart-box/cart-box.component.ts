@@ -136,7 +136,6 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
     private extractCartOrdersArray(arr) {
         const arrayOfCartOrders = [];
-        console.log(` I'm in extractCartOrdersArray`);
         arr.forEach(data => {
             const priceForAProduct = this.getPriceById(data.id);
             arrayOfCartOrders.push(

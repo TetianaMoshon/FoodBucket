@@ -40,7 +40,7 @@ export class AddToCartButtonComponent implements OnInit, OnDestroy {
           .subscribe(id => {
           if (this.cartCommunicationService.userIsLoggedIn) {
               if (!this.clicked) {
-                  this.clicked = true;
+                  // this.clicked = true;
                   this.addProductToCart(id);
               } else {
                   this.flashMessagesService.show(`You have already added this product to cart!`, {
@@ -90,12 +90,11 @@ export class AddToCartButtonComponent implements OnInit, OnDestroy {
                             orderedProducts.forEach(cartOrder => {
                                 this.arrayOfCartOrders.push(cartOrder);
                             });
-                            // let's make this.arrayOfCartOrders available throughout the whole app
                             localStorage.setItem('arrayOfCartOrders', JSON.stringify(this.arrayOfCartOrders));
                         },
                         err => console.log('Error has happened ' + err )
                     );
-
+                    this.clicked = true;
                     this.flashMessagesService.show(`Added to cart!`, {
                         classes: ['alert', 'alert-success'],
                         timeout: 3000,
@@ -108,10 +107,7 @@ export class AddToCartButtonComponent implements OnInit, OnDestroy {
                     localStorage.setItem('cartContentObjCreated', JSON.stringify(true));
                     localStorage.setItem('showAPhrase', JSON.stringify(false));
                     this.addNewProduct(id);
-                    this.flashMessagesService.show(`Added to cart!`, {
-                        classes: ['alert', 'alert-success'],
-                        timeout: 3000,
-                    });
+
                     // let's show cart icon
                     this.cartCommunicationService.canShowCart$.next(true);
                 }
@@ -123,26 +119,39 @@ export class AddToCartButtonComponent implements OnInit, OnDestroy {
 
         this.cartService.findCartContentById(this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage()).subscribe(
             cartData => {
-                console.log(`cartDAta `, cartData);
                 // retrieve array of cartOrders of logged in user
                 const {orderedProducts} = cartData;
                 this.arrayOfCartOrders = orderedProducts;
-                console.log(`this.arrayOfCartOrders `, this.arrayOfCartOrders);
-                // let's push new CartOrder into arrayOfCartOrders
-                this.arrayOfCartOrders.push({productId: parseInt(id), quantity: 1});
-                console.log(`this.arrayOfCartOrders 2 `, this.arrayOfCartOrders);
-                localStorage.setItem('arrayOfCartOrders', JSON.stringify(this.arrayOfCartOrders));
-                // let's created updatedCartOrder
-                console.log('array with added items ', this.arrayOfCartOrders);
-                const updatedCart = {
-                    orderedProducts: this.arrayOfCartOrders,
-                    // when cart is first created total price is the price of a clicked product
-                    totalPriceOfAllDishes: 0
-                };
+                 // let's check whether id is already in this.arrayOfCartOrders
+                if (this.arrayOfCartOrders.find(curElement => curElement.productId === parseInt(id))) {
+                    this.clicked = true;
+                    this.flashMessagesService.show(`You have already added this product to cart!`, {
+                        classes: ['alert', 'alert-danger'],
+                        timeout: 3000,
+                    });
+                } else {
+                    // let's push new CartOrder into arrayOfCartOrders
+                    this.arrayOfCartOrders.push({productId: parseInt(id), quantity: 1});
+                    localStorage.setItem('arrayOfCartOrders', JSON.stringify(this.arrayOfCartOrders));
+                    // let's created updatedCartOrder
+                    const updatedCart = {
+                        orderedProducts: this.arrayOfCartOrders,
+                        // when cart is first created total price is the price of a clicked product
+                        totalPriceOfAllDishes: 0
+                    };
 
-                this.cartService.updateCartContentById(this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage(), updatedCart).subscribe(updatedData => {
-                    console.log('updatedCart returned from backend ', updatedData);
-                });
+                    this.cartService.updateCartContentById(this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage(), updatedCart).subscribe(updatedData => {
+                        console.log('updatedCart returned from backend ', updatedData);
+                    });
+                    this.clicked = true;
+                    this.flashMessagesService.show(`Added to cart!`, {
+                        classes: ['alert', 'alert-success'],
+                        timeout: 3000,
+                    });
+
+
+                }
+
 
             }
         );
