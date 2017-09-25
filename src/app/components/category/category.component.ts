@@ -8,7 +8,16 @@ import {CategoryService} from '../../client/api/category.service';
 })
 export class CategoryComponent implements OnInit {
 
+    source;
+
     constructor(private categoryService: CategoryService) {
+        this.categoryService.getAllCategories(1, 2, true)
+            .subscribe(
+                categories => {
+                    this.source = categories;
+                },
+                err => console.log(err)
+            );
     }
 
     ngOnInit() {
