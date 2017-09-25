@@ -10,9 +10,11 @@ import {CategoryService} from '../../client/api/category.service';
 export class AdmincategoriesComponent implements OnInit {
 
     source;
+    random;
 
     ngOnInit() {
         this.fetchData();
+        this.random = Date.now();
     }
 
     constructor(
