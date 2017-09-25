@@ -25,7 +25,10 @@ export class NavbarComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.data.currentIsLogged.subscribe(message => this.isLogged = message);
+        this.data.currentIsLogged.subscribe(message => {
+            this.isLogged = message;
+            this.cartCommunicationService.userIsLoggedIn = !message;
+        });
         this.data.currentLogBtn.subscribe(message => this.LogBtnText = message);
 
 
@@ -42,6 +45,7 @@ export class NavbarComponent implements OnInit {
     public logOutFunc() {
         sessionStorage.clear();
         this.isLogged = false;
+        this.cartCommunicationService.userIsLoggedIn = false;
         window.location.reload();
     }
     public openNewAccount() {

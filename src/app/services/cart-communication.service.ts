@@ -8,7 +8,7 @@ import {FlashMessagesService} from 'ngx-flash-messages';
 export class CartCommunicationService {
     passedData$ = new Subject();
     canShowCart$ = new Subject();
-    userIsLoggedIn
+    userIsLoggedIn: boolean;
 
   constructor(private cartService: CartService, private flashMessagesService: FlashMessagesService) { }
 

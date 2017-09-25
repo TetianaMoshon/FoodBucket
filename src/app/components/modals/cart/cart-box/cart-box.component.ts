@@ -33,7 +33,7 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
 
-        this.cartCommunicationService.findOutWhetherCartCreated();
+        // this.cartCommunicationService.findOutWhetherCartCreated();
         this.showAPhrase = JSON.parse(localStorage.getItem('showAPhrase'));
         this.populateArrayOfDishNamesAndPrices();
         this.subscription = this.cartCommunicationService.passedData$.subscribe(
@@ -124,7 +124,6 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
     private extractArrayOfProductData(arr) {
         this.arrayOfCartOrders = this.extractCartOrdersArray(arr);
-        console.log(` this.arrayOfCartOrders in updateCartContentBasedOnDeletedItemsOnServer `, this.arrayOfCartOrders);
         // let's make sure our totalPriceOfAllDishes is up-to-date
         this.sumUpTotalPriceOfAllDishes(arr);
         const updatedCart = {
@@ -139,7 +138,6 @@ export class CartBoxComponent implements OnInit, OnDestroy {
         const arrayOfCartOrders = [];
         console.log(` I'm in extractCartOrdersArray`);
         arr.forEach(data => {
-            console.log(` I'm in extractCartOrdersArray ${data}`);
             const priceForAProduct = this.getPriceById(data.id);
             arrayOfCartOrders.push(
                 {
@@ -186,12 +184,7 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
     hideAndRoute() {
         this.updateCartContentBasedOnDeletedItemsOnServer(this.arrayOfDishNamesAndPrices);
-        console.log(`line 186`);
         this.bsModalRef.hide();
-        // this.router.navigate(['checkout']);
-        console.log(`line 189`);
-
-        // this.router.navigateByUrl('/checkout');
         this.router.navigate(['/checkout'],
             { queryParams: { userId: this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage() } });
     }
