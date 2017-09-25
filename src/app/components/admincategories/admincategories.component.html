@@ -23,7 +23,7 @@
                 <tr *ngFor="let item of source">
                     <td>{{item['category_id']}}</td>
                     <td>
-                        <img src="image/{{item.image}}" class="max-width-100" alt="There is no image for this category">
+                        <img src="image/{{item.image  + '?rnd=' + random}}" class="max-width-100" alt="There is no image for this category">
                     </td>
                     <td>{{item.title}}</td>
                     <td>{{item.description}}</td>
