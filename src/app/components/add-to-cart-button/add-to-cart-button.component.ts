@@ -52,7 +52,6 @@ export class AddToCartButtonComponent implements OnInit, OnDestroy {
     addProductToCart(id) {
            this.cartService.findCartContentById(this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage())
             .subscribe(data => {
-                console.log(`data `, data);
                 if (data === undefined) {
                     // let's create cartOrder
                     const newCartOrder = {
