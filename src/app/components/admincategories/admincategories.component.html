@@ -4,17 +4,36 @@
     <div class="container-fluid">
         <div class="row bottom-line">
             <div class="col-md-12 no-gutter">
-                <h1 class="ingredients_header">Categories</h1>
+                <h1 class="category-header">Categories</h1>
             </div>
         </div>
+
         <div class="row margin-row">
-            <ng2-smart-table
-                [settings]="settings"
-                [source]="source"
-                (create)="onCreateClick($event, 'create')"
-                (edit)="onEditClick($event, 'edit')"
-                (delete)="onDeleteClick($event, 'delete')"
-            ></ng2-smart-table>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Image</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Action <button class="btn btn-success" (click)="onCreateClick($event)">Create</button></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of source">
+                    <td>{{item['category_id']}}</td>
+                    <td>
+                        <img src="image/{{item.image  + '?rnd=' + random}}" class="max-width-100" alt="There is no image for this category">
+                    </td>
+                    <td>{{item.title}}</td>
+                    <td>{{item.description}}</td>
+                    <td>
+                        <button class="btn btn-warning" (click)="onEditClick($event, item['category_id'])">Edit</button>
+                        <button class="btn btn-danger" (click)="onDeleteClick($event, item['category_id'])">Delete</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

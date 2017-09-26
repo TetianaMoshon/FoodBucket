@@ -72,6 +72,7 @@ export class ProductpageComponent implements OnInit {
     }
 
     showProduct(id) {
+        console.log(id);
         this.productService.findProductById(id)
             .subscribe(
                 product => {

@@ -1,6 +1,6 @@
 .bottom-line {
-    border-bottom: 1px solid #6EEB83;
-    margin: 20px 0px;
+    border-bottom: 1px solid black;
+    margin: 20px 0;
 }
 
 .no-gutter {
@@ -8,19 +8,14 @@
 }
 
 .margin-row {
-    margin: 20px 0px;
+    margin: 20px 0;
 }
 
-h1.ingredients_header {
+.category-header {
     margin-bottom: 5px;
     font-family: Oswald;
 }
 
-/*Ingredients Table*/
-:host /deep/ ng2-smart-table table {
-    margin: 20px 0px;
-}
-
-:host /deep/ ng2-smart-table table tr td img {
-    height: 33px;
+.max-width-100 {
+    max-width: 100px;
 }
