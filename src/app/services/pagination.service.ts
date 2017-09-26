@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as _ from 'lodash';
 @Injectable()
 export class PagerService {
-     getPager(totalItems: number, currentPage: number = 1, pageSize: number = 6) {
+     getPager(totalItems: number, currentPage: number = 1, pageSize: number = 5) {
         // calculating total amount of pages
         const totalPages = Math.ceil(totalItems / pageSize);
 

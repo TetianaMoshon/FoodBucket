@@ -63,3 +63,4 @@ api/utils/writer.js
 /src/app/client/.gitignore
 /src/app/client/git_push.sh
 
+!/api/controllers/Category.js
