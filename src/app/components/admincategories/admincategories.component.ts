@@ -88,7 +88,7 @@ export class AdmincategoriesComponent implements OnInit {
                         categories => {
                             this.source = categories.json();
                             this.total = categories.headers.get('x-total-records');
-                            this.pager = this.pagerService.getPager(this.total, this.pager.currentPage);
+                            this.pager = this.pagerService.getPager(this.total, 1);
                         },
                         err => console.log(err)
                     );

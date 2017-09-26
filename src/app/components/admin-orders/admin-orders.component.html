@@ -11,28 +11,36 @@
         <tr>
             <th class="text-center">
                 <div class="form-group">
-                <input  class="form-control" type="number" name="name" [(ngModel)]="filter.orderId" placeholder="ID">
+                <input  class="form-control id-form-control" type="number" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('orderId')"   placeholder="ID">
+                    <a class="sort_icon" (click)="onSortClick('orderId')" [ngClass]="{
+                        'sort_asc': ((sort == 'asc' || nextSort == 'asc') && value == 'orderId'), 'sort_desc': ((sort == 'desc' || nextSort == 'desc') && value == 'orderId')}"></a>
                 </div>
             </th>
             <th>
                 <div class="form-group">
-                <input class="form-control"  type="text" name="id" [(ngModel)]="filter.username" min="1"  step="1" placeholder="Username">
+                <input class="form-control"  type="text" name="name" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('username')" placeholder="Username">
+                    <a class="sort_icon" (click)="onSortClick('username')" [ngClass]="{
+                        'sort_asc': ((sort == 'asc' || nextSort == 'asc') && value == 'username'), 'sort_desc': ((sort == 'desc' || nextSort == 'desc') && value == 'username')}"></a>
                 </div>
             </th>
             <th class="text-center">
                 <div class="form-group">
-                <input  class="form-control" type="text" name="name" [(ngModel)]="filter.city" placeholder="City">
+                <input  class="form-control" type="text" name="city" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('city')" placeholder="City">
+                    <a class="sort_icon" (click)="onSortClick('city')" [ngClass]="{
+                        'sort_asc': ((sort == 'asc' || nextSort == 'asc') && value == 'city'), 'sort_desc': ((sort == 'desc' || nextSort == 'desc') && value == 'city')}"></a>
                 </div>
             </th>
             <th class="text-center">
                 <div class="form-group">
-                <input  class="form-control" type="number" name="tel" [(ngModel)]="filter.price" placeholder="Price">
+                <input  class="form-control" type="number" name="price" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('price')" placeholder="Price">
+                    <a class="sort_icon" (click)="onSortClick('price')" [ngClass]="{
+                        'sort_asc': ((sort == 'asc' || nextSort == 'asc') && value == 'price'), 'sort_desc': ((sort == 'desc' || nextSort == 'desc') && value == 'price')}"></a>
                 </div>
             </th>
             <th class="text-center">Products</th>
             <th class="text-center">
                 <div class="form-group">
-                <input  class="form-control" type="text" name="name" [(ngModel)]="filter.status" placeholder="Status">
+                <input  class="form-control" type="text" name="name" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('status')" placeholder="Status">
                 </div>
             </th>
             <th class="text-center">More info</th>

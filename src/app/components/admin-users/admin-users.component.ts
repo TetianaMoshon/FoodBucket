@@ -23,7 +23,7 @@ export class AdminUsersComponent implements OnInit {
 
 
     fetchData() {
-        this.userService.getAllUsers(1, 2, true)
+        this.userService.getAllUsers(0, 20, true, 'desc', 'userId')
             .subscribe(
                 users => {
                     this.source = users;
@@ -50,7 +50,7 @@ export class AdminUsersComponent implements OnInit {
                     this.userService.updateUserById(this.newUser.userId, this.newUser)
                         .subscribe(
                             updateUser => {
-                                this.userService.getAllUsers(1, 2, true)
+                                this.userService.getAllUsers(1, 2, true, 'desc', 'userId')
                                     .subscribe(
                                         addUser => {
                                             this.source =  addUser;
