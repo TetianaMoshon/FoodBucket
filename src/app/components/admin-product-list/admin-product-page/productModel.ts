@@ -13,13 +13,6 @@ export class ProductModel {
         public servingSize: number,
         public difficulty: string,
         public spiceLevel: string,
-        // public ingredients: [
-        //     {
-        //         ingredientName: string,
-        //         quantity: number,
-        //         measure: string
-        //     }
-        // ],
         public ingredients: [
             {
                 ingredientId: number,
