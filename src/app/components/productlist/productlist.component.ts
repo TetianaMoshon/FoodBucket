@@ -5,7 +5,7 @@ import {PagerService} from '../../services/pagination.service';
 import {Product} from '../../models/product';
 import { ActivatedRoute } from '@angular/router';
 import {CategoryService} from '../../client/api/category.service';
-import { Router} from '@angular/router';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-productlist',
@@ -29,6 +29,8 @@ export class ProductlistComponent implements OnInit {
         private cartService: CartService,
         private productService: ProductService,
         private pagerService: PagerService,
+        private categoryService: CategoryService,
+        private route: ActivatedRoute,
         private router: Router
     ) {
         this.showHide = false;
@@ -44,20 +46,26 @@ export class ProductlistComponent implements OnInit {
         this.categoryService.findCategoryById(categoryId)
             .subscribe(
                 category => {
-                        this.categoryTitle = category.title;
+                    this.categoryTitle = category.title;
+                        this.productService.getAllProducts(0, 20)
+                            .subscribe(products => {
+                                products.forEach(product => {
+                                    if (product.category === category.title) {
+                                        const {productId, title, description, image, price} = product;
+                                        this.priceOfChosenProduct = price;
+                                        this.products.push({productId, title, description, image});
+                                    }
+                                });
+                                this.setPage(1);
+                            });
                 });
+    }
+    changeRoute(routeValue) {
+        this.router.navigateByUrl(routeValue);
+    }
 
-        this.productService.getAllProducts(0, 20)
-            .subscribe(products => {
-                products.forEach(product => {
-                    if (product.category === this.categoryTitle) {
-                        const {productId, title, description, image, price} =  product;
-                        this.priceOfChosenProduct = price;
-                        this.products.push({productId, title, description, image});
-                    }
-                });
-                this.setPage(1);
-            });
+    onShowProductClick(event, id): void {
+        this.changeRoute(`/product/${id}`);
     }
 
     setPage(page: number) {

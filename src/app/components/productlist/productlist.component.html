@@ -30,25 +30,6 @@
             <div class="col-xs-6">
                 <h1>{{categoryTitle}}</h1>
             </div>
-
-            <!--Category tag buttons begin-->
-            <div class="col-xs-6 sort-product-tags right">
-                <div class="label_row" id="sort_types">
-                    <a class="label top" data-type ="2" data-toggle="tooltip" data-placement="top" title="Top">
-                        <p class="text">Top</p>
-                    </a>
-                    <a class="label vegeterian" data-type ="3" data-toggle="tooltip" data-placement="top" title="Vegeterian">
-                        <p class="text"></p>
-                    </a>
-                    <a class="label spicy" data-type ="4" data-toggle="tooltip" data-placement="top" title="Spicy">
-                        <p class="text"></p>
-                    </a>
-                    <a class="label new" data-type ="5" data-toggle="tooltip" data-placement="top" title="New">
-                        <p class="text">New</p>
-                    </a>
-                </div>
-            </div>
-            <!--Category tag buttons end-->
         </div>
 
     </div>
@@ -62,7 +43,8 @@
             <ng-container *ngFor="let product of pagedItems">
                 <div class="col-md-4 col-sm-6 hero-feature">
                     <div class="thumbnail">
-                        <a [routerLink]="[product.productId]" routerLinkActive="active"> <img src={{product.image}}></a>
+                        <!--<a [routerLink]="[product.productId]" routerLinkActive="active"> <img src={{product.image}}></a>-->
+                        <a (click)="onShowProductClick($event, product['productId'])"> <img src={{product.image}}></a>
                         <div class="caption product-desc">
                             <h3>{{product.title}}</h3>
                             <p>{{product.description}}</p>

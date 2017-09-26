@@ -37,7 +37,7 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     };
     urlSubscription: Subscription;
 
-    productModel = new ProductModel('', '', null, '', '', true, null, false, null, null, '', '',  [{ ingredientId: null, ingredientName: '', quantity: null, measure: '' }]);
+    productModel = new ProductModel('', '', null, '', '', null, false, null, null, '', '',  [{ ingredientId: null, ingredientName: '', quantity: null, measure: '' }]);
 
     ngOnInit() {
         this.urlSubscription = this.route.url
@@ -94,9 +94,12 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
 
     onSubmit(form: NgForm) {
         this.productModel.price = Number(this.productModel.price);
-        this.productModel.status = Boolean(this.productModel.status);
         this.productModel.discount = Number(this.productModel.discount);
+
+        console.log(this.productModel.promotions);
         this.productModel.promotions = Boolean(this.productModel.promotions);
+        console.log(this.productModel.promotions);
+
         this.productModel.caloricity = Number(this.productModel.caloricity);
         this.productModel.servingSize = Number(this.productModel.servingSize);
 
@@ -162,7 +165,6 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
                     this.productModel.price = product.price;
                     this.productModel.image = product.image;
                     this.productModel.category = product.category;
-                    this.productModel.status = product.status;
                     this.productModel.discount = product.discount;
                     this.productModel.promotions = product.promotions;
                     this.productModel.caloricity = product.caloricity;
@@ -179,7 +181,7 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     }
 
     resetFormFields() {
-        this.productModel = new ProductModel('', '', null, '', '', true, null, false, null, null, '', '',
+        this.productModel = new ProductModel('', '', null, '', '', null, false, null, null, '', '',
             [{ ingredientId: null, ingredientName: '', quantity: null, measure: ''}]);
     }
 

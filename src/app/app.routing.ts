@@ -29,11 +29,16 @@ const appRoutes: Routes = [
     { path: 'ingredients', component: IngredientsComponent },
     { path: 'category', children: [
           { path: '', component: CategoryComponent },
-          { path: ':id', children: [
-            { path: '', component: ProductlistComponent },
-            { path: ':id', component: ProductpageComponent }
-          ]},
+          { path: ':id', component: ProductlistComponent }
       ]},
+    { path: 'product', children: [
+        { path: ':id', component: ProductpageComponent }
+        ]},
+    { path: 'categories', children: [
+        { path: '', component: AdmincategoriesComponent },
+        { path: ':id/edit', component: AdmincategoriesFormComponent },
+        { path: 'create', component: AdmincategoriesFormComponent },
+    ]},
       { path: 'aboutus', component: AboutusComponent },
       { path: 'checkout', component: CheckoutComponent },
       { path: 'profile', component: UserProfileComponent },

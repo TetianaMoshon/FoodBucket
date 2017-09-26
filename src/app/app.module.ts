@@ -59,6 +59,7 @@ import {CartCommunicationService} from './services/cart-communication.service';
 import { FlashMessagesModule } from 'ngx-flash-messages';
 import {appRouting} from './app.routing';
 import {AdminIngredientsFormComponent} from './components/admin-ingredients/adminingredients-form/adminingredients-form.component';
+import { CarouselModule } from 'ngx-bootstrap';
 
 @NgModule({
   declarations: [
@@ -132,6 +133,7 @@ import {AdminIngredientsFormComponent} from './components/admin-ingredients/admi
       Ng2SmartTableModule,
       ChartsModule,
       [TabsModule.forRoot()],
+      [CarouselModule.forRoot()]
   ],
   providers: [PagerService, CommentsService, CartCommunicationService, DataService, ImageService],
   bootstrap: [AppComponent]
