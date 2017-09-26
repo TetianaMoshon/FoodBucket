@@ -39,6 +39,7 @@ export class NewAccountComponent implements OnInit {
         this.data.changeMessage(text);
         this.modalService.show(CongratulationComponent);
     }
+
     ngOnInit() {
     }
 

@@ -95,26 +95,32 @@ exports.findUserById = function (id) {
  * isActive Boolean returns active users (optional)
  * returns List
  **/
-exports.getAllUsers = function (offset, limit, isActive) {
+exports.getAllUsers = function (offset, limit, isActive, sort, sort_col) {
     return new Promise((resolve, reject) => {
-        User.find().where({
-            'active': {
-                $gte: true
-            }
-        }).then(
-            usersDoc => {
-                usersDoc = usersDoc || [];
-                if (Object.keys(usersDoc).length > 0) {
-                    usersDoc = usersDoc.map( ({ userId, firstName, lastName, email, password, phone, city, address, image, favourites, active }) => {
-                        return { userId, firstName, lastName, email, password, phone, city, address, image, favourites, active };
-                    });
-                    resolve(utils.respondWithCode(200, usersDoc));
-                } else {
-                    reject(utils.respondWithCode(404, {"code": 404, "message": "Users are not found, please try again."}));
+        return User.count().
+            then(
+                total => {
+                    User.find().skip(offset).limit(limit).sort({[sort_col]: sort}).where({
+                        'active': {
+                            $gte: true
+                        }
+                    }).then(
+                        usersDoc => {
+                            usersDoc = usersDoc || [];
+                            if (Object.keys(usersDoc).length > 0) {
+                                usersDoc = usersDoc.map( ({ userId, firstName, lastName, email, password, phone, city, address, image, favourites, active }) => {
+                                    return { userId, firstName, lastName, email, password, phone, city, address, image, favourites, active };
+                                });
+                                resolve({total: total, body: utils.respondWithCode(200, usersDoc)});
+                            } else {
+                                reject(utils.respondWithCode(404, {"code": 404, "message": "Users are not found, please try again."}));
+                            }
+                        },
+                        error => { console.log('Unable to get users: ', error); }
+                    );
                 }
-            },
-            error => { console.log('Unable to get users: ', error); }
-        );
+        )
+
     });
 };
 

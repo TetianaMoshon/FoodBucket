@@ -1,17 +1,45 @@
-<div class="table-container">
-    <app-adminnavbar></app-adminnavbar>
+<app-adminnavbar></app-adminnavbar>
 
-    <h1>Users</h1>
-    <hr/>
-    <div class="main-wrap">
-        <div class="table-wrap">
-            <ng2-smart-table
-                [settings]="settings"
-                [source]="data"
-                (create)="onCreateClick($event, 'create')"
-                (edit)="onEditClick($event, 'edit')"
-                (delete)="onDeleteClick($event, 'delete')"
-            ></ng2-smart-table>
+<div class="table-wrap">
+    <div class="container-fluid">
+        <div class="row bottom-line">
+            <div class="col-md-12 no-gutter">
+                <h1 class="category-header">Users</h1>
+            </div>
+        </div>
+
+        <div class="row margin-row">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>City</th>
+                    <th>Address</th>
+                    <th>Action <button class="btn btn-success" (click)="onCreateClick($event)">Create</button></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let item of source">
+                    <td>{{item.userId}}</td>
+                    <th>{{item.firstName}}</th>
+                    <th>{{item.lastName}}</th>
+                    <th>{{item.email}}</th>
+                    <th>{{item.phone}}</th>
+                    <th>{{item.city}}</th>
+                    <th>{{item.adress}}</th>
+
+
+                    <td>
+                        <button class="btn btn-warning" (click)="onEditClick($event, item['userId'])">Edit</button>
+                        <button class="btn btn-danger" (click)="onDeleteClick($event, item['userId'])">Delete</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
-</div>
+

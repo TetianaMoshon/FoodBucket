@@ -12,3 +12,9 @@ hr {
     margin-bottom: 40px;
     border-color: black;
 }
+
+.preview {
+    max-width: 200px;
+    height: auto;
+}
+

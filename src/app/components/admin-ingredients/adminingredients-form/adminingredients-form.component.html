@@ -28,9 +28,11 @@
                     <label for="price">Price:</label>
                     <input [(ngModel)]="price" name="price" type="text" class="form-control" id="price">
                 </div>
+
+                <img class="preview" [src]="imageSrc" />
                 <div class="form-group">
                     <label for="image">Image:</label>
-                    <input [(ngModel)]="image" name="image" type="text" class="form-control" id="image">
+                    <input type="file" (change)="onFileChange($event)" name="imageUpload" [(ngModel)]="imageUpload" placeholder="Upload file" accept=".jpg,.png" id="image">
                 </div>
 
                 <div class="btn-group">
