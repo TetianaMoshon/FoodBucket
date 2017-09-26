@@ -60,6 +60,7 @@ import {appRouting} from './app.routing';
 import {AdminIngredientsFormComponent} from './components/admin-ingredients/adminingredients-form/adminingredients-form.component';
 import { AddToCartButtonComponent } from './components/add-to-cart-button/add-to-cart-button.component';
 import { SearchComponent } from './components/search/search.component';
+import {SearchHelpersService} from './services/search-helpers.service';
 
 
 @NgModule({
@@ -137,7 +138,7 @@ import { SearchComponent } from './components/search/search.component';
       ChartsModule,
       [TabsModule.forRoot()],
   ],
-  providers: [PagerService, CommentsService, CartCommunicationService, DataService],
+  providers: [PagerService, CommentsService, CartCommunicationService, DataService, SearchHelpersService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
