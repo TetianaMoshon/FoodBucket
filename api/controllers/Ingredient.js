@@ -64,6 +64,7 @@ module.exports.getAllIngredients = function getAllIngredients (req, res, next) {
 };
 
 
+
 module.exports.postIngredientImageById = function postIngredientImageById (req, res, next) {
   var id = req.swagger.params['id'].value;
   var file = req.swagger.params['file'].value;

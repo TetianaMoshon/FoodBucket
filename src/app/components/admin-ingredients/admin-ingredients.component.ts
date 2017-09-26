@@ -120,7 +120,7 @@ export class AdminIngredientsComponent implements OnInit {
                         ingredients => {
                             this.pagedItems = ingredients.json();
                             this.total = ingredients.headers.get('x-total-records');
-                            this.pager = this.pagerService.getPager(this.total, this.pager.currentPage);
+                            this.pager = this.pagerService.getPager(this.total, 1);
                         },
                         err => console.log(err)
                     );

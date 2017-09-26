@@ -64,6 +64,7 @@ module.exports.getAllCategories = function getAllCategories (req, res, next) {
     });
 };
 
+
 module.exports.postCategoryImageById = function postCategoryImageById (req, res, next) {
   var id = req.swagger.params['id'].value;
   var file = req.swagger.params['file'].value;
