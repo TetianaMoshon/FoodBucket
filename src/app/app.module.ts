@@ -31,7 +31,6 @@ import { AdminProductListImageComponent } from './components/admin-product-list/
 import { AdminIngredientsComponent } from './components/admin-ingredients/admin-ingredients.component';
 import { AdminOrdersComponent } from './components/admin-orders/admin-orders.component';
 import { AdminUsersComponent } from './components/admin-users/admin-users.component';
-import { AdminCommentsComponent } from './components/admin-comments/admin-comments.component';
 import { AdminAnalyticsComponent } from './components/admin-analytics/admin-analytics.component';
 import { CongratulationComponent } from './components/modals/congratulation/congratulation.component';
 import { ForgotPassComponent } from './components/modals/forgot-pass/forgot-pass.component';
@@ -89,7 +88,6 @@ import {AdminIngredientsFormComponent} from './components/admin-ingredients/admi
       AdminIngredientsComponent,
       AdminOrdersComponent,
       AdminUsersComponent,
-      AdminCommentsComponent,
       AdminAnalyticsComponent,
       CongratulationComponent,
       ForgotPassComponent,
