@@ -17,9 +17,13 @@ exports.uploadImage = function(id, entityName, file) {
 exports.deleteImage = function(entityName, fileName) {
     return new Promise( (resolve, reject) => {
         const filePath = 'public/image/' + fileName;
-
-        fs.unlink( filePath, err => {
-            err ? reject(err) : resolve(filePath);
-        });
+        if(fileName === 'empty path') {
+            resolve('empty path');
+        }
+        else {
+            fs.unlink( filePath, err => {
+                err ? reject(err) : resolve(filePath);
+            });
+        }
     });
 }

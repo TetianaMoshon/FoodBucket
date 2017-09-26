@@ -84,7 +84,7 @@ export class AdmincategoriesComponent implements OnInit {
         if (confirm('Are you really want to delete category with id: ' + id + ' ?')) {
             this.categoryService.deleteCategoryById(parseInt(id, 10)).subscribe(
                 category => {
-                    this.categoryService.getAllCategoriesWithHttpInfo(0, this.limit.pageSize, 'desc', 'category_id').subscribe(
+                    this.categoryService.getAllCategoriesWithHttpInfo(this.offset, this.limit.pageSize, 'desc', 'category_id').subscribe(
                         categories => {
                             this.source = categories.json();
                             this.total = categories.headers.get('x-total-records');
