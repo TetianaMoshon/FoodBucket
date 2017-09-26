@@ -17,7 +17,6 @@ export class NavbarComponent implements OnInit {
     LogBtnText = 'Log in / Registration'
     isCollapsed = true;
     isLogged = true;
-    showCart = false;
 
     constructor(private modalService: BsModalService,
                 private data: DataService,
@@ -31,15 +30,6 @@ export class NavbarComponent implements OnInit {
         });
         this.data.currentLogBtn.subscribe(message => this.LogBtnText = message);
 
-
-        this.cartCommunicationService.canShowCart$.subscribe(canShow => {
-            if (canShow) {
-                this.showCart = true;
-            } else {
-                this.showCart = false;
-            }
-
-        });
     }
 
     public logOutFunc() {

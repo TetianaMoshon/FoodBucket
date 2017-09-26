@@ -16,9 +16,7 @@ export class AddToCartButtonComponent implements OnInit, OnDestroy {
     title = `Buy Now`;
     cartContentObjCreated = false;
     arrayOfCartOrders = [];
-    idOfLoggedinUser: number;
     watchClickEvent$ = new Subject();
-    // clicked = false;
     subscription: Subscription;
 
   constructor(
@@ -29,9 +27,6 @@ export class AddToCartButtonComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-      // this.idOfLoggedinUser = this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage();
-      // this.arrayOfCartOrders = JSON.parse(localStorage.getItem('arrayOfCartOrders')) || [];
-
       this.renderer.listen(this.elementRef.nativeElement, 'click', (event) => {
          this.watchClickEvent$.next(event.path[1].attributes.id.nodeValue);
       });
@@ -92,16 +87,12 @@ export class AddToCartButtonComponent implements OnInit, OnDestroy {
                         timeout: 3000,
                     });
 
-                    // let's show cart icon
-                    this.cartCommunicationService.canShowCart$.next(true);
                 } else {
                 // add cartOrders to the created cartContentObjCreated
                     localStorage.setItem('cartContentObjCreated', JSON.stringify(true));
                     localStorage.setItem('showAPhrase', JSON.stringify(false));
                     this.addNewProduct(id);
 
-                    // let's show cart icon
-                    this.cartCommunicationService.canShowCart$.next(true);
                 }
             });
 

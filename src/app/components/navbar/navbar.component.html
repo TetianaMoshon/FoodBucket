@@ -3,7 +3,7 @@
 
 
         <div class="navbar-header">
-            <span *ngIf="!isLogged && showCart" class="bucket-mobile" (click)="openCartModal()">
+            <span *ngIf="!isLogged" class="bucket-mobile" (click)="openCartModal()">
                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" width="30" height="30" viewBox="0 0 64 53">
                       <defs>
                         <style>
@@ -38,7 +38,7 @@
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
-                <li *ngIf="!isLogged && showCart"><span class="bucket" (click)="openCartModal()">
+                <li *ngIf="!isLogged"><span class="bucket" (click)="openCartModal()">
                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" width="30" height="30" viewBox="0 0 64 53">
                       <defs>
                         <style>
