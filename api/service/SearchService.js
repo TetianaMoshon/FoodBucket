@@ -1,5 +1,8 @@
 'use strict';
 const Product = require('../model/product');
+const debug = require('debug')('foodbucket:cartService');
+const utils = require('../utils/writer');
+
 
 /**
  *
@@ -18,11 +21,13 @@ exports.searchForProducts = function(q) {
                    if (Object.keys(products).length > 0) {
                        resolve(products);
                    } else {
-                       reject( console.log('Product is not found, please try again.'));
+                       resolve(utils.respondWithCode(204));
                    }
                },
                error => { console.log('Unable to get product or category', error); }
                );
+  }).catch(err =>{
+      debug("Error is: %O", err);
   });
 }
 
