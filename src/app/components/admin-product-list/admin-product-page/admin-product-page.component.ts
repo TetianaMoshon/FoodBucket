@@ -7,6 +7,7 @@ import { NgForm } from '@angular/forms';
 import { ProductModel } from './productModel';
 import { IngredientModel } from './ingredientModel';
 import { Subject } from 'rxjs/Subject';
+import { CategoryService } from '../../../client/api/category.service';
 
 @Component({
     selector: 'app-admin-product-page',
@@ -25,10 +26,13 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     ingredientsChanged = new Subject<IngredientModel[]>();
     startedEditing = new Subject<number>();
 
+    categoryList = [];
+
     constructor(
         protected productService: ProductService,
         protected route: ActivatedRoute,
-        private flashMessagesService: FlashMessagesService
+        private flashMessagesService: FlashMessagesService,
+        protected categoryService: CategoryService
     ) {}
 
     action: {
@@ -86,6 +90,13 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
                     });
                 }
             );
+
+        this.categoryService.getAllCategories(0, 20)
+            .subscribe(categories => {
+                categories.forEach(category => {
+                    this.categoryList.push(category.title);
+                });
+            });
     }
 
     onEditItem(index: number) {
@@ -97,7 +108,13 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
         this.productModel.discount = Number(this.productModel.discount);
 
         console.log(this.productModel.promotions);
-        this.productModel.promotions = Boolean(this.productModel.promotions);
+
+        if (this.productModel.promotions === false) {
+            this.productModel.promotions = Boolean(null);
+        } else {
+            this.productModel.promotions = Boolean(true);
+        }
+
         console.log(this.productModel.promotions);
 
         this.productModel.caloricity = Number(this.productModel.caloricity);
