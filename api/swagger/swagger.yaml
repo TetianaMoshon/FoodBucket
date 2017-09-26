@@ -455,6 +455,20 @@ paths:
             - category_id
             - title
             - description
+        - name: search_txt
+          in: query
+          description: text to search
+          required: false
+          type: string
+        - name: search_col
+          in: query
+          description: text to search
+          required: false
+          type: string
+          enum:
+            - category_id
+            - title
+            - description
       responses:
         200:
           description: Successful categories response

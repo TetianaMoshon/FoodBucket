@@ -31,7 +31,7 @@ const appRoutes: Routes = [
           { path: '', component: CategoryComponent },
           { path: 'productlist', children: [
               { path: '', component: ProductlistComponent },
-              { path: ':id', component: ProductpageComponent }
+              { path: ':id', component: ProductpageComponent },
           ]},
       ]},
       { path: 'aboutus', component: AboutusComponent },
@@ -52,7 +52,6 @@ const appRoutes: Routes = [
           { path: ':id/edit', component: AdminUserPageComponent },
           { path: 'create', component: AdminUserPageComponent },
       ]},
-
       { path: 'categories', children: [
           { path: '', component: AdmincategoriesComponent },
           { path: ':id/edit', component: AdmincategoriesFormComponent },
@@ -65,7 +64,7 @@ const appRoutes: Routes = [
           { path: 'create', component: AdminIngredientsFormComponent },
        ]},
   ]},
-      { path: '**', component: Error404Component },
+      { path: '**', component: Error404Component }
 ];
 
 export  const appRouting: ModuleWithProviders = RouterModule.forRoot(appRoutes);
