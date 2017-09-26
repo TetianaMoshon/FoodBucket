@@ -18,7 +18,7 @@ export class AddToCartButtonComponent implements OnInit, OnDestroy {
     arrayOfCartOrders = [];
     idOfLoggedinUser: number;
     watchClickEvent$ = new Subject();
-    clicked = false;
+    // clicked = false;
     subscription: Subscription;
 
   constructor(
@@ -39,15 +39,7 @@ export class AddToCartButtonComponent implements OnInit, OnDestroy {
           .debounceTime(250)
           .subscribe(id => {
           if (this.cartCommunicationService.userIsLoggedIn) {
-              if (!this.clicked) {
-                  // this.clicked = true;
                   this.addProductToCart(id);
-              } else {
-                  this.flashMessagesService.show(`You have already added this product to cart!`, {
-                      classes: ['alert', 'alert-danger'],
-                      timeout: 3000,
-                  });
-              }
           } else {
               this.flashMessagesService.show(`You need to log in first!`, {
                   classes: ['alert', 'alert-danger'],
@@ -94,7 +86,7 @@ export class AddToCartButtonComponent implements OnInit, OnDestroy {
                         },
                         err => console.log('Error has happened ' + err )
                     );
-                    this.clicked = true;
+                    // this.clicked = true;
                     this.flashMessagesService.show(`Added to cart!`, {
                         classes: ['alert', 'alert-success'],
                         timeout: 3000,
@@ -124,7 +116,7 @@ export class AddToCartButtonComponent implements OnInit, OnDestroy {
                 this.arrayOfCartOrders = orderedProducts;
                  // let's check whether id is already in this.arrayOfCartOrders
                 if (this.arrayOfCartOrders.find(curElement => curElement.productId === parseInt(id))) {
-                    this.clicked = true;
+                    // this.clicked = true;
                     this.flashMessagesService.show(`You have already added this product to cart!`, {
                         classes: ['alert', 'alert-danger'],
                         timeout: 3000,
@@ -140,10 +132,11 @@ export class AddToCartButtonComponent implements OnInit, OnDestroy {
                         totalPriceOfAllDishes: 0
                     };
 
-                    this.cartService.updateCartContentById(this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage(), updatedCart).subscribe(updatedData => {
+                    this.cartService.updateCartContentById(this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage(), updatedCart)
+                        .subscribe(updatedData => {
                         console.log('updatedCart returned from backend ', updatedData);
                     });
-                    this.clicked = true;
+                    // this.clicked = true;
                     this.flashMessagesService.show(`Added to cart!`, {
                         classes: ['alert', 'alert-success'],
                         timeout: 3000,
