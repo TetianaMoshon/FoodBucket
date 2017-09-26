@@ -952,6 +952,8 @@ definitions:
       price:
         type: integer
         format: int64
+        minimum: 1
+        default: 1
       category:
         type: string
       status:
