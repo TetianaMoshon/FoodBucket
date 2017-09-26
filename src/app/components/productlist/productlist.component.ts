@@ -47,13 +47,15 @@ export class ProductlistComponent implements OnInit {
             return;
         }
 
-        this.pager = this.pagerService.getPager(this.products.length, page);
+        this.pager = this.pagerService.getPager(this.products.length, page, 9);
+
         this.pagedItems = this.products.slice(this.pager.startIndex, this.pager.endIndex + 1);
+        console.log(`paged items ${this.pagedItems}`);
     }
 
 
     populateIdFieldOfProduct() {
-        this.productService.getAllProducts(0, 20).subscribe(products => {
+        this.productService.getAllProducts(0, 20, false, 'desc', 'productId').subscribe(products => {
             products.forEach(product => {
                 const {productId, title, description, image, price} =  product;
                 this.priceOfChosenProduct = price;

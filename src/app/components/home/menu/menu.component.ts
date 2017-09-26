@@ -16,7 +16,7 @@ export class MenuComponent implements OnInit {
       this.MenuProduct();
   }
     MenuProduct() {
-        this.productService.getAllProducts(1, 2, true)
+        this.productService.getAllProducts(1, 2, true,'desc', 'productId')
             .subscribe(
                 products => {
                     while (this.quantityProducts > 0) {

@@ -1,45 +1,114 @@
 <app-adminnavbar></app-adminnavbar>
-
-<div class="table-wrap">
-    <div class="container-fluid">
-        <div class="row bottom-line">
-            <div class="col-md-12 no-gutter">
-                <h1 class="category-header">Users</h1>
-            </div>
-        </div>
-
-        <div class="row margin-row">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Surname</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>City</th>
-                    <th>Address</th>
-                    <th>Action <button class="btn btn-success" (click)="onCreateClick($event)">Create</button></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let item of source">
-                    <td>{{item.userId}}</td>
-                    <th>{{item.firstName}}</th>
-                    <th>{{item.lastName}}</th>
-                    <th>{{item.email}}</th>
-                    <th>{{item.phone}}</th>
-                    <th>{{item.city}}</th>
-                    <th>{{item.adress}}</th>
-
-
-                    <td>
-                        <button class="btn btn-warning" (click)="onEditClick($event, item['userId'])">Edit</button>
-                        <button class="btn btn-danger" (click)="onDeleteClick($event, item['userId'])">Delete</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+<div class="table-wrap"><div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <h1>Users</h1>
         </div>
     </div>
+    <hr/>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th class="text-center id-col">
+                ID
+                <a class="sort_icon" (click)="onSortClick('userId')" [ngClass]="{
+                        'sort_asc': ((sort == 'asc' || nextSort == 'asc') && value == 'userId'), 'sort_desc': ((sort == 'desc' || nextSort == 'desc') && value == 'userId')}"></a>
+            </th>
+            <th class="text-center title-col">
+                Name
+                <a class="sort_icon" (click)="onSortClick('firstName')" [ngClass]="{
+                        'sort_asc': ((sort == 'asc' || nextSort == 'asc') && value == 'firstName'), 'sort_desc': ((sort == 'desc' || nextSort == 'desc') && value == 'firstName')}"></a>
+            </th>
+            <th class="text-center">
+                Surname
+                <a class="sort_icon" (click)="onSortClick('lastName')" [ngClass]="{
+                        'sort_asc': ((sort == 'asc' || nextSort == 'asc') && value == 'lastName'), 'sort_desc': ((sort == 'desc' || nextSort == 'desc') && value == 'lastName')}"></a>
+            </th>
+            <th class="text-center quantity-col">
+                Email
+                <a class="sort_icon" (click)="onSortClick('email')" [ngClass]="{
+                        'sort_asc': ((sort == 'asc' || nextSort == 'asc') && value == 'email'), 'sort_desc': ((sort == 'desc' || nextSort == 'desc') && value == 'email')}"></a>
+            </th>
+            <th class="text-center price-col">
+                Phone
+                <a class="sort_icon" (click)="onSortClick('phone')" [ngClass]="{
+                        'sort_asc': ((sort == 'asc' || nextSort == 'asc') && value == 'phone'), 'sort_desc': ((sort == 'desc' || nextSort == 'desc') && value == 'phone')}"></a>
+            </th>
+            <th class="text-center image-col">
+                City
+                <a class="sort_icon" (click)="onSortClick('city')" [ngClass]="{
+                        'sort_asc': ((sort == 'asc' || nextSort == 'asc') && value == 'city'), 'sort_desc': ((sort == 'desc' || nextSort == 'desc') && value == 'city')}"></a>
+            </th>
+            <th class="text-center">
+                Address
+                <a class="sort_icon" (click)="onSortClick('adress')" [ngClass]="{
+                        'sort_asc': ((sort == 'asc' || nextSort == 'asc') && value == 'adress'), 'sort_desc': ((sort == 'desc' || nextSort == 'desc') && value == 'adress')}"></a>
+            </th>
+            <th class="text-center"></th>
+        </tr>
+        <tr>
+            <th class="text-center">
+                <div class="form-group">
+                    <input  class="form-control id-form-control" type="number" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('userId')"   placeholder="ID">
+                </div>
+            </th>
+            <th>
+                <div class="form-group">
+                    <input class="form-control"  type="text" name="firstName" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('firstName')" placeholder="FirstName">
+                </div>
+            </th>
+            <th class="text-center">
+                <div class="form-group">
+                    <input  class="form-control" type="text" name="measure" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('measure')" placeholder="Measure">
+                </div>
+            </th>
+            <th class="text-center">
+                <div class="form-group">
+                    <input  class="form-control" type="number" name="quantity" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('quantity')" placeholder="Quantity">
+                </div>
+            </th>
+            <th class="text-center">
+                <div class="form-group">
+                    <input  class="form-control" type="number" name="price" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('price')" placeholder="Price">
+                </div>
+            </th>
+            <th class="text-center"></th>
+            <th class="text-center">
+                <button class="btn btn-success" (click)="onCreateClick($event)">Create</button>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-container *ngFor="let ingredient of pagedItems">
+            <tr>
+                <td class="gray-border text-center">{{ingredient.ingredient_id}}</td>
+                <td class="gray-border text-center">{{ingredient.title}}</td>
+                <td class="gray-border text-center">{{ingredient.measure}}</td>
+                <td class="gray-border text-center">{{ingredient.quantity}}</td>
+                <td class="gray-border text-center">{{ingredient.price}}</td>
+                <td class="gray-border text-center image-column">
+                    <img src="image/{{ingredient.image}}" class="max-width-100" alt="There is no image for this category">
+                </td>
+                <td class="gray-border text-center ">
+                    <button class="btn btn-warning" (click)="onEditClick($event, ingredient['ingredient_id'])">Edit</button>
+                    <button class="btn btn-danger" (click)="onDeleteClick($event, ingredient['ingredient_id'])">Delete</button>
+                </td>
+            </tr>
+        </ng-container>
+        </tbody>
+    </table>
+    <div class="row text-left">
+        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                <a class="cursor-pointer" (click)="setPage(1)">«</a>
+            </li>
+            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                <a class="cursor-pointer" (click)="setPage(page)">{{page}}</a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a class="cursor-pointer" (click)="setPage(pager.totalPages)">»</a>
+            </li>
+        </ul>
+    </div>
 
+</div></div>
