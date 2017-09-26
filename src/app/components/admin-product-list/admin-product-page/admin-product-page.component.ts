@@ -107,15 +107,7 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
         this.productModel.price = Number(this.productModel.price);
         this.productModel.discount = Number(this.productModel.discount);
 
-        console.log(this.productModel.promotions);
-
-        if (this.productModel.promotions === false) {
-            this.productModel.promotions = Boolean(null);
-        } else {
-            this.productModel.promotions = Boolean(true);
-        }
-
-        console.log(this.productModel.promotions);
+        this.productModel.promotions = this.BooleanConverter(this.productModel.promotions);
 
         this.productModel.caloricity = Number(this.productModel.caloricity);
         this.productModel.servingSize = Number(this.productModel.servingSize);
@@ -239,4 +231,10 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
         this.onClear();
     }
 
+    BooleanConverter = (value: any) => {
+        if (value === null || value === undefined || typeof value === "boolean")
+            return value;
+
+        return value.toString() === "true";
+    }
 }
