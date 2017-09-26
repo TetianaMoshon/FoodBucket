@@ -23,19 +23,15 @@ export class CartCommunicationService {
 
     deleteCartAndLocalReferences() {
         const idOfLoggedinUser = this.getIdOfLoggedInUserFromSessionStorage();
-        if (idOfLoggedinUser > -1 &&  JSON.parse(localStorage.getItem('cartContentObjCreated'))) {
+        if (idOfLoggedinUser > -1) {
             this.cartService.deleteCartContentById(idOfLoggedinUser).subscribe(
                 deletedCart => {
                     console.log('deletedCart: ', deletedCart);
                 },
                 err => console.log(err)
             );
-
-            localStorage.setItem('arrayOfCartOrders', JSON.stringify(null));
-            localStorage.setItem('showAPhrase', JSON.stringify(true));
-            localStorage.setItem('cartContentObjCreated', JSON.stringify(false));
         } else {
-            console.log(`YOU HAVE ALREADY DELETED CART `);
+            console.log(`You need to log in first! `);
         }
 
     }

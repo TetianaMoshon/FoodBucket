@@ -29,7 +29,6 @@ export class NavbarComponent implements OnInit {
             this.cartCommunicationService.userIsLoggedIn = !message;
         });
         this.data.currentLogBtn.subscribe(message => this.LogBtnText = message);
-
     }
 
     public logOutFunc() {

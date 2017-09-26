@@ -15,7 +15,6 @@ export class AddToCartButtonComponent implements OnInit, OnDestroy {
 
     title = `Buy Now`;
     cartContentObjCreated = false;
-    arrayOfCartOrders = [];
     watchClickEvent$ = new Subject();
     subscription: Subscription;
 
@@ -70,17 +69,10 @@ export class AddToCartButtonComponent implements OnInit, OnDestroy {
                     this.cartService.createCartForUserById(this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage(), newCart)
                         .subscribe(
                         cart => {
-                            localStorage.setItem('cartContentObjCreated', JSON.stringify(true));
-                            localStorage.setItem('showAPhrase', JSON.stringify(false));
-                            const {orderedProducts} = cart;
-                            orderedProducts.forEach(cartOrder => {
-                                this.arrayOfCartOrders.push(cartOrder);
-                            });
-                            localStorage.setItem('arrayOfCartOrders', JSON.stringify(this.arrayOfCartOrders));
+                            console.log('Cart is created ' + cart )
                         },
                         err => console.log('Error has happened ' + err )
                     );
-                    // this.clicked = true;
                     this.flashMessagesService.show(`Added to cart!`, {
                         classes: ['alert', 'alert-success'],
                         timeout: 3000,
@@ -88,10 +80,7 @@ export class AddToCartButtonComponent implements OnInit, OnDestroy {
 
                 } else {
                 // add cartOrders to the created cartContentObjCreated
-                    localStorage.setItem('cartContentObjCreated', JSON.stringify(true));
-                    localStorage.setItem('showAPhrase', JSON.stringify(false));
-                    this.addNewProduct(id);
-
+                      this.addNewProduct(id);
                 }
             });
 
@@ -103,21 +92,20 @@ export class AddToCartButtonComponent implements OnInit, OnDestroy {
             cartData => {
                 // retrieve array of cartOrders of logged in user
                 const {orderedProducts} = cartData;
-                this.arrayOfCartOrders = orderedProducts;
+                // this.arrayOfCartOrders = orderedProducts;
                  // let's check whether id is already in this.arrayOfCartOrders
-                if (this.arrayOfCartOrders.find(curElement => curElement.productId === parseInt(id))) {
-                    // this.clicked = true;
-                    this.flashMessagesService.show(`You have already added this product to cart!`, {
+                if (orderedProducts.find(curElement => curElement.productId === parseInt(id))) {
+                     this.flashMessagesService.show(`You have already added this product to cart!`, {
                         classes: ['alert', 'alert-danger'],
                         timeout: 3000,
                     });
                 } else {
                     // let's push new CartOrder into arrayOfCartOrders
-                    this.arrayOfCartOrders.push({productId: parseInt(id), quantity: 1});
-                    localStorage.setItem('arrayOfCartOrders', JSON.stringify(this.arrayOfCartOrders));
+                    orderedProducts.push({productId: parseInt(id), quantity: 1});
+                    // localStorage.setItem('arrayOfCartOrders', JSON.stringify(this.arrayOfCartOrders));
                     // let's created updatedCartOrder
                     const updatedCart = {
-                        orderedProducts: this.arrayOfCartOrders,
+                        orderedProducts: orderedProducts,
                         // when cart is first created total price is the price of a clicked product
                         totalPriceOfAllDishes: 0
                     };
@@ -126,8 +114,7 @@ export class AddToCartButtonComponent implements OnInit, OnDestroy {
                         .subscribe(updatedData => {
                         console.log('updatedCart returned from backend ', updatedData);
                     });
-                    // this.clicked = true;
-                    this.flashMessagesService.show(`Added to cart!`, {
+                     this.flashMessagesService.show(`Added to cart!`, {
                         classes: ['alert', 'alert-success'],
                         timeout: 3000,
                     });
