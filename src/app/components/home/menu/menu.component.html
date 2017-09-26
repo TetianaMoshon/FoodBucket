@@ -1,32 +1,11 @@
 <div class="our-menu container ">
     <h2 class="h2">OUR MENU</h2>
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" *ngFor="let product of RandProducts">
             <div class="dishes-group__item">
-                <a routerLink="category/productlist/productpage"><img src="../../../../assets/images/pancakes-min.jpg" alt="first dish"></a>
+                <a routerLink="/category/productlist/{{product.productId}}"><img src="{{product.image}}" alt="{{product.title}}"></a>
                 <div class="info">
-                    <h3>Name <span>comment</span></h3>
-                    <p>extra</p>
-                    <div class="icon"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-            <div class="dishes-group__item">
-                <a routerLink="category/productlist/productpage"><img src="../../../../assets/images/breakfast-min.jpg" alt="second dish"></a>                <div class="info">
-                    <h3>Name <span>comment</span></h3>
-                    <p>extra</p>
-                    <div class="icon"></div>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-            <div class="dishes-group__item">
-                <a routerLink="category/productlist/productpage"><img src="../../../../assets/images/baguette-min.jpg" alt="third dish"></a>
-                <div class="info">
-                    <h3>Name <span>comment</span></h3>
-                    <p>extra</p>
-                    <div class="icon"></div>
+                    <h3>{{product.title}}</h3>
                 </div>
             </div>
         </div>

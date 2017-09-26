@@ -1,7 +1,5 @@
 <nav class="navbar navbar-default navbar-foodbucket navbar-fixed-top">
-    <div class="container-fluid">
-
-
+    <div class="container-fluid background">
         <div class="navbar-header">
             <span *ngIf="!isLogged" class="bucket-mobile" (click)="openCartModal()">
                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" width="30" height="30" viewBox="0 0 64 53">
@@ -28,16 +26,22 @@
                 <span class="icon-bar"> </span>
                 <span class="icon-bar"> </span>
             </button>
-            <a class="navbar-brand" routerLink="/" routerLinkActive="active">FoodBucket</a>
+            <div class="wrapper">
+                <div class="text-container">
+                    <a class="navbar-brand text" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+true}">FoodBucket</a>
+                </div>
+            </div>
+
         </div>
         <div id="navbar" class="navbar-collapse collapse" [collapse]="isCollapsed">
-            <ul class="nav navbar-nav">
-                <li><a routerLink="/category" routerLinkActive="active" (click)="isCollapsed = true">Category</a></li>
-                <li><a routerLink="/aboutus" routerLinkActive="active" (click)="isCollapsed = true">About Us</a></li>
+            <ul class="nav navbar-nav snip1398">
+                <li routerLink="/category" routerLinkActive="active"><a  (click)="isCollapsed = true" data-hover="Category">Category</a></li>
+                <li routerLink="/aboutus" routerLinkActive="active"><a  (click)="isCollapsed = true" data-hover="About Us">About Us</a></li>
 
             </ul>
 
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right snip1398">
                 <li *ngIf="!isLogged"><span class="bucket" (click)="openCartModal()">
                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" width="30" height="30" viewBox="0 0 64 53">
                       <defs>
@@ -58,14 +62,14 @@
                       </g>
                     </svg>
                 </span></li>
-                <li *ngIf="isLogged">
-                    <a (click)="openLoginModal();isCollapsed = true">Log In / Registration</a>
+                <li *ngIf="isLogged" (click)="openLoginModal();isCollapsed = true">
+                    <a  data-hover="Log In / Registration">Log In / Registration</a>
                 </li>
-                <li *ngIf="!isLogged">
-                    <a (click)="isCollapsed = true"routerLink="profile" routerLinkActive="active">{{LogBtnText}}</a>
+                <li *ngIf="!isLogged" (click)="isCollapsed = true" routerLink="profile" routerLinkActive="active">
+                    <a  [attr.data-hover]="LogBtnText">{{LogBtnText}}</a>
                 </li>
-                <li *ngIf="!isLogged">
-                    <a class="log-out-glyph" (click)="logOutFunc()"><span class="log-out-glyph-text">Log Out  </span><span class="glyphicon glyphicon-log-out"></span></a>
+                <li *ngIf="!isLogged" (click)="logOutFunc()">
+                    <a class="log-out-glyph"  data-hover="Log Out"><span class="log-out-glyph-text">Log Out  </span><span class="glyphicon glyphicon-log-out"></span></a>
                 </li>
 
             </ul>

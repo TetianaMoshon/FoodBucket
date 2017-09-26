@@ -1,8 +1,10 @@
 <!--The content below is only a placeholder and can be replaced.-->
 
-<app-navbar></app-navbar>
-<app-slider></app-slider>
+<div style="text-align:center">
+    <app-navbar></app-navbar>
+    <app-slider *ngIf="!_router.url.includes('/admin')"></app-slider>
+</div>
 <router-outlet></router-outlet>
-<app-footer></app-footer>
+<app-footer *ngIf="!_router.url.includes('/admin')"></app-footer>
 
 

@@ -53,13 +53,13 @@ import { ApiModule } from './client/index';
 import { apiConfig } from './client/api.config';
 import { AdminUserPageComponent } from './components/admin-users/admin-user-page/admin-user-page.component';
  import {DataService} from './services/data/data.service';
+import {ImageService} from './services/image/image.service';
 import {CartCommunicationService} from './services/cart-communication.service';
 
 import { FlashMessagesModule } from 'ngx-flash-messages';
 import {appRouting} from './app.routing';
 import {AdminIngredientsFormComponent} from './components/admin-ingredients/adminingredients-form/adminingredients-form.component';
 import { AddToCartButtonComponent } from './components/add-to-cart-button/add-to-cart-button.component';
-
 
 @NgModule({
   declarations: [
@@ -135,7 +135,7 @@ import { AddToCartButtonComponent } from './components/add-to-cart-button/add-to
       ChartsModule,
       [TabsModule.forRoot()],
   ],
-  providers: [PagerService, CommentsService, CartCommunicationService, DataService],
+  providers: [PagerService, CommentsService, CartCommunicationService, DataService, ImageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

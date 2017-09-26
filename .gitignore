@@ -2,6 +2,7 @@
 
 # compiled output
 /dist
+/public/image
 /tmp
 /out-tsc
 
@@ -47,6 +48,7 @@ src/app/services/dist/
 api/swagger-codegen-cli.jar
 download.vbs
 
+
 api/controllers
 api/utils/writer.js
 /api/.swagger-codegen/VERSION
@@ -61,4 +63,13 @@ api/utils/writer.js
 /src/app/client/encoder.ts
 /src/app/client/.gitignore
 /src/app/client/git_push.sh
+
+!/api/controllers/Category.js
+!/api/controllers/Ingredient.js
+!/api/controllers/Order.js
+!/api/controllers/Product.js
+!/api/controllers/User.js
+
+
+
 

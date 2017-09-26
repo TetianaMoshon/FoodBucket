@@ -30,6 +30,7 @@ schema/
 
 service/CategoryService.js
 controllers/CategoryService.js
+controllers/Category.js
 
 service/UserService.js
 controllers/UserService.js
@@ -50,12 +51,32 @@ service/IngredientService.js
 controllers/IngredientService.js
 
 
-
 service/PromotionService.js
 controllers/PromotionService.js
 
 service/TopratedService.js
 controllers/TopratedService.js
+
+service/StatisticsService.js
+controllers/StatisticsService.js
+
+
+
+controllers/Order.js
+controllers/Category.js
+controllers/Product.js
+controllers/Ingredient.js
+controllers/User.js
+
+
+
+
+
+
+
+
+
+
 
 
 
