@@ -27,13 +27,11 @@ export class ProductpageComponent implements OnInit {
 
     counter = 1;
 
-    initialSourceForPreviousImage = 0;
-    initialSourceForNextImage = 1;
     updateUser = new UpdateUser('', '' , '',  '');
     select;
     userId;
     login;
-    id = this.route.snapshot.paramMap.get('id');
+    id;
 
     constructor(
         public productService: ProductService,
@@ -43,7 +41,13 @@ export class ProductpageComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.showProduct(this.id);
+        this.route.params.subscribe(
+            param => {
+                this.id = param['id'];
+                this.showProduct(this.id);
+            }
+        );
+
         if ( JSON.parse(sessionStorage.getItem('currentUserId')) == null) {
             this.login = false;
         }else {
