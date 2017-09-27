@@ -1,5 +1,5 @@
 .cont {
-    /*width: 200px;*/
+    width: 300px;
     position: absolute;
     top: 10px;
     right: 250px;
@@ -8,10 +8,10 @@
     font-size: 7px;
     height: 0.5em;
 }
-.searchRes :hover {
+div.searchRes:hover {
     color: #64D678;
 }
 .well {
-    padding: 3px;
+    padding: 7px;
     margin-bottom: 3px;
 }

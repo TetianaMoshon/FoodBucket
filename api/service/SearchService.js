@@ -16,7 +16,9 @@ exports.searchForProducts = function(q) {
       const regex = new RegExp(q, 'i');
       Product.find(
           { $or: [ {title: regex}, {category: regex} ] }
-          ).then(oneProductDoc => {
+          )
+          .limit(5)
+          .then(oneProductDoc => {
                    products = oneProductDoc || {};
                    if (Object.keys(products).length > 0) {
                        resolve(products);
