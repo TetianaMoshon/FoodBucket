@@ -1487,8 +1487,10 @@ definitions:
       measure:
         type: string
       quantity:
-        type: integer
-        format: int64
+        type: array
+        items:
+          type: integer
+          format: int64
       discount:
         type: integer
         format: int64
