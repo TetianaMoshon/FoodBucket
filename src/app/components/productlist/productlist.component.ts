@@ -47,7 +47,7 @@ export class ProductlistComponent implements OnInit {
             .subscribe(
                 category => {
                     this.categoryTitle = category.title;
-                        this.productService.getAllProducts(0, 20)
+                        this.productService.getAllProducts(0, 20, 'desc', 'productId')
                             .subscribe(products => {
                                 products.forEach(product => {
                                     if (product.category === category.title) {

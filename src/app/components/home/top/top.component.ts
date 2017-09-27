@@ -12,7 +12,7 @@ export class TopComponent implements OnInit {
     constructor(protected productService: ProductService) {}
 
     ngOnInit() {
-        this.productService.getAllProducts(1, 2, true)
+        this.productService.getAllProducts(1, 20, 'desc', 'productId')
             .subscribe(
                 products => {
                     products.forEach(product => {

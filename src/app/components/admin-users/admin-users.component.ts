@@ -27,6 +27,7 @@ export class AdminUsersComponent implements OnInit {
             .subscribe(
                 users => {
                     this.source = users;
+                    console.log(this.source);
                 },
                 err => console.log(err)
             );

@@ -103,11 +103,6 @@ paths:
       produces:
       - application/json
       parameters:
-        - name: isPromotion
-          in: query
-          description: returns promotion products
-          required: false
-          type: boolean
         - name: offset
           in: query
           description: start position for quering from DB
@@ -124,7 +119,7 @@ paths:
           format: int32
           minimum: 0
           maximum: 50
-          default: 20
+          default: 9
         - name: sort
           in: query
           description: sort order
@@ -141,8 +136,21 @@ paths:
           enum:
             - productId
             - title
-            - category
-            - price
+            - description
+        - name: search_txt
+          in: query
+          description: text to search
+          required: false
+          type: string
+        - name: search_col
+          in: query
+          description: text to search
+          required: false
+          type: string
+          enum:
+            - productId
+            - title
+            - description
       responses:
         200:
           description: Successful products response

@@ -38,11 +38,13 @@ export class AdminIngredientsComponent implements OnInit {
 
     ngOnInit() {
         this.defineOffset(this.limit.pageSize, 1);
-        this.ingredientService.getAllIngredientsWithHttpInfo(this.offset, this.limit.pageSize, 'desc', 'ingredient_id' ).subscribe(response => {
-            this.ingredients = response.json();
-            this.total = response.headers.get('x-total-records');
-            this.pager = this.pagerService.getPager(this.total, 1);
-            this.pagedItems = this.ingredients;
+        this.ingredientService.getAllIngredientsWithHttpInfo(this.offset, this.limit.pageSize, 'desc', 'ingredient_id' )
+            .subscribe(response => {
+                this.ingredients = response.json();
+                console.log(this.ingredients );
+                this.total = response.headers.get('x-total-records');
+                this.pager = this.pagerService.getPager(this.total, 1);
+                this.pagedItems = this.ingredients;
         });
 
         this.searchInput$

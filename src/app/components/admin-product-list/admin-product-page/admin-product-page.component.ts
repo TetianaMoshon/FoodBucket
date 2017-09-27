@@ -232,9 +232,9 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     }
 
     BooleanConverter = (value: any) => {
-        if (value === null || value === undefined || typeof value === "boolean")
+        if (value === null || value === undefined || typeof value === 'boolean')
             return value;
 
-        return value.toString() === "true";
+        return value.toString() === 'true';
     }
 }

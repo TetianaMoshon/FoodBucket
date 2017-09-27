@@ -2,19 +2,85 @@
 
 <div class="table-wrap">
     <div class="container-fluid">
-        <div class="row bottom-line">
-            <div class="col-md-12 no-gutter">
-                <h1 class="ingredients_header">Product List</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <h1>Product List</h1>
             </div>
         </div>
-        <div class="row margin-row">
-            <ng2-smart-table
-                [settings]="settings"
-                [source]="source"
-                (edit)="onEditClick($event, 'edit')"
-                (create)="onCreateClick($event, 'create')"
-                (delete)="onDeleteClick($event, 'delete')"
-            ></ng2-smart-table>
+        <hr/>
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th class="text-center id-col">
+                    ID
+                    <a class="sort_icon" (click)="onSortClick('productId')" [ngClass]="{
+                        'sort_asc': ((sort == 'asc' || nextSort == 'asc') && value == 'productId'), 'sort_desc': ((sort == 'desc' || nextSort == 'desc') && value == 'productId')}"></a>
+                </th>
+                <th class="text-center title-col">
+                    Title
+                    <a class="sort_icon" (click)="onSortClick('title')" [ngClass]="{
+                        'sort_asc': ((sort == 'asc' || nextSort == 'asc') && value == 'title'), 'sort_desc': ((sort == 'desc' || nextSort == 'desc') && value == 'title')}"></a>
+                </th>
+                <th class="text-center image-col">Image</th>
+
+                <th class="text-center description-col">
+                    Description
+                    <a class="sort_icon" (click)="onSortClick('description')" [ngClass]="{
+                        'sort_asc': ((sort == 'asc' || nextSort == 'asc') && value == 'description'), 'sort_desc': ((sort == 'desc' || nextSort == 'desc') && value == 'description')}"></a>
+                </th>
+                <th class="text-center action-col">Action</th>
+            </tr>
+            <tr>
+                <th class="text-center">
+                    <div class="form-group">
+                        <input  class="form-control id-form-control" type="number" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('productId')"   placeholder="ID">
+                    </div>
+                </th>
+                <th class="text-center">
+                    <div class="form-group">
+                        <input  class="form-control" type="text" name="title" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('title')" placeholder="Title">
+                    </div>
+                </th>
+                <th>  </th>
+                <th class="text-center">
+                    <div class="form-group">
+                        <input  class="form-control" type="text" name="description" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('description')" placeholder="Description">
+                    </div>
+                </th>
+                <th class="text-center">
+                    <button class="btn btn-success" (click)="onCreateClick($event)">Create</button>
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+                <ng-container *ngFor="let product of source">
+                    <tr>
+                        <td class="gray-border text-center">{{product.productId}}</td>
+                        <td class="gray-border text-center">{{product.title}}</td>
+                        <td class="img-padding text-center">
+                            <!--<img src="image/{{item.image  + '?rnd=' + random}}" class="max-width-120">-->
+                        </td>
+                        <td class="gray-border text-center">{{product.description}}</td>
+                        <td class="gray-border text-center">
+                            <button class="btn btn-warning" (click)="onEditClick($event, product['productId'])">Edit</button>
+                            <button class="btn btn-danger" (click)="onDeleteClick($event, product['productId'])">Delete</button>
+                        </td>
+                    </tr>
+                </ng-container>
+            </tbody>
+        </table>
+        <div class="row text-left">
+            <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                <li [ngClass]="{disabled:pager.currentPage === 1}">
+                    <a class="cursor-pointer" (click)="setPage(1)">«</a>
+                </li>
+                <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                    <a class="cursor-pointer" (click)="setPage(page)">{{page}}</a>
+                </li>
+                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                    <a class="cursor-pointer" (click)="setPage(pager.totalPages)">»</a>
+                </li>
+            </ul>
         </div>
     </div>
 </div>
