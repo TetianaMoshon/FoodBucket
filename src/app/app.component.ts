@@ -18,16 +18,7 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         this.renderer.listen(this.elementRef.nativeElement, 'click', (event) => {
-
-            if (event.path[0].getAttribute('class') !== null && event.path[0].getAttribute('class').includes('searchFamily')) {
-                console.log(` Click on search result !`);
-                this.searchHelpersService.hideSearchResults$.next(false);
-            }  else {
-                console.log(` Click on not even search result !`);
-                this.searchHelpersService.hideSearchResults$.next(true);
-            }
-
-
+            this.searchHelpersService.hideSearchResults$.next(true);
         });
     }
 

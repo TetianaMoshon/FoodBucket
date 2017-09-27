@@ -8,10 +8,15 @@
     font-size: 7px;
     height: 0.5em;
 }
-div.searchRes:hover {
-    color: #64D678;
-}
+
 .well {
-    padding: 7px;
+    padding: 3px;
     margin-bottom: 3px;
+}
+
+a:hover {
+    text-decoration: none;
+}
+.searchFamily:hover {
+    background-color: #5ac2ce;
 }
