@@ -51,7 +51,7 @@ import { OrdersFiltersPipe } from './pipes/orders-filters.pipe';
 import { ApiModule } from './client/index';
 import { apiConfig } from './client/api.config';
 import { AdminUserPageComponent } from './components/admin-users/admin-user-page/admin-user-page.component';
- import {DataService} from './services/data/data.service';
+import {DataService} from './services/data/data.service';
 import {ImageService} from './services/image/image.service';
 import {CartCommunicationService} from './services/cart-communication.service';
 
@@ -59,6 +59,8 @@ import { FlashMessagesModule } from 'ngx-flash-messages';
 import {appRouting} from './app.routing';
 import {AdminIngredientsFormComponent} from './components/admin-ingredients/adminingredients-form/adminingredients-form.component';
 import { AddToCartButtonComponent } from './components/add-to-cart-button/add-to-cart-button.component';
+import { SearchComponent } from './components/search/search.component';
+import {SearchHelpersService} from './services/search-helpers.service';
 
 @NgModule({
   declarations: [
@@ -104,7 +106,8 @@ import { AddToCartButtonComponent } from './components/add-to-cart-button/add-to
       AdminUserPageComponent,
       AdmincategoriesFormComponent,
       AdminIngredientsFormComponent,
-      AddToCartButtonComponent
+      AddToCartButtonComponent,
+      SearchComponent
   ],
   entryComponents: [
       ModalCongratulationComponent,
@@ -133,7 +136,14 @@ import { AddToCartButtonComponent } from './components/add-to-cart-button/add-to
       ChartsModule,
       [TabsModule.forRoot()],
   ],
-  providers: [PagerService, CommentsService, CartCommunicationService, DataService, ImageService],
+  providers: [
+      PagerService,
+      CommentsService,
+      CartCommunicationService,
+      DataService,
+      SearchHelpersService,
+      ImageService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
