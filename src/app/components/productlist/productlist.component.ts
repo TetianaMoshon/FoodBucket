@@ -21,7 +21,8 @@ export class ProductlistComponent implements OnInit {
     idOfLoggedinUser = 4444;
     arrayOfCartOrders = [];
     pager: any = {};
-    pagedItems: any[];
+    pagedItems = [];
+    productList = [];
     categoryId = this.route.snapshot.paramMap.get('id');
     categoryTitle: string;
 
@@ -47,16 +48,15 @@ export class ProductlistComponent implements OnInit {
             .subscribe(
                 category => {
                     this.categoryTitle = category.title;
-                        this.productService.getAllProducts(0, 20)
+                        this.productService.getAllProducts(0, 20, 'desc', 'productId')
                             .subscribe(products => {
                                 products.forEach(product => {
                                     if (product.category === category.title) {
                                         const {productId, title, description, image, price} = product;
                                         this.priceOfChosenProduct = price;
-                                        this.products.push({productId, title, description, image});
+                                        this.productList.push({productId, title, description, image});
                                     }
                                 });
-                                console.log(this.products);
                                 this.setPage(1);
                             });
                 });
@@ -74,8 +74,8 @@ export class ProductlistComponent implements OnInit {
             return;
         }
 
-        this.pager = this.pagerService.getPager(this.products.length, page);
-        this.pagedItems = this.products.slice(this.pager.startIndex, this.pager.endIndex + 1);
+        this.pager = this.pagerService.getPager(this.productList.length, page);
+        // this.pagedItems = this.products.slice(this.pager.startIndex, this.pager.endIndex + 1);
     }
 
     addProductToCart(e) {

@@ -40,7 +40,7 @@
 
         <div class="row text-center">
 
-            <ng-container *ngFor="let product of pagedItems">
+            <ng-container *ngFor="let product of productList">
                 <div class="col-md-4 col-sm-6 hero-feature">
                     <div class="thumbnail">
                         <a (click)="onShowProductClick($event, product['productId'])"><img src={{product.image}}></a>

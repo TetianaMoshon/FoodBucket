@@ -49,11 +49,11 @@ export class SliderComponent implements OnInit {
         this.onResize(this.windowWidth);
         this.productService.getAllProducts(0, 20, 'desc', 'productId')
             .subscribe(products => {
-                // products.forEach(product => {
-                //     this.ListOfImageLinks.push(product.image);
-                //     this.arrayOfTitles.push(product.title);
-                //     this.descriptionArray.push(product.description);
-                // });
+                products.forEach(product => {
+                    this.ListOfImageLinks.push(product.image);
+                    this.arrayOfTitles.push(product.title);
+                    this.descriptionArray.push(product.description);
+                });
 
                 this.InitImageSource();
                 this.quantityOfPhotos = this.ListOfImageLinks.length;
