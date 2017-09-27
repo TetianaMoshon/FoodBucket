@@ -162,6 +162,49 @@ paths:
           description: invalid input
           schema:
             $ref: "#/definitions/Error"
+  /promotion:
+    get:
+      x-swagger-router-controller: Promotion
+      operationId: getPromotion
+      tags:
+      - "promotion"
+      produces:
+      - application/json
+      parameters:
+        - name: offset
+          in: query
+          description: start position for quering from DB
+          required: true
+          type: integer
+          format: int32
+          minimum: 0
+          default: 0
+        - name: limit
+          in: query
+          description: number of items to query from DB
+          required: true
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 28
+          default: 9
+        - name: isPromotion
+          in: query
+          description: returns promotion products
+          required: false
+          default: true
+          type: boolean
+      responses:
+        200:
+          description: Successful products response
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Product"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
   /product/{id}:
     get:
       x-swagger-router-controller: Product
@@ -897,23 +940,6 @@ paths:
             $ref: '#/definitions/Ingredient'
         400:
           description: Invalid input
-  /promotion:
-    get:
-      x-swagger-router-controller: Promotion
-      operationId: getPromotion
-      tags:
-      - "promotion"
-      produces:
-      - application/json
-      responses:
-        200:
-          description: List of promotions
-          schema:
-            $ref: "#/definitions/Promotion"
-        default:
-          description: invalid input
-          schema:
-            $ref: "#/definitions/Error"
   /toprated:
     get:
       x-swagger-router-controller: Toprated
@@ -1498,27 +1524,6 @@ definitions:
       discount:
         type: integer
         format: int64
-  Promotion:
-    type: object
-    required:
-      - image
-      - title
-      - description
-      - products
-    properties:
-      promotion_id:
-        type: integer
-      image:
-        type: string
-      title:
-        type: string
-      description:
-        type: string
-      products:
-        type: array
-        minimum: 1
-        items:
-           $ref: '#/definitions/Product'
   Toprated:
     type: object
     required:

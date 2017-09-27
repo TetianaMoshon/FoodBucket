@@ -45,8 +45,8 @@ module.exports.getAllProducts = function getAllProducts (req, res, next) {
   var search_col = req.swagger.params['search_col'].value;
   Product.getAllProducts(offset,limit,sort,sort_col,search_txt,search_col)
     .then(function (response) {
-      utils.writeJson(res, response);
-    })
+        res.setHeader("X-total-records", response.total);
+        utils.writeJson(res, response.body);                })
     .catch(function (response) {
       utils.writeJson(res, response);
     });

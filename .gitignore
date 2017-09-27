@@ -69,6 +69,8 @@ api/utils/writer.js
 !/api/controllers/Order.js
 !/api/controllers/Product.js
 !/api/controllers/User.js
+!/api/controllers/Promotion.js
+
 
 
 

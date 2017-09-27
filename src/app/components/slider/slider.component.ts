@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {ProductService} from '../../client/api/product.service';
+import {PromotionService} from '../../client/api/promotion.service';
+import {Promotion} from '../../client/model/promotion';
+
 
 @Component({
     selector: 'app-slider',
@@ -7,6 +9,9 @@ import {ProductService} from '../../client/api/product.service';
     styleUrls: ['./slider.component.css']
 })
 export class SliderComponent implements OnInit {
+
+    promotions: Promotion[];
+    // promotions: Promotion;
 
     windowWidth;
     quantityOfPhotos: number;
@@ -37,7 +42,7 @@ export class SliderComponent implements OnInit {
     arrayOfTitles: string[] = [];
     descriptionArray: string[] = [];
 
-    constructor(private productService: ProductService) {}
+    constructor(private promotionService: PromotionService) {}
 
     ngOnInit() {
         this.windowWidth = {
@@ -47,12 +52,12 @@ export class SliderComponent implements OnInit {
         };
 
         this.onResize(this.windowWidth);
-        this.productService.getAllProducts(0, 20, 'desc', 'productId')
-            .subscribe(products => {
-                products.forEach(product => {
-                    this.ListOfImageLinks.push(product.image);
-                    this.arrayOfTitles.push(product.title);
-                    this.descriptionArray.push(product.description);
+        this.promotionService.getPromotion(0, 20, true)
+            .subscribe(promotions => {
+                promotions.forEach(promotion => {
+                    this.ListOfImageLinks.push(promotion.image);
+                    this.arrayOfTitles.push(promotion.title);
+                    this.descriptionArray.push(promotion.description);
                 });
 
                 this.InitImageSource();
