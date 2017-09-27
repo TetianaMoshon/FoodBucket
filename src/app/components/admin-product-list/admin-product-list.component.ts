@@ -75,7 +75,7 @@ export class AdminProductListComponent implements OnInit {
         if (confirm('Are you really want to delete category with id: ' + productId + ' ?')) {
             this.productService.deleteProductById(parseInt(productId, 10)).subscribe(
                 product => {
-                    this.productService.getAllProductsWithHttpInfo(0, this.limit.pageSize, 'desc', 'products')
+                    this.productService.getAllProductsWithHttpInfo(0, this.limit.pageSize, 'desc', 'productId')
                         .subscribe(
                         products => {
                             this.source = products.json();

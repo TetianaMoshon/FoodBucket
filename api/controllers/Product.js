@@ -25,6 +25,17 @@ module.exports.deleteProductById = function deleteProductById (req, res, next) {
     });
 };
 
+module.exports.deleteProductImageById = function deleteProductImageById (req, res, next) {
+  var id = req.swagger.params['id'].value;
+  Product.deleteProductImageById(id)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
 module.exports.findProductById = function findProductById (req, res, next) {
   var id = req.swagger.params['id'].value;
   Product.findProductById(id)
@@ -47,6 +58,32 @@ module.exports.getAllProducts = function getAllProducts (req, res, next) {
     .then(function (response) {
         res.setHeader("X-total-records", response.total);
         utils.writeJson(res, response.body);                })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
+module.exports.postProductImageById = function postProductImageById (req, res, next) {
+  var id = req.swagger.params['id'].value;
+  var file = req.swagger.params['file'].value;
+  var additionalMetadata = req.swagger.params['additionalMetadata'].value;
+  Product.postProductImageById(id,file,additionalMetadata)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
+    .catch(function (response) {
+      utils.writeJson(res, response);
+    });
+};
+
+module.exports.putProductImageById = function putProductImageById (req, res, next) {
+  var id = req.swagger.params['id'].value;
+  var file = req.swagger.params['file'].value;
+  var additionalMetadata = req.swagger.params['additionalMetadata'].value;
+  Product.putProductImageById(id,file,additionalMetadata)
+    .then(function (response) {
+      utils.writeJson(res, response);
+    })
     .catch(function (response) {
       utils.writeJson(res, response);
     });

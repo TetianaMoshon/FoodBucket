@@ -21,10 +21,11 @@
                             <label for="price">Price:</label>
                             <input [(ngModel)]="productModel.price" name="price" type="number" min="1" class="form-control" id="price" required>
                         </div>
-                        <div class="form-group">
-                            <label for="image">Image:</label>
-                            <input [(ngModel)]="productModel.image" name="image" type="text" class="form-control" id="image">
-                        </div>
+                <img class="preview" [src]="imageSrc" />
+                <div class="form-group">
+                    <label for="image">Image:</label>
+                    <input type="file" (change)="onFileChange($event)" name="imageUpload" [(ngModel)]="imageUpload" placeholder="Upload file" accept=".jpg,.png" id="image">
+                </div>
                         <div class="form-group">
                             <label for="category">Category:</label>
                             <input [(ngModel)]="productModel.category" name="category" type="text" class="form-control" id="category">

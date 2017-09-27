@@ -7,7 +7,9 @@ import { NgForm } from '@angular/forms';
 import { ProductModel } from './productModel';
 import { IngredientModel } from './ingredientModel';
 import { Subject } from 'rxjs/Subject';
-import { CategoryService } from '../../../client/api/category.service';
+import {ImageService} from '../../../services/image/image.service';
+import {CategoryService} from '../../../client/api/category.service';
+
 
 @Component({
     selector: 'app-admin-product-page',
@@ -26,13 +28,16 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     ingredientsChanged = new Subject<IngredientModel[]>();
     startedEditing = new Subject<number>();
 
+    imageSrc;
+    file;
     categoryList = [];
 
     constructor(
         protected productService: ProductService,
         protected route: ActivatedRoute,
         private flashMessagesService: FlashMessagesService,
-        protected categoryService: CategoryService
+        private imageService: ImageService,
+        private categoryService: CategoryService
     ) {}
 
     action: {
@@ -121,6 +126,9 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
         if (this.action.name === 'create') {
             this.createProduct(this.productModel);
         } else {
+            if (this.file === null) {
+                this.productModel.image = this.imageSrc.replace('image/', '');
+            }
             this.updateProduct(this.action.id, this.productModel);
         }
 
@@ -142,6 +150,10 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
         this.productService.createProduct(productModel)
             .subscribe(
                 product => {
+                    if (this.file !== null) {
+                        this.uploadProductImageById(product.productId, this.file, 'post');
+                    }
+
                     this.flashMessagesService.show(`Product with id:${product['productId']} was successfully created!`, {
                         classes: ['alert', 'alert-success'],
                         timeout: 3000,
@@ -152,10 +164,19 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
             );
     }
 
+    uploadProductImageById(id, file, method) {
+        const entityName = 'product';
+        this.imageService.uploadImageByEntityId(id, file, method, entityName);
+    }
+
     updateProduct(id: number, productModel) {
         this.productService.updateProductById(id, productModel)
             .subscribe(
                 product => {
+                    if (this.file !== null) {
+                        this.uploadProductImageById(id, this.file, 'put');
+                    }
+
                     this.flashMessagesService.show(`Product with id:${id} was successfully updated!`, {
                         classes: ['alert', 'alert-warning'],
                         timeout: 3000,
@@ -172,7 +193,7 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
                     this.productModel.title = product.title;
                     this.productModel.description = product.description;
                     this.productModel.price = product.price;
-                    this.productModel.image = product.image;
+                    this.imageSrc = 'image/' + product.image;
                     this.productModel.category = product.category;
                     this.productModel.discount = product.discount;
                     this.productModel.promotions = product.promotions;
@@ -236,5 +257,28 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
             return value;
 
         return value.toString() === 'true';
+    }
+
+    onFileChange(event) {
+        const fileList: FileList = event.target.files;
+        if (fileList.length > 0) {
+            this.file = fileList[0];
+
+            const pattern = /image-*/;
+            const reader = new FileReader();
+
+            if (!this.file.type.match(pattern)) {
+                alert('Invalid image format. Only .jpg and .png are available');
+                return;
+            }
+
+            reader.onloadend = this.onReaderLoaded.bind(this);
+            reader.readAsDataURL(this.file);
+        }
+    }
+
+    private onReaderLoaded(e) {
+        const reader = e.target;
+        this.imageSrc = reader.result;
     }
 }
