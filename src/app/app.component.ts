@@ -13,8 +13,12 @@ export class AppComponent implements OnInit {
     ngOnInit() {
         localStorage.setItem('showAPhrase', JSON.stringify(true));
         localStorage.setItem('cartContentObjCreated', JSON.stringify(false));
-        if ( sessionStorage.getItem('currentUserId') && sessionStorage.getItem('currentUserFirstName')) {
-        this.changeLogBtnText(false, JSON.parse(sessionStorage.getItem('currentUserFirstName')));
+        if ( localStorage.getItem('currentUserId') && localStorage.getItem('currentUserFirstName')) {
+            this.changeLogBtnText(false, JSON.parse(localStorage.getItem('currentUserFirstName')));
+        } else {
+            if (sessionStorage.getItem('currentUserId') && sessionStorage.getItem('currentUserFirstName')) {
+                this.changeLogBtnText(false, JSON.parse(sessionStorage.getItem('currentUserFirstName')));
+            }
         }
     }
     public changeLogBtnText(message: boolean, btnText: string) {

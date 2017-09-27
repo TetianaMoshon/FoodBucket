@@ -55,23 +55,23 @@ exports.register = function ({ firstName, lastName, email, password, phone, city
     return new Promise((resolve, reject) => {
         Users.findOne({ email: email })
             .then( obj => {
-                console.log(obj);
-                if (obj) {
-                    reject(utils.respondWithCode(403, {"code": 403, "message": "User is not unique, please try again."}));
-                    return;
-                }
-                const hashedPassword = Bcrypt.hashSync(password);
-                let newUser = new Users({
-                    firstName, lastName, email,
-                    "password": hashedPassword,
-                    phone, city, address, image,
-                    "active": true,
-                    "isAdmin": false
-                });
-                return newUser.save();
-            },
-            error => { reject(utils.respondWithCode(502, {"code": 503, "message": "Server Err"})); }
-        ).then(
+                    console.log(obj);
+                    if (obj) {
+                        reject(utils.respondWithCode(403, {"code": 403, "message": "User is not unique, please try again."}));
+                        return;
+                    }
+                    const hashedPassword = Bcrypt.hashSync(password);
+                    let newUser = new Users({
+                        firstName, lastName, email,
+                        "password": hashedPassword,
+                        phone, city, address, image,
+                        "active": true,
+                        "isAdmin": false
+                    });
+                    return newUser.save();
+                },
+                error => { reject(utils.respondWithCode(502, {"code": 503, "message": "Server Err"})); }
+            ).then(
             userDoc => {
                 if (Object.keys(userDoc).length > 0) {
                     let {userId, firstName, lastName, email, phone, city, address, image, create_at, update_at, active} = userDoc;
@@ -85,3 +85,26 @@ exports.register = function ({ firstName, lastName, email, password, phone, city
         );
     });
 };
+
+/**
+ * Validation operation
+ * This endpoint allows to register.
+ *
+ * xMYJWT String Validation object
+ * returns Validation
+ **/
+exports.validation = function(xMYJWT) {
+  return new Promise(function(resolve, reject) {
+   const response = {
+  "isValid" : JWT.checkJWT(xMYJWT).isAdmin
+};
+   console.log(response);
+    if (Object.keys(response).length > 0) {
+      resolve(response);
+    } else {
+      reject();
+      return;
+    }
+  });
+}
+

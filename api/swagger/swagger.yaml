@@ -692,6 +692,34 @@ paths:
               $ref: '#/definitions/Register'
           400:
             description: Invalid input
+  /auth/validation:
+      get:
+        x-swagger-router-controller: Auth
+        operationId: validation
+        tags:
+        - "auth"
+        consumes:
+        - application/json
+        summary: Validation operation
+        description: |
+          This endpoint allows to register.
+        parameters:
+        - in: header
+          name: X-MY-JWT
+          description: Validation object
+          type: string
+          required: true
+        responses:
+          200:
+            description: Existing registration was found and updated
+            schema:
+              $ref: '#/definitions/Validation'
+          201:
+            description: Accepted
+            schema:
+              $ref: '#/definitions/Validation'
+          400:
+            description: Invalid input
   /user/{id}/cart:
     get:
       x-swagger-router-controller: Cart
@@ -1231,6 +1259,11 @@ definitions:
         type: string
       address:
         type: string
+  Validation:
+    type: object
+    properties:
+      isValid:
+        type: boolean
   Error:
     type: object
     required:
