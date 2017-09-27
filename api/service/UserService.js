@@ -2,7 +2,7 @@
 const utils = require('../utils/writer.js');
 const User = require('../model/user');
 const imageService = require('./common/ImageService');
-const debug = require('debug')('foodbucket:UserService');
+const debug = require('debug')('foodbucket:userService');
 
 
 /**
