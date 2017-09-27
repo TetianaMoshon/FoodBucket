@@ -63,11 +63,11 @@ export class ProductpageComponent implements OnInit {
     }
 
     showProduct(id) {
-        console.log(id);
         this.productService.findProductById(id)
             .subscribe(
                 product => {
                     this.productData = product;
+
                     const current = this;
                     this.productData.ingredients.forEach(function (ingredient) {
                         current.ingredientService.findIngredientById(ingredient.ingredientId)
@@ -77,6 +77,7 @@ export class ProductpageComponent implements OnInit {
                                 }
                             );
                     });
+                    console.log(product.image);
                 },
                 err => console.log(err)
             );

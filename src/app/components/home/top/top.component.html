@@ -12,7 +12,7 @@
 
             <carousel activeSlide="0">
                 <slide *ngFor="let toprated of topratedList">
-                    <a [routerLink]="['product/', toprated.productId]"><img src="{{toprated.image}}"></a>
+                    <a [routerLink]="['product/', toprated.productId]"><img src="image/{{toprated.image}}"></a>
 
                     <div class="carousel-caption">
                         <h3>{{toprated.title}}</h3>

@@ -253,3 +253,8 @@ footer {
     }
     cursor: pointer;
 }
+
+.preview {
+    max-width: 200px;
+    height: auto;
+}

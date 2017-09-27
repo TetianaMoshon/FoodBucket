@@ -1,25 +1,3 @@
-<!--Submenu begins-->
-<div class="container-fluid">
-    <ul class="nav nav-justified sub-menu">
-        <li class="nav-item">
-            <a href="#">Meat</a>
-        </li>
-        <li class="nav-item">
-            <a href="#">Fish</a>
-        </li>
-        <li class="nav-item">
-            <a href="#">Salads</a>
-        </li>
-        <li class="nav-item">
-            <a href="#">Vegeterian</a>
-        </li>
-        <li class="nav-item">
-            <a href="#">Desserts</a>
-        </li>
-    </ul>
-</div>
-<!--Submenu ends-->
-
 <!--Product list begins-->
 <div class="container product-list">
 
@@ -43,7 +21,7 @@
             <ng-container *ngFor="let product of productList">
                 <div class="col-md-4 col-sm-6 hero-feature">
                     <div class="thumbnail">
-                        <a (click)="onShowProductClick($event, product['productId'])"><img src={{product.image}}></a>
+                        <a (click)="onShowProductClick($event, product['productId'])"><img src="image/{{product.image}}"></a>
                         <div class="caption product-desc">
                             <h3>{{product.title}}</h3>
                             <p>{{product.description}}</p>
