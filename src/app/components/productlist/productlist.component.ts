@@ -47,7 +47,7 @@ export class ProductlistComponent implements OnInit {
             .subscribe(
                 category => {
                     this.categoryTitle = category.title;
-                        this.productService.getAllProducts(0, 20, 'desc', 'productId')
+                        this.productService.getAllProducts(0, 20)
                             .subscribe(products => {
                                 products.forEach(product => {
                                     if (product.category === category.title) {
@@ -56,6 +56,7 @@ export class ProductlistComponent implements OnInit {
                                         this.products.push({productId, title, description, image});
                                     }
                                 });
+                                console.log(this.products);
                                 this.setPage(1);
                             });
                 });
