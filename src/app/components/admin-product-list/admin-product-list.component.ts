@@ -47,7 +47,6 @@ export class AdminProductListComponent implements OnInit {
             .subscribe(
                 response => {
                     this.products = response.json();
-                    console.log(this.products);
                     this.total = response.headers.get('x-total-records');
                     this.pager = this.pagerService.getPager(this.total, 1);
                     this.source = this.products;
@@ -57,28 +56,38 @@ export class AdminProductListComponent implements OnInit {
 
             );
 
-        // this.searchInput$
-        //     .debounceTime(400)
-        //     .distinctUntilChanged()
-        //     .subscribe(inputData => this.search(inputData));
+        this.searchInput$
+            .debounceTime(400)
+            .distinctUntilChanged()
+            .subscribe(inputData => this.search(inputData));
     }
 
     onCreateClick(event, eventName: string): void {
         this.changeRoute('/admin/productlist/create');
     }
-    onEditClick(event, eventName: string): void {
-        const productId = parseInt(event.cells[0].value);
+
+    onEditClick(event, productId): void {
         this.changeRoute(`/admin/productlist/${productId}/edit`);
     }
 
-    onDeleteClick(event, eventName: string): void {
-        // const productId = parseInt(event.cells[0].value);
-        // if(confirm('Are you really want to delete product with id: ' + productId + ' ?')) {
-        //     this.productService.deleteProductById(productId).subscribe(
-        //         () => { this.source.remove(event.data); },
-        //         err => console.log(err)
-        //     );
-        // }
+    onDeleteClick(event, productId): void {
+        this.defineOffset(this.limit.pageSize, this.pager.currentPage)
+        if (confirm('Are you really want to delete category with id: ' + productId + ' ?')) {
+            this.productService.deleteProductById(parseInt(productId, 10)).subscribe(
+                product => {
+                    this.productService.getAllProductsWithHttpInfo(0, this.limit.pageSize, 'desc', 'products')
+                        .subscribe(
+                        products => {
+                            this.source = products.json();
+                            this.total = products.headers.get('x-total-records');
+                            this.pager = this.pagerService.getPager(this.total, 1);
+                        },
+                        err => console.log(err)
+                    );
+                },
+                err => console.log(err)
+            );
+        }
     }
 
     changeRoute(routeValue) {
