@@ -15,19 +15,22 @@ export class SearchComponent implements OnInit {
 
     searcRes;
     searchInput$ = new Subject<string>();
+    hide: boolean;
     constructor(
         private searchService: SearchService,
         private searchHelpersService: SearchHelpersService
     ) { }
 
     ngOnInit() {
+        this.hide = false;
         this.searchInput$
-            .debounceTime(400)
+            .debounceTime(350)
             .distinctUntilChanged()
             .subscribe(inputData => this.search(inputData));
         this.searchHelpersService.hideSearchResults$
-            .debounceTime(400)
+            .debounceTime(350)
             .subscribe(hideOrNot => {
+                this.hide = hideOrNot;
                 if (hideOrNot) {
                     this.searcRes = '';
                 }
@@ -37,7 +40,8 @@ export class SearchComponent implements OnInit {
 
     search(searchStr) {
         if (searchStr !== undefined && searchStr.trim() !== '') {
-            this.searchService.searchForProducts(searchStr).subscribe(res => this.searcRes = res);
+            const requestedStr = searchStr.trim();
+            this.searchService.searchForProducts(requestedStr).subscribe(res => this.searcRes = res);
         } else {
             this.searcRes = '';
         }
