@@ -41,7 +41,7 @@ const appRoutes: Routes = [
       { path: 'aboutus', component: AboutusComponent},
       { path: 'checkout', component: CheckoutComponent},
       { path: 'profile', component: UserProfileComponent},
-  { path: 'admin', children: [
+  { path: 'admin', runGuardsAndResolvers: 'always',  canActivateChild: [AuthGuard], children: [
       {path: '', component: AdminMainComponent, },
       { path: 'orders', component: AdminOrdersComponent},
       { path: 'productlist', children: [
@@ -56,7 +56,7 @@ const appRoutes: Routes = [
           { path: 'create', component: AdminUserPageComponent },
       ]},
 
-      { path: 'categories', runGuardsAndResolvers: 'always',  canActivate: [AuthGuard], children: [
+      { path: 'categories', children: [
           { path: '', component: AdmincategoriesComponent },
           { path: ':id/edit', component: AdmincategoriesFormComponent},
           { path: 'create', component: AdmincategoriesFormComponent },

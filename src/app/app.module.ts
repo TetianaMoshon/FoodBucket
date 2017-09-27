@@ -55,11 +55,12 @@ import { apiConfig } from './client/api.config';
 import { AdminUserPageComponent } from './components/admin-users/admin-user-page/admin-user-page.component';
  import {DataService} from './services/data/data.service';
 import {CartCommunicationService} from './services/cart-communication.service';
+import { AuthGuardService } from './services/auth-guard/auth-guard.service';
 
 import { FlashMessagesModule } from 'ngx-flash-messages';
 import {appRouting} from './app.routing';
 import {AdminIngredientsFormComponent} from './components/admin-ingredients/adminingredients-form/adminingredients-form.component';
-
+import { Ng4LoadingSpinnerModule } from 'ng4-loading-spinner';
 
 @NgModule({
   declarations: [
@@ -128,6 +129,7 @@ import {AdminIngredientsFormComponent} from './components/admin-ingredients/admi
       DisqusModule,
       DisqusModule.forRoot('foodbucket-com-1'),
       ApiModule.forConfig(apiConfig),
+      Ng4LoadingSpinnerModule,
       AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDgXQMgwN1IOu9c6ZyHjqiVzaB9JXhIoTA'
     }),
@@ -135,7 +137,7 @@ import {AdminIngredientsFormComponent} from './components/admin-ingredients/admi
       ChartsModule,
       [TabsModule.forRoot()],
   ],
-  providers: [PagerService, CommentsService, CartCommunicationService, DataService],
+  providers: [PagerService, CommentsService, CartCommunicationService, DataService, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

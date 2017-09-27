@@ -1,37 +1,31 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, CanActivateChild } from '@angular/router';
 import { AuthService } from '../../client/api/auth.service';
-import {bootstrapItem} from '@angular/cli/lib/ast-tools';
+import { bootstrapItem } from '@angular/cli/lib/ast-tools';
+import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
 
 
 @Injectable()
-export class AuthGuardService implements CanActivate {
-    constructor(public auth: AuthService, public router: Router) {}
-    canActivate(): boolean {
-        /*this.auth.validation(sessionStorage.getItem('JWT')).subscribe(validation => {
-            if (validation.isValid) {
-                this.router.navigate(['']);
-                return true;
-            }
-            return false;
-        });*/
-        debugger;
-        return true;
-    }
- /*   canActivateChild(): boolean {
-        return this.canActivate();
-    }*/
-}
-
-/*export class AuthGuardService implements CanActivate {
-    constructor(public auth: AuthService, public router: Router) {}
+export class AuthGuardService implements CanActivate, CanActivateChild {
+    constructor(public auth: AuthService, public router: Router, private spinnerService: Ng4LoadingSpinnerService) {}
     canActivate(): any {
-        this.auth.validation(sessionStorage.getItem('JWT')).subscribe(validation => {
-            if (validation.isValid) {
+        this.spinnerService.show();
+        this.auth.validation(sessionStorage.getItem('JWT') || '').subscribe(validation => {
+            if (!validation.isValid) {
                 this.router.navigate(['']);
-                return true;
+                this.spinnerService.hide();
+                return false;
             }
-            return false;
+            this.spinnerService.hide();
+            return true;
+
+            /*return new Promise((resolve, reject) => {
+               let validationVar = this.auth.validation(sessionStorage.getItem('JWT'));
+            });*/
         });
     }
-}*/
+    canActivateChild(): boolean {
+        return this.canActivate();
+    }
+}
+
