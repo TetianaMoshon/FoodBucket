@@ -1275,6 +1275,30 @@ paths:
             $ref: "#/definitions/User"
         400:
           description: Invalid input
+  /search:
+    get:
+      x-swagger-router-controller: Search
+      operationId: searchForProducts
+      tags:
+      - "search"
+      produces:
+      - application/json
+      parameters:
+      - name: q
+        in: query
+        description: query param to conduct a search in database
+        required: true
+        type: string
+      responses:
+        200:
+          description: Search response wih one or several products
+          schema:
+            $ref: "#/definitions/Product"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+  
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
