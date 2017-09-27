@@ -76,29 +76,7 @@
             </div>
 
 
-            <div class="row">
-                <div class="serving-size col-md-6 col-sm-6 col-xs-6">
-                    <h3>Portions</h3>
-                    <div ng-app class="input-group counter" ng-init="counter = 1">
-                        <button (click)="counter = counter+1" class="btn btn-default btn-number">
-                            <span class="glyphicon glyphicon-plus"></span>
-                        </button>
-                        <span class="counter-result">{{counter}}</span>
-                        <button (click)="counter==1?counter=1:counter = counter-1" class="btn btn-default btn-number">
-                            <span class="glyphicon glyphicon-minus"></span>
-                        </button>
 
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-6 col-xs-6 price-block">
-                    <div class="price-wrapper">
-                        <p class="text-right text-font product-price">Price: <span>{{productData.price*counter}}$</span></p>
-                        <p class="text-right text-font product-price">Total: <span>{{productData.price*counter - productData.discount}}$</span></p>
-                        <p class="text-right text-font product-price">Economy: <span>{{productData.discount}}$</span></p>
-                    </div>
-
-                </div>
-            </div>
             <div class="row">
                 <add-to-cart-button [id]="route.snapshot.params['id']"></add-to-cart-button>
                 </div>
