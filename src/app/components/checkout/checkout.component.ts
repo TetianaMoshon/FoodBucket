@@ -68,35 +68,6 @@ export class CheckoutComponent implements OnInit {
                 });
             });
         });
-        // this.orderedProducts.forEach((product) => {
-        //     console.log('Whole product from cart', product);
-        //     console.log('ID product from cart', product.productId);
-        //     console.log('Quantity product from cart', product.quantity);
-        //
-        // });
-        // if (JSON.parse(localStorage.getItem('newOrder'))) {
-        //     this.passedObjFromCart = JSON.parse(localStorage.getItem('newOrder'));
-        //
-        //     console.log(this.passedObjFromCart);
-        //     const arrayOfPassedObjs = this.passedObjFromCart.products;
-        //     arrayOfPassedObjs.forEach((data, i) => {
-        //             const {productId, quantity} = data;
-        //             this.prodIdsArr.push(productId);
-        //         }
-        //
-        //     );
-        //     this.passedObjFromCart.products = this.prodIdsArr;
-        //     this.prodIdsArr.forEach(productId => {
-        //         this.productService.findProductById(productId).subscribe(res => {
-        //             this.productTitlesArray.push(res.title);
-        //         });
-        //     });
-        //     this.firstName = this.passedObjFromCart.username.split(' ')[0];
-        //     this.surname = this.passedObjFromCart.username.split(' ')[1];
-        // }
-        //   this.orderInfo = JSON.parse(localStorage.getItem('newOrder'));
-        //
-
         function validateCardNumber(value) {
             const v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
             const matches = v.match(/\d{4,16}/g);

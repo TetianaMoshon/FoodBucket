@@ -14,7 +14,6 @@ import {Subscription} from 'rxjs/Subscription';
 export class AddToCartButtonComponent implements OnInit, OnDestroy {
 
     title = `Buy Now`;
-    cartContentObjCreated = false;
     watchClickEvent$ = new Subject();
     subscription: Subscription;
 
@@ -92,7 +91,6 @@ export class AddToCartButtonComponent implements OnInit, OnDestroy {
             cartData => {
                 // retrieve array of cartOrders of logged in user
                 const {orderedProducts} = cartData;
-                // this.arrayOfCartOrders = orderedProducts;
                  // let's check whether id is already in this.arrayOfCartOrders
                 if (orderedProducts.find(curElement => curElement.productId === parseInt(id))) {
                      this.flashMessagesService.show(`You have already added this product to cart!`, {
@@ -102,7 +100,6 @@ export class AddToCartButtonComponent implements OnInit, OnDestroy {
                 } else {
                     // let's push new CartOrder into arrayOfCartOrders
                     orderedProducts.push({productId: parseInt(id), quantity: 1});
-                    // localStorage.setItem('arrayOfCartOrders', JSON.stringify(this.arrayOfCartOrders));
                     // let's created updatedCartOrder
                     const updatedCart = {
                         orderedProducts: orderedProducts,
