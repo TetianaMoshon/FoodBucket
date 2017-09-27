@@ -34,8 +34,5 @@ export class AppComponent implements OnInit {
         this.data.changeIsLogged(message);
         this.data.changeLogBtnText(btnText);
     }
-}
-
-
 
 }
