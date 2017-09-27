@@ -96,11 +96,13 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
                 }
             );
 
-        this.categoryService.getAllCategories(0, 20)
+        this.categoryService.getAllCategories(0, 20, 'asc')
             .subscribe(categories => {
                 categories.forEach(category => {
-                    this.categoryList.push(category.title);
+                    // this.categoryList.push(category.title);
+                    this.categoryList = categories;
                 });
+                console.log(this.categoryList);
             });
     }
 
