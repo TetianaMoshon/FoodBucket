@@ -31,15 +31,16 @@ const appRoutes: Routes = [
           { path: '', component: CategoryComponent },
           { path: 'productlist', children: [
               { path: '', component: ProductlistComponent },
-              { path: ':id', component: ProductpageComponent }
+              { path: ':id', component: ProductpageComponent },
           ]},
       ]},
       { path: 'aboutus', component: AboutusComponent },
       { path: 'checkout', component: CheckoutComponent },
       { path: 'profile', component: UserProfileComponent },
   { path: 'admin', children: [
-      { path: '', component: AdminMainComponent },
-      { path: 'orders', component: AdminOrdersComponent },
+      {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
+      {path: 'dashboard', component: AdminMainComponent},
+      { path: 'orders', component: AdminOrdersComponent},
       { path: 'productlist', children: [
           { path: '', component: AdminProductListComponent },
           { path: ':id/edit', component: AdminProductPageComponent },
@@ -51,7 +52,6 @@ const appRoutes: Routes = [
           { path: ':id/edit', component: AdminUserPageComponent },
           { path: 'create', component: AdminUserPageComponent },
       ]},
-
       { path: 'categories', children: [
           { path: '', component: AdmincategoriesComponent },
           { path: ':id/edit', component: AdmincategoriesFormComponent },
@@ -64,7 +64,7 @@ const appRoutes: Routes = [
           { path: 'create', component: AdminIngredientsFormComponent },
        ]},
   ]},
-      { path: '**', component: Error404Component },
+      { path: '**', component: Error404Component }
 ];
 
 export  const appRouting: ModuleWithProviders = RouterModule.forRoot(appRoutes);

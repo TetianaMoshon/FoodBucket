@@ -1,10 +1,11 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
-import {LocalDataSource} from 'ng2-smart-table';
 import {Router, ActivatedRoute} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {Subscription} from 'rxjs/Subscription';
 import {FlashMessagesService} from 'ngx-flash-messages';
 import {IngredientService} from '../../../client/api/ingredient.service';
+import {ImageService} from '../../../services/image/image.service';
+
 
 @Component({
     selector: 'app-adminingredients-form',
@@ -12,7 +13,8 @@ import {IngredientService} from '../../../client/api/ingredient.service';
     styleUrls: ['./adminingredients-form.component.css']
 })
 export class AdminIngredientsFormComponent implements OnInit, OnDestroy {
-
+    imageUpload: string;
+    imageSrc: string = '';
     title: string;
     measure: string;
     quantity: number;
@@ -23,12 +25,14 @@ export class AdminIngredientsFormComponent implements OnInit, OnDestroy {
         name: string
     };
     urlSubscription: Subscription;
+    file: File = null;
 
     constructor(
         protected ingredientService: IngredientService,
         protected route: ActivatedRoute,
-        private flashMessagesService: FlashMessagesService
-    ) { }
+        private flashMessagesService: FlashMessagesService,
+        private imageService: ImageService
+) { }
 
     ngOnInit() {
         this.urlSubscription = this.route.url
@@ -55,6 +59,29 @@ export class AdminIngredientsFormComponent implements OnInit, OnDestroy {
             );
     }
 
+    onFileChange(event) {
+        const fileList: FileList = event.target.files;
+        if (fileList.length > 0) {
+            this.file = fileList[0];
+
+            const pattern = /image-*/;
+            const reader = new FileReader();
+
+            if (!this.file.type.match(pattern)) {
+                alert('Invalid image format. Only .jpg and .png are available');
+                return;
+            }
+
+            reader.onloadend = this.onReaderLoaded.bind(this);
+            reader.readAsDataURL(this.file);
+        }
+    }
+
+    private onReaderLoaded(e) {
+        const reader = e.target;
+        this.imageSrc = reader.result;
+    }
+
     ngOnDestroy() {
         this.urlSubscription.unsubscribe();
     }
@@ -65,12 +92,19 @@ export class AdminIngredientsFormComponent implements OnInit, OnDestroy {
             measure: form.value.measure,
             quantity: Number(form.value.quantity),
             price: Number(form.value.price),
-            image: form.value.image,
+            image: 'empty path',
         };
 
         if (this.action.name === 'create') {
             this.createIngredient(ingredientObject);
         } else {
+            if (this.file === null) {
+                ingredientObject.image = this.imageSrc.replace('image/', '');
+            }
+            if (this.file === null) {
+                ingredientObject.image = this.imageSrc.replace('image/', '');
+            }
+
             this.updateIngredient(this.action.id, ingredientObject);
         }
     }
@@ -79,6 +113,10 @@ export class AdminIngredientsFormComponent implements OnInit, OnDestroy {
         this.ingredientService.createIngredient(ingredientObject)
             .subscribe(
                 ingredient => {
+                    if (this.file !== null) {
+                        this.uploadIngredientImageById(parseInt(ingredient['ingredient_id'], 10), this.file, 'post');
+                    }
+
                     this.flashMessagesService.show(`Ingredient with id:${ingredient['ingredient_id']} was successfully created!`, {
                         classes: ['alert', 'alert-success'],
                         timeout: 3000,
@@ -93,6 +131,10 @@ export class AdminIngredientsFormComponent implements OnInit, OnDestroy {
         this.ingredientService.updateIngredientById(id, ingredientObject)
             .subscribe(
                 ingredient => {
+                    if (this.file !== null) {
+                        this.uploadIngredientImageById(id, this.file, 'put');
+                    }
+
                     this.flashMessagesService.show(`Ingredient with id:${id} was successfully updated!`, {
                         classes: ['alert', 'alert-warning'],
                         timeout: 3000,
@@ -111,10 +153,15 @@ export class AdminIngredientsFormComponent implements OnInit, OnDestroy {
                     this.measure = ingredient.measure;
                     this.quantity = ingredient.quantity;
                     this.price = ingredient.price;
-                    this.image = ingredient.image;
+                    this.imageSrc = 'image/' + ingredient.image;
                 },
                 err => console.log(err)
             );
+    }
+
+    uploadIngredientImageById(id, file, method) {
+        const entityName = 'ingredient';
+        this.imageService.uploadImageByEntityId(id, file, method, entityName);
     }
 
     resetFormFields() {

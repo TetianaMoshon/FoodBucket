@@ -160,11 +160,6 @@ paths:
       produces:
       - application/json
       parameters:
-        - name: isActive
-          in: query
-          description: returns active products
-          required: false
-          type: boolean
         - name: isPromotion
           in: query
           description: returns promotion products
@@ -187,6 +182,24 @@ paths:
           minimum: 0
           maximum: 50
           default: 20
+        - name: sort
+          in: query
+          description: sort order
+          required: false
+          type: string
+          enum:
+            - asc
+            - desc
+        - name: sort_col
+          in: query
+          description: column to sort
+          required: false
+          type: string
+          enum:
+            - productId
+            - title
+            - category
+            - price
       responses:
         200:
           description: Successful products response
@@ -319,6 +332,40 @@ paths:
           minimum: 0
           maximum: 50
           default: 20
+        - name: sort
+          in: query
+          description: sort order
+          required: false
+          type: string
+          enum:
+            - asc
+            - desc
+        - name: sort_col
+          in: query
+          description: column to sort
+          required: false
+          type: string
+          enum:
+            - orderId
+            - username
+            - city
+            - price
+        - name: search_txt
+          in: query
+          description: text to search
+          required: false
+          type: string
+        - name: search_col
+          in: query
+          description: text to search
+          required: false
+          type: string
+          enum:
+            - orderId
+            - username
+            - city
+            - price
+            - status
       responses:
         200:
           description: Successful products response
@@ -431,11 +478,6 @@ paths:
       produces:
       - application/json
       parameters:
-        - name: isActive
-          in: query
-          description: returns active categories
-          required: false
-          type: boolean
         - name: offset
           in: query
           description: start position for quering from DB
@@ -453,6 +495,37 @@ paths:
           minimum: 0
           maximum: 27
           default: 9
+        - name: sort
+          in: query
+          description: sort order
+          required: false
+          type: string
+          enum:
+            - asc
+            - desc
+        - name: sort_col
+          in: query
+          description: column to sort
+          required: false
+          type: string
+          enum:
+            - category_id
+            - title
+            - description
+        - name: search_txt
+          in: query
+          description: text to search
+          required: false
+          type: string
+        - name: search_col
+          in: query
+          description: text to search
+          required: false
+          type: string
+          enum:
+            - category_id
+            - title
+            - description
       responses:
         200:
           description: Successful categories response
@@ -642,11 +715,6 @@ paths:
       produces:
       - application/json
       parameters:
-        - name: isActive
-          in: query
-          description: returns active ingredient
-          required: false
-          type: boolean
         - name: offset
           in: query
           description: start position for quering from DB
@@ -664,6 +732,40 @@ paths:
           minimum: 0
           maximum: 27
           default: 9
+        - name: sort
+          in: query
+          description: sort order
+          required: false
+          type: string
+          enum:
+            - asc
+            - desc
+        - name: sort_col
+          in: query
+          description: column to sort
+          required: false
+          type: string
+          enum:
+            - ingredient_id
+            - title
+            - quantity
+            - price
+        - name: search_txt
+          in: query
+          description: text to search
+          required: false
+          type: string
+        - name: search_col
+          in: query
+          description: text to search
+          required: false
+          type: string
+          enum:
+            - ingredient_id
+            - title
+            - measure
+            - quantity
+            - price
       responses:
         200:
           description: Successful ingredient response
@@ -741,6 +843,80 @@ paths:
           description: Ingredient is updated
         400:
           description: An error!
+  /ingredient/{id}/image:
+    post:
+      x-swagger-router-controller: Ingredient
+      operationId: postIngredientImageById
+      tags:
+      - "ingredient"
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the ingredient image upload for
+        required: true
+        type: integer
+        format: int64
+      - name: file
+        in: formData
+        required: false
+        type: file
+      - name: additionalMetadata
+        in: formData
+        description: Additional data to pass to server
+        required: false
+        type: string
+      responses:
+        default:
+          description: Successful operation
+    put:
+      x-swagger-router-controller: Ingredient
+      operationId: putIngredientImageById
+      tags:
+      - "ingredient"
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the ingredient image upload for
+        required: true
+        type: integer
+        format: int64
+      - name: file
+        in: formData
+        required: false
+        type: file
+      - name: additionalMetadata
+        in: formData
+        description: Additional data to pass to server
+        required: false
+        type: string
+      responses:
+        default:
+          description: Successful operation
+    delete:
+      x-swagger-router-controller: Ingredient
+      operationId: deleteIngredientImageById
+      tags:
+      - "ingredient"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the ingredient image to delete
+        required: true
+        type: integer
+        format: int64
+      responses:
+        default:
+          description: Successful operation
   /ingredient:
     post:
       x-swagger-router-controller: Ingredient
@@ -1023,6 +1199,28 @@ paths:
           minimum: 0
           maximum: 27
           default: 9
+        - name: sort
+          in: query
+          description: sort order
+          required: false
+          type: string
+          enum:
+            - asc
+            - desc
+        - name: sort_col
+          in: query
+          description: column to sort
+          required: false
+          type: string
+          enum:
+            - userId
+            - firstName
+            - lastName
+            - email
+            - phone
+            - city
+            - address
+            - active
       responses:
         200:
           description: Successful users response
