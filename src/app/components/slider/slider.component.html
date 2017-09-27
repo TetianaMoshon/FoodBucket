@@ -1,30 +1,31 @@
 <div class="container-fluid slider" (window:resize)="onResize($event)">
+
     <div class="row">
 
         <div *ngIf="FullScreenView" class="slider">
 
             <div class="col-lg-4">
                 <a class="left carousel-control" (click)="changeImageSourceByPressingRightArrow()"><i class="glyphicon glyphicon-chevron-left"></i></a>
-                <img class="img-responsive" src="{{sourceForFirstImage}}">
+                <img class="img-responsive" src="{{ListOfImageData[sourceForFirstImage]?.link}}">
                 <div class="carousel-caption">
-                    <h3>{{captionForFirstImage}}</h3>
-                    <p>{{descriptionForFirstImage}}</p>
+                    <h3>{{ListOfImageData[sourceForFirstImage]?.title}}</h3>
+                    <p>{{ListOfImageData[sourceForFirstImage]?.description}}</p>
                 </div>
             </div>
 
             <div class="col-lg-4">
-                <img class="img-responsive" src="{{sourceForSecondImage}}">
+                <img  class="img-responsive" src="{{ListOfImageData[sourceForSecondImage]?.link}}">
                 <div class="carousel-caption">
-                    <h3>{{captionForSecondImage}}</h3>
-                    <p>{{descriptionForSecondImage}}.</p>
+                    <h3>{{ListOfImageData[sourceForSecondImage]?.title}}</h3>
+                    <p>{{ListOfImageData[sourceForSecondImage]?.description}}.</p>
                 </div>
             </div>
 
             <div class="col-lg-4">
-                <img class="img-responsive" src="{{sourceForThirdImage}}">
+                <img class="img-responsive" src="{{ListOfImageData[sourceForThirdImage]?.link}}">
                 <div class="carousel-caption">
-                    <h3>{{captionForThirdImage}}</h3>
-                    <p>{{descriptionForThirdImage}}</p>
+                    <h3>{{ListOfImageData[sourceForThirdImage]?.title}}</h3>
+                    <p>{{ListOfImageData[sourceForThirdImage]?.description}}</p>
                 </div>
                 <a class="right carousel-control" (click)="changeImageSourceByPressingLeftArrow()"><i class="glyphicon glyphicon-chevron-right"></i></a>
             </div>
@@ -33,20 +34,20 @@
 
         <div *ngIf="PartialView">
             <div class="col-sm-6">
-                <img class="img-responsive" src="{{sourceForSecondImage}}" alt="{{sourceForSecondImage}} slide">
+                <img class="img-responsive" src="{{ListOfImageData[sourceForFirstImage]?.link}}">
                 <div class="carousel-caption">
-                    <h3>{{captionForSecondImage}}</h3>
-                    <p>{{descriptionForSecondImage}}</p>
+                    <h3>{{ListOfImageData[sourceForFirstImage]?.title}}</h3>
+                    <p>{{ListOfImageData[sourceForFirstImage]?.description}}</p>
                 </div>
                 <a class="left carousel-control" (click)="changeImageSourceByPressingRightArrow()"><i class="glyphicon glyphicon-chevron-left"></i></a>
             </div>
 
             <div class="col-sm-6">
                 <a class="right carousel-control" (click)="changeImageSourceByPressingLeftArrow()"><i class="glyphicon glyphicon-chevron-right"></i></a>
-                <img class="img-responsive" src="{{sourceForThirdImage}}" alt="{{sourceForThirdImage}} slide">
+                <img class="img-responsive" src="{{ListOfImageData[sourceForSecondImage]?.link}}">
                 <div class="carousel-caption">
-                    <h3>{{captionForThirdImage}}</h3>
-                    <p>{{descriptionForThirdImage}}</p>
+                    <h3>{{ListOfImageData[sourceForSecondImage]?.title}}</h3>
+                    <p>{{ListOfImageData[sourceForSecondImage]?.description}}</p>
                 </div>
             </div>
         </div>
@@ -56,12 +57,12 @@
 
             <div class="col-sm-6">
                 <a class="left carousel-control" (click)="changeImageSourceByPressingRightArrow()"><i class="glyphicon glyphicon-chevron-left"></i></a>
-                <img class="img-responsive" src="{{sourceForThirdImage}}" alt="{{sourceForThirdImage}} slide">
+                <img class="img-responsive" src="{{ListOfImageData[sourceForFirstImage]?.link}}">
                 <a class="right carousel-control" (click)="changeImageSourceByPressingLeftArrow()"><i class="glyphicon glyphicon-chevron-right"></i></a>
 
                 <div class="carousel-caption">
-                    <h3>{{captionForThirdImage}}</h3>
-                    <p>{{descriptionForThirdImage}}</p>
+                    <h3>{{ListOfImageData[sourceForFirstImage]?.title}}</h3>
+                    <p>{{ListOfImageData[sourceForFirstImage]?.description}}</p>
                 </div>
             </div>
         </div>

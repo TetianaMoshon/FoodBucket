@@ -100,18 +100,9 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
-                    <button class="btn btn-md btn-primary to-cart-btn pull-right custom-cart-button">
-                        <span class="glyphicon glyphicon-shopping-cart" aria-hidden="true"></span> Add to cart
-                    </button>
-                </div>
-                <div class="col-md-6">
-                    <button class="btn btn-md btn-primary custom-buy-button">
-                        <span class="glyphicon glyphicon-usd" aria-hidden="true"></span> Buy now!
-                    </button>
+                <add-to-cart-button [id]="route.snapshot.params['id']"></add-to-cart-button>
                 </div>
             </div>
         </div>
     </div>
-</div>
 <app-disqus></app-disqus>
