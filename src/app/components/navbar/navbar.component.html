@@ -56,14 +56,22 @@
                       </g>
                     </svg>
                 </span></li>
-                <li *ngIf="isLogged"><a (click)="openLoginModal();isCollapsed = true">Log In / Registration</a></li>
-                <li *ngIf="!isLogged"><a (click)="isCollapsed = true" routerLink="profile" routerLinkActive="active">{{LogBtnText}}</a></li>
+                <li *ngIf="isLogged" (click)="openLoginModal();isCollapsed = true">
+                    <a  data-hover="Log In / Registration">Log In / Registration</a>
+                </li>
+                <li *ngIf="!isLogged" (click)="isCollapsed = true" routerLink="profile" routerLinkActive="active">
+                    <a  [attr.data-hover]="LogBtnText">{{LogBtnText}}</a>
+                </li>
+                <li *ngIf="!isLogged" (click)="logOutFunc()">
+                    <a class="log-out-glyph"  data-hover="Log Out"><span class="log-out-glyph-text">Log Out  </span><span class="glyphicon glyphicon-log-out"></span></a>
+                </li>
 
             </ul>
+            <app-search class="navbar-form navbar-right"></app-search>
 
         </div>
-        <app-search class="navbar-form navbar-right"></app-search>
-
+        <div>
+            <ngx-flash-messages></ngx-flash-messages>
+        </div>
     </div>
-
 </nav>

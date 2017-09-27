@@ -8,12 +8,12 @@ const productSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    image: String,
     description: String,
     price: {
         type: Number,
         required: true
     },
+    image: String,
     category: String,
     status: Boolean,
     discount: Number,

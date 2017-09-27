@@ -50,12 +50,12 @@ exports.createUser = function ({firstName, lastName, email, password, phone, cit
  **/
 exports.deleteUserById = function(id) {
     return new Promise((resolve, reject) => {
-        User.findOneAndRemove({ user_id: id }).then(
+        User.findOneAndRemove({ userId: id }).then(
             oneUserDoc => {
                 oneUserDoc = oneUserDoc || {};
                 if (Object.keys(oneUserDoc).length > 0) {
-                    let {user_id, firstName, lastName, email, password, phone, city, address, image, favourites, active} = oneUserDoc;
-                    resolve(utils.respondWithCode(200, {user_id, firstName, lastName, email, password, phone, city, address, image, favourites, active}));
+                    let {userId, firstName, lastName, email, password, phone, city, address, image, favourites, active} = oneUserDoc;
+                    resolve(utils.respondWithCode(200, {userId, firstName, lastName, email, password, phone, city, address, image, favourites, active}));
                 } else {
                     reject(utils.respondWithCode(404, {"code": 404, "message": "User is not deleted, please try again."}));
                 }
@@ -72,12 +72,12 @@ exports.deleteUserById = function(id) {
  **/
 exports.findUserById = function (id) {
     return new Promise((resolve, reject) => {
-        User.findOne({ user_id: id }).then(
+        User.findOne({ userId: id }).then(
             oneUserDoc => {
                 oneUserDoc = oneUserDoc || {};
                 if (Object.keys(oneUserDoc).length > 0) {
-                    let {user_id, firstName, lastName, email, password, phone, city, address, image, favourites, active} = oneUserDoc;
-                    resolve(utils.respondWithCode(200, {user_id, firstName, lastName, email, password, phone, city, address, image, favourites, active}));
+                    let {userId, firstName, lastName, email, password, phone, city, address, image, favourites, active} = oneUserDoc;
+                    resolve(utils.respondWithCode(200, {userId, firstName, lastName, email, password, phone, city, address, image, favourites, active}));
                 } else {
                     reject(utils.respondWithCode(404, {"code": 404, "message": "User is not found, please try again."}));
                 }
@@ -95,26 +95,32 @@ exports.findUserById = function (id) {
  * isActive Boolean returns active users (optional)
  * returns List
  **/
-exports.getAllUsers = function (offset, limit, isActive) {
+exports.getAllUsers = function (offset, limit, isActive, sort, sort_col) {
     return new Promise((resolve, reject) => {
-        User.find().where({
-            'active': {
-                $gte: true
-            }
-        }).then(
-            usersDoc => {
-                usersDoc = usersDoc || [];
-                if (Object.keys(usersDoc).length > 0) {
-                    usersDoc = usersDoc.map( ({ user_id, firstName, lastName, email, password, phone, city, address, image, favourites, active }) => {
-                        return { user_id, firstName, lastName, email, password, phone, city, address, image, favourites, active };
-                    });
-                    resolve(utils.respondWithCode(200, usersDoc));
-                } else {
-                    reject(utils.respondWithCode(404, {"code": 404, "message": "Users are not found, please try again."}));
+        return User.count().
+            then(
+                total => {
+                    User.find().skip(offset).limit(limit).sort({[sort_col]: sort}).where({
+                        'active': {
+                            $gte: true
+                        }
+                    }).then(
+                        usersDoc => {
+                            usersDoc = usersDoc || [];
+                            if (Object.keys(usersDoc).length > 0) {
+                                usersDoc = usersDoc.map( ({ userId, firstName, lastName, email, password, phone, city, address, image, favourites, active }) => {
+                                    return { userId, firstName, lastName, email, password, phone, city, address, image, favourites, active };
+                                });
+                                resolve({total: total, body: utils.respondWithCode(200, usersDoc)});
+                            } else {
+                                reject(utils.respondWithCode(404, {"code": 404, "message": "Users are not found, please try again."}));
+                            }
+                        },
+                        error => { console.log('Unable to get users: ', error); }
+                    );
                 }
-            },
-            error => { console.log('Unable to get users: ', error); }
-        );
+        )
+
     });
 };
 
@@ -129,11 +135,11 @@ exports.updateUserById = function(id, updatedUser) {
     return new Promise((resolve, reject) => {
         let {firstName, lastName, email, password, phone, city, address, image, favourites, active } = updatedUser;
 
-        User.findOneAndUpdate({ user_id: id }, {firstName, lastName, email, password, phone, city, address, image, favourites, active }).then(
+        User.findOneAndUpdate({ userId: id }, {firstName, lastName, email, password, phone, city, address, image, favourites, active }).then(
             oneUser => {
                 if (Object.keys(updatedUser).length > 0 && oneUser !== null) {
-                    let user_id = oneUser.user_id;
-                    resolve(utils.respondWithCode(200, {user_id, firstName, lastName, email, password, phone, city, address, image, favourites, active}));
+                    let userId = oneUser.userId;
+                    resolve(utils.respondWithCode(200, {userId, firstName, lastName, email, password, phone, city, address, image, favourites, active}));
                 } else {
                     reject(utils.respondWithCode(400, {"code": 404, "message": "User is not updated, please try again."}));
                 }

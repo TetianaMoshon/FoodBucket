@@ -5,22 +5,15 @@
                 <h2 class="title">{{user.firstName}} {{user.lastName}}</h2>
                 <div class="row">
                     <div class="col-md-3">
-                        <img src="/assets/images/user-avatar.jpg" alt="Name Lastname" class="img-thumbnail profile-img">
-                        <div class="profile__achievements">
-                            <img  (mouseenter)="highlight($event)" (click)="showAchievements($event)" src="/assets/icons/first.svg" alt="" class="achievements-img">
-                            <div class="achievements">
-                                <div><img  src="/assets/icons/apple.svg" alt="" title="award"></div>
-                                <div><img  src="/assets/icons/apple.svg" alt="" title="award"></div>
-                                <div><img  src="/assets/icons/apple.svg" alt="" title="award"></div>
-                                <div><img  src="/assets/icons/apple.svg" alt="" title="award"></div>
-                                <div><img  src="/assets/icons/apple.svg" alt="" title="award"></div>
-                            </div>
-                            <p class="achievements-title">Achievements</p>
-                        </div>
+                        <img src="{{user.image}}" alt="{{user.firstName}} {{user.lastName}}" class="img-thumbnail profile-img">
                     </div>
                     <div class="col-md-8">
                         <div class="personal">
                             <address>
+                                <div class="email">
+                                    <span>Email</span>
+                                    <p>{{user.email}}</p>
+                                </div>
                                 <div class="city">
                                     <span>City</span>
                                     <p>{{user.city}}</p>
@@ -30,96 +23,18 @@
                                     <p>{{user.address}}</p>
                                 </div>
                             </address>
-                            <div class="about">
-                                <span>About me</span>
-                                <p>Like health food</p>
-                            </div>
                         </div>
                     </div>
                 </div>
-
-
-            </div>
-
-            <div class="orders container">
-                <h3 class="title">Orders</h3>
-                <table class="table table-bordered table-hover table-striped">
-                    <tr>
-                        <th>#</th>
-                        <th>Dish</th>
-                        <th>Date</th>
-                        <th>Address</th>
-                    </tr>
-                    <tr>
-                        <td class="order-number">1</td>
-                        <td class="order-name">Pasta</td>
-                        <td class="order-date"></td>
-                        <td class="order-address"></td>
-                    </tr>
-                    <tr>
-                        <td class="order-number">2</td>
-                        <td class="order-name">Pizza</td>
-                        <td class="order-date"></td>
-                        <td class="order-address"></td>
-                    </tr>
-                    <tr>
-                        <td class="order-number">3</td>
-                        <td class="order-name">Cake</td>
-                        <td class="order-date"></td>
-                        <td class="order-address"></td>
-                    </tr>
-                </table>
             </div>
 
             <div class="favorite container">
                 <h3 class="title">Favorites</h3>
                 <div class="row center-block">
-                    <div class="col-md-3">
+                    <div class="col-md-3" *ngFor="let favourite of favouritesProduct">
                         <div class="favorite-item thumbnail">
-                            <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/HNCK5673.jpg?w=2210&quality=50" alt="dish-name" class="dish-image">
-                            <a routerLink="/category/productlist/productpage" routerLinkActive="active" class="dish-name">path to dish</a>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="favorite-item thumbnail">
-                            <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/HNCK5716.jpg?w=2210&quality=50" alt="dish-name" class="dish-image">
-                            <a routerLink="/category/productlist/productpage" routerLinkActive="active" class="dish-name">path to dish</a>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="favorite-item thumbnail">
-                            <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/foodiesfeed.com_DSC_0004.jpg?w=2210&quality=50" alt="dish-name" class="dish-image">
-                            <a routerLink="/category/productlist/productpage" routerLinkActive="active" class="dish-name">path to dish</a>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="favorite-item thumbnail">
-                            <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/20140314-DSC_0138.jpg?w=2210&quality=50" alt="dish-name" class="dish-image">
-                            <a routerLink="/category/productlist/productpage" routerLinkActive="active" class="dish-name">path to dish</a>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="favorite-item thumbnail">
-                            <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/HNCK5640.jpg?w=2210&quality=50" alt="dish-name" class="dish-image">
-                            <a routerLink="/category/productlist/productpage" routerLinkActive="active" class="dish-name">path to dish</a>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="favorite-item thumbnail">
-                            <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/HNCK2050.jpg?w=2210&quality=50" alt="dish-name" class="dish-image">
-                            <a routerLink="/category/productlist/productpage" routerLinkActive="active" class="dish-name">path to dish</a>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="favorite-item thumbnail">
-                            <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/HNCK4575.jpg?w=2210&quality=50" alt="dish-name" class="dish-image">
-                            <a routerLink="/category/productlist/productpage" routerLinkActive="active" class="dish-name">path to dish</a>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="favorite-item thumbnail">
-                            <img src="https://i0.wp.com/picjumbo.com/wp-content/uploads/20140501-DSC_0027.jpg?w=2210&quality=50" alt="dish-name" class="dish-image">
-                            <a  routerLink="/category/productlist/productpage" routerLinkActive="active" class="dish-name">path to dish</a>
+                            <img src="{{favourite.image}}" alt="{{favourite.title}}" class="dish-image">
+                            <a routerLink="/category/productlist/{{favourite.productId}}" routerLinkActive="active" class="dish-name">go to {{favourite.title}}</a>
                         </div>
                     </div>
                 </div>

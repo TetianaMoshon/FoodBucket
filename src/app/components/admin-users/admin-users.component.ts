@@ -12,86 +12,48 @@ import {UserService} from '../../client/api/user.service';
   styleUrls: ['./admin-users.component.css']
 })
 export class AdminUsersComponent implements OnInit {
-    settings = {
-        actions: {
-            position: 'right',
-            delete: 'true',
-            columnTitle: ' ',
-        },
-        delete: {
-            addButtonContent: 'OFF'
-        },
-        add: {
-            addButtonContent: 'Add'
-        },
-        pager: {
-            display: true,
-            perPage: 5,
-        },
-        mode: 'external',
-        columns: {
-            user_id: {
-                title: 'ID',
-                width: '6%'
-            },
-            firstName: {
-                title: 'Name'
-            },
-            lastName: {
-                title: 'Surname'
-            },
-            email: {
-                title: 'Email'
-            },
-            phone:  {
-                title: 'Phone'
-            },
-            city: {
-                title: 'City'
-            },
-            address: {
-                title: 'Address'
-            },
-            active: {
-                title: 'Active'
-            },
-        }
-    };
-    public data;
-    public newUser;
+    source;
+    random;
+    newUser;
 
-    constructor(protected userService: UserService, private router: Router) {
-        this.userService.getAllUsers(1, 2, true)
+    constructor(
+        protected userService: UserService,
+        private router: Router) {
+    }
+
+
+    fetchData() {
+        this.userService.getAllUsers(0, 20, true, 'desc', 'userId')
             .subscribe(
-                user => {
-                    this.data =  user;
+                users => {
+                    this.source = users;
                 },
                 err => console.log(err)
             );
     }
 
-    onCreateClick(event, eventName: string): void {
+    onCreateClick(event): void {
         this.changeRoute('/admin/users/create');
     }
 
-    onEditClick(event, eventName: string): void {
-        this.changeRoute(`/admin/users/${event.data.user_id}/edit`);
+    onEditClick(event, id): void {
+        this.changeRoute(`/admin/users/${id}/edit`);
 
     }
 
-    onDeleteClick(event, eventName: string): void {
-        this.userService.findUserById(event.data.user_id)
+    onDeleteClick(event, id): void {
+        this.userService.findUserById(parseInt(id, 10))
             .subscribe(
                 user => {
                     this.newUser = user;
                     this.newUser.active = false;
-                    this.userService.updateUserById(this.newUser.user_id, this.newUser)
+                    this.userService.updateUserById(this.newUser.userId, this.newUser)
                         .subscribe(
                             updateUser => {
-                                this.userService.getAllUsers(1, 2, true)
+                                this.userService.getAllUsers(1, 2, true, 'desc', 'userId')
                                     .subscribe(
                                         addUser => {
-                                            this.data =  addUser;
+                                            this.source =  addUser;
                                         },
                                         err => console.log(err)
                                     );
@@ -104,9 +66,11 @@ export class AdminUsersComponent implements OnInit {
     }
 
     changeRoute(routeValue) {
-        this.router.navigateByUrl(routeValue,) ;
+        this.router.navigateByUrl(routeValue) ;
     }
 
     ngOnInit() {
+        this.fetchData();
+        this.random = Date.now();
     }
 }

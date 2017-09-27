@@ -1,11 +1,11 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {BsModalRef} from 'ngx-bootstrap';
 import {Router} from '@angular/router';
 import {CartService} from '../../../../client/api/cart.service';
 import {ProductService} from '../../../../client/api/product.service';
 import {CartCommunicationService} from '../../../../services/cart-communication.service';
-import {Order} from '../../../../client/model/order';
 import {Subscription} from 'rxjs/Subscription';
+import {FlashMessagesService} from 'ngx-flash-messages';
 
 @Component({
   selector: 'app-cart-box',
@@ -15,34 +15,33 @@ import {Subscription} from 'rxjs/Subscription';
 export class CartBoxComponent implements OnInit, OnDestroy {
 
     title = 'Cart';
-    idOfLoggedinUser = 4444;
     showAPhrase = true;
     totalPriceOfAllDishes = 0;
     arrayOfDishNamesAndPrices = [];
     dataReferenceArray = [];
     subscription: Subscription;
     arrayOfCartOrders = [];
-    nameAndSurname;
+    canGoToCheckout: boolean;
+    btnMessage: string;
 
     constructor(
         public bsModalRef: BsModalRef,
         private router: Router,
         private cartService: CartService,
         private productService: ProductService,
-        private cartCommunicationService: CartCommunicationService
+        private cartCommunicationService: CartCommunicationService,
+        private flashMessagesService: FlashMessagesService
     ) { }
 
 
     ngOnInit() {
-        this.idOfLoggedinUser = this.getIdOfLoggedInUserFromLocalStorage().userId;
-        this.showAPhrase = JSON.parse(localStorage.getItem('showAPhrase'));
         this.populateArrayOfDishNamesAndPrices();
-        this.nameAndSurname = this.getIdOfLoggedInUserFromLocalStorage().firstName + ' ' + this.getIdOfLoggedInUserFromLocalStorage().lastName;
-        this.subscription = this.cartCommunicationService.passedData.subscribe(
+        this.subscription = this.cartCommunicationService.passedData$.subscribe(
             data => {
                 this.calculateTotalPriceToPay(data);
             }
         );
+        this.btnMessage = 'Go to checkout!';
     }
 
     ngOnDestroy() {
@@ -53,13 +52,16 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
 
     populateArrayOfDishNamesAndPrices() {
-        if (JSON.parse(localStorage.getItem('cartContentObjCreated'))) {
-            this.cartService.findCartContentById(this.idOfLoggedinUser).subscribe(
+        if (this.cartCommunicationService.userIsLoggedIn) {
+            this.cartService.findCartContentById(this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage())
+                .subscribe(
                 cartData => {
-                    if (cartData === undefined || cartData === null) {
-                        return;
+                     if (cartData === undefined) {
+                        this.showAPhrase = true;
+                        this.canGoToCheckout = false;
                     } else {
-                        // this.showAPhrase = false;
+                        this.showAPhrase = false;
+                        this.canGoToCheckout = true;
                         // retrieve array of cartOrders of logged in user
                         const {orderedProducts} = cartData;
 
@@ -83,10 +85,11 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
                 }
             );
+
         }
     }
 
-    renewArray(id: number) {
+    renewArray(id) {
         // delete dish from listview
         for (let i = 0; i < this.dataReferenceArray.length; i++) {
             if (this.dataReferenceArray[i].id === id) {
@@ -95,21 +98,12 @@ export class CartBoxComponent implements OnInit, OnDestroy {
                 // delete item from arrayOfDishNamesAndPrices as it is used to calculate totalPriceOfAllDishes
                 this.arrayOfDishNamesAndPrices.splice(i, 1);
                 // let's update modyfied cartContent with some deleted items
-
                 this.updateCartContentBasedOnDeletedItemsOnServer(this.arrayOfDishNamesAndPrices);
-
                 if (this.dataReferenceArray.length === 0) {
                     // let's delete user's cart altogether
-                    this.cartService.deleteCartContentById(this.idOfLoggedinUser).subscribe(
-                        deletedCart => {
-                                        console.log('deletedCart: ', deletedCart);
-                                    },
-                                    err => console.log(err)
-                    );
-
+                    this.cartCommunicationService.deleteCartAndLocalReferences();
                     this.showAPhrase = true;
-                    localStorage.setItem('showAPhrase', JSON.stringify(true));
-                    localStorage.setItem('cartContentObjCreated', JSON.stringify(false));
+                    this.canGoToCheckout = false;
                 }
             }
 
@@ -120,10 +114,11 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
     private updateCartContentBasedOnDeletedItemsOnServer(arr) {
         // let's created updatedCartOrder
-           if (JSON.parse(localStorage.getItem('cartContentObjCreated'))) {
+           if (this.cartCommunicationService.userIsLoggedIn) {
                const updatedCart = this.extractArrayOfProductData(arr);
 
-            this.cartService.updateCartContentById(this.idOfLoggedinUser, updatedCart).subscribe(updatedData => {
+            this.cartService.updateCartContentById(this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage(), updatedCart)
+                .subscribe(updatedData => {
                 console.log('updatedCart returned from backend ', updatedData);
             });
         } else {
@@ -134,7 +129,6 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
     private extractArrayOfProductData(arr) {
         this.arrayOfCartOrders = this.extractCartOrdersArray(arr);
-        console.log(` this.arrayOfCartOrders in updateCartContentBasedOnDeletedItemsOnServer `, this.arrayOfCartOrders);
         // let's make sure our totalPriceOfAllDishes is up-to-date
         this.sumUpTotalPriceOfAllDishes(arr);
         const updatedCart = {
@@ -147,9 +141,7 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
     private extractCartOrdersArray(arr) {
         const arrayOfCartOrders = [];
-        console.log(` I'm in extractCartOrdersArray`);
         arr.forEach(data => {
-            console.log(` I'm in extractCartOrdersArray ${data}`);
             const priceForAProduct = this.getPriceById(data.id);
             arrayOfCartOrders.push(
                 {
@@ -195,36 +187,16 @@ export class CartBoxComponent implements OnInit, OnDestroy {
 
 
     hideAndRoute() {
-        this.bsModalRef.hide();
-                if (JSON.parse(localStorage.getItem('cartContentObjCreated'))) {
-                    const updatedCart = this.extractArrayOfProductData(this.arrayOfDishNamesAndPrices);
-                    const {orderedProducts, totalPriceOfAllDishes} = updatedCart;
-
-                    const newOrder: Order = {
-                        username: this.nameAndSurname,
-                        city: this.getIdOfLoggedInUserFromLocalStorage().city,
-                        price: totalPriceOfAllDishes,
-                        address: this.getIdOfLoggedInUserFromLocalStorage().address,
-                        status: 'New',
-                        products: orderedProducts
-                    };
-                    console.log(`=======cartOrdersArray from cart-box======`, newOrder);
-                    localStorage.setItem('newOrder', JSON.stringify(newOrder));
-
-                    this.router.navigate(['/checkout']);
-                }else {
-                    return;
-                }
-
-        }
-
-    private getIdOfLoggedInUserFromLocalStorage() {
-        if (JSON.parse(localStorage.getItem('currentUser'))) {
-            return JSON.parse(localStorage.getItem('currentUser'));
+        if (this.canGoToCheckout) {
+            this.updateCartContentBasedOnDeletedItemsOnServer(this.arrayOfDishNamesAndPrices);
+            this.bsModalRef.hide();
+            this.router.navigate(['/checkout'],
+                { queryParams: { userId: this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage() } });
         } else {
-            return;
+            this.btnMessage = `You need to make your purchase first`;
         }
     }
+
 
 }
 
