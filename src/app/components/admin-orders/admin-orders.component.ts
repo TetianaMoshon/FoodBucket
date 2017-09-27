@@ -82,7 +82,7 @@ pagedItems: any[];
                 0
             ],
             'measure': 'string',
-            'quantity': 0,
+            'quantity': [0],
             'discount': 0
         }, orderIdValue).subscribe(
             res => {

@@ -1,5 +1,7 @@
 'use strict';
 const Cart = require('../model/cart');
+const debug = require('debug')('foodbucket:cartService');
+const utils = require('../utils/writer');
 
 /**
  * Create cart for user using user's id
@@ -20,14 +22,14 @@ exports.createCartForUserById = function(id,body) {
         })
            .save()
            .then(
-             cartDoc => { console.log('Saved cart content', cartDoc);
+             cartDoc => { debug('Saved cart content %O', cartDoc);
             if (Object.keys(cartDoc).length > 0) {
                 resolve(cartDoc);
             } else {
-                reject();
+                reject(utils.respondWithCode(404, {"code": 404, "message": "Cart is not created, please try again."}));
             }
              },
-             error => { console.log('Unable to save cart content: ', error); }
+               error => { debug('Unable to save cart content: %O', error); }
       );
 
     });
@@ -49,10 +51,10 @@ exports.deleteCartContentById = function(id) {
         if (Object.keys(oneCart).length > 0) {
             resolve(oneCart);
         } else {
-            reject();
+            reject(utils.respondWithCode(404, {"code": 404, "message": "Cart is not deleted, please try again."}));
         }
     },
-        error => { console.log('Unable to remove cart content of a particular user ', error); }
+            error => { console.log('Unable to remove cart content of a particular user ', error); }
         );
     });
 }
@@ -69,15 +71,17 @@ exports.findCartContentById = function(id) {
 
         Cart.findOne({ userId: id }).then(
             oneCartDoc => {
-            oneCart = oneCartDoc;
+            oneCart = oneCartDoc || {};
         if (Object.keys(oneCart).length > 0) {
             resolve(oneCart);
         } else {
-            reject();
+            resolve(utils.respondWithCode(204));
         }
     },
-        error => { console.log('Unable to get cart content of a particular user ', error); }
+            error => { console.log('Unable to get cart content of a particular user ', error); }
         );
+    }).catch(err =>{
+        debug("Error is: %O", err);
     });
 }
 
@@ -102,10 +106,10 @@ exports.updateCartContentById = function(id,updatedcartContent) {
         if (Object.keys(updatedcartContent).length > 0) {
             resolve(updatedcartContent);
         } else {
-            reject();
+            reject(utils.respondWithCode(400, {"code": 404, "message": "Cart is not updated, please try again."}));
         }
     },
-        error => { console.log('Unable to update cart content of a particular user ', error); }
+            error => { console.log('Unable to update cart content of a particular user', error); }
         );
     });
 }

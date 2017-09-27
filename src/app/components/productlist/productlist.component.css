@@ -113,6 +113,10 @@
     color: #fff;
     text-transform: uppercase;
 }
+
+ul.pagination li {
+    cursor: pointer;
+}
 @media (max-width: 990px){
     .search-box{
         width: 30%;

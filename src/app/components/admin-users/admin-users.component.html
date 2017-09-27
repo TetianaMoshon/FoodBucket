@@ -14,7 +14,7 @@
                 <a class="sort_icon" (click)="onSortClick('userId')" [ngClass]="{
                         'sort_asc': ((sort == 'asc' || nextSort == 'asc') && value == 'userId'), 'sort_desc': ((sort == 'desc' || nextSort == 'desc') && value == 'userId')}"></a>
             </th>
-            <th class="text-center name-col">
+            <th class="text-center title-col">
                 Name
                 <a class="sort_icon" (click)="onSortClick('firstName')" [ngClass]="{
                         'sort_asc': ((sort == 'asc' || nextSort == 'asc') && value == 'firstName'), 'sort_desc': ((sort == 'desc' || nextSort == 'desc') && value == 'firstName')}"></a>
@@ -24,29 +24,27 @@
                 <a class="sort_icon" (click)="onSortClick('lastName')" [ngClass]="{
                         'sort_asc': ((sort == 'asc' || nextSort == 'asc') && value == 'lastName'), 'sort_desc': ((sort == 'desc' || nextSort == 'desc') && value == 'lastName')}"></a>
             </th>
-            <th class="text-center ">
+            <th class="text-center quantity-col">
                 Email
                 <a class="sort_icon" (click)="onSortClick('email')" [ngClass]="{
                         'sort_asc': ((sort == 'asc' || nextSort == 'asc') && value == 'email'), 'sort_desc': ((sort == 'desc' || nextSort == 'desc') && value == 'email')}"></a>
             </th>
-            <th class="text-center ">
+            <th class="text-center price-col">
                 Phone
                 <a class="sort_icon" (click)="onSortClick('phone')" [ngClass]="{
                         'sort_asc': ((sort == 'asc' || nextSort == 'asc') && value == 'phone'), 'sort_desc': ((sort == 'desc' || nextSort == 'desc') && value == 'phone')}"></a>
             </th>
-            <th class="text-center city-col">
+            <th class="text-center image-col">
                 City
                 <a class="sort_icon" (click)="onSortClick('city')" [ngClass]="{
                         'sort_asc': ((sort == 'asc' || nextSort == 'asc') && value == 'city'), 'sort_desc': ((sort == 'desc' || nextSort == 'desc') && value == 'city')}"></a>
             </th>
-            <th class="text-center ">
+            <th class="text-center">
                 Address
                 <a class="sort_icon" (click)="onSortClick('adress')" [ngClass]="{
                         'sort_asc': ((sort == 'asc' || nextSort == 'asc') && value == 'adress'), 'sort_desc': ((sort == 'desc' || nextSort == 'desc') && value == 'adress')}"></a>
             </th>
-            <th class="text-center ">
-            </th>
-
+            <th class="text-center"></th>
         </tr>
         <tr>
             <th class="text-center">
@@ -56,55 +54,44 @@
             </th>
             <th>
                 <div class="form-group">
-                    <input class="form-control"  type="text" name="firstName" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('firstName')" placeholder="Name">
+                    <input class="form-control"  type="text" name="firstName" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('firstName')" placeholder="FirstName">
                 </div>
             </th>
             <th class="text-center">
                 <div class="form-group">
-                    <input  class="form-control" type="text" name="lastName" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('lastName')" placeholder="Surname">
+                    <input  class="form-control" type="text" name="measure" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('measure')" placeholder="Measure">
                 </div>
             </th>
             <th class="text-center">
                 <div class="form-group">
-                    <input  class="form-control" type="text" name="email" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('email')" placeholder="Email">
+                    <input  class="form-control" type="number" name="quantity" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('quantity')" placeholder="Quantity">
                 </div>
             </th>
             <th class="text-center">
                 <div class="form-group">
-                    <input  class="form-control" type="number" name="phone" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('phone')" placeholder="Phone">
+                    <input  class="form-control" type="number" name="price" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('price')" placeholder="Price">
                 </div>
             </th>
-            <th class="text-center">
-                <div class="form-group">
-                    <input  class="form-control id-form-control" type="text" autocomplete="off" name="city" (input)="searchInput$.next($event.target.value)" (click)="defineCol('city')"   placeholder="City">
-                </div>
-            </th>
-            <th class="text-center">
-                <div class="form-group">
-                    <input  class="form-control id-form-control" type="text" name="adress" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('adress')"   placeholder="Address">
-                </div>
-            </th>
+            <th class="text-center"></th>
             <th class="text-center">
                 <button class="btn btn-success" (click)="onCreateClick($event)">Create</button>
             </th>
         </tr>
         </thead>
         <tbody>
-        <ng-container *ngFor="let item  of source">
+        <ng-container *ngFor="let ingredient of pagedItems">
             <tr>
-                <td class="gray-border text-center">{{item.userId}}</td>
-                <td class="gray-border text-center">{{item.firstName}}</td>
-                <td class="gray-border text-center">{{item.lastName}}</td>
-                <td class="gray-border text-center">{{item.email}}</td>
-                <td class="gray-border text-center">{{item.phone}}</td>
-                <td class="gray-border text-center">{{item.city}}</td>
-                <td class="gray-border text-center">{{item.adress}}</td>
-                <!--<td class="gray-border text-center image-column">-->
-                    <!--<img src="image/{{item.image}}" class="max-width-100" alt="There is no image for this category">-->
-                <!--</td>-->
+                <td class="gray-border text-center">{{ingredient.ingredient_id}}</td>
+                <td class="gray-border text-center">{{ingredient.title}}</td>
+                <td class="gray-border text-center">{{ingredient.measure}}</td>
+                <td class="gray-border text-center">{{ingredient.quantity}}</td>
+                <td class="gray-border text-center">{{ingredient.price}}</td>
+                <td class="gray-border text-center image-column">
+                    <img src="image/{{ingredient.image}}" class="max-width-100" alt="There is no image for this category">
+                </td>
                 <td class="gray-border text-center ">
-                    <button class="btn btn-warning" (click)="onEditClick($event, item['userId'])">Edit</button>
-                    <button class="btn btn-danger" (click)="onDeleteClick($event, item['userId'])">Delete</button>
+                    <button class="btn btn-warning" (click)="onEditClick($event, ingredient['ingredient_id'])">Edit</button>
+                    <button class="btn btn-danger" (click)="onDeleteClick($event, ingredient['ingredient_id'])">Delete</button>
                 </td>
             </tr>
         </ng-container>
@@ -124,4 +111,3 @@
         </ul>
     </div>
 
-</div></div>

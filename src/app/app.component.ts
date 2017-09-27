@@ -11,8 +11,6 @@ export class AppComponent implements OnInit {
     constructor(public  _router: Router, public data: DataService) {
     }
     ngOnInit() {
-        localStorage.setItem('showAPhrase', JSON.stringify(true));
-        localStorage.setItem('cartContentObjCreated', JSON.stringify(false));
         if ( sessionStorage.getItem('currentUserId') && sessionStorage.getItem('currentUserFirstName')) {
         this.changeLogBtnText(false, JSON.parse(sessionStorage.getItem('currentUserFirstName')));
         }

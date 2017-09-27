@@ -20,7 +20,7 @@ export class CartItemComponent implements OnInit {
     ngOnInit() {
         this.amountOfDishesOrdered = this.info.quantityOrdered || 1;
         if (this.amountOfDishesOrdered > 1) {
-            this.cartCommunicationService.passedData.next({amount: this.amountOfDishesOrdered, id: this.info.id });
+            this.cartCommunicationService.passedData$.next({amount: this.amountOfDishesOrdered, id: this.info.id });
         }
         this.totalPriceOfOneDish = this.info.price * this.info.quantityOrdered || this.info.price;
     }
@@ -28,7 +28,7 @@ export class CartItemComponent implements OnInit {
     plusClicked(id: number) {
         ++this.amountOfDishesOrdered;
         this.totalPriceOfOneDish = this.amountOfDishesOrdered * this.info.price;
-        this.cartCommunicationService.passedData.next({amount: this.amountOfDishesOrdered, id: this.info.id });
+        this.cartCommunicationService.passedData$.next({amount: this.amountOfDishesOrdered, id: this.info.id });
     }
 
     minusClicked(id: number) {
@@ -38,7 +38,7 @@ export class CartItemComponent implements OnInit {
             --this.amountOfDishesOrdered;
             this.totalPriceOfOneDish = this.amountOfDishesOrdered * this.info.price;
         }
-        this.cartCommunicationService.passedData.next({amount: this.amountOfDishesOrdered, id: this.info.id });
+        this.cartCommunicationService.passedData$.next({amount: this.amountOfDishesOrdered, id: this.info.id });
     }
 
     deleteShoppingItem(id: number) {
