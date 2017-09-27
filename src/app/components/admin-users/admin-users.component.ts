@@ -115,7 +115,7 @@ export class AdminUsersComponent implements OnInit {
 
     search(searchStr) {
         if (searchStr.trim() !== '') {
-            this.userService.getAllUsersWithHttpInfo(0, this.total, 'desc', 'userId', true,searchStr, this.column)
+            this.userService.getAllUsersWithHttpInfo(0, this.total, 'desc', 'userId', true, searchStr, this.column)
                 .subscribe(res =>
                     this.source = res.json()
                 );
