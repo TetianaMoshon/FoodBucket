@@ -1228,11 +1228,6 @@ paths:
       produces:
       - application/json
       parameters:
-        - name: isActive
-          in: query
-          description: returns active users
-          required: false
-          type: boolean
         - name: offset
           in: query
           description: start position for quering from DB
@@ -1248,7 +1243,7 @@ paths:
           type: integer
           format: int32
           minimum: 0
-          maximum: 27
+          maximum: 50
           default: 9
         - name: sort
           in: query
@@ -1271,7 +1266,29 @@ paths:
             - phone
             - city
             - address
-            - active
+        - name: isActive
+          in: query
+          description: returns active users
+          required: false
+          type: boolean
+        - name: search_txt
+          in: query
+          description: text to search
+          required: false
+          type: string
+        - name: search_col
+          in: query
+          description: text to search
+          required: false
+          type: string
+          enum:
+            - userId
+            - firstName
+            - lastName
+            - email
+            - phone
+            - city
+            - address            
       responses:
         200:
           description: Successful users response
@@ -1283,6 +1300,7 @@ paths:
           description: invalid input
           schema:
             $ref: "#/definitions/Error"
+        
   /user/{id}:
     get:
       x-swagger-router-controller: User
@@ -1354,6 +1372,35 @@ paths:
           description: User is updated
         400:
           description: An error!
+  /user/{id}/image:
+    post:
+      x-swagger-router-controller: User
+      operationId: postUserImageById
+      tags:
+      - "user"
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the user image upload for
+        required: true
+        type: integer
+        format: int64
+      - name: file
+        in: formData
+        required: false
+        type: file
+      - name: additionalMetadata
+        in: formData
+        description: Additional data to pass to server
+        required: false
+        type: string
+      responses:
+        default:
+          description: Successful operation          
   /user:
     post:
       x-swagger-router-controller: User
