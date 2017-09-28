@@ -92,8 +92,8 @@
                     </div>
                     <div class="col-md-2 text-center">
                         <h4 class="text-center">Order contents</h4>
-                        <ul *ngFor="let product of order.products" class="list-group">
-                            <li class="list-group-item">{{product}}</li>
+                        <ul *ngFor="let product of order.products; let i = index" class="list-group">
+                            <li class="list-group-item">{{product}}<span class="badge badge-default badge-pill">{{order.quantity[i]}}</span></li>
                         </ul>
                     </div>
                 </div>
