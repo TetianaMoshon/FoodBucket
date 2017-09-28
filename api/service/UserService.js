@@ -109,7 +109,12 @@ exports.getAllUsers = function (offset, limit, sort, sort_col, isActive, search_
             }
 
         }
-        return User.count().
+
+        return User.where({
+            'active': {
+                $gte: true
+            }
+        }).count().
         then(
             total => {
                 User.find(query).skip(offset).limit(limit).sort({[sort_col]: sort}).where({
