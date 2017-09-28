@@ -55,7 +55,7 @@ export class ProductlistComponent implements OnInit {
 
 
     populateIdFieldOfProduct() {
-        this.productService.getAllProducts(0, 20, false, 'desc', 'productId').subscribe(products => {
+        this.productService.getAllProducts(0, 20, true, 'desc', 'productId').subscribe(products => {
             products.forEach(product => {
                 const {productId, title, description, image, price} =  product;
                 this.priceOfChosenProduct = price;

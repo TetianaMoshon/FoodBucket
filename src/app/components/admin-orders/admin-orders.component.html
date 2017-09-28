@@ -64,7 +64,7 @@
             </td>
             <td class="gray-border text-center">
                 <button class="btn btn-primary" *ngIf="order.expanded" (click)="order.expanded = false">Close</button>
-                <button class="btn btn-primary" *ngIf="!order.expanded" (click)="order.expanded = true">Details</button>
+                <button class="btn btn-primary" *ngIf="!order.expanded" (click)="order.expanded = true;getProductTitles(order.orderId)">Details</button>
             </td>
         </tr>
         <tr *ngIf="order.expanded">
@@ -92,8 +92,8 @@
                     </div>
                     <div class="col-md-2 text-center">
                         <h4 class="text-center">Order contents</h4>
-                        <ul *ngFor="let product of order.products; let i = index" class="list-group">
-                            <li class="list-group-item">{{product}}<span class="badge badge-default badge-pill">{{order.quantity[i]}}</span></li>
+                        <ul *ngFor="let product of orderTitles; let i = index" class="list-group">
+                            <li class="list-group-item">{{product}}<span class="badge badge-default badge-pill">{{quantityArray[i]}}</span></li>
                         </ul>
                     </div>
                 </div>

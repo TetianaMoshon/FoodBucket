@@ -3,7 +3,6 @@ import {PagerService} from '../../services/pagination.service';
 import {OrderService} from '../../client/api/order.service';
 import {Order} from '../../models/order';
 import {Subject} from 'rxjs/Subject';
-import * as _ from 'lodash';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 
@@ -31,8 +30,8 @@ export class AdminOrdersComponent implements OnInit {
 pager: any = {};
 pagedItems: any[];
 arrayOfIds: number[] = [];
-arrayOfQuantities;
-arrayOfTitles;
+orderTitles;
+quantityArray;
 
   constructor(private pagerService: PagerService, private ApiService: OrderService) {
       this.showHide = false;
@@ -46,10 +45,6 @@ arrayOfTitles;
             this.total = response.headers.get('x-total-records');
             this.pager = this.pagerService.getPager(this.total, 1);
             this.pagedItems = this.orders;
-            console.log(this.orders);
-            this.orders.forEach(order => {
-                console.log('Array of ID', this.arrayOfIds);
-            });
         });
         this.searchInput$
             .debounceTime(400)
@@ -74,7 +69,12 @@ arrayOfTitles;
     }
 
 
-
+    getProductTitles(idOrder) {
+      this.ApiService.findOrderById(idOrder).subscribe(res => {
+          this.orderTitles = res.products;
+          this.quantityArray = res.quantity;
+      });
+    }
     updateOrder(value, orderIdValue) {
         this.ApiService.updateOrderById({
             'orderId': 0,
@@ -91,11 +91,7 @@ arrayOfTitles;
             'measure': 'string',
             'quantity': [0],
             'discount': 0
-        }, orderIdValue).subscribe(
-            res => {
-                console.log(res);
-            }
-        );
+        }, orderIdValue).subscribe(res => {});
     }
 
     toggle(state: boolean) {

@@ -366,7 +366,7 @@ paths:
         200:
           description: Order response
           schema:
-            $ref: "#/definitions/Order"
+            $ref: "#/definitions/FullOrder"
         default:
           description: invalid input
           schema:
@@ -1481,7 +1481,7 @@ definitions:
       products:
         type: array
         items:
-          type: object
+          type: integer
           format: int64
         minItems: 1
       measure:
@@ -1525,7 +1525,7 @@ definitions:
       products:
         type: array
         items:
-          $ref: '#/definitions/Product'
+          type: string
       measure:
         type: string
       quantity:

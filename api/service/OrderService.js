@@ -2,6 +2,7 @@
 const Order = require('../model/order');
 const utils = require('../utils/writer.js');
 const debug = require('debug')('foodbucket:orderService');
+const Product = require('../model/product');
 /**
  *
  * id Long ID of the order to get
@@ -9,12 +10,20 @@ const debug = require('debug')('foodbucket:orderService');
  **/
 exports.findOrderById = function(id) {
     return new Promise(function(resolve, reject) {
+
         Order.findOne({orderId: id}).then(
             (oneOrderDoc) =>{
                 oneOrderDoc = oneOrderDoc || {};
                 if (Object.keys(oneOrderDoc).length > 0) {
-                    let { orderId,username, city, phone,address, products,price,status,quantity } = oneOrderDoc;
-                    resolve(utils.respondWithCode(200, { orderId,username, phone,city, address, products,price,status,quantity }));
+                    Product.find({
+                        'productId': { $in: oneOrderDoc.products}
+                    }).then(products => {
+                        products = products.map(({ title }) => {
+                            return title ;
+                        });
+                        let { orderId,username, city, phone,address,price,status,quantity } = oneOrderDoc;
+                        resolve(utils.respondWithCode(200, { orderId,username, phone,city, address, products,price,status,quantity }));
+                    });
                 }
                 else {
                     reject(utils.respondWithCode(404, {"code": 404, "message": "Order is not found, please try again."}));
