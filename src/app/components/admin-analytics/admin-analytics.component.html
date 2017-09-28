@@ -73,21 +73,21 @@
                 <div class="doughnut col-sm-12 col-md-6">
                     <div class="row">
                         <div class="gender  col-sm-6 col-md-6">
-                            <h3 class="title">gender</h3>
+                            <h3 class="title">Products</h3>
                             <div>
                                 <canvas baseChart
-                                        [data]="doughnutGenderData"
-                                        [labels]="doughnutGenderLabels"
+                                        [data]=[promotionalProducts,nonpromotionalProducts]
+                                        [labels]="doughnutProductsLabels"
                                         [chartType]="doughnutType"
                                         [colors]="doughnutColors">
                                 </canvas>
                             </div>
                         </div>
                         <div class="category col-sm-6 col-md-6">
-                            <h3 class="title">categories</h3>
+                            <h3 class="title">Products by categories</h3>
                             <div>
                                 <canvas baseChart
-                                        [data]="doughnutCategoryData"
+                                        [data]=[fishProducts,meatProducts,vegeterianProducts]
                                         [labels]="doughnutCategoryLabels"
                                         [chartType]="doughnutType"
                                 [colors]="doughnutColors"></canvas>

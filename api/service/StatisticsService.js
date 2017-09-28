@@ -2,6 +2,7 @@
 const Order = require('../model/order');
 const User = require('../model/user');
 const utils = require('../utils/writer.js');
+const Product = require('../model/product');
 /**
  *
  * returns List
@@ -28,8 +29,28 @@ exports.getUsersStatistics = function() {
     });
 };
 
+exports.getCategoriesStatistics = function(categoryQuery) {
+    return new Promise(function (resolve, reject) {
+        Product.count({category: categoryQuery}).then((queryProducts) =>{
+                resolve({queryProducts});
+            }
+        )}
+    )};
 
-
+exports.getNonpromotionalProducts = function() {
+    return new Promise(function(resolve, reject) {
+        Product.count({promotions:false}).then(nonpromotionalProducts => {
+            resolve({nonpromotionalProducts});
+        });
+    });
+};
+exports.getPromotionProductsCount = function() {
+    return new Promise(function(resolve, reject) {
+        Product.count({promotions:true}).then(promotionalProducts => {
+            resolve({promotionalProducts});
+        });
+    });
+};
 exports.getCompletedOrdersStatistics = function() {
     return new Promise(function(resolve, reject) {
         Order.count({status:'Delivered'}).then(completedOrders => {
@@ -42,7 +63,7 @@ exports.getRevenue = function() {
     let revenue;
     return new Promise(function(resolve, reject) {
         Order.aggregate({
-            $match: {status:'Delivered'}},
+                $match: {status:'Delivered'}},
             {
                 $group : {
                     _id : null,
