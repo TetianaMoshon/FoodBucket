@@ -43,13 +43,13 @@ export class AdminUsersComponent implements OnInit {
         const token = sessionStorage.getItem('JWT');
         console.log(token);
         headers.append('x-my-jwt', token);
-        this.userService.getAllUsers(1, 2, true, {headers: headers})
+        /*this.userService.getAllUsers(1, 2, true, {headers: headers})
             .subscribe(
                 user => {
                     this.data =  user;
                 },
                 err => console.log(err)
-            );
+            );*/
     }
 
 
