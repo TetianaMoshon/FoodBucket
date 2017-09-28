@@ -103,7 +103,7 @@ exports.getAllIngredients = function(offset,limit, sort, sort_col, search_txt, s
             }
 
         }
-        return Ingredient.count(query).
+        return Ingredient.count().
         then(
             total => {
                 Ingredient.find(query).skip(offset).limit(limit).sort({[sort_col]: sort}).then(
@@ -115,7 +115,7 @@ exports.getAllIngredients = function(offset,limit, sort, sort_col, search_txt, s
                             });
                             resolve({total: total, body: utils.respondWithCode(200, ingredientsDoc)});
                         } else {
-                            resolve(utils.respondWithCode(204));
+                            reject(utils.respondWithCode(204));
                         }
                     },
                     error => { debug('Unable to get ingredients: %O', error); }

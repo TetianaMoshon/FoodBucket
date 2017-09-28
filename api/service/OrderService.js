@@ -67,7 +67,7 @@ exports.getAllOrders = function (offset, limit, sort, sort_col, search_txt, sear
                                 resolve({total: total, body: utils.respondWithCode(200, ordersDoc)});
                             }
                             else {
-                                reject(utils.respondWithCode(404, {"code": 404, "message": "Orders are not found, please try again."}));
+                                reject(utils.respondWithCode(204));
                             }
                         },
                         (error) => {debug('Unable to find order. View error:' + error.toString());}
