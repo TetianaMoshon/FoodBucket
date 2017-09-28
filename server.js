@@ -7,8 +7,8 @@ const http = require('http');
 const logger = require('morgan');
 const debug = require('debug')('foodbucket:server');
 const bodyParser = require('body-parser');
-const initScript = require('./config/initializeDb');
 const jwt = require('./api/service/JWTService');
+const initScript = require('./config/initialize');
 
 let fs = require('fs');
 let cors = require('cors');
@@ -54,6 +54,12 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+initScript.initFolders();
+
+// Point static path to dist
+app.use(express.static(path.join(__dirname, 'dist')));
+app.use(express.static(path.join(__dirname, 'public')));
+
 /*app.use('/api/users', (req,res, next) => jwt.JWTBlock(req, res, next));
 app.use('/api/user/{id}', (req,res, next) => jwt.JWTBlock(req, res, next));
 
@@ -66,10 +72,6 @@ app.use('/api/order/{id}', (req,res, next) => jwt.JWTBlock(req, res, next));
 
 app.use('/api/product/{id}', (req,res, next) => jwt.JWTBlock(req, res, next));
 app.use('/api/product', (req,res, next) => jwt.JWTBlock(req, res, next));*/
-
-
-// Point static path to dist
-app.use(express.static(path.join(__dirname, 'dist')));
 
 // Initialize the Swagger middleware
 swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {

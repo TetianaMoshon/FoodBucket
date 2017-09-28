@@ -8,5 +8,6 @@ export class Order {
     status?: string;
     products?: Array<number>;
     phone?: string;
+    quantity?: Array<number>;
 
 }

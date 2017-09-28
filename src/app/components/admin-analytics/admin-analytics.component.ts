@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {StatisticsService} from '../../client/api/statistics.service';
 
 @Component({
   selector: 'app-admin-analytics',
@@ -9,7 +10,16 @@ import { Component, OnInit } from '@angular/core';
 export class AdminAnalyticsComponent implements OnInit {
 
     // Charts
-
+    totalOrders;
+    totalUsers;
+    completedOrders;
+    revenue;
+    promotionalProducts;
+    nonpromotionalProducts;
+    fishProducts;
+    meatProducts;
+    vegeterianProducts;
+    doughnutProductsData: number[];
     // Chart Orders
     public chartOrdersData: Array<any> = [
         {data: [65, 59, 80, 81, 56, 55, 40], label: 'Total'},
@@ -29,7 +39,7 @@ export class AdminAnalyticsComponent implements OnInit {
             pointHoverBackgroundColor: '#fff',
             pointHoverBorderColor: '#14a9ba'
         },
-        { // Complited
+        { // Completed
             backgroundColor: 'rgba(110, 235, 131, 0.2)',
             borderColor: '#51ab60',
             pointBackgroundColor: '#51ab60',
@@ -67,7 +77,7 @@ export class AdminAnalyticsComponent implements OnInit {
             pointHoverBackgroundColor: '#fff',
             pointHoverBorderColor: '#14a9ba'
         },
-        { // Complited
+        { // Completed
             backgroundColor: 'rgba(110, 235, 131, 0.2)',
             borderColor: '#51ab60',
             pointBackgroundColor: '#51ab60',
@@ -80,6 +90,7 @@ export class AdminAnalyticsComponent implements OnInit {
     public chartCashType = 'line';
 
     // Doughnut
+    public dougnutProductsLabels: string[]= ['Promotion', 'Not promotion'];
     public doughnutType = 'doughnut';
     public doughnutColors: any[] = [
         {
@@ -90,9 +101,7 @@ export class AdminAnalyticsComponent implements OnInit {
         }];
 
     // Gender Doughnut
-    public doughnutGenderData: number[] = [350, 450];
-    public doughnutGenderLabels: string[] = ['Male', 'Female'];
-
+    public doughnutProductsLabels: string[] = ['Promotional', 'Not promotional'];
     // Category Doughnut
     public doughnutCategoryLabels: string[] = ['Fish', 'Meat', 'Vegetarian'];
     public doughnutCategoryData: number[] = [350, 450, 100];
@@ -113,10 +122,40 @@ export class AdminAnalyticsComponent implements OnInit {
         { backgroundColor: '#19D2E8', borderColor: '#19D2E8', hoverBackgroundColor: '#1be7ff', hoverBorderColor: '#14A9BA'},
         { backgroundColor: '#E85013', borderColor: '#E85013', hoverBackgroundColor: '#ff5714', hoverBorderColor: '#BA400F'}];
 
-    constructor() {
+    constructor(private statService: StatisticsService) {
     }
 
     ngOnInit() {
+        this.statService.getOrderStatistics().subscribe(res => {
+            this.totalOrders = res.totalOrders;
+        });
+        this.statService.getUsersStatistics().subscribe(res => {
+            this.totalUsers = res.totalUsers;
+        });
+        this.statService.getCompletedOrdersStatistics().subscribe(res => {
+            this.completedOrders = res.completedOrders;
+        });
+        this.statService.getRevenue().subscribe(res => {
+            this.revenue = res['revenue'];
+        });
+        this.statService.getPromotionProductsCount().subscribe(res => {
+            this.promotionalProducts = res.promotionalProducts;
+        });
+        this.statService.getNonpromotionalProducts().subscribe(res => {
+            this.nonpromotionalProducts = res.nonpromotionalProducts;
+        });
+        this.statService.getCategoriesStatistics('Fish').subscribe(res => {
+            this.fishProducts = res['queryProducts'];
+            console.log(this.fishProducts);
+        });
+        this.statService.getCategoriesStatistics('Meat').subscribe(res => {
+            this.meatProducts = res['queryProducts'];
+            console.log(this.meatProducts);
+        });
+        this.statService.getCategoriesStatistics('Vegeterian').subscribe(res => {
+            this.vegeterianProducts = res['queryProducts'];
+            console.log(this.vegeterianProducts);
+        });
     }
 }
 

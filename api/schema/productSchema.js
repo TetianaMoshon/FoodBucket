@@ -8,12 +8,12 @@ const productSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    image: String,
     description: String,
     price: {
         type: Number,
         required: true
     },
+    image: String,
     category: String,
     status: Boolean,
     discount: Number,
@@ -30,6 +30,11 @@ const productSchema = mongoose.Schema({
             measure: String
         }
     ]
+});
+
+productSchema.index({
+    title: 'text',
+    category: 'text'
 });
 
 productSchema.pre('save', function(next) {

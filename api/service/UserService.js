@@ -1,6 +1,8 @@
 'use strict';
 const utils = require('../utils/writer.js');
 const User = require('../model/user');
+const imageService = require('./common/ImageService');
+const debug = require('debug')('foodbucket:userService');
 
 
 /**
@@ -13,7 +15,7 @@ const User = require('../model/user');
 exports.createUser = function ({firstName, lastName, email, password, phone, city, address, image, favourites, active}) {
     return new Promise((resolve, reject) => {
 
-    let newUser = new User({
+        let newUser = new User({
             firstName,
             lastName,
             email,
@@ -95,26 +97,42 @@ exports.findUserById = function (id) {
  * isActive Boolean returns active users (optional)
  * returns List
  **/
-exports.getAllUsers = function (offset, limit, isActive) {
+exports.getAllUsers = function (offset, limit, sort, sort_col, isActive, search_txt, search_col) {
     return new Promise((resolve, reject) => {
-        User.find().where({
-            'active': {
-                $gte: true
+        let query = {};
+        if (search_col && search_txt) {
+            if (isNaN(search_txt)) {
+                const regex = new RegExp(search_txt, "i");
+                query = {[search_col]: regex};
+            } else {
+                query = {[search_col]: search_txt};
             }
-        }).then(
-            usersDoc => {
-                usersDoc = usersDoc || [];
-                if (Object.keys(usersDoc).length > 0) {
-                    usersDoc = usersDoc.map( ({ userId, firstName, lastName, email, password, phone, city, address, image, favourites, active }) => {
-                        return { userId, firstName, lastName, email, password, phone, city, address, image, favourites, active };
-                    });
-                    resolve(utils.respondWithCode(200, usersDoc));
-                } else {
-                    reject(utils.respondWithCode(404, {"code": 404, "message": "Users are not found, please try again."}));
-                }
-            },
-            error => { console.log('Unable to get users: ', error); }
-        );
+
+        }
+        return User.count().
+        then(
+            total => {
+                User.find(query).skip(offset).limit(limit).sort({[sort_col]: sort}).where({
+                    'active': {
+                        $gte: true
+                    }
+                }).then(
+                    usersDoc => {
+                        usersDoc = usersDoc || [];
+                        if (Object.keys(usersDoc).length > 0) {
+                            usersDoc = usersDoc.map( ({ userId, firstName, lastName, email, password, phone, city, address, image, favourites, active }) => {
+                                return { userId, firstName, lastName, email, password, phone, city, address, image, favourites, active };
+                            });
+                            resolve({total: total, body: utils.respondWithCode(200, usersDoc)});
+                        } else {
+                            reject(utils.respondWithCode(404, {"code": 404, "message": "Users are not found, please try again."}));
+                        }
+                    },
+                    error => { console.log('Unable to get users: ', error); }
+                );
+            }
+        )
+
     });
 };
 
@@ -142,3 +160,39 @@ exports.updateUserById = function(id, updatedUser) {
         );
     });
 };
+
+
+
+/**
+ *
+ * id Long ID of the user image upload for
+ * file File  (optional)
+ * additionalMetadata String Additional data to pass to server (optional)
+ * no response value expected for this operation
+ **/
+exports.postUserImageById = function(id,file,additionalMetadata) {
+    return new Promise((resolve, reject) => {
+        let entityName = 'user';
+        User.findOne({ userId: id }).then(user => {
+            return imageService.uploadImage(user.userId, entityName, file);
+        }).then(pathToStoreInDB => {
+            return User.findOneAndUpdate({ userId: id }, { $set: { image: pathToStoreInDB } }, { new: true }).then(
+                oneUser => {
+                    if (pathToStoreInDB !== undefined && pathToStoreInDB !== null && oneUser !== null) {
+                        let {userId, firstName, lastName, email, password, phone, city, address, image, favourites, active } = oneUser;
+                        resolve(utils.respondWithCode(200, {userId, firstName, lastName, email, password, phone, city, address, image, favourites, active}));
+                    } else {
+                        reject(utils.respondWithCode(400, {"code": 404, "message": "User is not updated, please try again."}));
+                    }
+                },
+                error => { debug('Unable to get user: %O', error); }
+            );
+        }).catch(e => {
+            debug(e);
+        });
+    });
+}
+
+
+
+

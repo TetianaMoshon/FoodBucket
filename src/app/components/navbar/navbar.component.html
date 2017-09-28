@@ -1,7 +1,7 @@
 <nav class="navbar navbar-default navbar-foodbucket navbar-fixed-top">
-    <div class="container-fluid">
+    <div class="container-fluid background">
         <div class="navbar-header">
-            <span class="bucket-mobile" (click)="openCartModal()">
+            <span *ngIf="!isLogged" class="bucket-mobile" (click)="openCartModal()">
                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" width="30" height="30" viewBox="0 0 64 53">
                       <defs>
                         <style>
@@ -26,17 +26,23 @@
                 <span class="icon-bar"> </span>
                 <span class="icon-bar"> </span>
             </button>
-            <a class="navbar-brand" routerLink="/" routerLinkActive="active">FoodBucket</a>
+            <div class="wrapper">
+                <div class="text-container">
+                    <a class="navbar-brand text" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact:
+true}">FoodBucket</a>
+                </div>
+            </div>
+
         </div>
         <div id="navbar" class="navbar-collapse collapse" [collapse]="isCollapsed">
-            <ul class="nav navbar-nav">
-                <li><a routerLink="/category" routerLinkActive="active" (click)="isCollapsed = true">Category</a></li>
-                <li><a routerLink="/aboutus" routerLinkActive="active" (click)="isCollapsed = true">About Us</a></li>
+            <ul class="nav navbar-nav snip1398">
+                <li routerLink="/category" routerLinkActive="active"><a  (click)="isCollapsed = true" data-hover="Category">Category</a></li>
+                <li routerLink="/aboutus" routerLinkActive="active"><a  (click)="isCollapsed = true" data-hover="About Us">About Us</a></li>
 
             </ul>
 
-            <ul class="nav navbar-nav navbar-right">
-                <li><span class="bucket" (click)="openCartModal()">
+            <ul class="nav navbar-nav navbar-right snip1398">
+                <li *ngIf="!isLogged" class="bucket"><span class="bucket" (click)="openCartModal()">
                                         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" width="30" height="30" viewBox="0 0 64 53">
                       <defs>
                         <style>
@@ -56,8 +62,8 @@
                       </g>
                     </svg>
                 </span></li>
-                <li *ngIf="isLogged">
-                    <a (click)="openLoginModal();isCollapsed = true">Log In / Registration</a>
+                <li *ngIf="isLogged" (click)="openLoginModal();isCollapsed = true">
+                    <a  data-hover="Log In / Registration">Log In / Registration</a>
                 </li>
                 <li *ngIf="!isLogged">
                     <span dropdown (onShown)="onShown()" (onHidden)="onHidden()" (isOpenChange)="isOpenChange()">
@@ -71,17 +77,10 @@
                     </span>
                 </li>
             </ul>
-            <form class="navbar-form navbar-right">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                    <div class="input-group-btn">
-                        <button class="btn btn-default" type="submit"  routerLinkActive="active">
-                            <i class="glyphicon glyphicon-search"></i>
-                        </button>
-                    </div>
-                </div>
-            </form>
+            <app-search class="navbar-form navbar-right"></app-search>
         </div>
-
+        <div>
+            <ngx-flash-messages></ngx-flash-messages>
+        </div>
     </div>
 </nav>

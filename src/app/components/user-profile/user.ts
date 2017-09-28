@@ -8,5 +8,6 @@ export class User {
         public city: string,
         public address: string,
         public active: boolean,
+        public image: string,
     ) {}
 }
