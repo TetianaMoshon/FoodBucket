@@ -1,9 +1,10 @@
-import { Ng2SmartTableComponent } from 'ng2-smart-table/ng2-smart-table.component';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {LocalDataSource} from 'ng2-smart-table';
 import {ProductService} from '../../client/api/product.service';
-import {settings} from './settings';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import {Subject} from 'rxjs/Subject';
+import {PagerService} from '../../services/pagination.service';
 
 @Component({
     selector: 'app-admin-product-list',
@@ -12,40 +13,78 @@ import {settings} from './settings';
 })
 export class AdminProductListComponent implements OnInit {
 
-    settings = settings;
-    source: LocalDataSource;
-    constructor(
-        protected productService: ProductService,
-        private router: Router
-    ) {
-        this.productService.getAllProducts(1, 2, true)
-            .subscribe(
-                products => {
-                    this.source = new LocalDataSource();
-                    this.source.load(products);
-                },
-                err => console.log(err)
-            );
-    }
+    source;
+    random;
+
+    searchInput$ = new Subject<string>();
+    sorted: boolean;
+    nextSort: string;
+    column: string;
+    res;
+    total;
+    offset;
+    limit = this.pagerService.getPager(this.total, 1);
+    page;
+    value: string;
+    state = true;
+    sort: string;
+    products;
+    pager: any = {};
 
     ngOnInit() {
+        this.fetchData();
     }
 
-    onEditClick(event, eventName: string): void {
-        const productId = parseInt(event.cells[0].value);
-        this.changeRoute(`/admin/productlist/${productId}/edit`);
+    constructor(
+        protected productService: ProductService,
+        private router: Router,
+        private pagerService: PagerService
+    ) { }
+
+    fetchData() {
+        this.defineOffset(this.limit.pageSize, 1);
+        this.productService.getAllProductsWithHttpInfo(this.offset, this.limit.pageSize, 'desc', 'productId')
+            .subscribe(
+                response => {
+                    this.products = response.json();
+                    this.total = response.headers.get('x-total-records');
+                    this.pager = this.pagerService.getPager(this.total, 1);
+                    this.source = this.products;
+
+                },
+                err => console.log(err)
+
+            );
+
+        this.searchInput$
+            .debounceTime(400)
+            .distinctUntilChanged()
+            .subscribe(inputData => this.search(inputData));
     }
 
     onCreateClick(event, eventName: string): void {
         this.changeRoute('/admin/productlist/create');
-
     }
 
-    onDeleteClick(event, eventName: string): void {
-        const productId = parseInt(event.cells[0].value);
-        if(confirm('Are you really want to delete product with id: ' + productId + ' ?')) {
-            this.productService.deleteProductById(productId).subscribe(
-                () => { this.source.remove(event.data); },
+    onEditClick(event, productId): void {
+        this.changeRoute(`/admin/productlist/${productId}/edit`);
+    }
+
+    onDeleteClick(event, productId): void {
+        this.defineOffset(this.limit.pageSize, this.pager.currentPage)
+        if (confirm('Are you really want to delete category with id: ' + productId + ' ?')) {
+            this.productService.deleteProductById(parseInt(productId, 10)).subscribe(
+                product => {
+                    this.productService.getAllProductsWithHttpInfo(0, this.limit.pageSize, 'desc', 'productId')
+                        .subscribe(
+                        products => {
+                            this.source = products.json();
+                            this.total = products.headers.get('x-total-records');
+                            this.pager = this.pagerService.getPager(this.total, 1);
+                        },
+                        err => console.log(err)
+                    );
+                },
                 err => console.log(err)
             );
         }
@@ -54,4 +93,61 @@ export class AdminProductListComponent implements OnInit {
     changeRoute(routeValue) {
         this.router.navigateByUrl(routeValue);
     }
+
+    defineCol(value: string) {
+        this.column = value;
+    }
+
+    search(searchStr) {
+        if (searchStr.trim() !== '') {
+            this.productService.getAllProductsWithHttpInfo(0, this.total, 'desc', 'productId', searchStr, this.column)
+                .subscribe(res =>
+                    this.source = res.json()
+                );
+        } else {
+            this.source = this.products;
+        }
+
+        this.pager.currentPage = 1;
+    }
+
+    toggle(state: boolean) {
+        this.state = state;
+        this.sort = this.state ? 'desc' : 'asc';
+    }
+
+    defineOffset(limit: number, page: number) {
+        this.offset = page * limit - limit;
+    }
+
+    setPage(page: number) {
+        this.source = [];
+        this.defineOffset(this.limit.pageSize, page);
+        if (this.sorted) {
+            this.productService.getAllProducts(this.offset, this.limit.pageSize, this.nextSort, this.value )
+                .subscribe(products => {
+                    this.source = products;
+                });
+        } else  {
+            this.productService.getAllProducts( this.offset, this.limit.pageSize, 'desc', 'productId')
+                .subscribe(products => {
+                    this.source = products;
+                });
+        }
+
+        this.pager.currentPage = page;
+    }
+
+    onSortClick(value: string): void {
+        this.toggle(!this.state);
+        this.defineOffset(this.limit.pageSize, this.pager.currentPage);
+        this.productService.getAllProducts(this.offset, this.limit.pageSize, this.sort, value )
+            .subscribe(products => {
+                this.value = value;
+                this.source = products;
+            });
+        this.sorted = true;
+        this.nextSort = this.sort;
+    }
+
 }

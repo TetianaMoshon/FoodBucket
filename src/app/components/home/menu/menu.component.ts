@@ -16,12 +16,12 @@ export class MenuComponent implements OnInit {
       this.MenuProduct();
   }
     MenuProduct() {
-        this.productService.getAllProducts(1, 2, true,'desc', 'productId')
+        this.productService.getAllProducts(1, 2, 'desc', 'productId')
             .subscribe(
                 products => {
                     while (this.quantityProducts > 0) {
-                    this.RandProducts.push(products[Math.floor(Math.random() * (products.length))]);
-                    this.quantityProducts--;
+                        this.RandProducts.push(products[Math.floor(Math.random() * (products.length))]);
+                        this.quantityProducts--;
                     }
                 },
                 err => console.log(err)

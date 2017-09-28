@@ -58,6 +58,7 @@ import {CartCommunicationService} from './services/cart-communication.service';
 import { FlashMessagesModule } from 'ngx-flash-messages';
 import {appRouting} from './app.routing';
 import {AdminIngredientsFormComponent} from './components/admin-ingredients/adminingredients-form/adminingredients-form.component';
+import { CarouselModule } from 'ngx-bootstrap';
 import { AddToCartButtonComponent } from './components/add-to-cart-button/add-to-cart-button.component';
 import { SearchComponent } from './components/search/search.component';
 import {SearchHelpersService} from './services/search-helpers.service';
@@ -135,6 +136,7 @@ import {SearchHelpersService} from './services/search-helpers.service';
       Ng2SmartTableModule,
       ChartsModule,
       [TabsModule.forRoot()],
+      [CarouselModule.forRoot()]
   ],
   providers: [
       PagerService,

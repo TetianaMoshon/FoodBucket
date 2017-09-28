@@ -27,13 +27,13 @@ const appRoutes: Routes = [
   { path: '', component: HomeComponent },
     { path: 'ingredients', component: IngredientsComponent },
     { path: 'category', children: [
-          { path: '', component: CategoryComponent },
-          { path: 'productlist', children: [
-              { path: '', component: ProductlistComponent },
-              { path: ':id', component: ProductpageComponent },
-          ]},
-      ]},
-      { path: 'aboutus', component: AboutusComponent },
+        { path: '', component: CategoryComponent },
+        { path: ':id', component: ProductlistComponent }
+    ]},
+    { path: 'product', children: [
+        { path: ':id', component: ProductpageComponent }
+    ]},
+    { path: 'aboutus', component: AboutusComponent },
       { path: 'checkout', component: CheckoutComponent },
       { path: 'profile', component: UserProfileComponent },
   { path: 'admin', children: [

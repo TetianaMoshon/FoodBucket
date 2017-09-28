@@ -41,7 +41,10 @@ export class UserProfileComponent implements OnInit {
                         current.productService.findProductById(product)
                             .subscribe(
                                 prod => {
-                                    current.favouritesProduct.push(prod);
+                                        const {productId, title, image} = prod;
+                                    current.favouritesProduct.push({productId, title, image});
+
+                                    // current.favouritesProduct.push(prod);
                                 }
                             );
                     });

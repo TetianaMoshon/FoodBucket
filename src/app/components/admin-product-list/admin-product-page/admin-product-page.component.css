@@ -251,4 +251,10 @@ footer {
     100% {
         stroke-dashoffset: 0;
     }
+    cursor: pointer;
+}
+
+.preview {
+    max-width: 200px;
+    height: auto;
 }
