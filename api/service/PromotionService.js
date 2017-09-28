@@ -1,75 +1,51 @@
 'use strict';
+const Product = require('../model/product');
+const utils = require('../utils/writer.js');
 
 
 /**
  *
  * returns Promotion
  **/
-exports.getPromotion = function() {
-  return new Promise(function(resolve, reject) {
-    var examples = {};
-    examples['application/json'] = {
-  "image" : "image",
-  "description" : "description",
-  "promotion_id" : 0,
-  "title" : "title",
-  "products" : [ {
-    "image" : "image",
-    "productId" : 0,
-    "caloricity" : 5,
-    "description" : "description",
-    "discount" : 1,
-    "title" : "title",
-    "difficulty" : "difficulty",
-    "promotions" : true,
-    "price" : 6,
-    "ingredients" : [ {
-      "ingredientId" : 2,
-      "quantity" : 7,
-      "measure" : "measure",
-      "ingredientName" : "ingredientName"
-    }, {
-      "ingredientId" : 2,
-      "quantity" : 7,
-      "measure" : "measure",
-      "ingredientName" : "ingredientName"
-    } ],
-    "category" : "category",
-    "spiceLevel" : "spiceLevel",
-    "servingSize" : 5,
-    "status" : true
-  }, {
-    "image" : "image",
-    "productId" : 0,
-    "caloricity" : 5,
-    "description" : "description",
-    "discount" : 1,
-    "title" : "title",
-    "difficulty" : "difficulty",
-    "promotions" : true,
-    "price" : 6,
-    "ingredients" : [ {
-      "ingredientId" : 2,
-      "quantity" : 7,
-      "measure" : "measure",
-      "ingredientName" : "ingredientName"
-    }, {
-      "ingredientId" : 2,
-      "quantity" : 7,
-      "measure" : "measure",
-      "ingredientName" : "ingredientName"
-    } ],
-    "category" : "category",
-    "spiceLevel" : "spiceLevel",
-    "servingSize" : 5,
-    "status" : true
-  } ]
-};
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]]);
-    } else {
-      resolve();
-    }
-  });
+exports.getPromotion = function(offset,limit, isPromotion) {
+    return new Promise((resolve, reject) => {
+        const query = isPromotion!==undefined? {promotions:isPromotion}: {};
+        return Product.count().then(
+            total => {
+                Product.find(query).skip(offset).limit(limit).then(
+                    promotionsDoc => {
+                        promotionsDoc = promotionsDoc || {};
+                        if (Object.keys(promotionsDoc).length > 0) {
+                            promotionsDoc = promotionsDoc.map(({productId, title, description, image, price, category, caloricity, servingSize, difficulty, spiceLevel, recommended, discount, promotions, status, ingredients}) => {
+                                return {
+                                    productId,
+                                    title,
+                                    description,
+                                    image,
+                                    price,
+                                    category,
+                                    caloricity,
+                                    servingSize,
+                                    difficulty,
+                                    spiceLevel,
+                                    recommended,
+                                    discount,
+                                    promotions,
+                                    status,
+                                    ingredients
+                                };
+                            });
+                            resolve({total: total, body: utils.respondWithCode(200, promotionsDoc)});
+                        }
+                        else {
+                            reject(utils.respondWithCode(404, {"code": 404, "message": "Products are not found, please try again."}));
+                        }
+                    },
+                    error => { console.log('Unable to get products', error); }
+                );
+            }
+        )
+
+    });
 }
 

@@ -31,7 +31,6 @@ import { AdminProductListImageComponent } from './components/admin-product-list/
 import { AdminIngredientsComponent } from './components/admin-ingredients/admin-ingredients.component';
 import { AdminOrdersComponent } from './components/admin-orders/admin-orders.component';
 import { AdminUsersComponent } from './components/admin-users/admin-users.component';
-import { AdminCommentsComponent } from './components/admin-comments/admin-comments.component';
 import { AdminAnalyticsComponent } from './components/admin-analytics/admin-analytics.component';
 import { CongratulationComponent } from './components/modals/congratulation/congratulation.component';
 import { ForgotPassComponent } from './components/modals/forgot-pass/forgot-pass.component';
@@ -52,14 +51,17 @@ import { OrdersFiltersPipe } from './pipes/orders-filters.pipe';
 import { ApiModule } from './client/index';
 import { apiConfig } from './client/api.config';
 import { AdminUserPageComponent } from './components/admin-users/admin-user-page/admin-user-page.component';
- import {DataService} from './services/data/data.service';
+import {DataService} from './services/data/data.service';
 import {ImageService} from './services/image/image.service';
 import {CartCommunicationService} from './services/cart-communication.service';
 
 import { FlashMessagesModule } from 'ngx-flash-messages';
 import {appRouting} from './app.routing';
 import {AdminIngredientsFormComponent} from './components/admin-ingredients/adminingredients-form/adminingredients-form.component';
+import { CarouselModule } from 'ngx-bootstrap';
 import { AddToCartButtonComponent } from './components/add-to-cart-button/add-to-cart-button.component';
+import { SearchComponent } from './components/search/search.component';
+import {SearchHelpersService} from './services/search-helpers.service';
 
 @NgModule({
   declarations: [
@@ -90,7 +92,6 @@ import { AddToCartButtonComponent } from './components/add-to-cart-button/add-to
       AdminIngredientsComponent,
       AdminOrdersComponent,
       AdminUsersComponent,
-      AdminCommentsComponent,
       AdminAnalyticsComponent,
       CongratulationComponent,
       ForgotPassComponent,
@@ -106,7 +107,8 @@ import { AddToCartButtonComponent } from './components/add-to-cart-button/add-to
       AdminUserPageComponent,
       AdmincategoriesFormComponent,
       AdminIngredientsFormComponent,
-      AddToCartButtonComponent
+      AddToCartButtonComponent,
+      SearchComponent
   ],
   entryComponents: [
       ModalCongratulationComponent,
@@ -134,8 +136,16 @@ import { AddToCartButtonComponent } from './components/add-to-cart-button/add-to
       Ng2SmartTableModule,
       ChartsModule,
       [TabsModule.forRoot()],
+      [CarouselModule.forRoot()]
   ],
-  providers: [PagerService, CommentsService, CartCommunicationService, DataService, ImageService],
+  providers: [
+      PagerService,
+      CommentsService,
+      CartCommunicationService,
+      DataService,
+      SearchHelpersService,
+      ImageService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -5,22 +5,14 @@
                 <h2 class="categories__title">Categories</h2>
             </div>
 
-            <div class="col-sm-5">
-                <div class="input-group input-group-lg input-group-xs-bottom-20">
-                    <input type="text" class="form-control" placeholder="Search...">
-                    <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">Search</button>
-                    </span>
-                </div>
-            </div>
         </div>
 
         <div class="row">
-            <div *ngFor="let item of source" class="col-xxs-12 col-xs-6 col-sm-4">
+            <div *ngFor="let category of source" class="col-xxs-12 col-xs-6 col-sm-4">
                 <div class="category-item">
-                    <a routerLink="/category/productlist" routerLinkActive="active" (click)="isCollapsed = true">
-                        <img class="img-rounded" src="image/{{ item.image }}" alt="There is no image">
-                        <span class="lead">{{ item.title }}</span>
+                    <a [routerLink]="[category.category_id]" routerLinkActive="active" (click)="isCollapsed = true">
+                        <img class="img-rounded" src="image/{{ category.image }}" alt="There is no image">
+                        <span class="lead">{{ category.title }}</span>
                     </a>
                 </div>
             </div>
