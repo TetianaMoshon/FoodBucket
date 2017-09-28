@@ -10,7 +10,6 @@ import {CheckoutComponent} from './components/checkout/checkout.component';
 import {AdminMainComponent} from './components/adminmain/adminmain.component';
 import {AdminAnalyticsComponent} from './components/admin-analytics/admin-analytics.component';
 import {AdmincategoriesComponent} from './components/admincategories/admincategories.component';
-import {AdminCommentsComponent} from './components/admin-comments/admin-comments.component';
 import {AdminIngredientsComponent} from './components/admin-ingredients/admin-ingredients.component';
 import {AdminOrdersComponent} from './components/admin-orders/admin-orders.component';
 import {AdminProductListComponent} from './components/admin-product-list/admin-product-list.component';
@@ -46,7 +45,6 @@ const appRoutes: Routes = [
           { path: ':id/edit', component: AdminProductPageComponent },
           { path: 'create', component: AdminProductPageComponent },
       ]},
-      { path: 'comments', component: AdminCommentsComponent },
       { path: 'users', children: [
           { path: '', component: AdminUsersComponent },
           { path: ':id/edit', component: AdminUserPageComponent },
