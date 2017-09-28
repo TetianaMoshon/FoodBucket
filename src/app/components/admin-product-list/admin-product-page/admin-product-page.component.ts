@@ -29,7 +29,7 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     startedEditing = new Subject<number>();
 
     imageSrc;
-    file;
+    file: File = null;
     categoryList = [];
 
     constructor(
@@ -99,10 +99,8 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
         this.categoryService.getAllCategories(0, 20, 'asc')
             .subscribe(categories => {
                 categories.forEach(category => {
-                    // this.categoryList.push(category.title);
                     this.categoryList = categories;
                 });
-                console.log(this.categoryList);
             });
     }
 
@@ -113,7 +111,7 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     onSubmit(form: NgForm) {
         this.productModel.price = Number(this.productModel.price);
         this.productModel.discount = Number(this.productModel.discount);
-
+        this.productModel.image = 'empty path';
         this.productModel.promotions = this.BooleanConverter(this.productModel.promotions);
 
         this.productModel.caloricity = Number(this.productModel.caloricity);
