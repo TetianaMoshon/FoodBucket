@@ -51,7 +51,7 @@ export class CheckoutComponent implements OnInit {
                 lastName: res.lastName,
                 city: res.city,
                 address: res.address,
-                phone: res.phone.toString()
+                phone: null
             };
         });
         this.cartService.findCartContentById(this.userId).subscribe(res => {
