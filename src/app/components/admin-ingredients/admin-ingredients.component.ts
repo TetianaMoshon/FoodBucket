@@ -12,6 +12,8 @@ import {Router} from '@angular/router';
   styleUrls: ['./admin-ingredients.component.css']
 })
 export class AdminIngredientsComponent implements OnInit {
+    random;
+
     searchInput$ = new Subject<string>();
     sorted: boolean;
     nextSort: string;
@@ -51,6 +53,8 @@ export class AdminIngredientsComponent implements OnInit {
             .debounceTime(400)
             .distinctUntilChanged()
             .subscribe(inputData => this.search(inputData));
+
+        this.random = Date.now();
     }
 
     defineCol(value: string) {
