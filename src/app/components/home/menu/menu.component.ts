@@ -20,8 +20,8 @@ export class MenuComponent implements OnInit {
             .subscribe(
                 products => {
                     while (this.quantityProducts > 0) {
-                    this.RandProducts.push(products[Math.floor(Math.random() * (products.length))]);
-                    this.quantityProducts--;
+                        this.RandProducts.push(products[Math.floor(Math.random() * (products.length))]);
+                        this.quantityProducts--;
                     }
                 },
                 err => console.log(err)
