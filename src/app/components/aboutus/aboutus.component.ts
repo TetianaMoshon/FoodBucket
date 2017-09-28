@@ -17,8 +17,8 @@ export class AboutusComponent implements OnInit {
   address = 'Degtyarivska St., 33B';
   city = 'Kiev';
   index = '02000';
-  lat = 50.454660;
-  lng = 30.52380;
+  lat = 50.431208;
+  lng = 30.550061;
 
     constructor() { }
 
