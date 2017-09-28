@@ -5,6 +5,7 @@ import {NewAccountComponent} from '../modals/new-account/new-account.component';
 import {CartBoxComponent} from '../modals/cart/cart-box/cart-box.component';
 import { DataService} from '../../services/data/data.service';
 import {CartCommunicationService} from '../../services/cart-communication.service';
+import {AuthService} from "../../client/api/auth.service";
 
 
 
@@ -18,10 +19,12 @@ export class NavbarComponent implements OnInit {
     LogBtnText = 'Log in / Registration'
     isCollapsed = true;
     isLogged = true;
+    isAdmin;
 
     constructor(private modalService: BsModalService,
                 private data: DataService,
-                private cartCommunicationService: CartCommunicationService
+                private cartCommunicationService: CartCommunicationService,
+                public auth: AuthService
     ) { }
 
     ngOnInit() {
@@ -47,7 +50,6 @@ export class NavbarComponent implements OnInit {
     public openCartModal() {
         this.modalService.show(CartBoxComponent);
     }
-
 
     public items: string[] = ['The first choice!',
         'And another choice for you.', 'but wait! A third!'];
