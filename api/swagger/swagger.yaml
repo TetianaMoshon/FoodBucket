@@ -292,7 +292,7 @@ paths:
         format: int64
       responses:
         default:
-          description: Successful operation            
+          description: Successful operation
   /promotion:
     get:
       x-swagger-router-controller: Promotion
@@ -497,7 +497,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: "#/definitions/Order"
+              $ref: "#/definitions/FullOrder"
         default:
           description: invalid input
           schema:
@@ -548,7 +548,7 @@ paths:
         200:
           description: Order response
           schema:
-            $ref: "#/definitions/Order"
+            $ref: "#/definitions/FullOrder"
         default:
           description: invalid input
           schema:
@@ -1345,7 +1345,7 @@ paths:
             - email
             - phone
             - city
-            - address            
+            - address
       responses:
         200:
           description: Successful users response
@@ -1357,7 +1357,6 @@ paths:
           description: invalid input
           schema:
             $ref: "#/definitions/Error"
-        
   /user/{id}:
     get:
       x-swagger-router-controller: User
@@ -1457,7 +1456,7 @@ paths:
         type: string
       responses:
         default:
-          description: Successful operation          
+          description: Successful operation
   /user:
     post:
       x-swagger-router-controller: User
@@ -1510,7 +1509,7 @@ paths:
           description: invalid input
           schema:
             $ref: "#/definitions/Error"
-  
+
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
@@ -1728,6 +1727,48 @@ definitions:
           type: integer
           format: int64
         minItems: 1
+      measure:
+        type: string
+      quantity:
+        type: array
+        items:
+          type: integer
+          format: int64
+      discount:
+        type: integer
+        format: int64
+  FullOrder:
+    type: object
+    required:
+      - username
+      - city
+      - address
+      - products
+      - price
+      - status
+    properties:
+      orderId:
+        type: integer
+        format: int64
+      date:
+        type: string
+      username:
+        type: string
+      city:
+        type: string
+      price:
+        type: integer
+        format: int64
+      address:
+        type: string
+      status:
+        type: string
+      phone:
+        type: string
+      products:
+        type: array
+        items:
+          type: string
       measure:
         type: string
       quantity:
