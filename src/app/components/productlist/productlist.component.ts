@@ -21,6 +21,7 @@ export class ProductlistComponent implements OnInit {
     productList = [];
     categoryId = this.route.snapshot.paramMap.get('id');
     categoryTitle: string;
+    page;
 
     constructor(
         private productService: ProductService,
@@ -42,7 +43,7 @@ export class ProductlistComponent implements OnInit {
             .subscribe(
                 category => {
                     this.categoryTitle = category.title;
-                        this.productService.getAllProducts(0, 20, 'desc', 'productId')
+                        this.productService.getAllProducts(0, 25, 'desc', 'productId')
                             .subscribe(products => {
                                 products.forEach(product => {
                                     if (product.category === category.title) {
@@ -63,12 +64,19 @@ export class ProductlistComponent implements OnInit {
         this.changeRoute(`/product/${id}`);
     }
 
+
     setPage(page: number) {
         if (page < 1 || page > this.pager.totalPages) {
             return;
         }
+        // this.pager.currentPage = page;
+        console.log(`products is ${this.products}`);
+        this.pager = this.pagerService.getPager(this.productList.length, page, 6);
+        console.log(`currentPage is ${this.pager.currentPage}`);
+        console.log(`startIndex is ${this.pager.startIndex}`);
+        console.log(`endIndex is ${this.pager.endIndex}`);
+        console.log(`productList length is ${this.productList.length}`);
 
-        this.pager = this.pagerService.getPager(this.products.length, page);
-        this.pagedItems = this.products.slice(this.pager.startIndex, this.pager.endIndex + 1);
+        this.pagedItems = this.productList.slice(this.pager.startIndex, this.pager.endIndex + 1);
     }
 }

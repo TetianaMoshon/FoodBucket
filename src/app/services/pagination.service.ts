@@ -29,6 +29,9 @@ export class PagerService {
         const pages = _.range(startPage, endPage + 1);
 
          // calculate start and end item indexes
+         // const startIndex = (currentPage - 1) * pageSize;
+         // const endIndex = Math.min(startIndex + pageSize - 1, totalItems - 1);
+
          const startIndex = (currentPage - 1) * pageSize;
          const endIndex = Math.min(startIndex + pageSize - 1, totalItems - 1);
 

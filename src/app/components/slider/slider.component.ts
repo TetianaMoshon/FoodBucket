@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {PromotionService} from '../../client/api/promotion.service';
-import {Promotion} from '../../client/model/promotion';
-import { ProductService } from '../../client/api/product.service';
+import {Product} from '../../client/model/product';
 
 @Component({
     selector: 'app-slider',
@@ -10,8 +9,7 @@ import { ProductService } from '../../client/api/product.service';
 })
 export class SliderComponent implements OnInit {
 
-    promotions: Promotion[];
-    // promotions: Promotion;
+    promotions: Product[];
 
     windowWidth;
     quantityOfPhotos: number;

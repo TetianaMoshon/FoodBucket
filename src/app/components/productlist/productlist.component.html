@@ -18,7 +18,7 @@
 
         <div class="row text-center">
 
-            <ng-container *ngFor="let product of productList">
+            <ng-container *ngFor="let product of pagedItems">
                 <div class="col-md-4 col-sm-6 product">
                     <div class="thumbnail">
                         <a (click)="onShowProductClick($event, product['productId'])"><img src="image/{{product.image}}"></a>
@@ -34,7 +34,7 @@
                 </div>
             </ng-container>
         </div>
-        <div class="row text-center">
+        <div class="row text-left">
             <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
                 <li [ngClass]="{disabled:pager.currentPage === 1}">
                     <a class="cursor-pointer" (click)="setPage(1)">«</a>

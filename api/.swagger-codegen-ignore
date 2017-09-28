@@ -68,8 +68,9 @@ controllers/Order.js
 controllers/Category.js
 controllers/Ingredient.js
 controllers/User.js
-controllers/Promotion.js
 controllers/Product.js
+controllers/Promotion.js
+
 
 
 

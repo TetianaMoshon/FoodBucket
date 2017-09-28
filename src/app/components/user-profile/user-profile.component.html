@@ -33,8 +33,8 @@
                 <div class="row center-block">
                     <div class="col-md-3" *ngFor="let favourite of favouritesProduct">
                         <div class="favorite-item thumbnail">
-                            <img src="{{favourite.image}}" alt="{{favourite.title}}" class="dish-image">
-                            <a routerLink="/category/productlist/{{favourite.productId}}" routerLinkActive="active" class="dish-name">go to {{favourite.title}}</a>
+                            <img src="image/{{favourite.image}}" alt="{{favourite.title}}" class="dish-image">
+                            <a routerLink="/product/{{favourite.productId}}" routerLinkActive="active" class="dish-name">go to {{favourite.title}}</a>
                         </div>
                     </div>
                 </div>
