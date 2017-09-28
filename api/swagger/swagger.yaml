@@ -315,7 +315,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: "#/definitions/Order"
+              $ref: "#/definitions/FullOrder"
         default:
           description: invalid input
           schema:
@@ -1481,9 +1481,51 @@ definitions:
       products:
         type: array
         items:
-          type: integer
+          type: object
           format: int64
         minItems: 1
+      measure:
+        type: string
+      quantity:
+        type: array
+        items:
+          type: integer
+          format: int64
+      discount:
+        type: integer
+        format: int64
+  FullOrder:
+    type: object
+    required:
+      - username
+      - city
+      - address
+      - products
+      - price
+      - status
+    properties:
+      orderId:
+        type: integer
+        format: int64
+      date:
+        type: string
+      username:
+        type: string
+      city:
+        type: string
+      price:
+        type: integer
+        format: int64
+      address:
+        type: string
+      status:
+        type: string
+      phone:
+        type: string
+      products:
+        type: array
+        items:
+          $ref: '#/definitions/Product'
       measure:
         type: string
       quantity:
