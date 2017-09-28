@@ -1,28 +1,26 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, CanActivateChild } from '@angular/router';
 import { AuthService } from '../../client/api/auth.service';
-import { bootstrapItem } from '@angular/cli/lib/ast-tools';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
+import {Observable} from "rxjs/Observable";
 
 
 @Injectable()
 export class AuthGuardService implements CanActivate, CanActivateChild {
     constructor(public auth: AuthService, public router: Router, private spinnerService: Ng4LoadingSpinnerService) {}
-    canActivate(): any {
-        this.spinnerService.show();
+    canActivate(): boolean {
+        /*this.spinnerService.show();
         this.auth.validation(sessionStorage.getItem('JWT') || '').subscribe(validation => {
-            if (!validation.isValid) {
-                this.router.navigate(['']);
+            console.log(validation);
+            if (validation.isValid) {
                 this.spinnerService.hide();
-                return false;
+                return true;
             }
+            this.router.navigate(['']);
             this.spinnerService.hide();
-            return true;
-
-            /*return new Promise((resolve, reject) => {
-               let validationVar = this.auth.validation(sessionStorage.getItem('JWT'));
-            });*/
-        });
+            return false;
+        });*/
+        return true;
     }
     canActivateChild(): boolean {
         return this.canActivate();
