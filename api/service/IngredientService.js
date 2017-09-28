@@ -103,7 +103,7 @@ exports.getAllIngredients = function(offset,limit, sort, sort_col, search_txt, s
             }
 
         }
-        return Ingredient.count().
+        return Ingredient.count(query).
         then(
             total => {
                 Ingredient.find(query).skip(offset).limit(limit).sort({[sort_col]: sort}).then(
@@ -115,7 +115,7 @@ exports.getAllIngredients = function(offset,limit, sort, sort_col, search_txt, s
                             });
                             resolve({total: total, body: utils.respondWithCode(200, ingredientsDoc)});
                         } else {
-                            reject(utils.respondWithCode(404, {"code": 404, "message": "Ingredients are not found, please try again."}));
+                            resolve(utils.respondWithCode(204));
                         }
                     },
                     error => { debug('Unable to get ingredients: %O', error); }

@@ -21,7 +21,7 @@ export class AdminIngredientsComponent implements OnInit {
     res;
     total;
     offset;
-    limit = this.pagerService.getPager(this.total, 1);
+    limit = this.pagerService.getPager(this.total, 1, 5);
     page;
     value: string;
     state = true;
@@ -63,7 +63,7 @@ export class AdminIngredientsComponent implements OnInit {
 
     search(searchStr) {
         if (searchStr.trim() !== '') {
-            this.ingredientService.getAllIngredientsWithHttpInfo(0, this.total, 'desc', 'ingredient_id', searchStr, this.column).subscribe(res =>
+            this.ingredientService.getAllIngredientsWithHttpInfo(0, this.limit.pageSize, 'desc', 'ingredient_id', searchStr, this.column).subscribe(res =>
                 this.pagedItems = res.json());
         } else {
             this.pagedItems = this.ingredients;
