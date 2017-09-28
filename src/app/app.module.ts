@@ -52,7 +52,7 @@ import { OrdersFiltersPipe } from './pipes/orders-filters.pipe';
 import { ApiModule } from './client/index';
 import { apiConfig } from './client/api.config';
 import { AdminUserPageComponent } from './components/admin-users/admin-user-page/admin-user-page.component';
- import {DataService} from './services/data/data.service';
+import {DataService} from './services/data/data.service';
 import {ImageService} from './services/image/image.service';
 import {CartCommunicationService} from './services/cart-communication.service';
 
@@ -60,6 +60,9 @@ import { FlashMessagesModule } from 'ngx-flash-messages';
 import {appRouting} from './app.routing';
 import {AdminIngredientsFormComponent} from './components/admin-ingredients/adminingredients-form/adminingredients-form.component';
 import { CarouselModule } from 'ngx-bootstrap';
+import { AddToCartButtonComponent } from './components/add-to-cart-button/add-to-cart-button.component';
+import { SearchComponent } from './components/search/search.component';
+import {SearchHelpersService} from './services/search-helpers.service';
 
 @NgModule({
   declarations: [
@@ -105,7 +108,9 @@ import { CarouselModule } from 'ngx-bootstrap';
       OrdersFiltersPipe,
       AdminUserPageComponent,
       AdmincategoriesFormComponent,
-      AdminIngredientsFormComponent
+      AdminIngredientsFormComponent,
+      AddToCartButtonComponent,
+      SearchComponent
   ],
   entryComponents: [
       ModalCongratulationComponent,
@@ -135,7 +140,14 @@ import { CarouselModule } from 'ngx-bootstrap';
       [TabsModule.forRoot()],
       [CarouselModule.forRoot()]
   ],
-  providers: [PagerService, CommentsService, CartCommunicationService, DataService, ImageService],
+  providers: [
+      PagerService,
+      CommentsService,
+      CartCommunicationService,
+      DataService,
+      SearchHelpersService,
+      ImageService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

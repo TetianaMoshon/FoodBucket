@@ -334,8 +334,8 @@ paths:
         required: true
         type: integer
         format: int64
-      - name: "updatedProduct"
-        in: "body"
+      - name: updatedProduct
+        in: body
         description: The updated product
         required: true
         schema:
@@ -660,8 +660,8 @@ paths:
         required: true
         type: integer
         format: int64
-      - name: "updatedCategory"
-        in: "body"
+      - name: updatedCategory
+        in: body
         description: The updated Category
         required: true
         schema:
@@ -900,8 +900,8 @@ paths:
         required: true
         type: integer
         format: int64
-      - name: "updated_ingredient"
-        in: "body"
+      - name: updated_ingredient
+        in: body
         description: The updated Ingredient
         required: true
         schema:
@@ -1343,8 +1343,8 @@ paths:
         required: true
         type: integer
         format: int64
-      - name: "updatedUser"
-        in: "body"
+      - name: updatedUser
+        in: body
         description: The updated User
         required: true
         schema:
@@ -1383,6 +1383,30 @@ paths:
             $ref: "#/definitions/User"
         400:
           description: Invalid input
+  /search:
+    get:
+      x-swagger-router-controller: Search
+      operationId: searchForProducts
+      tags:
+      - "search"
+      produces:
+      - application/json
+      parameters:
+      - name: q
+        in: query
+        description: query param to conduct a search in database
+        required: true
+        type: string
+      responses:
+        200:
+          description: Search response wih one or several products
+          schema:
+            $ref: "#/definitions/Product"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+  
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
@@ -1421,11 +1445,13 @@ definitions:
         type: string
       description:
         type: string
+      image:
+        type: string
       price:
         type: integer
         format: int64
-      image:
-        type: string
+        minimum: 1
+        default: 1
       category:
         type: string
       status:
@@ -1593,8 +1619,10 @@ definitions:
       measure:
         type: string
       quantity:
-        type: integer
-        format: int64
+        type: array
+        items:
+          type: integer
+          format: int64
       discount:
         type: integer
         format: int64

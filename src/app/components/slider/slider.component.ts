@@ -75,7 +75,6 @@ export class SliderComponent implements OnInit {
             }, this.time);
     }
 
-
     changeImageSourceByPressingRightArrow() {
         this.slideToTheRight();
     }
@@ -83,7 +82,6 @@ export class SliderComponent implements OnInit {
     changeImageSourceByPressingLeftArrow() {
         this.slideToTheLeft();
     }
-
 
     slideToTheRight() {
         this.sourceForThirdImage = (this.initialSourceForThirdImage + this.counter) % this.quantityOfPhotos;

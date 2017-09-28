@@ -32,6 +32,11 @@ const productSchema = mongoose.Schema({
     ]
 });
 
+productSchema.index({
+    title: 'text',
+    category: 'text'
+});
+
 productSchema.pre('save', function(next) {
     let doc = this;
     counter.findByIdAndUpdate({_id: 'productId'}, {$inc: { seq: 1} }, function(error, counter)   {
