@@ -8,7 +8,8 @@ import { ProductService } from '../../../client/api/product.service';
 })
 export class TopComponent implements OnInit {
     topratedList = [];
-    quantityProducts = 3;
+    promotionList = [];
+    quantityProducts = 2;
 
     constructor(protected productService: ProductService) {}
 
@@ -16,13 +17,16 @@ export class TopComponent implements OnInit {
         this.productService.getAllProducts(1, 20, 'desc', 'productId')
             .subscribe(
                 products => {
+                    products.forEach(product => {
+                        if (product.promotions === true) {
+                            this.promotionList.push(product);
+                        }
+                    });
+
                     while (this.quantityProducts > 0) {
-                        this.topratedList.push(products
-                            [Math.floor(Math.random() * (products.length))]
-                        );
+                        this.topratedList.push(this.promotionList[Math.floor(Math.random() * (this.promotionList.length))]);
                         this.quantityProducts--;
                     }
-                    console.log(this.topratedList);
                 },
                 err => console.log(err));
     }
