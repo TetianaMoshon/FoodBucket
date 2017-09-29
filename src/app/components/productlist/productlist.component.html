@@ -24,7 +24,7 @@
                         <a (click)="onShowProductClick($event, product['productId'])"><img src="image/{{product.image}}"></a>
                         <div class="caption product-desc">
                             <h3>{{product.title}}</h3>
-                            <p>{{product.description}}</p>
+                            <p class="description">{{product.description}}</p>
                             <p>
                                 <add-to-cart-button [id]="product.productId"></add-to-cart-button>
                                 <a (click)="onShowProductClick($event, product['productId'])" class="btn btn-default">More Info</a>

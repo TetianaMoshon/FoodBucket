@@ -9,6 +9,10 @@
     margin-left: 5%;
 }
 
+p.description {
+    text-align: left;
+}
+
 .border-fruits {
     border: none;
     background: white;
