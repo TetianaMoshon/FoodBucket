@@ -67,6 +67,19 @@ module.exports.postUserImageById = function postUserImageById (req, res, next) {
     });
 };
 
+module.exports.putUserImageById = function postUserImageById (req, res, next) {
+    var id = req.swagger.params['id'].value;
+    var file = req.swagger.params['file'].value;
+    var additionalMetadata = req.swagger.params['additionalMetadata'].value;
+    User.putUserImageById(id,file,additionalMetadata)
+        .then(function (response) {
+            utils.writeJson(res, response);
+        })
+        .catch(function (response) {
+            utils.writeJson(res, response);
+        });
+};
+
 module.exports.updateUserById = function updateUserById (req, res, next) {
   var id = req.swagger.params['id'].value;
   var updatedUser = req.swagger.params['updatedUser'].value;

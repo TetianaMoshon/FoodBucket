@@ -115,15 +115,15 @@ export class AdminUsersComponent implements OnInit {
 
     search(searchStr) {
         if (searchStr.trim() !== '') {
-            this.userService.getAllUsersWithHttpInfo(0, this.total, 'desc', 'userId', true, searchStr, this.column)
-                .subscribe(res =>
-                    this.source = res.json()
+            this.userService.getAllUsersWithHttpInfo(0, this.limit.pageSize, 'desc', 'userId', true, searchStr, this.column)
+                .subscribe(res => {
+                    this.source = res.json();
+                    this.pager = this.pagerService.getPager(this.limit.pageSize, 1);}
                 );
         } else {
             this.source = this.users;
+            this.pager = this.pagerService.getPager(this.total, 1);
         }
-
-        this.pager.currentPage = 1;
     }
 
     toggle(state: boolean) {

@@ -59,13 +59,13 @@ quantityArray;
 
     search(searchStr) {
         if (searchStr.trim() !== '') {
-            this.ApiService.getAllOrdersWithHttpInfo(0, this.total, 'desc', 'orderId', searchStr, this.column).subscribe(res =>
+            this.ApiService.getAllOrdersWithHttpInfo(0, this.limit.pageSize, 'desc', 'orderId', searchStr, this.column).subscribe(res =>
                 this.pagedItems = res.json());
+                this.pager = this.pagerService.getPager(this.limit.pageSize, 1);
         } else {
             this.pagedItems = this.orders;
+            this.pager = this.pagerService.getPager(this.total, 1);
         }
-
-        this.pager.currentPage = 1;
     }
 
 

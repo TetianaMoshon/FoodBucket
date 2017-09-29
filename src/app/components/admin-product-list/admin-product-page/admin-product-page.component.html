@@ -51,13 +51,13 @@
                    <div>
                         <table class="table" border="1" width="80%" id="myTable">
                             <tr>
-                                <th>Ingredient ID</th>
+                                <th class="hidden">Ingredient ID</th>
                                 <th>Ingredient name</th>
                                 <th>Quantity</th>
                                 <th>Measure</th>
                             </tr>
                             <tr *ngFor="let ingredient of ingredientList; let i = index" (click)="onEditItem(i)">
-                                <td>{{ ingredient.ingredientId }}</td>
+                                <td class="hidden">{{ ingredient.ingredientId }}</td>
                                 <td>{{ ingredient.ingredientName }}</td>
                                 <td>{{ ingredient.quantity }}</td>
                                 <td>{{ ingredient.measure }}</td>
@@ -65,7 +65,7 @@
                         </table>
                        <form (ngSubmit)="onSubmit2(f2)" #f2="ngForm">
                            <div class="row">
-                               <div class="col-xs-2 form-group">
+                               <div class="col-xs-2 form-group ingredientId">
                                    <label for="ingredientId">Ingredient ID</label>
                                    <input
                                        type="number"
@@ -78,12 +78,17 @@
                                </div>
                                <div class="col-xs-5 form-group">
                                    <label for="ingredientName">Ingredient name</label>
-                                   <input
+                                   <select
                                        type="text"
                                        id="ingredientName"
                                        name="ingredientName"
                                        class="form-control"
-                                       ngModel>
+                                       ngModel
+                                       (ngModelChange)="onOptionClick($event)"
+                                   >
+                                            <option [ngValue]="selectedIngredientItem">{{selectedIngredientItem == null ? productModel.ingredients[0].ingredientName : selectedIngredientItem}}</option>
+                                            <option *ngFor="let ingredientItem of ingredientItemList">{{ingredientItem.ingredient_id}}) {{ingredientItem.title}}</option>
+                                   </select>
                                </div>
                                <div class="col-xs-3 form-group">
                                    <label for="quantity">Quantity</label>
@@ -156,8 +161,5 @@
                 </div>
             </form>
         </div>
-    </div>
-    <div class="row">
-        <ngx-flash-messages></ngx-flash-messages>
     </div>
 </div>

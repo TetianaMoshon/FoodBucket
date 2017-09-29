@@ -23,6 +23,7 @@ export class ProductpageComponent implements OnInit {
     login;
     select;
     updateUser = new UpdateUser('', '' , '',  '');
+    id;
 
     constructor(
         public productService: ProductService,
@@ -32,24 +33,12 @@ export class ProductpageComponent implements OnInit {
     ) {}
 
     ngOnInit() {
-        this.productData = this.productService.findProductById(Number(this.route.snapshot.paramMap.get('id')))
-            .subscribe(
-                product => {
-                    this.productData = product;
-                    const current = this;
-                    this.productData.ingredients.forEach(function (ingredient) {
-                        current.ingredientService.findIngredientById(ingredient.ingredientId)
-                            .subscribe(
-                                ingr => {
-                                    current.productIngredients.push(ingr);
-                                }
-                            );
-                    });
-                },
-                err => console.log(err)
-            );
-
-
+        this.route.params.subscribe(
+            param => {
+                this.id = param['id'];
+                this.showProduct(this.id);
+            }
+        );
 
         if ( JSON.parse(sessionStorage.getItem('currentUserId')) == null) {
                 this.login = false;
@@ -58,8 +47,9 @@ export class ProductpageComponent implements OnInit {
                 this.login = true;
             }
 
-         this.userService.findUserById(this.userId).subscribe(
-            user => {
+        if (this.login) {
+            this.userService.findUserById(this.userId).subscribe(
+                user => {
                     if (user.favourites.indexOf(Number(this.productId)) === -1) {
                         this.select = false;
                     } else {
@@ -67,6 +57,7 @@ export class ProductpageComponent implements OnInit {
                     }
                 }, err => console.log(err)
             );
+        }
     }
 
     showProduct(id) {
@@ -84,7 +75,6 @@ export class ProductpageComponent implements OnInit {
                                 }
                             );
                     });
-                    console.log(product.image);
                 },
                 err => console.log(err)
             );

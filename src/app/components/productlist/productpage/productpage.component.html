@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row text-center">
         <div class="col-md-6 col-sm-6">
-            <h1 class="dish_title" (click)="addFavourite()"> {{productData.title}}
+            <h1 class="dish_title" (click)="addFavourite()"> {{productData?.title}}
                 <span class="contain-icon icon-hook" [class.active]="select" *ngIf="login" >
                     <svg class="star-icon star-icon-2" version="1.1" width="45px" height="41px" viewBox="0 0 105.602 102.931">
                         <path class="main-star-2" fill="none" stroke="#000" stroke-width="6" stroke-miterlimit="10" d="M52.35,3.11c0.475-0.963,1.253-0.963,1.728,0 l12.211,24.742c0.475,0.963,1.734,1.877,2.796,2.032l27.305,3.968c1.063,0.154,1.303,0.894,0.534,1.644L77.167,54.754
@@ -27,26 +27,26 @@
                 <figure>
                     <div>
                         <!--<img src="{{productData.image}}" alt="{{productData.title}}">-->
-                        <img src="image/{{productData.image}}" alt="{{productData.title}}">
+                        <img src="image/{{productData?.image}}" alt="{{productData?.title}}">
                     </div>
                     <figcaption>
                         <table class="table table-bordered">
                             <tbody>
                             <tr>
                                 <td>calories</td>
-                                <td>{{productData.caloricity}}</td>
+                                <td>{{productData?.caloricity}}</td>
                             </tr>
                             <tr>
                                 <td>spice level</td>
-                                <td>{{productData.spiceLevel}}</td>
+                                <td>{{productData?.spiceLevel}}</td>
                             </tr>
                             <tr>
                                 <td>serving size</td>
-                                <td>{{productData.servingSize}}</td>
+                                <td>{{productData?.servingSize}}</td>
                             </tr>
                             <tr>
                                 <td>difficulty</td>
-                                <td>{{productData.difficulty}}</td>
+                                <td>{{productData?.difficulty}}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -61,7 +61,7 @@
                         <div *ngFor="let ingredient of productIngredients" class="col-md-4 col-sm-6 col-xs-6">
                             <figure >
                                 <div class="ingredient-icon">
-                                    <img src={{ingredient.image}} width="40px" height="40px" alt={{ingredient.title}}>
+                                    <img src="image/{{ingredient.image}}" width="40px" height="40px" alt={{ingredient.title}}>
                                 </div>
                                 <figcaption>{{ingredient.title}}</figcaption>
                             </figure>
@@ -71,8 +71,8 @@
             </div>
             <div class="text-center instructions">
                 <div>
-                    <h3>Recipe</h3>
-                    <p class="description">{{productData.description}}</p>
+                    <h3>DESCRIPTION</h3>
+                    <p>{{productData?.description}}</p>
                 </div>
             </div>
 
@@ -80,15 +80,14 @@
             <div class="row">
                 <div class="col-md-6 col-sm-6 col-xs-6 price-block pull-right">
                     <div class="price-wrapper">
-                        <p class="text-right text-font product-price">Price: <span>{{productData.price}}$</span></p>
-                        <p class="text-right text-font product-price">Economy: <span>{{productData.discount}}$</span></p>
-                        <p class="text-right text-font product-price">Discount price: <span>{{productData.price - productData.discount}}$</span></p>
+                        <p class="text-right text-font product-price">Price: <span>{{productData?.price}}$</span></p>
+                    </div>
+                    <div>
+                        <add-to-cart-button class="pull-right" [id]="id"></add-to-cart-button>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <add-to-cart-button class="pull-right" [id]="id"></add-to-cart-button>
-                </div>
+
             </div>
         </div>
     </div>

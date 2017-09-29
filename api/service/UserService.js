@@ -109,7 +109,12 @@ exports.getAllUsers = function (offset, limit, sort, sort_col, isActive, search_
             }
 
         }
-        return User.count().
+
+        return User.where({
+            'active': {
+                $gte: true
+            }
+        }).count().
         then(
             total => {
                 User.find(query).skip(offset).limit(limit).sort({[sort_col]: sort}).where({
@@ -125,7 +130,7 @@ exports.getAllUsers = function (offset, limit, sort, sort_col, isActive, search_
                             });
                             resolve({total: total, body: utils.respondWithCode(200, usersDoc)});
                         } else {
-                            reject(utils.respondWithCode(404, {"code": 404, "message": "Users are not found, please try again."}));
+                            reject(utils.respondWithCode(204));
                         }
                     },
                     error => { console.log('Unable to get users: ', error); }
@@ -193,6 +198,32 @@ exports.postUserImageById = function(id,file,additionalMetadata) {
     });
 }
 
-
-
-
+/**
+ *
+ * id Long ID of the user image upload for
+ * file File  (optional)
+ * additionalMetadata String Additional data to pass to server (optional)
+ * no response value expected for this operation
+ **/
+exports.putUserImageById = function(id,file,additionalMetadata) {
+    return new Promise((resolve, reject) => {
+        let entityName = 'user';
+        User.findOne({ userId: id }).then(user => {
+            return imageService.uploadImage(user.userId, entityName, file);
+        }).then(pathToStoreInDB => {
+            return User.findOneAndUpdate({ userId: id }, { $set: { image: pathToStoreInDB } }, { new: true }).then(
+                oneUser => {
+                    if (pathToStoreInDB !== undefined && pathToStoreInDB !== null && oneUser !== null) {
+                        let {userId, firstName, lastName, email, password, phone, city, address, image, favourites, active } = oneUser;
+                        resolve(utils.respondWithCode(200, {userId, firstName, lastName, email, password, phone, city, address, image, favourites, active}));
+                    } else {
+                        reject(utils.respondWithCode(400, {"code": 404, "message": "User is not updated, please try again."}));
+                    }
+                },
+                error => { debug('Unable to get user: %O', error); }
+            );
+        }).catch(e => {
+            debug(e);
+        });
+    });
+}

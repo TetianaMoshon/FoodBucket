@@ -9,7 +9,7 @@ import { IngredientModel } from './ingredientModel';
 import { Subject } from 'rxjs/Subject';
 import {ImageService} from '../../../services/image/image.service';
 import {CategoryService} from '../../../client/api/category.service';
-
+import { IngredientService } from '../../../client/api/ingredient.service';
 
 @Component({
     selector: 'app-admin-product-page',
@@ -18,6 +18,7 @@ import {CategoryService} from '../../../client/api/category.service';
 })
 export class AdminProductPageComponent implements OnInit, OnDestroy {
     ingredientList: IngredientModel[] = [];
+    ingredientItemList = [];
 
     private subscription: Subscription;
     @ViewChild('f2') ingListForm: NgForm;
@@ -37,7 +38,8 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
         protected route: ActivatedRoute,
         private flashMessagesService: FlashMessagesService,
         private imageService: ImageService,
-        private categoryService: CategoryService
+        private categoryService: CategoryService,
+        private ingredientService: IngredientService
     ) {}
 
     action: {
@@ -102,6 +104,14 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
                     this.categoryList = categories;
                 });
             });
+
+        this.ingredientService.getAllIngredients(0, 20, 'asc')
+            .subscribe(ingredients => {
+                ingredients.forEach(ingredient => {
+                    this.ingredientItemList = ingredients;
+                });
+            });
+
     }
 
     onEditItem(index: number) {
@@ -136,14 +146,26 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
 
     onSubmit2(form: NgForm) {
         const value = form.value;
-        const newIngredient = new IngredientModel(value.ingredientId, value.ingredientName, value.quantity, value.measure);
+
         if (this.editMode) {
+            const newIngredient = new IngredientModel(value.ingredientId, value.ingredientName, value.quantity, value.measure);
             this.updateIngredient(this.editedItemIndex, newIngredient);
         } else {
+            var ingridientIdandName = value.ingredientName.split(")");
+            value.ingredientId = ingridientIdandName[0];
+            value.ingredientName = ingridientIdandName[1];
+            const newIngredient = new IngredientModel(value.ingredientId, value.ingredientName, value.quantity, value.measure);
+
             this.addIngredient(newIngredient);
         }
         this.editMode = false;
         form.reset();
+    }
+
+    selectedIngredientItem = null;
+    onOptionClick(e)
+    {
+        this.selectedIngredientItem = e;
     }
 
     createProduct(productModel) {
