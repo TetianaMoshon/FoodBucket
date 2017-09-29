@@ -6,7 +6,6 @@ import {Subject} from 'rxjs/Subject';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 
-
 @Component({
     selector: 'app-admincategories',
     templateUrl: './admincategories.component.html',
@@ -44,18 +43,20 @@ export class AdmincategoriesComponent implements OnInit {
     ) { }
 
     fetchData() {
-        // this.categoryService.getAllCategories(1, 2, true)
+        // this.categoryService.getAllCategories(1, 2, 'desc')
         //     .subscribe(
         //         categories => {
         //             this.source = categories;
         //         },
         //         err => console.log(err)
         //     );
+
         this.defineOffset(this.limit.pageSize, 1);
         this.categoryService.getAllCategoriesWithHttpInfo(this.offset, this.limit.pageSize, 'desc', 'category_id')
             .subscribe(
                 response => {
                     this.categories = response.json();
+                    console.log(this.categories);
                     this.total = response.headers.get('x-total-records');
                     this.pager = this.pagerService.getPager(this.total, 1);
                     this.source = this.categories;

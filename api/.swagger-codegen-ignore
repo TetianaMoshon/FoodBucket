@@ -65,9 +65,13 @@ controllers/StatisticsService.js
 
 
 controllers/Order.js
-controllers/Product.js
+controllers/Category.js
 controllers/Ingredient.js
 controllers/User.js
+controllers/Product.js
+controllers/Promotion.js
+
+
 
 
 

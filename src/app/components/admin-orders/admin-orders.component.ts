@@ -29,6 +29,9 @@ export class AdminOrdersComponent implements OnInit {
     orders: Order[] = [];
 pager: any = {};
 pagedItems: any[];
+arrayOfIds: number[] = [];
+orderTitles;
+quantityArray;
 
   constructor(private pagerService: PagerService, private ApiService: OrderService) {
       this.showHide = false;
@@ -43,7 +46,6 @@ pagedItems: any[];
             this.pager = this.pagerService.getPager(this.total, 1);
             this.pagedItems = this.orders;
         });
-
         this.searchInput$
             .debounceTime(400)
             .distinctUntilChanged()
@@ -67,7 +69,12 @@ pagedItems: any[];
     }
 
 
-
+    getProductTitles(idOrder) {
+      this.ApiService.findOrderById(idOrder).subscribe(res => {
+          this.orderTitles = res.products;
+          this.quantityArray = res.quantity;
+      });
+    }
     updateOrder(value, orderIdValue) {
         this.ApiService.updateOrderById({
             'orderId': 0,
@@ -84,11 +91,7 @@ pagedItems: any[];
             'measure': 'string',
             'quantity': [0],
             'discount': 0
-        }, orderIdValue).subscribe(
-            res => {
-                console.log(res);
-            }
-        );
+        }, orderIdValue).subscribe(res => {});
     }
 
     toggle(state: boolean) {
@@ -120,7 +123,7 @@ pagedItems: any[];
     onSortClick(value: string): void {
         this.toggle(!this.state);
         this.defineOffset(this.limit.pageSize, this.pager.currentPage);
-        this.ApiService.getAllOrders(this.offset, this.limit.pageSize, this.sort, value ).subscribe(orders => {
+        this.ApiService.getAllOrders(this.offset, this.limit.pageSize, this.sort, value).subscribe(orders => {
             this.value = value;
             this.pagedItems = orders;
         });

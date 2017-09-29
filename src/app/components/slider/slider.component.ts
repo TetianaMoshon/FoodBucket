@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ProductService} from '../../client/api/product.service';
+import {PromotionService} from '../../client/api/promotion.service';
+import {Product} from '../../client/model/product';
 
 @Component({
     selector: 'app-slider',
@@ -8,6 +9,8 @@ import {ProductService} from '../../client/api/product.service';
 })
 export class SliderComponent implements OnInit {
 
+    promotions: Product[];
+
     windowWidth;
     quantityOfPhotos: number;
 
@@ -15,9 +18,9 @@ export class SliderComponent implements OnInit {
     sourceForSecondImage: any;
     sourceForThirdImage: any;
 
-    counter = 1; // by how many pictures to slide
+    counter = 1;
 
-    time = 3000; // frequency of image changing
+    time = 3000;
 
     initialSourceForFirstImage = 0;
     initialSourceForSecondImage = 1;
@@ -30,8 +33,7 @@ export class SliderComponent implements OnInit {
 
     ListOfImageData = [];
 
-
-    constructor(private productService: ProductService) {}
+    constructor(private promotionService: PromotionService) {}
 
     ngOnInit() {
         this.windowWidth = {
@@ -41,14 +43,20 @@ export class SliderComponent implements OnInit {
         };
 
         this.onResize(this.windowWidth);
-        this.productService.getAllProducts(0, 20, true, 'desc', 'productId').subscribe(products => {
-            products.forEach(product => {
-                this.ListOfImageData.push({link: product.image, title: product.title, description: product.description});
+        this.promotionService.getPromotion(0, 20, true)
+            .subscribe(promotions => {
+                promotions.forEach(promotion => {
+                    this.ListOfImageData.push({
+                        link: promotion.image,
+                        title: promotion.title,
+                        description: promotion.description
+                    });
+                });
+
+                this.InitImageSource();
+                this.quantityOfPhotos = this.ListOfImageData.length;
+                this.changeImageSourceWithInterval();
             });
-            this.InitImageSource();
-            this.quantityOfPhotos = this.ListOfImageData.length;
-            this.changeImageSourceWithInterval();
-        });
     }
 
 

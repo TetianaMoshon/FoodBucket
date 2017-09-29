@@ -51,7 +51,7 @@ export class CheckoutComponent implements OnInit {
                 lastName: res.lastName,
                 city: res.city,
                 address: res.address,
-                phone: res.phone.toString()
+                phone: null
             };
         });
         this.cartService.findCartContentById(this.userId).subscribe(res => {
@@ -88,7 +88,7 @@ export class CheckoutComponent implements OnInit {
         });
     }
     onSubmit(form: NgForm) {
-        const username = this.userObject.firstName + '' + this.userObject.lastName;
+        const username = this.userObject.firstName + ' ' + this.userObject.lastName;
         const city = this.userObject.city;
         const address = this.userObject.address;
         const price = this.cartContent.totalPriceOfAllDishes;

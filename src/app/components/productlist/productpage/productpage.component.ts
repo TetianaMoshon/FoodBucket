@@ -13,57 +13,26 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class ProductpageComponent implements OnInit {
-    public productData;
-    public productIngredients = [];
-    public data;
-    private sub: any;
-    urlId: number;
-
-    show = false;
-    quantityOfPhotos: number;
-
-    sourceForPreviousImage: any;
-    sourceForNextImage: any;
 
     counter = 1;
-
-    initialSourceForPreviousImage = 0;
-    initialSourceForNextImage = 1;
-    updateUser = new UpdateUser('', '' , '',  '');
-    select;
+    productData;
+    productIngredients = [];
+    show = false;
+    productId = Number(this.route.snapshot.paramMap.get('id'));
     userId;
     login;
-    id = this.route.snapshot.paramMap.get('id');
+    select;
+    updateUser = new UpdateUser('', '' , '',  '');
 
     constructor(
         public productService: ProductService,
         public ingredientService: IngredientService,
         public userService: UserService,
-        protected route: ActivatedRoute
+        public route: ActivatedRoute
     ) {}
 
     ngOnInit() {
-        this.showProduct(this.id);
-        if ( JSON.parse(sessionStorage.getItem('currentUserId')) == null) {
-            this.login = false;
-        }else {
-            this.userId = JSON.parse(sessionStorage.getItem('currentUserId'));
-            this.login = true;
-        }
-
-         this.userService.findUserById(this.userId).subscribe(
-            user => {
-                    if (user.favourites.indexOf(Number(this.id)) === -1) {
-                        this.select = false;
-                    } else {
-                        this.select = true;
-                    }
-                }, err => console.log(err)
-            );
-    }
-
-    showProduct(id) {
-        this.productService.findProductById(id)
+        this.productData = this.productService.findProductById(Number(this.route.snapshot.paramMap.get('id')))
             .subscribe(
                 product => {
                     this.productData = product;
@@ -79,6 +48,46 @@ export class ProductpageComponent implements OnInit {
                 },
                 err => console.log(err)
             );
+
+
+
+        if ( JSON.parse(sessionStorage.getItem('currentUserId')) == null) {
+                this.login = false;
+            }else {
+                this.userId = JSON.parse(sessionStorage.getItem('currentUserId'));
+                this.login = true;
+            }
+
+         this.userService.findUserById(this.userId).subscribe(
+            user => {
+                    if (user.favourites.indexOf(Number(this.productId)) === -1) {
+                        this.select = false;
+                    } else {
+                        this.select = true;
+                    }
+                }, err => console.log(err)
+            );
+    }
+
+    showProduct(id) {
+        this.productService.findProductById(id)
+            .subscribe(
+                product => {
+                    this.productData = product;
+
+                    const current = this;
+                    this.productData.ingredients.forEach(function (ingredient) {
+                        current.ingredientService.findIngredientById(ingredient.ingredientId)
+                            .subscribe(
+                                ingr => {
+                                    current.productIngredients.push(ingr);
+                                }
+                            );
+                    });
+                    console.log(product.image);
+                },
+                err => console.log(err)
+            );
     }
 
     addFavourite() {
@@ -87,7 +96,7 @@ export class ProductpageComponent implements OnInit {
                 user => {
                     if (this.select === false) {
                         this.select = true;
-                        user.favourites.push(Number(this.id));
+                        user.favourites.push(Number(this.productId));
                         this.updateUser = user;
                         this.userService.updateUserById(this.userId, this.updateUser)
                             .subscribe(
@@ -97,7 +106,7 @@ export class ProductpageComponent implements OnInit {
                             );
                     } else {
                         this.select = false;
-                        user.favourites.splice(user.favourites.indexOf(Number(this.id)), 1);
+                        user.favourites.splice(user.favourites.indexOf(Number(this.productId)), 1);
                         this.updateUser = user;
                         this.userService.updateUserById(this.userId, this.updateUser)
                             .subscribe(
@@ -110,5 +119,4 @@ export class ProductpageComponent implements OnInit {
                 err => console.log(err)
             );
     }
-
 }

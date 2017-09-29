@@ -7,7 +7,9 @@ import { NgForm } from '@angular/forms';
 import { ProductModel } from './productModel';
 import { IngredientModel } from './ingredientModel';
 import { Subject } from 'rxjs/Subject';
-import {IngredientService} from '../../../client/api/ingredient.service';
+import {ImageService} from '../../../services/image/image.service';
+import {CategoryService} from '../../../client/api/category.service';
+
 
 @Component({
     selector: 'app-admin-product-page',
@@ -15,7 +17,7 @@ import {IngredientService} from '../../../client/api/ingredient.service';
     styleUrls: ['./admin-product-page.component.css']
 })
 export class AdminProductPageComponent implements OnInit, OnDestroy {
-    ingredientList: IngredientModel[];
+    ingredientList: IngredientModel[] = [];
 
     private subscription: Subscription;
     @ViewChild('f2') ingListForm: NgForm;
@@ -26,11 +28,16 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     ingredientsChanged = new Subject<IngredientModel[]>();
     startedEditing = new Subject<number>();
 
+    imageSrc;
+    file: File = null;
+    categoryList = [];
+
     constructor(
         protected productService: ProductService,
         protected route: ActivatedRoute,
         private flashMessagesService: FlashMessagesService,
-        protected ingredientService: IngredientService
+        private imageService: ImageService,
+        private categoryService: CategoryService
     ) {}
 
     action: {
@@ -39,7 +46,7 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     };
     urlSubscription: Subscription;
 
-    productModel = new ProductModel('', '', null, '', '', true, null, false, null, null, '', '',  [{ ingredientId: null, ingredientName: '', quantity: null, measure: '' }]);
+    productModel = new ProductModel('', '', null, '', '', null, false, null, null, '', '',  [{ ingredientId: null, ingredientName: '', quantity: null, measure: '' }]);
 
     ngOnInit() {
         this.urlSubscription = this.route.url
@@ -88,6 +95,13 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
                     });
                 }
             );
+
+        this.categoryService.getAllCategories(0, 20, 'asc')
+            .subscribe(categories => {
+                categories.forEach(category => {
+                    this.categoryList = categories;
+                });
+            });
     }
 
     onEditItem(index: number) {
@@ -96,21 +110,25 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
 
     onSubmit(form: NgForm) {
         this.productModel.price = Number(this.productModel.price);
-        this.productModel.status = Boolean(this.productModel.status);
         this.productModel.discount = Number(this.productModel.discount);
-        this.productModel.promotions = Boolean(this.productModel.promotions);
+        this.productModel.image = 'empty path';
+        this.productModel.promotions = this.BooleanConverter(this.productModel.promotions);
+
         this.productModel.caloricity = Number(this.productModel.caloricity);
         this.productModel.servingSize = Number(this.productModel.servingSize);
 
-        for (let ingredient in this.ingredientList) {
-            this.productModel.ingredients[ingredient] = this.ingredientList[ingredient];
-            this.productModel.ingredients[ingredient].ingredientId = Number(this.productModel.ingredients[ingredient].ingredientId);
-            this.productModel.ingredients[ingredient].quantity = Number(this.productModel.ingredients[ingredient].quantity);
-        }
+        this.ingredientList.forEach(({ ingredientId, ingredientName, quantity, measure}, index) => {
+            this.productModel.ingredients[index] = { ingredientId, ingredientName, quantity, measure};
+            this.productModel.ingredients[index].ingredientId = Number(this.productModel.ingredients[index].ingredientId);
+            this.productModel.ingredients[index].quantity = Number(this.productModel.ingredients[index].quantity);
+        });
 
         if (this.action.name === 'create') {
             this.createProduct(this.productModel);
         } else {
+            if (this.file === null) {
+                this.productModel.image = this.imageSrc.replace('image/', '');
+            }
             this.updateProduct(this.action.id, this.productModel);
         }
 
@@ -119,7 +137,6 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     onSubmit2(form: NgForm) {
         const value = form.value;
         const newIngredient = new IngredientModel(value.ingredientId, value.ingredientName, value.quantity, value.measure);
-
         if (this.editMode) {
             this.updateIngredient(this.editedItemIndex, newIngredient);
         } else {
@@ -133,20 +150,33 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
         this.productService.createProduct(productModel)
             .subscribe(
                 product => {
+                    if (this.file !== null) {
+                        this.uploadProductImageById(product.productId, this.file, 'post');
+                    }
+
                     this.flashMessagesService.show(`Product with id:${product['productId']} was successfully created!`, {
                         classes: ['alert', 'alert-success'],
                         timeout: 3000,
                     });
-                    // this.resetFormFields();
+                    this.resetFormFields();
                 },
                 err => console.log(err)
             );
+    }
+
+    uploadProductImageById(id, file, method) {
+        const entityName = 'product';
+        this.imageService.uploadImageByEntityId(id, file, method, entityName);
     }
 
     updateProduct(id: number, productModel) {
         this.productService.updateProductById(id, productModel)
             .subscribe(
                 product => {
+                    if (this.file !== null) {
+                        this.uploadProductImageById(id, this.file, 'put');
+                    }
+
                     this.flashMessagesService.show(`Product with id:${id} was successfully updated!`, {
                         classes: ['alert', 'alert-warning'],
                         timeout: 3000,
@@ -163,9 +193,8 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
                     this.productModel.title = product.title;
                     this.productModel.description = product.description;
                     this.productModel.price = product.price;
-                    this.productModel.image = product.image;
+                    this.imageSrc = 'image/' + product.image;
                     this.productModel.category = product.category;
-                    this.productModel.status = product.status;
                     this.productModel.discount = product.discount;
                     this.productModel.promotions = product.promotions;
                     this.productModel.caloricity = product.caloricity;
@@ -182,7 +211,7 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     }
 
     resetFormFields() {
-        this.productModel = new ProductModel('', '', null, '', '', true, null, false, null, null, '', '',
+        this.productModel = new ProductModel('', '', null, '', '', null, false, null, null, '', '',
             [{ ingredientId: null, ingredientName: '', quantity: null, measure: ''}]);
     }
 
@@ -200,8 +229,6 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     }
 
     addIngredient(ingredient: IngredientModel) {
-        this.ingredientList = this.productModel.ingredients;
-
         this.ingredientList.push(ingredient);
     }
 
@@ -225,4 +252,33 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
         this.onClear();
     }
 
+    BooleanConverter = (value: any) => {
+        if (value === null || value === undefined || typeof value === 'boolean')
+            return value;
+
+        return value.toString() === 'true';
+    }
+
+    onFileChange(event) {
+        const fileList: FileList = event.target.files;
+        if (fileList.length > 0) {
+            this.file = fileList[0];
+
+            const pattern = /image-*/;
+            const reader = new FileReader();
+
+            if (!this.file.type.match(pattern)) {
+                alert('Invalid image format. Only .jpg and .png are available');
+                return;
+            }
+
+            reader.onloadend = this.onReaderLoaded.bind(this);
+            reader.readAsDataURL(this.file);
+        }
+    }
+
+    private onReaderLoaded(e) {
+        const reader = e.target;
+        this.imageSrc = reader.result;
+    }
 }

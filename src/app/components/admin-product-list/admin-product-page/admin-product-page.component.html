@@ -21,13 +21,18 @@
                             <label for="price">Price:</label>
                             <input [(ngModel)]="productModel.price" name="price" type="number" min="1" class="form-control" id="price" required>
                         </div>
+                        <img class="preview" [src]="imageSrc" />
                         <div class="form-group">
                             <label for="image">Image:</label>
-                            <input [(ngModel)]="productModel.image" name="image" type="text" class="form-control" id="image">
+                            <input type="file" (change)="onFileChange($event)" name="imageUpload" [(ngModel)]="imageUpload" placeholder="Upload file" accept=".jpg,.png" id="image">
                         </div>
                         <div class="form-group">
                             <label for="category">Category:</label>
-                            <input [(ngModel)]="productModel.category" name="category" type="text" class="form-control" id="category">
+                            <!--<input [(ngModel)]="productModel.category" name="category" type="text" class="form-control" id="category">-->
+                            <select [(ngModel)]="productModel.category" name="category" type="text" class="form-control" id="category">
+                                <option>{{productModel.category}}</option>
+                                <option *ngFor="let category of categoryList">{{category.title}}</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="discount">Discount:</label>
@@ -144,17 +149,9 @@
                         <option>high</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label for="status">Status:</label>
-                    <select [(ngModel)]="productModel.status" name="status" type="text" class="form-control" id="status">
-                        <option>Published</option>
-                        <option>Unpublished</option>
-                    </select>
-                </div>
-
                 <div class="btn-group action-buttons">
                     <button class="btn btn-success" (Click)="onSubmit()" type="submit" [disabled]="!f.form.valid">Save</button>
-                    <a class="btn btn-danger" routerLink="/admin/productlist" routerLinkActive="active">Back</a>
+                    <button class="btn btn-danger" routerLink="/admin/productlist" routerLinkActive="active">Back</button>
                 </div>
             </form>
         </div>

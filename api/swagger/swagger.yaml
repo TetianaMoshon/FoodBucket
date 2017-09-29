@@ -94,6 +94,63 @@ paths:
           description: invalid input
           schema:
             $ref: "#/definitions/Error"
+  /statistics/nonpromotionalProducts:
+    get:
+      x-swagger-router-controller: Statistics
+      operationId: getNonpromotionalProducts
+      tags:
+      - "statistics"
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Successful completed nonpromotional products statistics response
+          schema:
+              $ref: "#/definitions/GeneralStatistics"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+  /statistics/promotionalProducts:
+    get:
+      x-swagger-router-controller: Statistics
+      operationId: getPromotionProductsCount
+      tags:
+      - "statistics"
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Successful completed promotional products revenue statistics response
+          schema:
+              $ref: "#/definitions/GeneralStatistics"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+  /statistics/categories:
+    get:
+      x-swagger-router-controller: Statistics
+      operationId: getCategoriesStatistics
+      tags:
+      - "statistics"
+      produces:
+      - application/json
+      parameters:
+      - name: categoryQuery
+        in: query
+        description: Category in string format to see how many products are there
+        required: true
+        type: string
+      responses:
+        200:
+          description: Successful categories statistics response
+          schema:
+              $ref: "#/definitions/GeneralStatistics"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
   /products:
     get:
       x-swagger-router-controller: Product
@@ -103,11 +160,6 @@ paths:
       produces:
       - application/json
       parameters:
-        - name: isPromotion
-          in: query
-          description: returns promotion products
-          required: false
-          type: boolean
         - name: offset
           in: query
           description: start position for quering from DB
@@ -124,7 +176,7 @@ paths:
           format: int32
           minimum: 0
           maximum: 50
-          default: 20
+          default: 9
         - name: sort
           in: query
           description: sort order
@@ -141,8 +193,138 @@ paths:
           enum:
             - productId
             - title
-            - category
-            - price
+            - description
+        - name: search_txt
+          in: query
+          description: text to search
+          required: false
+          type: string
+        - name: search_col
+          in: query
+          description: text to search
+          required: false
+          type: string
+          enum:
+            - productId
+            - title
+            - description
+      responses:
+        200:
+          description: Successful products response
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Product"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+  /product/{id}/image:
+    post:
+      x-swagger-router-controller: Product
+      operationId: postProductImageById
+      tags:
+      - "product"
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the product image upload for
+        required: true
+        type: integer
+        format: int64
+      - name: file
+        in: formData
+        required: false
+        type: file
+      - name: additionalMetadata
+        in: formData
+        description: Additional data to pass to server
+        required: false
+        type: string
+      responses:
+        default:
+          description: Successful operation
+    put:
+      x-swagger-router-controller: Product
+      operationId: putProductImageById
+      tags:
+      - "product"
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the product image upload for
+        required: true
+        type: integer
+        format: int64
+      - name: file
+        in: formData
+        required: false
+        type: file
+      - name: additionalMetadata
+        in: formData
+        description: Additional data to pass to server
+        required: false
+        type: string
+      responses:
+        default:
+          description: Successful operation
+    delete:
+      x-swagger-router-controller: Product
+      operationId: deleteProductImageById
+      tags:
+      - "product"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the product image to delete
+        required: true
+        type: integer
+        format: int64
+      responses:
+        default:
+          description: Successful operation
+  /promotion:
+    get:
+      x-swagger-router-controller: Promotion
+      operationId: getPromotion
+      tags:
+      - "promotion"
+      produces:
+      - application/json
+      parameters:
+        - name: offset
+          in: query
+          description: start position for quering from DB
+          required: true
+          type: integer
+          format: int32
+          minimum: 0
+          default: 0
+        - name: limit
+          in: query
+          description: number of items to query from DB
+          required: true
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 28
+          default: 9
+        - name: isPromotion
+          in: query
+          description: returns promotion products
+          required: false
+          default: true
+          type: boolean
       responses:
         200:
           description: Successful products response
@@ -315,7 +497,7 @@ paths:
           schema:
             type: array
             items:
-              $ref: "#/definitions/Order"
+              $ref: "#/definitions/FullOrder"
         default:
           description: invalid input
           schema:
@@ -366,7 +548,7 @@ paths:
         200:
           description: Order response
           schema:
-            $ref: "#/definitions/Order"
+            $ref: "#/definitions/FullOrder"
         default:
           description: invalid input
           schema:
@@ -889,23 +1071,6 @@ paths:
             $ref: '#/definitions/Ingredient'
         400:
           description: Invalid input
-  /promotion:
-    get:
-      x-swagger-router-controller: Promotion
-      operationId: getPromotion
-      tags:
-      - "promotion"
-      produces:
-      - application/json
-      responses:
-        200:
-          description: List of promotions
-          schema:
-            $ref: "#/definitions/Promotion"
-        default:
-          description: invalid input
-          schema:
-            $ref: "#/definitions/Error"
   /toprated:
     get:
       x-swagger-router-controller: Toprated
@@ -1180,7 +1345,7 @@ paths:
             - email
             - phone
             - city
-            - address            
+            - address
       responses:
         200:
           description: Successful users response
@@ -1192,7 +1357,6 @@ paths:
           description: invalid input
           schema:
             $ref: "#/definitions/Error"
-        
   /user/{id}:
     get:
       x-swagger-router-controller: User
@@ -1292,7 +1456,7 @@ paths:
         type: string
       responses:
         default:
-          description: Successful operation          
+          description: Successful operation
   /user:
     post:
       x-swagger-router-controller: User
@@ -1345,7 +1509,7 @@ paths:
           description: invalid input
           schema:
             $ref: "#/definitions/Error"
-  
+
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
@@ -1357,6 +1521,8 @@ definitions:
       - totalMoney
       - totalUsers
       - completedOrders
+      - nonpromotionalProducts
+      - promotionalProducts
     properties:
       totalOrders:
         type: integer
@@ -1368,6 +1534,12 @@ definitions:
         type: integer
         format: int64
       completedOrders:
+        type: integer
+        format: int64
+      nonpromotionalProducts:
+        type: integer
+        format: int64
+      promotionalProducts:
         type: integer
         format: int64
   Product:
@@ -1565,27 +1737,48 @@ definitions:
       discount:
         type: integer
         format: int64
-  Promotion:
+  FullOrder:
     type: object
     required:
-      - image
-      - title
-      - description
+      - username
+      - city
+      - address
       - products
+      - price
+      - status
     properties:
-      promotion_id:
+      orderId:
         type: integer
-      image:
+        format: int64
+      date:
         type: string
-      title:
+      username:
         type: string
-      description:
+      city:
+        type: string
+      price:
+        type: integer
+        format: int64
+      address:
+        type: string
+      status:
+        type: string
+      phone:
         type: string
       products:
         type: array
-        minimum: 1
         items:
-           $ref: '#/definitions/Product'
+          type: string
+      measure:
+        type: string
+      quantity:
+        type: array
+        items:
+          type: integer
+          format: int64
+      discount:
+        type: integer
+        format: int64
   Toprated:
     type: object
     required:

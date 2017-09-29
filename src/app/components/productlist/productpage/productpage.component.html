@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row text-center">
         <div class="col-md-6 col-sm-6">
-            <h1 class="dish_title" (click)="addFavourite()">{{productData.title}}
+            <h1 class="dish_title" (click)="addFavourite()"> {{productData.title}}
                 <span class="contain-icon icon-hook" [class.active]="select" *ngIf="login" >
                     <svg class="star-icon star-icon-2" version="1.1" width="45px" height="41px" viewBox="0 0 105.602 102.931">
                         <path class="main-star-2" fill="none" stroke="#000" stroke-width="6" stroke-miterlimit="10" d="M52.35,3.11c0.475-0.963,1.253-0.963,1.728,0 l12.211,24.742c0.475,0.963,1.734,1.877,2.796,2.032l27.305,3.968c1.063,0.154,1.303,0.894,0.534,1.644L77.167,54.754
@@ -26,7 +26,8 @@
             <div class="thumbnail">
                 <figure>
                     <div>
-                        <img src="{{productData.image}}" alt="{{productData.title}}">
+                        <!--<img src="{{productData.image}}" alt="{{productData.title}}">-->
+                        <img src="image/{{productData.image}}" alt="{{productData.title}}">
                     </div>
                     <figcaption>
                         <table class="table table-bordered">
@@ -77,30 +78,16 @@
 
 
             <div class="row">
-                <div class="serving-size col-md-6 col-sm-6 col-xs-6">
-                    <h3>Portions</h3>
-                    <div ng-app class="input-group counter" ng-init="counter = 1">
-                        <button (click)="counter = counter+1" class="btn btn-default btn-number">
-                            <span class="glyphicon glyphicon-plus"></span>
-                        </button>
-                        <span class="counter-result">{{counter}}</span>
-                        <button (click)="counter==1?counter=1:counter = counter-1" class="btn btn-default btn-number">
-                            <span class="glyphicon glyphicon-minus"></span>
-                        </button>
-
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-6 col-xs-6 price-block">
+                <div class="col-md-6 col-sm-6 col-xs-6 price-block pull-right">
                     <div class="price-wrapper">
-                        <p class="text-right text-font product-price">Price: <span>{{productData.price*counter}}$</span></p>
-                        <p class="text-right text-font product-price">Total: <span>{{productData.price*counter - productData.discount}}$</span></p>
+                        <p class="text-right text-font product-price">Price: <span>{{productData.price}}$</span></p>
                         <p class="text-right text-font product-price">Economy: <span>{{productData.discount}}$</span></p>
+                        <p class="text-right text-font product-price">Discount price: <span>{{productData.price - productData.discount}}$</span></p>
                     </div>
-
                 </div>
             </div>
             <div class="row">
-                <add-to-cart-button [id]="route.snapshot.params['id']"></add-to-cart-button>
+                <add-to-cart-button class="pull-right" [id]="id"></add-to-cart-button>
                 </div>
             </div>
         </div>
