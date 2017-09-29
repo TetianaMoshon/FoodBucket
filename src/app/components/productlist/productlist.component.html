@@ -34,7 +34,7 @@
                 </div>
             </ng-container>
         </div>
-        <div class="row text-left">
+        <div class="row text-center">
             <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
                 <li [ngClass]="{disabled:pager.currentPage === 1}">
                     <a class="cursor-pointer" (click)="setPage(1)">«</a>
