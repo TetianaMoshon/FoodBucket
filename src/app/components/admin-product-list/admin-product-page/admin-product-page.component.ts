@@ -48,7 +48,8 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     };
     urlSubscription: Subscription;
 
-    productModel = new ProductModel('', '', null, '', '', null, false, null, null, '', '',  [{ ingredientId: null, ingredientName: '', quantity: null, measure: '' }]);
+    productModel = new ProductModel('', '', null, '', '', null, false, null, null, '', '',
+        [{ ingredientId: null, ingredientName: '', quantity: null, measure: '' }]);
 
     ngOnInit() {
         this.urlSubscription = this.route.url
@@ -151,7 +152,7 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
             const newIngredient = new IngredientModel(value.ingredientId, value.ingredientName, value.quantity, value.measure);
             this.updateIngredient(this.editedItemIndex, newIngredient);
         } else {
-            var ingridientIdandName = value.ingredientName.split(")");
+            const ingridientIdandName = value.ingredientName.split(')');
             value.ingredientId = ingridientIdandName[0];
             value.ingredientName = ingridientIdandName[1];
             const newIngredient = new IngredientModel(value.ingredientId, value.ingredientName, value.quantity, value.measure);
@@ -163,8 +164,7 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     }
 
     selectedIngredientItem = null;
-    onOptionClick(e)
-    {
+    onOptionClick(e) {
         this.selectedIngredientItem = e;
     }
 
@@ -275,9 +275,9 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     }
 
     BooleanConverter = (value: any) => {
-        if (value === null || value === undefined || typeof value === 'boolean')
+        if (value === null || value === undefined || typeof value === 'boolean') {
             return value;
-
+        }
         return value.toString() === 'true';
     }
 

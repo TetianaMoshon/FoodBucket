@@ -14,7 +14,7 @@ import {ImageService} from '../../../services/image/image.service';
 })
 export class AdminIngredientsFormComponent implements OnInit, OnDestroy {
     imageUpload: string;
-    imageSrc: string = '';
+    imageSrc = '';
     title: string;
     measure: string;
     quantity: number;

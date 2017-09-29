@@ -68,7 +68,7 @@ export class AddToCartButtonComponent implements OnInit, OnDestroy {
                     this.cartService.createCartForUserById(this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage(), newCart)
                         .subscribe(
                         cart => {
-                            console.log('Cart is created ' + cart )
+                            console.log('Cart is created ' + cart );
                         },
                         err => console.log('Error has happened ' + err )
                     );

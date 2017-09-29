@@ -20,5 +20,5 @@ export class DataService {
     }
     changeIsLogged(isLogged: boolean) { this.isLogged.next(isLogged); }
     changeLogBtnText(text: string) { this.messageSourceLogBtn.next(text); }
-    changeIsAdmin(isAdmin: boolean) { this.isAdmin.next(isAdmin);}
+    changeIsAdmin(isAdmin: boolean) { this.isAdmin.next(isAdmin); }
 }

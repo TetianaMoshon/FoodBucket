@@ -32,7 +32,7 @@ export class UserProfileComponent {
                 this.user.email = reg.email;
                 this.user.city = reg.city;
                 this.user.address = reg.address;
-                if (this.user.image == '') {
+                if (this.user.image === '') {
                     console.log(this.user.image);
                     this.imageSrc = 'image/user/default.jpg';
                 } else {

@@ -72,7 +72,7 @@ export class AdminProductListComponent implements OnInit {
     }
 
     onDeleteClick(event, productId): void {
-        this.defineOffset(this.limit.pageSize, this.pager.currentPage)
+        this.defineOffset(this.limit.pageSize, this.pager.currentPage);
         if (confirm('Are you really want to delete category with id: ' + productId + ' ?')) {
             this.productService.deleteProductById(parseInt(productId, 10)).subscribe(
                 product => {

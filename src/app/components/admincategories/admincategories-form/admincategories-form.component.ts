@@ -15,7 +15,7 @@ export class AdmincategoriesFormComponent implements OnInit, OnDestroy {
 
     title: string;
     imageUpload: string;
-    imageSrc: string = '';
+    imageSrc = '';
     description: string;
     action: {
         id: number,

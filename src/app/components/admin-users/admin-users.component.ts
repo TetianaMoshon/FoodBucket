@@ -130,7 +130,7 @@ export class AdminUsersComponent implements OnInit {
             this.userService.getAllUsersWithHttpInfo(0, this.limit.pageSize, 'desc', 'userId', true, searchStr, this.column)
                 .subscribe(res => {
                     this.source = res.json();
-                    this.pager = this.pagerService.getPager(this.limit.pageSize, 1);}
+                    this.pager = this.pagerService.getPager(this.limit.pageSize, 1); }
                 );
         } else {
             this.source = this.users;

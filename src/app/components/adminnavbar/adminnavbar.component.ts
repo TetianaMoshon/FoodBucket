@@ -48,7 +48,7 @@ export class AdminnavbarComponent implements OnInit {
         sessionStorage.clear();
         this.data.changeIsLogged(false);
         this.cartCommunicationService.userIsLoggedIn = false;
-        this.router.navigate(['']);
+        window.location.reload();
     }
     public getBackToHomePage() {
         this.data.changeIsAdmin(true);
