@@ -3,15 +3,31 @@
     <h4 class="modal-title text-center" >{{title}}</h4>
 </div>
 <div class="modal-body">
-    <form>
+    <form >
         <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email"
+                   required
+                   pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                   [(ngModel)]="model.email" name="email"
+                   #email="ngModel">
             <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+
+            <div [hidden]="email.valid || email.pristine" class="alert-danger">
+               <div [hidden]="!email.hasError('required')">Email is required</div>
+               <div [hidden]="!email.hasError('pattern')">Email format should be <small><b>joe@abc.com</b></small></div>
+            </div>
+
         </div>
         <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
+            <label for="password">Password *</label>
+            <input type="password" class="form-control" id="password" placeholder="Password"
+                   required
+                   [(ngModel)]="model.password" name="password"
+                   #password="ngModel" >
+            <div [hidden]="password.valid || password.pristine" class="alert-danger">
+                <div [hidden]="!password.hasError('required')">Password is required</div>
+            </div>
         </div>
         <div class="form-check">
             <label class="form-check-label">
@@ -20,30 +36,12 @@
             </label>
         </div>
         <div class="text-center">
-            <button type="button" class="btn btn-primary btn-lg" (click)="openCongratulation();">Sign In</button>
+            <button type="button" class="btn btn-primary btn-lg" (click)="logInOperation(); bsModalRef.hide()">Sign In</button><!--openCongratulation()-->
         </div>
     </form>
-    <h4 class="text-center">Or log in using...</h4>
-    <div class="row">
-        <div class="col-xs-4 col-sm-4">
-            <a href="#" class="btn btn-lg btn-block omb_btn-facebook">
-                <img src="../../../../assets/facebook-letter-logo.svg" class="social_logo-size">
-            </a>
-        </div>
-        <div class="col-xs-4 col-sm-4">
-            <a href="#" class="btn btn-lg btn-block omb_btn-twitter">
-                    <img src="../../../../assets/Twitter_bird_logo_2012.svg" class="social_logo-size">
-            </a>
-        </div>
-        <div class="col-xs-4 col-sm-4">
-            <a href="#" class="btn btn-lg btn-block omb_btn-google">
-                <img src="../../../../assets/google-plus.svg" class="social_logo-size">
-            </a>
-        </div>
-    </div>
 </div>
 <div class="modal-footer">
     <div class="text-center" (click)="openForgotPass();"><a>Forgot your password?</a></div>
-    <div class="text-center" (click)="openNewAccount();"><a>Don't have an account? Sign up now!</a></div>
+    <div class="text-center" (click)="openNewAccount(); bsModalRef.hide()"><a>Don't have an account? Sign up now!</a></div>
 </div>
 

@@ -1,7 +1,10 @@
-import { Ng2SmartTableComponent } from 'ng2-smart-table/ng2-smart-table.component';
+import {PagerService} from '../../services/pagination.service';
 import { Component, OnInit } from '@angular/core';
-import {LocalDataSource} from 'ng2-smart-table';
-import {ImageRenderComponent} from './image-render.component';
+import {IngredientService} from '../../client/api/ingredient.service';
+import {Subject} from 'rxjs/Subject';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-admin-ingredients',
@@ -9,150 +12,135 @@ import {ImageRenderComponent} from './image-render.component';
   styleUrls: ['./admin-ingredients.component.css']
 })
 export class AdminIngredientsComponent implements OnInit {
+    random;
 
-    settings = {
-        actions: {
-            position: 'right',
-            delete: 'true',
-            columnTitle: ' ',
-        },
-        add: {
-            addButtonContent: 'Add'
-        },
-        pager: {
-            display: true,
-            perPage: 5,
-        },
-        columns: {
-            ingredient_item: {
-                title: 'Ingredients',
-                filter: true,
-                width: '30%',
-            },
-            ingredient_measure: {
-                title: 'Measure',
-                width: '13%',
-                sort: false,
-                filter: true,
-            },
-            ingredient_quantity: {
-                title: 'Warehouse quantity',
-                width: '22%',
-                filter: true,
-            },
-            ingredient_price: {
-                title: 'Price',
-                width: '10%',
-                filter: true,
-            },
-            image: {
-                title: 'Image',
-                width: '13%',
-                type: 'custom',
-                sort: false,
-                filter: false,
-                renderComponent: ImageRenderComponent,
-                editor: {
-                    type: 'list',
-                    config: {
-                        list: [ { value: '/assets/icons/ingredients/vegetables.svg', title: 'Vegetables' },
-                                { value: '/assets/icons/ingredients/fruits.svg', title: 'Fruits' },
-                                { value: '/assets/icons/ingredients/meat.svg', title: 'Meat' },
-                                { value: '/assets/icons/ingredients/fish.svg', title: 'Fish' },
-                                { value: '/assets/git checkicons/ingredients/eggs.svg', title: 'Eggs' },
-                                { value: '/assets/icons/ingredients/liquid.svg', title: 'Liquid' },
-                                { value: '/assets/icons/ingredients/lactic.svg', title: 'Lactic' },
-                                { value: '/assets/icons/ingredients/porridge.svg', title: 'Porridge' },
-                                { value: '/assets/icons/ingredients/sea_food.svg', title: 'Sea food' },
-                                { value: '/assets/icons/ingredients/salt.svg', title: 'Salt' },
-                                { value: '/assets/icons/ingredients/sugar.svg', title: 'Sugar' },
-                                { value: '/assets/icons/ingredients/spices.svg', title: 'Spices' },
-                        ],
-                    },
-                },
-            },
+    searchInput$ = new Subject<string>();
+    sorted: boolean;
+    nextSort: string;
+    column: string;
+    res;
+    total;
+    offset;
+    limit = this.pagerService.getPager(this.total, 1, 5);
+    page;
+    value: string;
+    state = true;
+    sort: string;
+    ingredients;
+    pager: any = {};
+    pagedItems: any[];
 
-        },
-    };
+    constructor(
+        protected ingredientService: IngredientService,
+        private pagerService: PagerService,
+        private router: Router
 
-    data = [
-        {
-            ingredient_item: 'Potato',
-            ingredient_measure: 'kg',
-            ingredient_quantity: 300,
-            ingredient_price: 200,
-            image: '/assets/icons/ingredients/vegetables.svg'
-        },
-        {
-            ingredient_item: 'Salmon',
-            ingredient_measure: 'g',
-            ingredient_quantity: 105,
-            ingredient_price: 45,
-            image: '/assets/icons/ingredients/fish.svg'
-        },
-        {
-            ingredient_item: 'Shrimp',
-            ingredient_measure: 'g',
-            ingredient_quantity: 78,
-            ingredient_price: 200,
-            image: '/assets/icons/ingredients/sea_food.svg'
-        },
-        {
-            ingredient_item: 'Apple',
-            ingredient_measure: 'items',
-            ingredient_quantity: 105,
-            ingredient_price: 78,
-            image: '/assets/icons/ingredients/fruits.svg'
-        },
-        {
-            ingredient_item: 'Oatmeal',
-            ingredient_measure: 'g',
-            ingredient_quantity: 200,
-            ingredient_price: 45,
-            image: '/assets/icons/ingredients/porridge.svg'
-        },
-        {
-            ingredient_item: 'Milk',
-            ingredient_measure: 'ml',
-            ingredient_quantity: 200,
-            ingredient_price: 200,
-            image: '/assets/icons/ingredients/lactic.svg'
-        },
-        {
-            ingredient_item: 'Chicken',
-            ingredient_measure: 'g',
-            ingredient_quantity: 45,
-            ingredient_price: 78,
-            image: '/assets/icons/ingredients/meat.svg'
-        },
-        {
-            ingredient_item: 'Water',
-            ingredient_measure: 'ml',
-            ingredient_quantity: 105,
-            ingredient_price: 45,
-            image: '/assets/icons/ingredients/liquid.svg'
-        },
-        {
-            ingredient_item: 'Mustard',
-            ingredient_measure: 'g',
-            ingredient_quantity: 105,
-            ingredient_price: 200,
-            image: 'src="/assets/icons/ingredients/spices.svg'
-        },
-        {
-            ingredient_item: 'Egg',
-            ingredient_measure: 'items',
-            ingredient_quantity: 105,
-            ingredient_price: 40,
-            image: '/assets/icons/ingredients/eggs.svg'
+) {}
+
+
+    ngOnInit() {
+        this.defineOffset(this.limit.pageSize, 1);
+        this.ingredientService.getAllIngredientsWithHttpInfo(this.offset, this.limit.pageSize, 'desc', 'ingredient_id' )
+            .subscribe(response => {
+                this.ingredients = response.json();
+                this.total = response.headers.get('x-total-records');
+                this.pager = this.pagerService.getPager(this.total, 1);
+                this.pagedItems = this.ingredients;
+        });
+
+        this.searchInput$
+            .debounceTime(400)
+            .distinctUntilChanged()
+            .subscribe(inputData => this.search(inputData));
+
+        this.random = Date.now();
+    }
+
+    defineCol(value: string) {
+        this.column = value;
+    }
+
+    search(searchStr) {
+        if (searchStr.trim() !== '') {
+            this.ingredientService.getAllIngredientsWithHttpInfo(0, this.limit.pageSize, 'desc', 'ingredient_id', searchStr, this.column)
+                .subscribe(res => {
+                this.pagedItems = res.json();
+                this.pager = this.pagerService.getPager(this.limit.pageSize, 1); }
+        );
+        } else {
+            this.pagedItems = this.ingredients;
+            this.pager = this.pagerService.getPager(this.total, 1);
         }
-    ];
+    }
 
-    constructor() {
+    toggle(state: boolean) {
+        this.state = state;
+        this.sort = this.state ? 'desc' : 'asc';
+    }
+
+    defineOffset(limit: number, page: number) {
+        this.offset = page * limit - limit;
     }
 
 
-  ngOnInit() {
-  }
+    setPage(page: number) {
+        this.pagedItems = [];
+        this.defineOffset(this.limit.pageSize, page);
+        if (this.sorted) {
+            this.ingredientService.getAllIngredients(this.offset, this.limit.pageSize, this.nextSort, this.value )
+                .subscribe(ingredients => {
+                this.pagedItems = ingredients;
+            });
+        } else  {
+            this.ingredientService.getAllIngredients( this.offset, this.limit.pageSize, 'desc', 'ingredient_id').subscribe(ingredients => {
+                this.pagedItems = ingredients;
+            });
+        }
+
+        this.pager.currentPage = page;
+    }
+
+    onSortClick(value: string): void {
+        this.toggle(!this.state);
+        this.defineOffset(this.limit.pageSize, this.pager.currentPage);
+        this.ingredientService.getAllIngredients(this.offset, this.limit.pageSize, this.sort, value ).subscribe(ingredients => {
+            this.value = value;
+            this.pagedItems = ingredients;
+        });
+        this.sorted = true;
+        this.nextSort = this.sort;
+    }
+
+    onCreateClick(event): void {
+        this.changeRoute('/admin/ingredients/create');
+    }
+
+    onEditClick(event, id): void {
+        this.changeRoute(`/admin/ingredients/${id}/edit`);
+    }
+
+    onDeleteClick(event, id): void {
+        this.defineOffset(this.limit.pageSize, this.pager.currentPage);
+        if (confirm('Are you really want to delete ingredient with id: ' + id + ' ?')) {
+            this.ingredientService.deleteIngredientById(parseInt(id, 10)).subscribe(
+                ingredient => {
+                    this.ingredientService.getAllIngredientsWithHttpInfo(0, this.limit.pageSize, 'desc', 'ingredient_id').subscribe(
+                        ingredients => {
+                            this.pagedItems = ingredients.json();
+                            this.total = ingredients.headers.get('x-total-records');
+                            this.pager = this.pagerService.getPager(this.total, 1);
+                        },
+                        err => console.log(err)
+                    );
+                },
+                err => console.log(err)
+            );
+        }
+    }
+
+    changeRoute(routeValue) {
+        this.router.navigateByUrl(routeValue);
+    }
+
 
 }

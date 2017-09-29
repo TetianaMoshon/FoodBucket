@@ -14,52 +14,54 @@ exports.getToprated = function() {
   "title" : "title",
   "products" : [ {
     "image" : "image",
-    "price" : 6,
+    "productId" : 0,
+    "caloricity" : 5,
     "description" : "description",
-    "ingredients" : [ {
-      "image" : "image",
-      "ingredient_id" : 1,
-      "description" : "description",
-      "title" : "title"
-    }, {
-      "image" : "image",
-      "ingredient_id" : 1,
-      "description" : "description",
-      "title" : "title"
-    } ],
-    "id" : 1,
+    "discount" : 1,
     "title" : "title",
-    "productInfo" : [ {
-      "product_info_id" : 5,
-      "calories" : 5
+    "difficulty" : "difficulty",
+    "promotions" : true,
+    "price" : 6,
+    "ingredients" : [ {
+      "ingredientId" : 2,
+      "quantity" : 7,
+      "measure" : "measure",
+      "ingredientName" : "ingredientName"
     }, {
-      "product_info_id" : 5,
-      "calories" : 5
-    } ]
+      "ingredientId" : 2,
+      "quantity" : 7,
+      "measure" : "measure",
+      "ingredientName" : "ingredientName"
+    } ],
+    "category" : "category",
+    "spiceLevel" : "spiceLevel",
+    "servingSize" : 5,
+    "status" : true
   }, {
     "image" : "image",
-    "price" : 6,
+    "productId" : 0,
+    "caloricity" : 5,
     "description" : "description",
-    "ingredients" : [ {
-      "image" : "image",
-      "ingredient_id" : 1,
-      "description" : "description",
-      "title" : "title"
-    }, {
-      "image" : "image",
-      "ingredient_id" : 1,
-      "description" : "description",
-      "title" : "title"
-    } ],
-    "id" : 1,
+    "discount" : 1,
     "title" : "title",
-    "productInfo" : [ {
-      "product_info_id" : 5,
-      "calories" : 5
+    "difficulty" : "difficulty",
+    "promotions" : true,
+    "price" : 6,
+    "ingredients" : [ {
+      "ingredientId" : 2,
+      "quantity" : 7,
+      "measure" : "measure",
+      "ingredientName" : "ingredientName"
     }, {
-      "product_info_id" : 5,
-      "calories" : 5
-    } ]
+      "ingredientId" : 2,
+      "quantity" : 7,
+      "measure" : "measure",
+      "ingredientName" : "ingredientName"
+    } ],
+    "category" : "category",
+    "spiceLevel" : "spiceLevel",
+    "servingSize" : 5,
+    "status" : true
   } ]
 };
     if (Object.keys(examples).length > 0) {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ProductService } from '../../../client/api/product.service';
 
 @Component({
     selector: 'app-top',
@@ -6,65 +7,27 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./top.component.css']
 })
 export class TopComponent implements OnInit {
+    topratedList = [];
+    promotionList = [];
+    quantityProducts = 2;
 
-    quantityOfPhotos: number;
-
-    sourceForPreviousImage: any;
-    sourceForNextImage: any;
-
-    counter = 1;
-
-    initialSourceForPreviousImage = 0;
-    initialSourceForNextImage = 1;
-
-    ListOfImageLinks: string [] = [
-        './assets/images/strawberry-pancakes.jpg',
-        './assets/images/cake-pops.jpg',
-        './assets/images/cherry-streusel-cheesecake.jpg'
-    ];
-
-    constructor() {}
+    constructor(protected productService: ProductService) {}
 
     ngOnInit() {
-        this.InitImageSource();
-        this.quantityOfPhotos = this.ListOfImageLinks.length;
+        this.productService.getAllProducts(1, 20, 'desc', 'productId')
+            .subscribe(
+                products => {
+                    products.forEach(product => {
+                        if (product.promotions === true) {
+                            this.promotionList.push(product);
+                        }
+                    });
+
+                    while (this.quantityProducts > 0) {
+                        this.topratedList.push(this.promotionList[Math.floor(Math.random() * (this.promotionList.length))]);
+                        this.quantityProducts--;
+                    }
+                },
+                err => console.log(err));
     }
-
-    InitImageSource() {
-        this.sourceForPreviousImage = this.ListOfImageLinks[this.initialSourceForPreviousImage];
-        this.sourceForNextImage = this.ListOfImageLinks[this.initialSourceForNextImage];
-    }
-
-    changeImageSourceByPressingRightArrow() {
-        this.slideToTheRight();
-    }
-
-    changeImageSourceByPressingLeftArrow() {
-        this.slideToTheLeft();
-    }
-
-    slideToTheRight() {
-        this.sourceForNextImage = this.ListOfImageLinks[this.initialSourceForPreviousImage];
-        this.sourceForPreviousImage = this.ListOfImageLinks[this.initialSourceForNextImage];
-
-        const temp3 = this.initialSourceForNextImage;
-        this.initialSourceForNextImage = (this.initialSourceForNextImage + this.counter) % this.quantityOfPhotos;
-        const temp2 = this.initialSourceForPreviousImage;
-        this.initialSourceForPreviousImage = temp2;
-
-    }
-
-    slideToTheLeft() {
-        this.sourceForPreviousImage = this.ListOfImageLinks[this.initialSourceForNextImage];
-        this.sourceForNextImage = this.ListOfImageLinks[this.initialSourceForPreviousImage];
-        this.sourceForPreviousImage = this.ListOfImageLinks[ this.initialSourceForPreviousImage
-        === 0  ? this.quantityOfPhotos - this.counter :
-        this.initialSourceForPreviousImage - this.counter
-            ];
-
-        this.initialSourceForNextImage = this.initialSourceForPreviousImage;
-        this.initialSourceForPreviousImage = this.initialSourceForPreviousImage === 0  ? this.quantityOfPhotos - this.counter :
-            this.initialSourceForPreviousImage - this.counter;
-    }
-
 }

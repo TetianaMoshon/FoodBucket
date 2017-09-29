@@ -1,12 +1,17 @@
 import { Component, OnInit } from '@angular/core';
+import {PromotionService} from '../../client/api/promotion.service';
+import {Product} from '../../client/model/product';
 
 @Component({
-  selector: 'app-slider',
-  templateUrl: './slider.component.html',
-  styleUrls: ['./slider.component.css']
+    selector: 'app-slider',
+    templateUrl: './slider.component.html',
+    styleUrls: ['./slider.component.css']
 })
 export class SliderComponent implements OnInit {
 
+    promotions: Product[];
+
+    windowWidth;
     quantityOfPhotos: number;
 
     sourceForFirstImage: any;
@@ -26,35 +31,39 @@ export class SliderComponent implements OnInit {
     PartialView = false;
     FullScreenView = true;
 
-    ListOfImageLinks: string [] = [
-        'https://www.bzl.co/story/Delicious-Food-Sandwich-friedclams-1480470367.png',
-        'https://1.bp.blogspot.com/-BFHNsu-lK9M/VxtLPQXpowI/AAAAAAAAABU/Y2gPcR24ABYl9fzBimby6jO_' +
-        'P6H-GCgWwCLcB/s640/Allgauer%2527s-Restaurant-Chicago-food.jpg',
-        'http://www.westmarkhotels.com/wp-content/uploads/HAP-Westmark-Food-Fairbanks-600x300.jpg',
-        'https://www.stack3d.com/wp-content/uploads/2016/08/questketoone.jpg',
-        'http://2momsintheraw.com/wp-content/uploads/2017/03/2.jpg',
-        'http://simplybarbaramckay.com/wp-content/uploads/2017/03/unnamed-600x300.jpg',
-        'http://keepitrelax.com/wp-content/uploads/2014/06/cherry-cake-1-718x404-600x300.jpg',
-        'https://irp-cdn.multiscreensite.com/edf87f6a/dms3rep/multi/mobile/6ee3572971854827b083fdcf02acebd9-600x300.dm.edit_rf3aco.jpg',
-        'http://brewskibar.com.au/img/home/menu-panel-600b.jpg',
-        'http://ameripackfoods.com/wp-content/uploads/2017/04/APF_BLAZIN_SHRIMP_PRODUCT_IMG_17_SM.jpg'
+    ListOfImageData = [];
 
-    ];
-
-
-    constructor() {}
+    constructor(private promotionService: PromotionService) {}
 
     ngOnInit() {
-        this.InitImageSource();
-        this.quantityOfPhotos = this.ListOfImageLinks.length;
-        this.changeImageSourceWithInterval();
+        this.windowWidth = {
+            target : {
+                innerWidth: window.innerWidth
+            }
+        };
+
+        this.onResize(this.windowWidth);
+        this.promotionService.getPromotion(0, 20, true)
+            .subscribe(promotions => {
+                promotions.forEach(promotion => {
+                    this.ListOfImageData.push({
+                        link: promotion.image,
+                        title: promotion.title,
+                        description: promotion.description
+                    });
+                });
+
+                this.InitImageSource();
+                this.quantityOfPhotos = this.ListOfImageData.length;
+                this.changeImageSourceWithInterval();
+            });
     }
 
 
     InitImageSource() {
-        this.sourceForFirstImage = this.ListOfImageLinks[this.initialSourceForFirstImage];
-        this.sourceForSecondImage = this.ListOfImageLinks[this.initialSourceForSecondImage];
-        this.sourceForThirdImage = this.ListOfImageLinks[this.initialSourceForThirdImage];
+        this.sourceForFirstImage = this.initialSourceForFirstImage;
+        this.sourceForSecondImage = this.initialSourceForSecondImage;
+        this.sourceForThirdImage = this.initialSourceForThirdImage;
     }
 
     changeImageSourceWithInterval() {
@@ -64,7 +73,6 @@ export class SliderComponent implements OnInit {
             }, this.time);
     }
 
-
     changeImageSourceByPressingRightArrow() {
         this.slideToTheRight();
     }
@@ -73,12 +81,10 @@ export class SliderComponent implements OnInit {
         this.slideToTheLeft();
     }
 
-
     slideToTheRight() {
-        this.sourceForThirdImage = this.ListOfImageLinks[(this.initialSourceForThirdImage + this.counter) % this.quantityOfPhotos];
-        this.sourceForSecondImage = this.ListOfImageLinks[this.initialSourceForThirdImage];
-        this.sourceForFirstImage = this.ListOfImageLinks[this.initialSourceForSecondImage];
-
+        this.sourceForThirdImage = (this.initialSourceForThirdImage + this.counter) % this.quantityOfPhotos;
+        this.sourceForSecondImage = this.initialSourceForThirdImage;
+        this.sourceForFirstImage = this.initialSourceForSecondImage;
 
         const temp3 = this.initialSourceForThirdImage;
         this.initialSourceForThirdImage = (this.initialSourceForThirdImage + this.counter) % this.quantityOfPhotos;
@@ -89,11 +95,10 @@ export class SliderComponent implements OnInit {
     }
 
     slideToTheLeft() {
-        this.sourceForThirdImage = this.ListOfImageLinks[this.initialSourceForSecondImage];
-        this.sourceForSecondImage = this.ListOfImageLinks[this.initialSourceForFirstImage];
-        this.sourceForFirstImage = this.ListOfImageLinks[ this.initialSourceForFirstImage === 0  ? this.quantityOfPhotos - this.counter :
-            this.initialSourceForFirstImage - this.counter
-            ];
+        this.sourceForThirdImage = this.initialSourceForSecondImage;
+        this.sourceForSecondImage = this.initialSourceForFirstImage;
+        this.sourceForFirstImage = this.initialSourceForFirstImage === 0  ? this.quantityOfPhotos - this.counter :
+            this.initialSourceForFirstImage - this.counter;
 
         this.initialSourceForThirdImage = this.initialSourceForSecondImage;
         this.initialSourceForSecondImage = this.initialSourceForFirstImage;
@@ -102,23 +107,24 @@ export class SliderComponent implements OnInit {
     }
 
     onResize(event) {
-        if (event.target.innerWidth < 768) {
+        this.windowWidth = event.target.innerWidth;
+        if (this.windowWidth < 768) {
             this.OneImageView = true;
             this.PartialView = false;
             this.FullScreenView = false;
-        }else if (event.target.innerWidth >= 768  && event.target.innerWidth < 991) {
+        }else if (this.windowWidth >= 768  && event.target.innerWidth < 991) {
             this.PartialView = true;
             this.OneImageView = false;
             this.FullScreenView = false;
-        } else if (event.target.innerWidth >= 991  && event.target.innerWidth < 1170) {
+        } else if (this.windowWidth >= 991  && event.target.innerWidth < 1170) {
             this.PartialView = true;
             this.OneImageView = false;
             this.FullScreenView = false;
-        } else if (event.target.innerWidth >= 1170  && event.target.innerWidth < 1200) {
+        } else if (this.windowWidth >= 1170  && event.target.innerWidth < 1200) {
             this.PartialView = true;
             this.OneImageView = false;
             this.FullScreenView = false;
-        } else if (event.target.innerWidth >= 1200) {
+        } else if (this.windowWidth >= 1200) {
             this.FullScreenView  = true;
             this.PartialView = false;
             this.OneImageView = false;

@@ -26,6 +26,131 @@ produces:
   - application/json
 paths:
 # root path
+  /statistics/orders:
+    get:
+      x-swagger-router-controller: Statistics
+      operationId: getOrderStatistics
+      tags:
+      - "statistics"
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Successful order statistics response
+          schema:
+              $ref: "#/definitions/GeneralStatistics"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+  /statistics/users:
+    get:
+      x-swagger-router-controller: Statistics
+      operationId: getUsersStatistics
+      tags:
+      - "statistics"
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Successful users statistics response
+          schema:
+              $ref: "#/definitions/GeneralStatistics"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+  /statistics/completedOrders:
+    get:
+      x-swagger-router-controller: Statistics
+      operationId: getCompletedOrdersStatistics
+      tags:
+      - "statistics"
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Successful completed orders statistics response
+          schema:
+              $ref: "#/definitions/GeneralStatistics"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+  /statistics/totalMoney:
+    get:
+      x-swagger-router-controller: Statistics
+      operationId: getRevenue
+      tags:
+      - "statistics"
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Successful completed revenue statistics response
+          schema:
+              $ref: "#/definitions/GeneralStatistics"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+  /statistics/nonpromotionalProducts:
+    get:
+      x-swagger-router-controller: Statistics
+      operationId: getNonpromotionalProducts
+      tags:
+      - "statistics"
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Successful completed nonpromotional products statistics response
+          schema:
+              $ref: "#/definitions/GeneralStatistics"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+  /statistics/promotionalProducts:
+    get:
+      x-swagger-router-controller: Statistics
+      operationId: getPromotionProductsCount
+      tags:
+      - "statistics"
+      produces:
+      - application/json
+      responses:
+        200:
+          description: Successful completed promotional products revenue statistics response
+          schema:
+              $ref: "#/definitions/GeneralStatistics"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+  /statistics/categories:
+    get:
+      x-swagger-router-controller: Statistics
+      operationId: getCategoriesStatistics
+      tags:
+      - "statistics"
+      produces:
+      - application/json
+      parameters:
+      - name: categoryQuery
+        in: query
+        description: Category in string format to see how many products are there
+        required: true
+        type: string
+      responses:
+        200:
+          description: Successful categories statistics response
+          schema:
+              $ref: "#/definitions/GeneralStatistics"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
   /products:
     get:
       x-swagger-router-controller: Product
@@ -35,19 +160,6 @@ paths:
       produces:
       - application/json
       parameters:
-        - name: category_id
-          in: query
-          description: returns products only from specified category
-          required: false
-          type: array
-          items:
-            type: string
-          collectionFormat: multi
-        - name: isActive
-          in: query
-          description: returns active products
-          required: false
-          type: boolean
         - name: offset
           in: query
           description: start position for quering from DB
@@ -64,7 +176,155 @@ paths:
           format: int32
           minimum: 0
           maximum: 50
-          default: 20
+          default: 9
+        - name: sort
+          in: query
+          description: sort order
+          required: false
+          type: string
+          enum:
+            - asc
+            - desc
+        - name: sort_col
+          in: query
+          description: column to sort
+          required: false
+          type: string
+          enum:
+            - productId
+            - title
+            - description
+        - name: search_txt
+          in: query
+          description: text to search
+          required: false
+          type: string
+        - name: search_col
+          in: query
+          description: text to search
+          required: false
+          type: string
+          enum:
+            - productId
+            - title
+            - description
+      responses:
+        200:
+          description: Successful products response
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Product"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+  /product/{id}/image:
+    post:
+      x-swagger-router-controller: Product
+      operationId: postProductImageById
+      tags:
+      - "product"
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the product image upload for
+        required: true
+        type: integer
+        format: int64
+      - name: file
+        in: formData
+        required: false
+        type: file
+      - name: additionalMetadata
+        in: formData
+        description: Additional data to pass to server
+        required: false
+        type: string
+      responses:
+        default:
+          description: Successful operation
+    put:
+      x-swagger-router-controller: Product
+      operationId: putProductImageById
+      tags:
+      - "product"
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the product image upload for
+        required: true
+        type: integer
+        format: int64
+      - name: file
+        in: formData
+        required: false
+        type: file
+      - name: additionalMetadata
+        in: formData
+        description: Additional data to pass to server
+        required: false
+        type: string
+      responses:
+        default:
+          description: Successful operation
+    delete:
+      x-swagger-router-controller: Product
+      operationId: deleteProductImageById
+      tags:
+      - "product"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the product image to delete
+        required: true
+        type: integer
+        format: int64
+      responses:
+        default:
+          description: Successful operation
+  /promotion:
+    get:
+      x-swagger-router-controller: Promotion
+      operationId: getPromotion
+      tags:
+      - "promotion"
+      produces:
+      - application/json
+      parameters:
+        - name: offset
+          in: query
+          description: start position for quering from DB
+          required: true
+          type: integer
+          format: int32
+          minimum: 0
+          default: 0
+        - name: limit
+          in: query
+          description: number of items to query from DB
+          required: true
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 28
+          default: 9
+        - name: isPromotion
+          in: query
+          description: returns promotion products
+          required: false
+          default: true
+          type: boolean
       responses:
         200:
           description: Successful products response
@@ -100,6 +360,77 @@ paths:
           description: invalid input
           schema:
             $ref: "#/definitions/Error"
+    delete:
+      x-swagger-router-controller: Product
+      operationId: deleteProductById
+      tags:
+      - "product"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the product to delete
+        required: true
+        type: integer
+        format: int64
+      responses:
+        204:
+          description: Product is deleted
+    put:
+      x-swagger-router-controller: Product
+      operationId: updateProductById
+      tags:
+      - "product"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: content of the product is being updated
+        required: true
+        type: integer
+        format: int64
+      - name: updatedProduct
+        in: body
+        description: The updated product
+        required: true
+        schema:
+          $ref: "#/definitions/Product"
+      responses:
+        200:
+          description: Product is updated
+        400:
+          description: An error!
+  /product:
+    post:
+      x-swagger-router-controller: Product
+      operationId: createProduct
+      tags:
+      - "product"
+      consumes:
+      - application/json
+      summary: Create product
+      description: |
+        This endpoint allows to create new product.
+      parameters:
+      - in: body
+        name: body
+        description: Product object
+        required: true
+        schema:
+          $ref: '#/definitions/Product'
+      responses:
+        200:
+          description: Existing product was found and updated
+          schema:
+            $ref: '#/definitions/Product'
+        201:
+          description: Product added
+          schema:
+            $ref: '#/definitions/Product'
+        400:
+          description: Invalid input
   /order:
     get:
       x-swagger-router-controller: Order
@@ -126,13 +457,47 @@ paths:
           minimum: 0
           maximum: 50
           default: 20
+        - name: sort
+          in: query
+          description: sort order
+          required: false
+          type: string
+          enum:
+            - asc
+            - desc
+        - name: sort_col
+          in: query
+          description: column to sort
+          required: false
+          type: string
+          enum:
+            - orderId
+            - username
+            - city
+            - price
+        - name: search_txt
+          in: query
+          description: text to search
+          required: false
+          type: string
+        - name: search_col
+          in: query
+          description: text to search
+          required: false
+          type: string
+          enum:
+            - orderId
+            - username
+            - city
+            - price
+            - status
       responses:
         200:
           description: Successful products response
           schema:
             type: array
             items:
-              $ref: "#/definitions/Order"
+              $ref: "#/definitions/FullOrder"
         default:
           description: invalid input
           schema:
@@ -183,7 +548,7 @@ paths:
         200:
           description: Order response
           schema:
-            $ref: "#/definitions/Order"
+            $ref: "#/definitions/FullOrder"
         default:
           description: invalid input
           schema:
@@ -200,10 +565,35 @@ paths:
         in: path
         description: ID of the order to delete
         required: true
-        type: string
+        type: number
+        format: int64
       responses:
         204:
           description: Order is deleted
+    put:
+      x-swagger-router-controller: Order
+      operationId: updateOrderById
+      tags:
+      - "order"
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: body
+        description: Order body
+        required: true
+        schema:
+          $ref: '#/definitions/Order'
+      - name: id
+        in: path
+        description: ID of the order to update
+        required: true
+        type: number
+      responses:
+        200:
+          description: Order is updated
+        400:
+          description: Bad request
   /categories:
     get:
       x-swagger-router-controller: Category
@@ -213,11 +603,6 @@ paths:
       produces:
       - application/json
       parameters:
-        - name: isActive
-          in: query
-          description: returns active categories
-          required: false
-          type: boolean
         - name: offset
           in: query
           description: start position for quering from DB
@@ -235,6 +620,37 @@ paths:
           minimum: 0
           maximum: 27
           default: 9
+        - name: sort
+          in: query
+          description: sort order
+          required: false
+          type: string
+          enum:
+            - asc
+            - desc
+        - name: sort_col
+          in: query
+          description: column to sort
+          required: false
+          type: string
+          enum:
+            - category_id
+            - title
+            - description
+        - name: search_txt
+          in: query
+          description: text to search
+          required: false
+          type: string
+        - name: search_col
+          in: query
+          description: text to search
+          required: false
+          type: string
+          enum:
+            - category_id
+            - title
+            - description
       responses:
         200:
           description: Successful categories response
@@ -301,8 +717,8 @@ paths:
         required: true
         type: integer
         format: int64
-      - name: "updatedCategory"
-        in: "body"
+      - name: updatedCategory
+        in: body
         description: The updated Category
         required: true
         schema:
@@ -312,6 +728,80 @@ paths:
           description: Category is updated
         400:
           description: An error!
+  /category/{id}/image:
+    post:
+      x-swagger-router-controller: Category
+      operationId: postCategoryImageById
+      tags:
+      - "category"
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the category image upload for
+        required: true
+        type: integer
+        format: int64
+      - name: file
+        in: formData
+        required: false
+        type: file
+      - name: additionalMetadata
+        in: formData
+        description: Additional data to pass to server
+        required: false
+        type: string
+      responses:
+        default:
+          description: Successful operation
+    put:
+      x-swagger-router-controller: Category
+      operationId: putCategoryImageById
+      tags:
+      - "category"
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the category image upload for
+        required: true
+        type: integer
+        format: int64
+      - name: file
+        in: formData
+        required: false
+        type: file
+      - name: additionalMetadata
+        in: formData
+        description: Additional data to pass to server
+        required: false
+        type: string
+      responses:
+        default:
+          description: Successful operation
+    delete:
+      x-swagger-router-controller: Category
+      operationId: deleteCategoryImageById
+      tags:
+      - "category"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the category image to delete
+        required: true
+        type: integer
+        format: int64
+      responses:
+        default:
+          description: Successful operation
   /category:
     post:
       x-swagger-router-controller: Category
@@ -341,6 +831,77 @@ paths:
             $ref: '#/definitions/Category'
         400:
           description: Invalid input
+  /ingredients:
+    get:
+      x-swagger-router-controller: Ingredient
+      operationId: getAllIngredients
+      tags:
+      - "ingredient"
+      produces:
+      - application/json
+      parameters:
+        - name: offset
+          in: query
+          description: start position for quering from DB
+          required: true
+          type: integer
+          format: int32
+          minimum: 0
+          default: 0
+        - name: limit
+          in: query
+          description: number of items to query from DB
+          required: true
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 27
+          default: 9
+        - name: sort
+          in: query
+          description: sort order
+          required: false
+          type: string
+          enum:
+            - asc
+            - desc
+        - name: sort_col
+          in: query
+          description: column to sort
+          required: false
+          type: string
+          enum:
+            - ingredient_id
+            - title
+            - quantity
+            - price
+        - name: search_txt
+          in: query
+          description: text to search
+          required: false
+          type: string
+        - name: search_col
+          in: query
+          description: text to search
+          required: false
+          type: string
+          enum:
+            - ingredient_id
+            - title
+            - measure
+            - quantity
+            - price
+      responses:
+        200:
+          description: Successful ingredient response
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Ingredient"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
   /ingredient/{id}:
     get:
       x-swagger-router-controller: Ingredient
@@ -365,23 +926,151 @@ paths:
           description: invalid input
           schema:
             $ref: "#/definitions/Error"
-  /promotion:
-    get:
-      x-swagger-router-controller: Promotion
-      operationId: getPromotion
+    delete:
+      x-swagger-router-controller: Ingredient
+      operationId: deleteIngredientById
       tags:
-      - "promotion"
+      - "ingredient"
       produces:
       - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the ingredient to delete
+        required: true
+        type: integer
+        format: int64
+      responses:
+        204:
+          description: Ingredient is deleted
+    put:
+      x-swagger-router-controller: Ingredient
+      operationId: updateIngredientById
+      tags:
+      - "ingredient"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: Id of the Ingredient being updated
+        required: true
+        type: integer
+        format: int64
+      - name: updated_ingredient
+        in: body
+        description: The updated Ingredient
+        required: true
+        schema:
+          $ref: "#/definitions/Ingredient"
       responses:
         200:
-          description: List of promotions
-          schema:
-            $ref: "#/definitions/Promotion"
+          description: Ingredient is updated
+        400:
+          description: An error!
+  /ingredient/{id}/image:
+    post:
+      x-swagger-router-controller: Ingredient
+      operationId: postIngredientImageById
+      tags:
+      - "ingredient"
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the ingredient image upload for
+        required: true
+        type: integer
+        format: int64
+      - name: file
+        in: formData
+        required: false
+        type: file
+      - name: additionalMetadata
+        in: formData
+        description: Additional data to pass to server
+        required: false
+        type: string
+      responses:
         default:
-          description: invalid input
+          description: Successful operation
+    put:
+      x-swagger-router-controller: Ingredient
+      operationId: putIngredientImageById
+      tags:
+      - "ingredient"
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the ingredient image upload for
+        required: true
+        type: integer
+        format: int64
+      - name: file
+        in: formData
+        required: false
+        type: file
+      - name: additionalMetadata
+        in: formData
+        description: Additional data to pass to server
+        required: false
+        type: string
+      responses:
+        default:
+          description: Successful operation
+    delete:
+      x-swagger-router-controller: Ingredient
+      operationId: deleteIngredientImageById
+      tags:
+      - "ingredient"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the ingredient image to delete
+        required: true
+        type: integer
+        format: int64
+      responses:
+        default:
+          description: Successful operation
+  /ingredient:
+    post:
+      x-swagger-router-controller: Ingredient
+      operationId: createIngredient
+      tags:
+      - "ingredient"
+      consumes:
+      - application/json
+      summary: Create ingredient
+      description: |
+        This endpoint allows to create new ingredient.
+      parameters:
+      - in: body
+        name: body
+        description: Ingredient object
+        required: true
+        schema:
+          $ref: '#/definitions/Ingredient'
+      responses:
+        200:
+          description: Existing ingredient was found and updated
           schema:
-            $ref: "#/definitions/Error"
+            $ref: '#/definitions/Ingredient'
+        201:
+          description: Ingredient added
+          schema:
+            $ref: '#/definitions/Ingredient'
+        400:
+          description: Invalid input
   /toprated:
     get:
       x-swagger-router-controller: Toprated
@@ -400,92 +1089,92 @@ paths:
           schema:
             $ref: "#/definitions/Error"
   /contacts:
-    post:
-      x-swagger-router-controller: Contacts
-      operationId: sendMessage
-      tags:
-      - "contacts"
-      consumes:
-      - application/json
-      summary: Send message
-      description: |
-        This endpoint allows to send message.
-      parameters:
-      - in: body
-        name: body
-        description: Contacts/message object
-        required: true
-        schema:
-          $ref: '#/definitions/Contacts'
-      responses:
-        200:
-          description: Existing message was found and updated
+      post:
+        x-swagger-router-controller: Contacts
+        operationId: sendMessage
+        tags:
+        - "contacts"
+        consumes:
+        - application/json
+        summary: Send message
+        description: |
+          This endpoint allows to send message.
+        parameters:
+        - in: body
+          name: body
+          description: Contacts/message object
+          required: true
           schema:
             $ref: '#/definitions/Contacts'
-        201:
-          description: Contacts/message added
-          schema:
-            $ref: '#/definitions/Contacts'
-        400:
-          description: Invalid input
+        responses:
+          200:
+            description: Existing message was found and updated
+            schema:
+              $ref: '#/definitions/Contacts'
+          201:
+            description: Contacts/message added
+            schema:
+              $ref: '#/definitions/Contacts'
+          400:
+            description: Invalid input
   /auth/login:
-    post:
-      x-swagger-router-controller: Auth
-      operationId: login
-      tags:
-      - "auth"
-      consumes:
-      - application/json
-      summary: Login operation
-      description: |
-        This endpoint allows to login.
-      parameters:
-      - in: body
-        name: body
-        description: Login object
-        required: true
-        schema:
-          $ref: '#/definitions/Login'
-      responses:
-        200:
-          description: Existing login was found and updated
+      post:
+        x-swagger-router-controller: Auth
+        operationId: login
+        tags:
+        - "auth"
+        consumes:
+        - application/json
+        summary: Login operation
+        description: |
+          This endpoint allows to login.
+        parameters:
+        - in: body
+          name: body
+          description: Login object
+          required: true
           schema:
             $ref: '#/definitions/Login'
-        201:
-          description: Accepted
-          schema:
-            $ref: '#/definitions/Login'
-        400:
-          description: Invalid input
+        responses:
+          200:
+            description: Existing login was found and updated
+            schema:
+              $ref: '#/definitions/Login'
+          201:
+            description: Accepted
+            schema:
+              $ref: '#/definitions/Login'
+          400:
+            description: Invalid input
   /auth/register:
-    post:
-      x-swagger-router-controller: Auth
-      operationId: register
-      tags:
-      - "auth"
-      consumes:
-      - application/json
-      summary: Register operation
-      description: |
-        This endpoint allows to register.
-      parameters:
-      - in: body
-        name: body
-        description: Register object
-        required: true
-        schema:
-          $ref: '#/definitions/Register'
-      responses:
-        200:
-          description: Existing registration was found and updated
+      post:
+        x-swagger-router-controller: Auth
+        operationId: register
+        tags:
+        - "auth"
+        consumes:
+        - application/json
+        summary: Register operation
+        description: |
+          This endpoint allows to register.
+        parameters:
+        - in: body
+          name: body
+          description: Register object
+          required: true
           schema:
             $ref: '#/definitions/Register'
-        201:
-          description: Accepted
-          schema:
-            $ref: '#/definitions/Register'
-        400:
-          description: Invalid input
+        responses:
+          200:
+            description: Existing registration was found and updated
+            schema:
+              $ref: '#/definitions/Register'
+          201:
+            description: Accepted
+            schema:
+              $ref: '#/definitions/Register'
+          400:
+            description: Invalid input
   /user/{id}/cart:
     get:
       x-swagger-router-controller: Cart
@@ -575,8 +1264,8 @@ paths:
         required: true
         type: integer
         format: int64
-      - name: "updated_cartContent"
-        in: "body"
+      - name: updatedcartContent
+        in: body
         description: The updated cartContent
         required: true
         schema:
@@ -586,40 +1275,359 @@ paths:
           description: cartContent is updated
         400:
           description: An error!
+  /users:
+    get:
+      x-swagger-router-controller: User
+      operationId: getAllUsers
+      summary: Get all users
+      tags:
+      - "user"
+      produces:
+      - application/json
+      parameters:
+        - name: offset
+          in: query
+          description: start position for quering from DB
+          required: true
+          type: integer
+          format: int32
+          minimum: 0
+          default: 0
+        - name: limit
+          in: query
+          description: number of items to query from DB
+          required: true
+          type: integer
+          format: int32
+          minimum: 0
+          maximum: 50
+          default: 9
+        - name: sort
+          in: query
+          description: sort order
+          required: false
+          type: string
+          enum:
+            - asc
+            - desc
+        - name: sort_col
+          in: query
+          description: column to sort
+          required: false
+          type: string
+          enum:
+            - userId
+            - firstName
+            - lastName
+            - email
+            - phone
+            - city
+            - address
+        - name: isActive
+          in: query
+          description: returns active users
+          required: false
+          type: boolean
+        - name: search_txt
+          in: query
+          description: text to search
+          required: false
+          type: string
+        - name: search_col
+          in: query
+          description: text to search
+          required: false
+          type: string
+          enum:
+            - userId
+            - firstName
+            - lastName
+            - email
+            - phone
+            - city
+            - address
+      responses:
+        200:
+          description: Successful users response
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/User"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+  /user/{id}:
+    get:
+      x-swagger-router-controller: User
+      operationId: findUserById
+      summary: Find user
+      tags:
+      - "user"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the user to get
+        required: true
+        type: integer
+        format: int64
+      responses:
+        200:
+          description: User response
+          schema:
+            $ref: "#/definitions/User"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+    delete:
+      x-swagger-router-controller: User
+      operationId: deleteUserById
+      summary: Delete user
+      tags:
+      - "user"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the user to delete
+        required: true
+        type: integer
+        format: int64
+      responses:
+        204:
+          description: User is deleted
+          schema:
+            $ref: "#/definitions/User"
+    put:
+      x-swagger-router-controller: User
+      operationId: updateUserById
+      summary: Update user
+      tags:
+      - "user"
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: Id of the User being updated
+        required: true
+        type: integer
+        format: int64
+      - name: updatedUser
+        in: body
+        description: The updated User
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        200:
+          description: User is updated
+        400:
+          description: An error!
+  /user/{id}/image:
+    post:
+      x-swagger-router-controller: User
+      operationId: postUserImageById
+      tags:
+      - "user"
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the user image upload for
+        required: true
+        type: integer
+        format: int64
+      - name: file
+        in: formData
+        required: false
+        type: file
+      - name: additionalMetadata
+        in: formData
+        description: Additional data to pass to server
+        required: false
+        type: string
+      responses:
+        default:
+          description: Successful operation
+    put:
+      x-swagger-router-controller: User
+      operationId: putUserImageById
+      tags:
+      - "user"
+      consumes:
+      - multipart/form-data
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        description: ID of the user image upload for
+        required: true
+        type: integer
+        format: int64
+      - name: file
+        in: formData
+        required: false
+        type: file
+      - name: additionalMetadata
+        in: formData
+        description: Additional data to pass to server
+        required: false
+        type: string
+      responses:
+        default:
+          description: Successful operation
+  /user:
+    post:
+      x-swagger-router-controller: User
+      operationId: createUser
+      tags:
+      - "user"
+      consumes:
+      - application/json
+      summary: Create user
+      description: |
+        This endpoint allows to create new user.
+      parameters:
+      - in: body
+        name: body
+        description: User object
+        required: true
+        schema:
+          $ref: '#/definitions/User'
+      responses:
+        200:
+          description: Existing category was found and updated
+          schema:
+            $ref: "#/definitions/User"
+        201:
+          description: User added
+          schema:
+            $ref: "#/definitions/User"
+        400:
+          description: Invalid input
+  /search:
+    get:
+      x-swagger-router-controller: Search
+      operationId: searchForProducts
+      tags:
+      - "search"
+      produces:
+      - application/json
+      parameters:
+      - name: q
+        in: query
+        description: query param to conduct a search in database
+        required: true
+        type: string
+      responses:
+        200:
+          description: Search response wih one or several products
+          schema:
+            $ref: "#/definitions/Product"
+        default:
+          description: invalid input
+          schema:
+            $ref: "#/definitions/Error"
+
   /swagger:
     x-swagger-pipe: swagger_raw
 # complex objects have schema definitions
 definitions:
+  GeneralStatistics:
+    type: object
+    required:
+      - totalOrders
+      - totalMoney
+      - totalUsers
+      - completedOrders
+      - nonpromotionalProducts
+      - promotionalProducts
+    properties:
+      totalOrders:
+        type: integer
+        format: int64
+      totalMoney:
+        type: integer
+        format: int64
+      totalUsers:
+        type: integer
+        format: int64
+      completedOrders:
+        type: integer
+        format: int64
+      nonpromotionalProducts:
+        type: integer
+        format: int64
+      promotionalProducts:
+        type: integer
+        format: int64
   Product:
     type: object
     required:
-      - image
-      - price
       - title
       - description
+      - price
     properties:
-      id:
-        type: integer
-        format: int64
-        minimum: 1
-      image:
-        type: string
-      price:
+      productId:
         type: integer
         format: int64
       title:
         type: string
       description:
         type: string
+      image:
+        type: string
+      price:
+        type: integer
+        format: int64
+        minimum: 1
+        default: 1
+      category:
+        type: string
+      status:
+        type: boolean
+      recommended:
+        type: [string]
+      discount:
+        type: integer
+        format: int64
+      promotions:
+        type: boolean
+      caloricity:
+        type: integer
+        format: int64
+      servingSize:
+        type: integer
+      difficulty:
+        type: string
+      spiceLevel:
+        type: string
       ingredients:
         type: array
-        minimum: 1
         items:
-          $ref: '#/definitions/Ingredient'
-      productInfo:
-        type: array
-        items:
-          $ref: '#/definitions/ProductInfo'
+          $ref: "#/definitions/IngredientsList"
+  IngredientsList:
+    type: object
+    properties:
+      ingredientId:
+        type: integer
+        format: int64
+      ingredientName:
+        type: string
+      quantity:
+        type: integer
+        format: int64
+      measure:
+        type: string
   Cart:
     type: object
     required:
@@ -632,7 +1640,7 @@ definitions:
           $ref: '#/definitions/CartOrder'
       totalPriceOfAllDishes:
         type: integer
-        format: int64  
+        format: int64
   CartOrder:
     type: object
     required:
@@ -645,7 +1653,6 @@ definitions:
       quantity:
         type: integer
         format: int64
-
   Category:
     type: object
     required:
@@ -662,12 +1669,42 @@ definitions:
         type: string
       description:
         type: string
+  User:
+    type: object
+    required:
+      - firstName
+      - lastName
+      - email
+      - password
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      phone:
+        type: integer
+        format: int64
+      city:
+        type: string
+      address:
+        type: string
+      image:
+        type: string
+      favourites:
+        type: array
+        items:
+          type: number
+      active:
+        type: boolean
   Ingredient:
     type: object
     required:
       - image
       - title
-      - description
     properties:
       ingredient_id:
         type: integer
@@ -676,8 +1713,14 @@ definitions:
         type: string
       title:
         type: string
-      description:
+      measure:
         type: string
+      quantity:
+        type: integer
+        format: int64
+      price:
+        type: integer
+        format: int64
   Order:
     type: object
     required:
@@ -688,9 +1731,11 @@ definitions:
       - price
       - status
     properties:
-      id:
+      orderId:
         type: integer
         format: int64
+      date:
+        type: string
       username:
         type: string
       city:
@@ -702,44 +1747,66 @@ definitions:
         type: string
       status:
         type: string
+      phone:
+        type: string
       products:
         type: array
         items:
           type: integer
           format: int64
         minItems: 1
-  ProductInfo:
-    type: object
-    required:
-      - calories
-    properties:
-      product_info_id:
+      measure:
+        type: string
+      quantity:
+        type: array
+        items:
+          type: integer
+          format: int64
+      discount:
         type: integer
         format: int64
-      calories:
-        type: integer
-        format: int64
-  Promotion:
+  FullOrder:
     type: object
     required:
-      - image
-      - title
-      - description
+      - username
+      - city
+      - address
       - products
+      - price
+      - status
     properties:
-      promotion_id:
+      orderId:
         type: integer
-      image:
+        format: int64
+      date:
         type: string
-      title:
+      username:
         type: string
-      description:
+      city:
+        type: string
+      price:
+        type: integer
+        format: int64
+      address:
+        type: string
+      status:
+        type: string
+      phone:
         type: string
       products:
         type: array
-        minimum: 1
         items:
-           $ref: '#/definitions/Product'
+          type: string
+      measure:
+        type: string
+      quantity:
+        type: array
+        items:
+          type: integer
+          format: int64
+      discount:
+        type: integer
+        format: int64
   Toprated:
     type: object
     required:

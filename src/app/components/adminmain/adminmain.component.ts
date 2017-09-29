@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Color} from 'ng2-charts';
+import {Router} from '@angular/router';
+import {StatisticsService} from '../../client/api/statistics.service';
+import {ProductService} from '../../client/api/product.service';
 
 @Component({
   selector: 'app-adminmain',
@@ -7,9 +10,10 @@ import {Color} from 'ng2-charts';
   styleUrls: ['./adminmain.component.css']
 })
 export class AdminMainComponent implements OnInit {
-    public comments = 134;
-    public orders = 85;
-
+    public revenue;
+    public orders;
+    public allProducts;
+    public location = '';
     public barChartOptions: any = {
         scaleShowVerticalLines: false,
         responsive: true
@@ -72,9 +76,20 @@ export class AdminMainComponent implements OnInit {
             pointHoverBackgroundColor: '#fff',
             pointHoverBorderColor: '#64D678'
         }];
-    constructor() { }
+    constructor(private  _router: Router,
+                private statService: StatisticsService,
+                private productService: ProductService) {
+        this.location = _router.url;
+        console.log('Location of this', this.location);
+    }
 
     ngOnInit() {
+        this.statService.getRevenue().subscribe(res => {
+            this.revenue = res['revenue'];
+        });
+        this.statService.getOrderStatistics().subscribe(res => {
+            this.orders = res.totalOrders;
+        });
   }
 
 }

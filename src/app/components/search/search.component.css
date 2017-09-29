@@ -1,0 +1,22 @@
+.cont {
+    width: 300px;
+    position: absolute;
+    top: 10px;
+    right: 250px;
+}
+.searchRes {
+    font-size: 7px;
+    height: 0.5em;
+}
+
+.well {
+    padding: 7px;
+    margin: 2px;
+}
+
+a:hover {
+    text-decoration: none;
+}
+.searchFamily:hover {
+    background-color: #5ac2ce;
+}

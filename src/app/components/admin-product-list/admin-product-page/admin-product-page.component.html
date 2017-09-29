@@ -2,118 +2,163 @@
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-xs-5">
+        <div class="col-xs-12">
             <h2>Product page</h2>
         </div>
-        <div class="col-xs-7 btn-group">
-            <div class="pull-right action-buttons">
-                <a class="btn btn-success" routerLink="/admin/productlist" routerLinkActive="active">Save</a>
-                <a class="btn btn-danger" routerLink="/admin/productlist" routerLinkActive="active">Back</a>
-            </div>
-        </div>
     </div>
-    <!--<hr>-->
     <div class="row">
         <div class="col-md-12">
-            <tabset>
-                <tab heading="General">
-                    <form>
+            <form (ngSubmit)="onSubmit(f)" #f="ngForm">
                         <div class="form-group">
-                            <label for="usr">Name:</label>
-                            <input type="text" class="form-control" id="usr">
+                            <label for="title">Title:</label>
+                            <input [(ngModel)]="productModel.title" name="title" type="text" class="form-control" id="title" required>
                         </div>
                         <div class="form-group">
-                            <label for="descr">Description:</label>
-                            <input type="text" class="form-control" id="descr">
-                        </div>
-                        <div class="form-group">
-                            <label>Image:</label>
-                            <input type="file" name="photo" multiple accept="image/*,image/jpeg">
+                            <label for="description">Description:</label>
+                            <input [(ngModel)]="productModel.description" name="description" type="text" class="form-control" id="description" required>
                         </div>
                         <div class="form-group">
                             <label for="price">Price:</label>
-                            <input type="text" class="form-control" id="price">
+                            <input [(ngModel)]="productModel.price" name="price" type="number" min="1" class="form-control" id="price" required>
+                        </div>
+                        <img class="preview" [src]="imageSrc" />
+                        <div class="form-group">
+                            <label for="image">Image:</label>
+                            <input type="file" (change)="onFileChange($event)" name="imageUpload" [(ngModel)]="imageUpload" placeholder="Upload file" accept=".jpg,.png" id="image">
                         </div>
                         <div class="form-group">
                             <label for="category">Category:</label>
-                            <select class="form-control" id="category">
-                                <option>Meat</option>
-                                <option>Fish</option>
-                                <option>Salads</option>
-                                <option>Desserts</option>
+                            <!--<input [(ngModel)]="productModel.category" name="category" type="text" class="form-control" id="category">-->
+                            <select [(ngModel)]="productModel.category" name="category" type="text" class="form-control" id="category">
+                                <option>{{productModel.category}}</option>
+                                <option *ngFor="let category of categoryList">{{category.title}}</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="recommended">Recommended:</label>
-                            <input type="text" class="form-control" id="recommended">
+                            <label for="discount">Discount:</label>
+                            <input [(ngModel)]="productModel.discount" name="discount" type="number" min="1" class="form-control" id="discount">
                         </div>
                         <div class="form-group">
-                            <label for="recommended">Special offer:</label>
-                            <table class="table table-bordered">
-                                <thead>
-                                <tr>
-                                    <th>Quantity</th>
-                                    <th>Discount price</th>
-                                    <th>Beginning date</th>
-                                    <th>Ending date</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td><input type="number" class="form-control"></td>
-                                    <td><input type="number" class="form-control"></td>
-                                    <td><input type="date" class="form-control"></td>
-                                    <td><input type="date" class="form-control"></td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="form-group">
-                            <label for="status">Status:</label>
-                            <select class="form-control" id="status">
-                                <option>Published</option>
-                                <option>Unpublished</option>
+                            <label for="promotions">Promotions:</label>
+                            <select [(ngModel)]="productModel.promotions" name="promotions" type="text" class="form-control" id="promotions">
+                                <option>true</option>
+                                <option>false</option>
                             </select>
                         </div>
-                    </form>
-                </tab>
-                <tab heading="Data">
-                    <form>
-                        <div class="form-group">
-                            <label for="caloriicty">Caloricity:</label>
-                            <input type="text" class="form-control" id="caloriicty">
-                        </div>
-                        <div class="form-group">
-                            <label for="serv-size">Serving size:</label>
-                            <input type="text" class="form-control" id="serv-size">
-                        </div>
-                        <div class="form-group">
-                            <label for="difficulty">Difficulty:</label>
-                            <select class="form-control" id="difficulty">
-                                <option>Low</option>
-                                <option>Medium</option>
-                                <option>High</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="spice-level">Spice level:</label>
-                            <select class="form-control" id="spice-level">
-                                <option>Normal</option>
-                                <option>Medium spicy</option>
-                                <option>High spicy</option>
-                            </select>
-                        </div>
-                    </form>
-                </tab>
-                <tab heading="Ingredients">
-                    <div class="main-wrap">
-                        <div class="table-wrap">
-                            <ng2-smart-table [settings]="settings" [source]="data"></ng2-smart-table>
-                        </div>
+                <br><br>
+                <div class="ingredients">
+                   <div>
+                        <table class="table" border="1" width="80%" id="myTable">
+                            <tr>
+                                <th class="hidden">Ingredient ID</th>
+                                <th>Ingredient name</th>
+                                <th>Quantity</th>
+                                <th>Measure</th>
+                            </tr>
+                            <tr *ngFor="let ingredient of ingredientList; let i = index" (click)="onEditItem(i)">
+                                <td class="hidden">{{ ingredient.ingredientId }}</td>
+                                <td>{{ ingredient.ingredientName }}</td>
+                                <td>{{ ingredient.quantity }}</td>
+                                <td>{{ ingredient.measure }}</td>
+                            </tr>
+                        </table>
+                       <form (ngSubmit)="onSubmit2(f2)" #f2="ngForm">
+                           <div class="row">
+                               <div class="col-xs-2 form-group ingredientId">
+                                   <label for="ingredientId">Ingredient ID</label>
+                                   <input
+                                       type="number"
+                                       id="ingredientId"
+                                       name="ingredientId"
+                                       class="form-control"
+                                       min="1"
+                                       ngModel
+                                       pattern="^[1-9]+[0-9]*$">
+                               </div>
+                               <div class="col-xs-5 form-group">
+                                   <label for="ingredientName">Ingredient name</label>
+                                   <select
+                                       type="text"
+                                       id="ingredientName"
+                                       name="ingredientName"
+                                       class="form-control"
+                                       ngModel
+                                       (ngModelChange)="onOptionClick($event)"
+                                   >
+                                            <option [ngValue]="selectedIngredientItem">{{selectedIngredientItem == null ? productModel.ingredients[0].ingredientName : selectedIngredientItem}}</option>
+                                            <option *ngFor="let ingredientItem of ingredientItemList">{{ingredientItem.ingredient_id}}) {{ingredientItem.title}}</option>
+                                   </select>
+                               </div>
+                               <div class="col-xs-3 form-group">
+                                   <label for="quantity">Quantity</label>
+                                   <input
+                                       type="number"
+                                       id="quantity"
+                                       name="quantity"
+                                       class="form-control"
+                                       min="1"
+                                       ngModel
+                                       pattern="^[1-9]+[0-9]*$">
+                               </div>
+                               <div class="col-xs-2 form-group">
+                                   <label for="measure">Measure</label>
+                                   <input
+                                       type="text"
+                                       id="measure"
+                                       name="measure"
+                                       class="form-control"
+                                       ngModel>
+                               </div>
+                           </div>
+                           <div class="row">
+                               <div class="col-xs-12">
+                                   <button
+                                       class="btn btn-success"
+                                       type="submit"
+                                       >{{ editMode ? 'Update' : 'Add' }}</button>
+                                   <button
+                                       class="btn btn-danger"
+                                       type="button"
+                                       (click)="onDelete()"
+                                       *ngIf="editMode">Delete</button>
+                                   <button class="btn btn-primary" type="button" (click)="onClear()">Clear</button>
+                               </div>
+                           </div>
+                       </form>
                     </div>
-                </tab>
 
-            </tabset>
+                </div>
+
+                <div class="form-group">
+                    <label for="caloricity">Caloricity:</label>
+                    <input [(ngModel)]="productModel.caloricity" name="caloricity" type="number" min="1" class="form-control" id="caloricity">
+                </div>
+                <div class="form-group">
+                    <label for="servingSize">Serving size:</label>
+                    <input [(ngModel)]="productModel.servingSize" name="servingSize" type="number" min="1" class="form-control" id="servingSize">
+                </div>
+
+                <div class="form-group">
+                    <label for="difficulty">Difficulty:</label>
+                    <select [(ngModel)]="productModel.difficulty" name="difficulty" type="text" class="form-control" id="difficulty">
+                        <option>low</option>
+                        <option>normal</option>
+                        <option>high</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="spiceLevel">Spice level:</label>
+                    <select [(ngModel)]="productModel.spiceLevel" name="spiceLevel" type="text" class="form-control" id="spiceLevel">
+                        <option>low</option>
+                        <option>normal</option>
+                        <option>high</option>
+                    </select>
+                </div>
+                <div class="btn-group action-buttons">
+                    <button class="btn btn-success" (Click)="onSubmit()" type="submit" [disabled]="!f.form.valid">Save</button>
+                    <button class="btn btn-danger" routerLink="/admin/productlist" routerLinkActive="active">Back</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

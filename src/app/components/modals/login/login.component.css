@@ -6,3 +6,11 @@
 .omb_btn-twitter {background: #00aced;color: white;}
 .omb_btn-google {background: #dc4a38;color: white;}
 .social_logo-size {height: 30px; width: 30px;}
+.alert-danger{
+    color: red;
+    background: inherit;
+    border: none;
+}
+a {
+    cursor: pointer;
+}

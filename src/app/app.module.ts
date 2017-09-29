@@ -12,7 +12,6 @@ import { HomeComponent } from './components/home/home.page.component';
 import { IngredientsComponent } from './components/ingredients/ingredients.component';
 import { ProductlistComponent } from './components/productlist/productlist.component';
 import { CategoryComponent } from './components/category/category.component';
-import {appRouting} from './app.routing';
 import { ModalCongratulationComponent } from './components/modals/modal-congratulation/modal-congratulation.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -32,13 +31,11 @@ import { AdminProductListImageComponent } from './components/admin-product-list/
 import { AdminIngredientsComponent } from './components/admin-ingredients/admin-ingredients.component';
 import { AdminOrdersComponent } from './components/admin-orders/admin-orders.component';
 import { AdminUsersComponent } from './components/admin-users/admin-users.component';
-import { AdminCommentsComponent } from './components/admin-comments/admin-comments.component';
 import { AdminAnalyticsComponent } from './components/admin-analytics/admin-analytics.component';
 import { CongratulationComponent } from './components/modals/congratulation/congratulation.component';
 import { ForgotPassComponent } from './components/modals/forgot-pass/forgot-pass.component';
 import { ConfirmationComponent } from './components/modals/confirmation/confirmation.component';
 import { ProductpageComponent } from './components/productlist/productpage/productpage.component';
-import {ImageRenderComponent} from './components/admin-ingredients/image-render.component';
 import { AdminProductPageComponent } from './components/admin-product-list/admin-product-page/admin-product-page.component';
 import { AdmincategoriesFormComponent } from './components/admincategories/admincategories-form/admincategories-form.component';
 
@@ -53,8 +50,18 @@ import { CommentsService } from './services/comments.service';
 import { OrdersFiltersPipe } from './pipes/orders-filters.pipe';
 import { ApiModule } from './client/index';
 import { apiConfig } from './client/api.config';
+import { AdminUserPageComponent } from './components/admin-users/admin-user-page/admin-user-page.component';
+import {DataService} from './services/data/data.service';
+import {ImageService} from './services/image/image.service';
+import {CartCommunicationService} from './services/cart-communication.service';
 
 import { FlashMessagesModule } from 'ngx-flash-messages';
+import {appRouting} from './app.routing';
+import {AdminIngredientsFormComponent} from './components/admin-ingredients/adminingredients-form/adminingredients-form.component';
+import { CarouselModule } from 'ngx-bootstrap';
+import { AddToCartButtonComponent } from './components/add-to-cart-button/add-to-cart-button.component';
+import { SearchComponent } from './components/search/search.component';
+import {SearchHelpersService} from './services/search-helpers.service';
 
 @NgModule({
   declarations: [
@@ -85,7 +92,6 @@ import { FlashMessagesModule } from 'ngx-flash-messages';
       AdminIngredientsComponent,
       AdminOrdersComponent,
       AdminUsersComponent,
-      AdminCommentsComponent,
       AdminAnalyticsComponent,
       CongratulationComponent,
       ForgotPassComponent,
@@ -95,11 +101,14 @@ import { FlashMessagesModule } from 'ngx-flash-messages';
       CartItemComponent,
       AdminProductPageComponent,
       DisqusComponent,
-      ImageRenderComponent,
       UserProfileComponent,
       Error404Component,
       OrdersFiltersPipe,
+      AdminUserPageComponent,
       AdmincategoriesFormComponent,
+      AdminIngredientsFormComponent,
+      AddToCartButtonComponent,
+      SearchComponent
   ],
   entryComponents: [
       ModalCongratulationComponent,
@@ -108,13 +117,13 @@ import { FlashMessagesModule } from 'ngx-flash-messages';
       ForgotPassComponent,
       ConfirmationComponent,
       NewAccountComponent,
-      ImageRenderComponent,
       AdminProductListImageComponent,
       CartBoxComponent,
   ],
   imports: [
       ModalModule.forRoot(),
       BrowserModule,
+      FlashMessagesModule,
       CollapseModule,
       FormsModule,
       appRouting,
@@ -127,9 +136,16 @@ import { FlashMessagesModule } from 'ngx-flash-messages';
       Ng2SmartTableModule,
       ChartsModule,
       [TabsModule.forRoot()],
-      FlashMessagesModule,
+      [CarouselModule.forRoot()]
   ],
-  providers: [PagerService, CommentsService],
+  providers: [
+      PagerService,
+      CommentsService,
+      CartCommunicationService,
+      DataService,
+      SearchHelpersService,
+      ImageService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

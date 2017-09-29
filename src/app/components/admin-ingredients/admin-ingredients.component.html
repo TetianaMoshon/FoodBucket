@@ -1,15 +1,105 @@
 <app-adminnavbar></app-adminnavbar>
-<div class="table-wrap">
-    <div class="container-fluid">
-        <div class="row bottom-line">
-            <div class="col-md-12 no-gutter">
-                <h1 class="ingredients_header">Ingredients</h1>
-            </div>
-        </div>
-        <div class="row margin-row">
-                <ng2-smart-table [settings]="settings" [source]="data"></ng2-smart-table>
+<div class="table-wrap"><div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <h1>Ingredients</h1>
         </div>
     </div>
-</div>
+    <hr/>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th class="text-center id-col">
+                ID
+                <a class="sort_icon" (click)="onSortClick('ingredient_id')" [ngClass]="{
+                        'sort_asc': ((sort == 'asc' || nextSort == 'asc') && value == 'ingredient_id'), 'sort_desc': ((sort == 'desc' || nextSort == 'desc') && value == 'ingredient_id')}"></a>
+            </th>
+            <th class="text-center title-col">
+                Ingredients
+                <a class="sort_icon" (click)="onSortClick('title')" [ngClass]="{
+                        'sort_asc': ((sort == 'asc' || nextSort == 'asc') && value == 'title'), 'sort_desc': ((sort == 'desc' || nextSort == 'desc') && value == 'title')}"></a>
+            </th>
+            <th class="text-center">
+                Measure
+            </th>
+            <th class="text-center quantity-col">
+                Quantity
+                <a class="sort_icon" (click)="onSortClick('quantity')" [ngClass]="{
+                        'sort_asc': ((sort == 'asc' || nextSort == 'asc') && value == 'quantity'), 'sort_desc': ((sort == 'desc' || nextSort == 'desc') && value == 'quantity')}"></a>
+            </th>
+            <th class="text-center price-col">
+                Price
+                <a class="sort_icon" (click)="onSortClick('price')" [ngClass]="{
+                        'sort_asc': ((sort == 'asc' || nextSort == 'asc') && value == 'price'), 'sort_desc': ((sort == 'desc' || nextSort == 'desc') && value == 'price')}"></a>
+            </th>
+            <th class="text-center image-col">
+                Image
+            </th>
+            <th class="text-center"></th>
+        </tr>
+        <tr>
+            <th class="text-center">
+                <div class="form-group">
+                    <input  class="form-control id-form-control" type="number" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('ingredient_id')"   placeholder="ID">
+                </div>
+            </th>
+            <th>
+                <div class="form-group">
+                    <input class="form-control"  type="text" name="ingredient" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('title')" placeholder="Ingredient">
+                </div>
+            </th>
+            <th class="text-center">
+                <div class="form-group">
+                    <input  class="form-control" type="text" name="measure" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('measure')" placeholder="Measure">
+                </div>
+            </th>
+            <th class="text-center">
+                <div class="form-group">
+                    <input  class="form-control" type="number" name="quantity" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('quantity')" placeholder="Quantity">
+                </div>
+            </th>
+            <th class="text-center">
+                <div class="form-group">
+                    <input  class="form-control" type="number" name="price" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('price')" placeholder="Price">
+                </div>
+            </th>
+            <th class="text-center"></th>
+            <th class="text-center">
+                <button class="btn btn-success" (click)="onCreateClick($event)">Create</button>
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-container *ngFor="let ingredient of pagedItems">
+            <tr>
+                <td class="gray-border text-center">{{ingredient.ingredient_id}}</td>
+                <td class="gray-border text-center">{{ingredient.title}}</td>
+                <td class="gray-border text-center">{{ingredient.measure}}</td>
+                <td class="gray-border text-center">{{ingredient.quantity}}</td>
+                <td class="gray-border text-center">{{ingredient.price}}</td>
+                <td class="gray-border text-center image-column">
+                    <img src="image/{{ingredient.image + '?rnd=' + random}}" class="max-width-100" alt="There is no image for this ingredient">
+                </td>
+                <td class="gray-border text-center ">
+                    <button class="btn btn-warning" (click)="onEditClick($event, ingredient['ingredient_id'])">Edit</button>
+                    <button class="btn btn-danger" (click)="onDeleteClick($event, ingredient['ingredient_id'])">Delete</button>
+                </td>
+            </tr>
+        </ng-container>
+        </tbody>
+    </table>
+    <div class="row text-left">
+        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                <a class="cursor-pointer" (click)="setPage(1)">«</a>
+            </li>
+            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                <a class="cursor-pointer" (click)="setPage(page)">{{page}}</a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a class="cursor-pointer" (click)="setPage(pager.totalPages)">»</a>
+            </li>
+        </ul>
+    </div>
 
-
+</div></div>

@@ -7,35 +7,35 @@
 </div>
 
 <div class="modal-body">
-    <form (ngSubmit)="onSubmit()" #userForm="ngForm">
+    <form #userForm="ngForm">
         <div class="row">
             <div class="col-xs-12 col-sm-6">
                 <div class="form-group">
-                    <label for="name">First name *</label>
-                    <input type="text" class="form-control" id="name" placeholder="First name"
+                    <label for="firstName">First name *</label>
+                    <input type="text" class="form-control" id="firstName" placeholder="First name"
                            required
                            pattern="[a-zA-Z][a-zA-Z ]+"
-                           [(ngModel)]="model.name" name="name"
-                           #name="ngModel" >
-                    <div [hidden]="name.valid || name.pristine" class="alert-danger">
-                        <div [hidden]="!name.hasError('required')">Name is required</div>
-                        <div [hidden]="!name.hasError('pattern')">Only alphabetsallowed</div>
+                           [(ngModel)]="model.firstName" name="firstName"
+                           #firstName="ngModel" >
+                    <div [hidden]="firstName.valid || firstName.pristine" class="alert-danger">
+                        <div [hidden]="!firstName.hasError('required')">Name is required</div>
+                        <div [hidden]="!firstName.hasError('pattern')">Only alphabet sallowed</div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="surname">Last name *</label>
-                    <input type="text" class="form-control" id="surname" placeholder="Last name"
+                    <label for="lastName">Last name *</label>
+                    <input type="text" class="form-control" id="lastName" placeholder="Last name"
                            required
                            pattern="[a-zA-Z][a-zA-Z ]+"
-                           [(ngModel)]="model.surname" name="surname"
-                           #surname="ngModel" >
-                    <div [hidden]="surname.valid || surname.pristine" class="alert-danger">
-                        <div [hidden]="!surname.hasError('required')">Surname is required</div>
-                        <div [hidden]="!surname.hasError('pattern')">Only alphabetsallowed</div>
+                           [(ngModel)]="model.lastName" name="lastName"
+                           #lastName="ngModel" >
+                    <div [hidden]="lastName.valid || lastName.pristine" class="alert-danger">
+                        <div [hidden]="!lastName.hasError('required')">Surname is required</div>
+                        <div [hidden]="!lastName.hasError('pattern')">Only alphabetsallowed</div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="surname">Email *</label>
+                    <label for="email">Email *</label>
                     <input type="text" class="form-control" id="email" placeholder="Email"
                            required
                            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
@@ -54,31 +54,25 @@
                            #password="ngModel" >
                     <div [hidden]="password.valid || password.pristine" class="alert-danger">
                         <div [hidden]="!password.hasError('required')">Email is required</div>
-                        <div [hidden]="!password.hasError('pattern')">Email format should be <small><b>joe@abc.com</b></small></div>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="city">City</label>
-                    <input type="text" class="form-control" id="city" placeholder="City">
+                    <input type="text" class="form-control" id="city" placeholder="City"
+                           required
+                           [(ngModel)]="model.city" name="city">
                 </div>
                 <div class="form-group">
-                    <label for="adress">Adress</label>
-                    <input type="text" class="form-control" id="adress" placeholder="Adress">
+                    <label for="address">Address</label>
+                    <input type="text" class="form-control" id="address" placeholder="Address" required
+                           [(ngModel)]="model.address" name="address">
                 </div>
 
-            </div>
-
-            <div class="col-xs-12 col-sm-6">
-                <div class="account-image"></div>
-                <span class="btn btn-default btn-file">
-                    <span class="glyphicon glyphicon-folder-open"></span>
-                    Add image <input type="file" accept="image/*,image/jpeg">
-                </span>
             </div>
         </div>
         <div class="text-center">
-            <button type="button" class="btn btn-primary btn-lg" (click)="bsModalRef.hide()">Save changes</button>
+            <button type="button" class="btn btn-primary btn-lg" (click)="bsModalRef.hide(); sendNewAccToDB()">Save changes</button>
             <button type="button" class="btn btn-primary btn-lg" (click)="bsModalRef.hide()">Cancel</button>
         </div>
     </form>

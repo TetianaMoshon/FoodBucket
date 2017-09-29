@@ -24,3 +24,173 @@ h1.ingredients_header {
 :host /deep/ ng2-smart-table table tr td img {
     height: 33px;
 }
+
+
+
+
+thead {
+    background-color: #cfcfd8;
+    font-size: 17px;
+    font-family: Oswald, sans-serif;
+    border: 1px solid gray;
+}
+
+h1 {
+    font-family: Oswald, sans-serif;
+}
+
+.max-width-120 {
+    max-width: 120px;
+}
+
+thead th {
+    border: 1px solid gray;
+    font-size: 19px;
+    vertical-align: middle;
+    padding-left: 3px;
+}
+
+thead a.sort_icon  {
+    background: url("../../../assets/icons/sort_arrow.svg") no-repeat;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-size: 10px 10px;
+    cursor: pointer;
+    -webkit-transition: transform 0.8s; /* For Safari 3.1 to 6.0 */
+    transition: transform 0.8s;
+}
+
+thead a.sort_icon:hover {
+    background: url("../../../assets/icons/sort_arrow_dark.svg") no-repeat;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-size: 10px 10px;
+    cursor: pointer;
+}
+
+thead a.sort_asc {
+    background: url("../../../assets/icons/sort_arrow_dark.svg") no-repeat;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-size: 10px 10px;
+    cursor: pointer;
+    -ms-transform: rotate(180deg); /* IE 9 */
+    -webkit-transform: rotate(180deg); /* Safari */
+    transform: rotate(180deg);
+}
+
+thead a.sort_desc {
+    background: url("../../../assets/icons/sort_arrow_dark.svg") no-repeat;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-size: 10px 10px;
+    cursor: pointer;
+}
+
+input.form-control {
+    display: inline-block;
+    width: 100%;
+    font-size: 16px;
+}
+
+.gray-border {
+    vertical-align: middle;
+    font-size: 14px;
+    border: 1px solid rgb(193, 193, 193);
+    padding: 15px 0;
+}
+td.nohover:hover {
+    background: white;
+}
+
+hr {
+    margin-top:0;
+    border-top: 1px solid gray;
+}
+
+button.btn-primary {
+    font-family: Roboto, sans-serif;
+}
+
+tbody tr td {
+    font-size: 16px;
+    font-family: Roboto, sans-serif;
+}
+
+button.btn-warning {
+    margin: 5px;
+}
+
+tbody tr:hover {
+    background-color: rgb(219, 219, 228);
+}
+.cursor-pointer {
+    cursor: pointer;
+}
+.pagination {
+    padding-left:15px;
+}
+.padding-top {
+    padding-top:20px;
+}
+.form-control {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.id-col {
+    width: 120px;
+}
+
+.title-col {
+    width: 250px;
+}
+
+.image-col {
+    width: 120px;
+    padding: 0;
+}
+
+.img-padding {
+    vertical-align: middle;
+    padding: 0;
+}
+
+.description-col {
+
+}
+
+.action-col {
+    width: 220px;
+}
+
+@media (max-width: 768px) {
+    input.form-control {
+        display: inline-block;
+        width: 80%;
+        padding: 6px 5px;
+    }
+
+    input.id-form-control {
+        width: 73%;
+    }
+}
+
+@media (max-width: 991px) {
+    .padding-top {
+        padding-top: 0;
+        padding-bottom:20px;
+    }
+}
+
+@media (max-width: 1200px) {
+    input.form-control {
+        display: inline-block;
+        width: 78%;
+        padding: 6px 5px;
+    }
+}
