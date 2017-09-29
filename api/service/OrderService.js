@@ -15,9 +15,15 @@ exports.findOrderById = function(id) {
             (oneOrderDoc) =>{
                 oneOrderDoc = oneOrderDoc || {};
                 if (Object.keys(oneOrderDoc).length > 0) {
+                    console.log(oneOrderDoc.products);
                     Product.find({
                         'productId': { $in: oneOrderDoc.products}
                     }).then(products => {
+                        products.sort(function(a, b) {
+                            // Sort docs by the order of their _id values in ids.
+                            return oneOrderDoc.products.indexOf(a.productId) - oneOrderDoc.products.indexOf(b.productId);
+                        });
+                        console.log(products);
                         products = products.map(({ title }) => {
                             return title ;
                         });
