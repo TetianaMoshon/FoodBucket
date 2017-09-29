@@ -4,10 +4,18 @@
             <div class="profile  container">
                 <h2 class="title">{{user.firstName}} {{user.lastName}}</h2>
                 <div class="row">
-                    <div class="col-md-3">
-                        <img src="image/{{user.image}}" alt="{{user.firstName}} {{user.lastName}}" >
+                    <div class="col-sm-4">
+                        <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+                            <img class="preview" [src]="imageSrc" />
+                            <div class="form-group">
+                                <input type="file" (change)="onFileChange($event)" name="imageUpload" [(ngModel)]="imageUpload" placeholder="Upload file" accept=".jpg,.png" id="image">
+                            </div>
+                            <div class="btn-group">
+                                <button (Click)="onSubmit()" type="submit" class="btn btn-success">Update image</button>
+                            </div>
+                        </form>
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-sm-4">
                         <div class="personal">
                             <address>
                                 <div class="email">
@@ -21,16 +29,6 @@
                                 <div class="street">
                                     <span>Street</span>
                                     <p>{{user.address}}</p>
-                                </div>
-                                <div>
-                                    <form (ngSubmit)="onSubmit(f)" #f="ngForm">
-                                        <img class="preview" [src]="imageSrc" />
-                                        <div class="form-group">
-                                            <label for="image">Image:</label>
-                                            <input type="file"  (change)="onFileChange($event)" name="imageUpload" [(ngModel)]="user.image" placeholder="Upload file" accept=".jpg,.png" id="image">
-                                        </div>
-                                        <button (Click)="onSubmit()" type="submit" class="btn btn-success">Save</button>
-                                    </form>
                                 </div>
                             </address>
                         </div>

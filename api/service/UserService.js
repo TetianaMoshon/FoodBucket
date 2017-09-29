@@ -198,6 +198,32 @@ exports.postUserImageById = function(id,file,additionalMetadata) {
     });
 }
 
-
-
-
+/**
+ *
+ * id Long ID of the user image upload for
+ * file File  (optional)
+ * additionalMetadata String Additional data to pass to server (optional)
+ * no response value expected for this operation
+ **/
+exports.putUserImageById = function(id,file,additionalMetadata) {
+    return new Promise((resolve, reject) => {
+        let entityName = 'user';
+        User.findOne({ userId: id }).then(user => {
+            return imageService.uploadImage(user.userId, entityName, file);
+        }).then(pathToStoreInDB => {
+            return User.findOneAndUpdate({ userId: id }, { $set: { image: pathToStoreInDB } }, { new: true }).then(
+                oneUser => {
+                    if (pathToStoreInDB !== undefined && pathToStoreInDB !== null && oneUser !== null) {
+                        let {userId, firstName, lastName, email, password, phone, city, address, image, favourites, active } = oneUser;
+                        resolve(utils.respondWithCode(200, {userId, firstName, lastName, email, password, phone, city, address, image, favourites, active}));
+                    } else {
+                        reject(utils.respondWithCode(400, {"code": 404, "message": "User is not updated, please try again."}));
+                    }
+                },
+                error => { debug('Unable to get user: %O', error); }
+            );
+        }).catch(e => {
+            debug(e);
+        });
+    });
+}
