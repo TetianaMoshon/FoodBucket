@@ -86,7 +86,7 @@
                                        (ngModelChange)="onOptionClick($event)"
                                    >
                                             <option [ngValue]="selectedIngredientItem">{{selectedIngredientItem == null ? productModel.ingredients[0].ingredientName : selectedIngredientItem}}</option>
-                                            <option *ngFor="let ingredientItem of ingredientItemList" [selected]="ingredientItem.ingredientName == '9) cucumber'">{{ingredientItem.ingredient_id}}) {{ingredientItem.title}}</option>
+                                            <option *ngFor="let ingredientItem of ingredientItemList">{{ingredientItem.ingredient_id}}) {{ingredientItem.title}}</option>
                                    </select>
                                </div>
                                <div class="col-xs-3 form-group">
