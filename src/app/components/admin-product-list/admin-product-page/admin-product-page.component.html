@@ -14,8 +14,9 @@
                             <input [(ngModel)]="productModel.title" name="title" type="text" class="form-control" id="title" required>
                         </div>
                         <div class="form-group">
-                            <label for="description">Description:</label>
-                            <input [(ngModel)]="productModel.description" name="description" type="text" class="form-control" id="description" required>
+                            <label for="description">Recipe:</label>
+                            <textarea rows="5" cols="160" [(ngModel)]="productModel.description" name="description" type="text" class="form-control" id="description" required></textarea>
+                            <!--<input [(ngModel)]="productModel.description" name="description" type="text" class="form-control" id="description" required>-->
                         </div>
                         <div class="form-group">
                             <label for="price">Price:</label>
