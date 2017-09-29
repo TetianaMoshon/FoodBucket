@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { DataService } from '../../services/data/data.service';
+import {CartCommunicationService} from '../../services/cart-communication.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-adminnavbar',
@@ -7,10 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminnavbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(public data: DataService,
+              private cartCommunicationService: CartCommunicationService,
+              public router: Router) { }
 
   ngOnInit() {
-      document.addEventListener( 'DOMContentLoaded', function () {
           const sidebarToggle = document.getElementsByClassName('sidebar-toggle') as HTMLCollectionOf<HTMLElement>;
           const body = document.querySelector('body');
           body.style.paddingTop = '50px';
@@ -39,8 +43,16 @@ export class AdminnavbarComponent implements OnInit {
                   body.style.paddingLeft = '200px';
               }
           });
-      }, false );
-
   }
+    public logOutFunc() {
+        sessionStorage.clear();
+        this.data.changeIsLogged(false);
+        this.cartCommunicationService.userIsLoggedIn = false;
+        this.router.navigate(['']);
+    }
+    public getBackToHomePage() {
+        this.data.changeIsAdmin(true);
+        this.router.navigate(['']);
+    }
 
 }

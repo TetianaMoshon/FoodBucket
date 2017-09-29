@@ -7,7 +7,9 @@ import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class AuthGuardService implements CanActivate, CanActivateChild {
-    constructor(public auth: AuthService, public router: Router, private spinnerService: Ng4LoadingSpinnerService) {}
+    constructor(public auth: AuthService,
+                public router: Router,
+                private spinnerService: Ng4LoadingSpinnerService) {}
     canActivate():  Observable<boolean> | boolean {
         this.spinnerService.show();
         const observable = this.auth.validation(sessionStorage.getItem('JWT') || '').pluck('isValid');

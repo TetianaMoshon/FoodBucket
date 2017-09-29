@@ -1,6 +1,9 @@
 nav.navbar-default {
     background-color: #e2e2e2;
 }
+a{
+    cursor: pointer;
+}
 
 #sidebar-wrapper {
     top: 52px;

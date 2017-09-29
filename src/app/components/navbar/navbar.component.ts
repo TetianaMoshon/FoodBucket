@@ -30,16 +30,6 @@ export class NavbarComponent implements OnInit {
     ngOnInit() {
         this.data.currentIsLogged.subscribe(message => {
             this.isLogged = message;
-            /*if (message) {
-                console.log('te', sessionStorage.getItem('JWT'));
-                this.auth.validation(sessionStorage
-                    .getItem('JWT') || '')
-                    .subscribe(authenticated => {
-                        console.log(JSON.stringify(authenticated));
-                        this.isAdmin = authenticated.isValid;
-                        console.log(this.isAdmin);
-                    });
-            }*/
             this.cartCommunicationService.userIsLoggedIn = !message;
         });
         this.data.currentLogBtn.subscribe(message => this.LogBtnText = message);

@@ -12,7 +12,7 @@ import {NgForm} from '@angular/forms';
   styleUrls: ['./user-profile.component.css']
 })
 
-export class UserProfileComponent implements OnInit {
+export class UserProfileComponent {
     public user: User;
     public favouritesProduct = [];
     public userData;
@@ -34,7 +34,7 @@ export class UserProfileComponent implements OnInit {
               this.user.email = reg.email;
               this.user.city = reg.city;
               this.user.address = reg.address;
-              if (this.user.image == '') {
+              if (this.user.image === '') {
                   console.log(this.user.image);
                   this.imageSrc = 'image/user/default.jpg';
               }else {
@@ -115,5 +115,3 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-
-}
