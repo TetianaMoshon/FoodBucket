@@ -20,33 +20,31 @@ export class UserProfileComponent {
     imageSrc = '';
     imageUpload: string;
 
-    constructor(
-        private findUserByIdAPI: UserService,
-        private productService: ProductService,
-        private imageService: ImageService,
-        private flashMessagesService: FlashMessagesService
-    ) {
-      this.user = new User(JSON.parse(sessionStorage.getItem('currentUserId')), '', ' ', ' ', 0, ' ', ' ', false, '');
-      this.findUserByIdAPI.findUserById(JSON.parse(sessionStorage.getItem('currentUserId')))
-          .subscribe(reg => {
-              this.user.firstName = reg.firstName;
-              this.user.lastName = reg.lastName;
-              this.user.email = reg.email;
-              this.user.city = reg.city;
-              this.user.address = reg.address;
-              if (this.user.image == '') {
-                  console.log(this.user.image);
-                  this.imageSrc = 'image/user/default.jpg';
-              }else {
-                  console.log(this.user.image);
-                  this.imageSrc = 'image/' + reg.image;
-              }
+    constructor(private findUserByIdAPI: UserService,
+                private productService: ProductService,
+                private imageService: ImageService,
+                private flashMessagesService: FlashMessagesService) {
+        this.user = new User(JSON.parse(sessionStorage.getItem('currentUserId')), '', ' ', ' ', 0, ' ', ' ', false, '');
+        this.findUserByIdAPI.findUserById(JSON.parse(sessionStorage.getItem('currentUserId')))
+            .subscribe(reg => {
+                this.user.firstName = reg.firstName;
+                this.user.lastName = reg.lastName;
+                this.user.email = reg.email;
+                this.user.city = reg.city;
+                this.user.address = reg.address;
+                if (this.user.image == '') {
+                    console.log(this.user.image);
+                    this.imageSrc = 'image/user/default.jpg';
+                } else {
+                    console.log(this.user.image);
+                    this.imageSrc = 'image/' + reg.image;
+                }
 
             }, err => {
-              console.log('error reg' + err);
-          });
-      this.showFavouriteProducts(JSON.parse(sessionStorage.getItem('currentUserId')));
-  }
+                console.log('error reg' + err);
+            });
+        this.showFavouriteProducts(JSON.parse(sessionStorage.getItem('currentUserId')));
+    }
 
     showFavouriteProducts(id) {
         this.findUserByIdAPI.findUserById(id)
@@ -58,7 +56,7 @@ export class UserProfileComponent {
                         current.productService.findProductById(product)
                             .subscribe(
                                 prod => {
-                                        const {productId, title, image} = prod;
+                                    const {productId, title, image} = prod;
                                     current.favouritesProduct.push({productId, title, image});
                                 }
                             );
@@ -67,6 +65,7 @@ export class UserProfileComponent {
                 err => console.log(err)
             );
     }
+
     onFileChange(event) {
         const fileList: FileList = event.target.files;
         if (fileList.length > 0) {
@@ -89,18 +88,19 @@ export class UserProfileComponent {
         const reader = e.target;
         this.imageSrc = reader.result;
     }
+
     onSubmit(form: NgForm) {
-            if (this.file === null) {
-                this.userData.image = this.imageSrc.replace('image/', '');
-            }
-            this.updateUser(JSON.parse(sessionStorage.getItem('currentUserId')), this.userData);
+        if (this.file === null) {
+            this.userData.image = this.imageSrc.replace('image/', '');
+        }
+        this.updateUser(JSON.parse(sessionStorage.getItem('currentUserId')), this.userData);
     }
 
     updateUser(id: number, categoryObject) {
         this.findUserByIdAPI.updateUserById(id, this.userData)
             .subscribe(
                 user => {
-                        this.uploadUserImageById (id, this.file, 'put');
+                    this.uploadUserImageById(id, this.file, 'put');
                 },
                 err => console.log(err)
             );
@@ -109,7 +109,9 @@ export class UserProfileComponent {
             timeout: 3000,
         });
     }
+
     uploadUserImageById(id, file, method) {
         const entityName = 'user';
         this.imageService.uploadImageByEntityId(id, file, method, entityName);
     }
+}
