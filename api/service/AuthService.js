@@ -31,7 +31,6 @@ exports.login = function ({email, password}) {
                         let {email, userId, firstName, lastName, city, address, isAdmin} = oneUserDoc;
                         let tokenBody = {userId, isAdmin};
                         let token = JWT.createJWT(tokenBody.userId, tokenBody.isAdmin);
-                        console.log({email, userId, firstName, lastName, city, address});
                         resolve({token: token, body: utils.respondWithCode(200, {email, userId, firstName, lastName, city, address})});
                     } else {
                         reject(utils.respondWithCode(403, {
@@ -55,7 +54,6 @@ exports.register = function ({ firstName, lastName, email, password, phone, city
     return new Promise((resolve, reject) => {
         Users.findOne({ email: email })
             .then( obj => {
-                    console.log(obj);
                     if (obj) {
                         reject(utils.respondWithCode(403, {"code": 403, "message": "User is not unique, please try again."}));
                         return;
@@ -98,7 +96,6 @@ exports.validation = function(xMYJWT) {
    const response = {
   "isValid" : JWT.checkJWT(xMYJWT).isAdmin
 };
-   console.log(response);
     if (Object.keys(response).length > 0) {
       resolve(response);
     } else {

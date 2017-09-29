@@ -23,23 +23,6 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
             }
         });
         return observable;
-
-        /*let isAdmin: boolean;
-        this.spinnerService.show();
-        this.auth.validation(sessionStorage.getItem('JWT') || '').subscribe(validation => {
-            console.log(validation);
-            if (validation.isValid) {
-                this.spinnerService.hide();
-                this.router.navigate(['admin']);
-                return true;
-            }
-            this.router.navigate(['']);
-            this.spinnerService.hide();
-            return false;
-        });
-        /!*setTimeout(console.log('Timer worked', 5000));
-        console.log(isAdmin);
-        return isAdmin;*!/*/
     }
     canActivateChild(): Observable<boolean> | boolean {
         return this.canActivate();
