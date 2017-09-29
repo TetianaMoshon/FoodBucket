@@ -40,13 +40,13 @@ export class AdmincategoriesComponent implements OnInit {
     }
 
     onEditClick(event, eventName: string): void {
-        const categoryId = parseInt(event.cells[0].value);
+        const categoryId = parseInt(event.cells[0].value, 10);
         this.changeRoute(`/admin/categories/${categoryId}/edit`);
     }
 
     onDeleteClick(event, eventName: string): void {
-        const categoryId = parseInt(event.cells[0].value);
-        if(confirm('Are you really want to delete category with id: ' + categoryId + ' ?')) {
+        const categoryId = parseInt(event.cells[0].value, 10);
+        if (confirm('Are you really want to delete category with id: ' + categoryId + ' ?')) {
             this.categoryService.deleteCategoryById(categoryId).subscribe(
                 () => { this.source.remove(event.data); },
                 err => console.log(err)
@@ -55,6 +55,6 @@ export class AdmincategoriesComponent implements OnInit {
     }
 
     changeRoute(routeValue) {
-        this.router.navigateByUrl(routeValue,);
+        this.router.navigateByUrl(routeValue, );
     }
 }
