@@ -51,7 +51,6 @@ generate_api:
       - api/controllers/
       - api/utils/
       - src/app/client/
-  <<: *release-only
 
 unit_test:
   tags:
