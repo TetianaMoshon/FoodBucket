@@ -8,7 +8,20 @@ import {Observable} from 'rxjs/Observable';
 @Injectable()
 export class AuthGuardService implements CanActivate, CanActivateChild {
     constructor(public auth: AuthService, public router: Router, private spinnerService: Ng4LoadingSpinnerService) {}
-    canActivate(): any {
+    canActivate():  Observable<boolean> | boolean {
+        this.spinnerService.show();
+        const observable = this.auth.validation(sessionStorage.getItem('JWT') || '').pluck('isValid');
+
+        observable.subscribe(authenticated => {
+            if (!authenticated) {
+                this.router.navigate(['']);
+                this.spinnerService.hide();
+            } else {
+                this.spinnerService.hide();
+            }
+        });
+        return observable;
+
         /*let isAdmin: boolean;
         this.spinnerService.show();
         this.auth.validation(sessionStorage.getItem('JWT') || '').subscribe(validation => {
@@ -25,9 +38,8 @@ export class AuthGuardService implements CanActivate, CanActivateChild {
         /!*setTimeout(console.log('Timer worked', 5000));
         console.log(isAdmin);
         return isAdmin;*!/*/
-        return true;
     }
-    canActivateChild(): any {
+    canActivateChild(): Observable<boolean> | boolean {
         return this.canActivate();
     }
 }

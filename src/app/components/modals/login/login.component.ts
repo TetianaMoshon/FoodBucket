@@ -36,6 +36,15 @@ export class LoginComponent implements OnInit {
                 sessionStorage.setItem('JWT', reg.headers.get('x-my-jwt'));
                 this.openModal('You are Logged In');
                 this.changeLogBtnText(false, reg.json().firstName);
+
+
+                console.log('te', sessionStorage.getItem('JWT'));
+                this.loginAPI.validation(sessionStorage
+                    .getItem('JWT') || '')
+                    .subscribe(authenticated => {
+                        console.log(JSON.stringify(authenticated));
+                        this.changeIsAdmin(authenticated.isValid);
+                    });
             } else {
                 this.openModal('Sorry, you are\'t logged. Try again please!');
             }
@@ -50,6 +59,9 @@ export class LoginComponent implements OnInit {
     public changeLogBtnText(message: boolean, btnText: string) {
         this.data.changeIsLogged(message);
         this.data.changeLogBtnText(btnText);
+    }
+    public changeIsAdmin(isAdmin: boolean) {
+        this.data.changeIsAdmin(isAdmin);
     }
     public  openModal(text: string) {
         this.data.changeMessage(text);

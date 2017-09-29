@@ -60,7 +60,7 @@ initScript.initFolders();
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use(express.static(path.join(__dirname, 'public')));
 
-/*app.use('/api/users', (req,res, next) => jwt.JWTBlock(req, res, next));
+app.use('/api/users', (req,res, next) => jwt.JWTBlock(req, res, next));
 app.use('/api/user/{id}', (req,res, next) => jwt.JWTBlock(req, res, next));
 
 app.use('/api/category/{id}', (req,res, next) => jwt.JWTBlock(req, res, next));
@@ -71,7 +71,7 @@ app.use('/api/contacts', (req,res, next) => jwt.JWTBlock(req, res, next));
 app.use('/api/order/{id}', (req,res, next) => jwt.JWTBlock(req, res, next));
 
 app.use('/api/product/{id}', (req,res, next) => jwt.JWTBlock(req, res, next));
-app.use('/api/product', (req,res, next) => jwt.JWTBlock(req, res, next));*/
+app.use('/api/product', (req,res, next) => jwt.JWTBlock(req, res, next));
 
 // Initialize the Swagger middleware
 swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {

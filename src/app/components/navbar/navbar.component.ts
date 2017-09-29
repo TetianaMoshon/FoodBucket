@@ -5,7 +5,7 @@ import {NewAccountComponent} from '../modals/new-account/new-account.component';
 import {CartBoxComponent} from '../modals/cart/cart-box/cart-box.component';
 import { DataService} from '../../services/data/data.service';
 import {CartCommunicationService} from '../../services/cart-communication.service';
-import {AuthService} from "../../client/api/auth.service";
+import {AuthService} from '../../client/api/auth.service';
 
 
 
@@ -16,23 +16,34 @@ import {AuthService} from "../../client/api/auth.service";
 })
 export class NavbarComponent implements OnInit {
 
-    LogBtnText = 'Log in / Registration'
-    isCollapsed = true;
-    isLogged = true;
+    LogBtnText;
+    isCollapsed;
+    isLogged;
     isAdmin;
 
     constructor(private modalService: BsModalService,
                 private data: DataService,
                 private cartCommunicationService: CartCommunicationService,
-                public auth: AuthService
+                public auth: AuthService,
     ) { }
 
     ngOnInit() {
         this.data.currentIsLogged.subscribe(message => {
             this.isLogged = message;
+            /*if (message) {
+                console.log('te', sessionStorage.getItem('JWT'));
+                this.auth.validation(sessionStorage
+                    .getItem('JWT') || '')
+                    .subscribe(authenticated => {
+                        console.log(JSON.stringify(authenticated));
+                        this.isAdmin = authenticated.isValid;
+                        console.log(this.isAdmin);
+                    });
+            }*/
             this.cartCommunicationService.userIsLoggedIn = !message;
         });
         this.data.currentLogBtn.subscribe(message => this.LogBtnText = message);
+        this.data.currentIsAdmin.subscribe( boolmsg => this.isAdmin = boolmsg);
     }
 
     public logOutFunc() {
@@ -50,10 +61,6 @@ export class NavbarComponent implements OnInit {
     public openCartModal() {
         this.modalService.show(CartBoxComponent);
     }
-
-    public items: string[] = ['The first choice!',
-        'And another choice for you.', 'but wait! A third!'];
-
     public onHidden(): void {
         console.log('Dropdown is hidden');
     }
