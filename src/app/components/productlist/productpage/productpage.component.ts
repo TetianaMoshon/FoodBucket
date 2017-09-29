@@ -22,6 +22,7 @@ export class ProductpageComponent implements OnInit {
     userId;
     login;
     select;
+    updateUser = new UpdateUser('', '' , '',  '');
 
     constructor(
         public productService: ProductService,
