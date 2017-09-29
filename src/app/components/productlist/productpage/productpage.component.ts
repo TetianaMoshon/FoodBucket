@@ -16,19 +16,10 @@ export class ProductpageComponent implements OnInit {
     public productData;
     public productIngredients = [];
     public data;
-    private sub: any;
-    urlId: number;
 
     show = false;
-    quantityOfPhotos: number;
-
-    sourceForPreviousImage: any;
-    sourceForNextImage: any;
-
     counter = 1;
 
-    initialSourceForPreviousImage = 0;
-    initialSourceForNextImage = 1;
     updateUser = new UpdateUser('', '' , '',  '');
     select;
     userId;
@@ -74,16 +65,14 @@ export class ProductpageComponent implements OnInit {
                 product => {
                     this.productData = product;
 
-                    const current = this;
-                    this.productData.ingredients.forEach(function (ingredient) {
-                        current.ingredientService.findIngredientById(ingredient.ingredientId)
+                    this.productData.ingredients.forEach(ingredient => {
+                        this.ingredientService.findIngredientById(ingredient.ingredientId)
                             .subscribe(
                                 ingr => {
-                                    current.productIngredients.push(ingr);
+                                    this.productIngredients.push(ingr);
                                 }
                             );
                     });
-                    console.log(product.image);
                 },
                 err => console.log(err)
             );

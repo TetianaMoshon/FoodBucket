@@ -64,7 +64,7 @@
                         </table>
                        <form (ngSubmit)="onSubmit2(f2)" #f2="ngForm">
                            <div class="row">
-                               <div class="col-xs-2 form-group">
+                               <div class="col-xs-2 form-group ingredientId">
                                    <label for="ingredientId">Ingredient ID</label>
                                    <input
                                        type="number"
@@ -77,12 +77,15 @@
                                </div>
                                <div class="col-xs-5 form-group">
                                    <label for="ingredientName">Ingredient name</label>
-                                   <input
+                                   <select
                                        type="text"
                                        id="ingredientName"
                                        name="ingredientName"
                                        class="form-control"
                                        ngModel>
+                                            <option>{{productModel.ingredients[0].ingredientName}}</option>
+                                            <option *ngFor="let ingredientItem of ingredientItemList">{{ingredientItem.ingredient_id}}) {{ingredientItem.title}}</option>
+                                   </select>
                                </div>
                                <div class="col-xs-3 form-group">
                                    <label for="quantity">Quantity</label>
