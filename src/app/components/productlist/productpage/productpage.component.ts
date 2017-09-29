@@ -13,33 +13,23 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class ProductpageComponent implements OnInit {
-    public productData;
-    public productIngredients = [];
-    public data;
-    private sub: any;
-    urlId: number;
-
-    show = false;
-    quantityOfPhotos: number;
-
-    sourceForPreviousImage: any;
-    sourceForNextImage: any;
 
     counter = 1;
-
-    initialSourceForPreviousImage = 0;
-    initialSourceForNextImage = 1;
-    updateUser = new UpdateUser('', '' , '',  '');
-    select;
+    productData;
+    productIngredients = [];
+    show = false;
+    productId = Number(this.route.snapshot.paramMap.get('id'));
     userId;
     login;
+    select;
+    updateUser = new UpdateUser('', '' , '',  '');
     id;
 
     constructor(
         public productService: ProductService,
         public ingredientService: IngredientService,
         public userService: UserService,
-        protected route: ActivatedRoute
+        public route: ActivatedRoute
     ) {}
 
     ngOnInit() {
@@ -51,15 +41,15 @@ export class ProductpageComponent implements OnInit {
         );
 
         if ( JSON.parse(sessionStorage.getItem('currentUserId')) == null) {
-            this.login = false;
-        }else {
-            this.userId = JSON.parse(sessionStorage.getItem('currentUserId'));
-            this.login = true;
-        }
+                this.login = false;
+            }else {
+                this.userId = JSON.parse(sessionStorage.getItem('currentUserId'));
+                this.login = true;
+            }
 
          this.userService.findUserById(this.userId).subscribe(
             user => {
-                    if (user.favourites.indexOf(Number(this.id)) === -1) {
+                    if (user.favourites.indexOf(Number(this.productId)) === -1) {
                         this.select = false;
                     } else {
                         this.select = true;
@@ -83,7 +73,6 @@ export class ProductpageComponent implements OnInit {
                                 }
                             );
                     });
-                    console.log(product.image);
                 },
                 err => console.log(err)
             );
@@ -95,7 +84,7 @@ export class ProductpageComponent implements OnInit {
                 user => {
                     if (this.select === false) {
                         this.select = true;
-                        user.favourites.push(Number(this.id));
+                        user.favourites.push(Number(this.productId));
                         this.updateUser = user;
                         this.userService.updateUserById(this.userId, this.updateUser)
                             .subscribe(
@@ -105,7 +94,7 @@ export class ProductpageComponent implements OnInit {
                             );
                     } else {
                         this.select = false;
-                        user.favourites.splice(user.favourites.indexOf(Number(this.id)), 1);
+                        user.favourites.splice(user.favourites.indexOf(Number(this.productId)), 1);
                         this.updateUser = user;
                         this.userService.updateUserById(this.userId, this.updateUser)
                             .subscribe(
@@ -118,5 +107,4 @@ export class ProductpageComponent implements OnInit {
                 err => console.log(err)
             );
     }
-
 }
