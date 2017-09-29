@@ -41,8 +41,8 @@
             </th>
             <th class="text-center ">
                 Address
-                <a class="sort_icon" (click)="onSortClick('adress')" [ngClass]="{
-                        'sort_asc': ((sort == 'asc' || nextSort == 'asc') && value == 'adress'), 'sort_desc': ((sort == 'desc' || nextSort == 'desc') && value == 'adress')}"></a>
+                <a class="sort_icon" (click)="onSortClick('address')" [ngClass]="{
+                        'sort_asc': ((sort == 'asc' || nextSort == 'asc') && value == 'address'), 'sort_desc': ((sort == 'desc' || nextSort == 'desc') && value == 'address')}"></a>
             </th>
             <th class="text-center ">
             </th>
@@ -81,7 +81,7 @@
             </th>
             <th class="text-center">
                 <div class="form-group">
-                    <input  class="form-control id-form-control" type="text" name="adress" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('adress')"   placeholder="Address">
+                    <input  class="form-control id-form-control" type="text" name="address" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('address')"   placeholder="Address">
                 </div>
             </th>
             <th class="text-center">
@@ -98,7 +98,7 @@
                 <td class="gray-border text-center">{{item.email}}</td>
                 <td class="gray-border text-center">{{item.phone}}</td>
                 <td class="gray-border text-center">{{item.city}}</td>
-                <td class="gray-border text-center">{{item.adress}}</td>
+                <td class="gray-border text-center">{{item.address}}</td>
 
                 <td class="gray-border text-center ">
                     <button class="btn btn-warning" (click)="onEditClick($event, item['userId'])">Edit</button>

@@ -159,4 +159,6 @@ export class AdmincategoriesFormComponent implements OnInit, OnDestroy {
         this.description = '';
         this.imageSrc = '';
     }
+
+
 }
