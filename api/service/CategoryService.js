@@ -119,7 +119,7 @@ exports.getAllCategories = function (offset, limit, sort, sort_col, search_txt, 
                             });
                             resolve({total: total, body: utils.respondWithCode(200, categoriesDoc)});
                         } else {
-                            reject(utils.respondWithCode(404, {"code": 404, "message": "Categories are not found, please try again."}));
+                            reject(utils.respondWithCode(204));
                         }
                     },
                     error => { debug('Unable to get categories: %O', error); }
