@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router, CanActivate, CanActivateChild } from '@angular/router';
 import { AuthService } from '../../client/api/auth.service';
 import { Ng4LoadingSpinnerService } from 'ng4-loading-spinner';
-import {Observable} from "rxjs/Observable";
+import {Observable} from 'rxjs/Observable';
 
 
 @Injectable()
