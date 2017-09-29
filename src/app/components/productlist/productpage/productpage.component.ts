@@ -47,8 +47,9 @@ export class ProductpageComponent implements OnInit {
                 this.login = true;
             }
 
-         this.userService.findUserById(this.userId).subscribe(
-            user => {
+        if (this.login) {
+            this.userService.findUserById(this.userId).subscribe(
+                user => {
                     if (user.favourites.indexOf(Number(this.productId)) === -1) {
                         this.select = false;
                     } else {
@@ -56,6 +57,7 @@ export class ProductpageComponent implements OnInit {
                     }
                 }, err => console.log(err)
             );
+        }
     }
 
     showProduct(id) {

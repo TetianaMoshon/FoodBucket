@@ -48,6 +48,8 @@ export class UserProfileComponent implements OnInit {
       this.showFavouriteProducts(JSON.parse(sessionStorage.getItem('currentUserId')));
   }
 
+  ngOnInit(){}
+
     showFavouriteProducts(id) {
         this.findUserByIdAPI.findUserById(id)
             .subscribe(
@@ -113,7 +115,5 @@ export class UserProfileComponent implements OnInit {
         const entityName = 'user';
         this.imageService.uploadImageByEntityId(id, file, method, entityName);
     }
-  }
-
 
 }
