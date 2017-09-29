@@ -14,7 +14,7 @@ import {CartCommunicationService} from '../../services/cart-communication.servic
 })
 export class NavbarComponent implements OnInit {
 
-    LogBtnText = 'Log in / Registration'
+    LogBtnText = 'Log in / Registration';
     isCollapsed = true;
     isLogged = true;
 

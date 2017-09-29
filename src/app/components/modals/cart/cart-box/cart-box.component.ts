@@ -145,7 +145,7 @@ export class CartBoxComponent implements OnInit, OnDestroy {
             const priceForAProduct = this.getPriceById(data.id);
             arrayOfCartOrders.push(
                 {
-                    productId: parseInt(data.id),
+                    productId: parseInt(data.id, 10),
                     quantity: data.price / priceForAProduct
                 });
         });

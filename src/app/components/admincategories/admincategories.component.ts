@@ -80,7 +80,7 @@ export class AdmincategoriesComponent implements OnInit {
     }
 
     onDeleteClick(event, id): void {
-        this.defineOffset(this.limit.pageSize, this.pager.currentPage)
+        this.defineOffset(this.limit.pageSize, this.pager.currentPage);
         if (confirm('Are you really want to delete category with id: ' + id + ' ?')) {
             this.categoryService.deleteCategoryById(parseInt(id, 10)).subscribe(
                 category => {
