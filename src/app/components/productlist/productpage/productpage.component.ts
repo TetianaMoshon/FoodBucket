@@ -21,7 +21,6 @@ export class ProductpageComponent implements OnInit {
     productId = Number(this.route.snapshot.paramMap.get('id'));
     userId;
     login;
-    updateUser = new UpdateUser('', '' , '',  '');
     select;
 
     constructor(
@@ -66,6 +65,27 @@ export class ProductpageComponent implements OnInit {
                         this.select = true;
                     }
                 }, err => console.log(err)
+            );
+    }
+
+    showProduct(id) {
+        this.productService.findProductById(id)
+            .subscribe(
+                product => {
+                    this.productData = product;
+
+                    const current = this;
+                    this.productData.ingredients.forEach(function (ingredient) {
+                        current.ingredientService.findIngredientById(ingredient.ingredientId)
+                            .subscribe(
+                                ingr => {
+                                    current.productIngredients.push(ingr);
+                                }
+                            );
+                    });
+                    console.log(product.image);
+                },
+                err => console.log(err)
             );
     }
 

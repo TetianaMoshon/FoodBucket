@@ -1,12 +1,11 @@
 <div class="container-fluid slider" (window:resize)="onResize($event)">
-
     <div class="row">
 
         <div *ngIf="FullScreenView" class="slider">
 
             <div class="col-lg-4">
                 <a class="left carousel-control" (click)="changeImageSourceByPressingRightArrow()"><i class="glyphicon glyphicon-chevron-left"></i></a>
-                <img class="img-responsive" src="{{ListOfImageData[sourceForFirstImage]?.link}}">
+                <img class="img-responsive" src="image/{{ListOfImageData[sourceForFirstImage]?.link}}">
                 <div class="carousel-caption">
                     <h3>{{ListOfImageData[sourceForFirstImage]?.title}}</h3>
                     <p>{{ListOfImageData[sourceForFirstImage]?.description}}</p>
@@ -14,7 +13,7 @@
             </div>
 
             <div class="col-lg-4">
-                <img  class="img-responsive" src="{{ListOfImageData[sourceForSecondImage]?.link}}">
+                <img  class="img-responsive" src="image/{{ListOfImageData[sourceForSecondImage]?.link}}">
                 <div class="carousel-caption">
                     <h3>{{ListOfImageData[sourceForSecondImage]?.title}}</h3>
                     <p>{{ListOfImageData[sourceForSecondImage]?.description}}.</p>
@@ -22,19 +21,20 @@
             </div>
 
             <div class="col-lg-4">
-                <img class="img-responsive" src="{{ListOfImageData[sourceForThirdImage]?.link}}">
+                <img class="img-responsive" src="image/{{ListOfImageData[sourceForThirdImage]?.link}}">
                 <div class="carousel-caption">
                     <h3>{{ListOfImageData[sourceForThirdImage]?.title}}</h3>
                     <p>{{ListOfImageData[sourceForThirdImage]?.description}}</p>
                 </div>
                 <a class="right carousel-control" (click)="changeImageSourceByPressingLeftArrow()"><i class="glyphicon glyphicon-chevron-right"></i></a>
             </div>
+
         </div>
 
 
         <div *ngIf="PartialView">
             <div class="col-sm-6">
-                <img class="img-responsive" src="{{ListOfImageData[sourceForFirstImage]?.link}}">
+                <img class="img-responsive" src="image/{{ListOfImageData[sourceForFirstImage]?.link}}">
                 <div class="carousel-caption">
                     <h3>{{ListOfImageData[sourceForFirstImage]?.title}}</h3>
                     <p>{{ListOfImageData[sourceForFirstImage]?.description}}</p>
@@ -44,12 +44,13 @@
 
             <div class="col-sm-6">
                 <a class="right carousel-control" (click)="changeImageSourceByPressingLeftArrow()"><i class="glyphicon glyphicon-chevron-right"></i></a>
-                <img class="img-responsive" src="{{ListOfImageData[sourceForSecondImage]?.link}}">
+                <img class="img-responsive" src="image/{{ListOfImageData[sourceForSecondImage]?.link}}">
                 <div class="carousel-caption">
                     <h3>{{ListOfImageData[sourceForSecondImage]?.title}}</h3>
                     <p>{{ListOfImageData[sourceForSecondImage]?.description}}</p>
                 </div>
             </div>
+
         </div>
 
 
@@ -57,7 +58,7 @@
 
             <div class="col-sm-6">
                 <a class="left carousel-control" (click)="changeImageSourceByPressingRightArrow()"><i class="glyphicon glyphicon-chevron-left"></i></a>
-                <img class="img-responsive" src="{{ListOfImageData[sourceForFirstImage]?.link}}">
+                <img class="img-responsive" src="image/{{ListOfImageData[sourceForFirstImage]?.link}}">
                 <a class="right carousel-control" (click)="changeImageSourceByPressingLeftArrow()"><i class="glyphicon glyphicon-chevron-right"></i></a>
 
                 <div class="carousel-caption">
@@ -65,6 +66,7 @@
                     <p>{{ListOfImageData[sourceForFirstImage]?.description}}</p>
                 </div>
             </div>
+
         </div>
 
     </div>
