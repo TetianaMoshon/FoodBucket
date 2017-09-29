@@ -113,7 +113,6 @@ export class UserProfileComponent implements OnInit {
         const entityName = 'user';
         this.imageService.uploadImageByEntityId(id, file, method, entityName);
     }
-    ngOnInit() {
   }
 
 

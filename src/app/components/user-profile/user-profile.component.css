@@ -248,6 +248,6 @@ img {
     margin: 15px;
 }
 
-img[_ngcontent-c5] {
+img{
     border: 1px solid gray;
 }
