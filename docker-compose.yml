@@ -5,6 +5,8 @@ services:
     image: bitnami/mongodb
     cpu_shares: 100
     mem_limit: 524288000
+    volumes:
+      - ./persistence/mongo:/bitnami
     ports:
       - "27017"
     environment:
