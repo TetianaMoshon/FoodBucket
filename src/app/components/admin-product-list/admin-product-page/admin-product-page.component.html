@@ -65,12 +65,12 @@
                        <form (ngSubmit)="onSubmit2(f2)" #f2="ngForm">
                            <div class="row">
                                <div class="col-xs-2 form-group ingredientId">
-                                   <label for="ingredientId" class="hidden">Ingredient ID</label>
+                                   <label for="ingredientId">Ingredient ID</label>
                                    <input
                                        type="number"
                                        id="ingredientId"
                                        name="ingredientId"
-                                       class="form-control hidden"
+                                       class="form-control"
                                        min="1"
                                        ngModel
                                        pattern="^[1-9]+[0-9]*$">
