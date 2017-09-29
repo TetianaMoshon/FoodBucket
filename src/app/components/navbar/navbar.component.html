@@ -71,8 +71,8 @@ true}">FoodBucket</a>
                 <li *ngIf="!isLogged" (click)="logOutFunc()">
                     <a class="log-out-glyph"  data-hover="Log Out"><span class="log-out-glyph-text">Log Out  </span><span class="glyphicon glyphicon-log-out"></span></a>
                 </li>
-                <li *ngIf="!isLogged" (click)="isCollapsed = true" routerLink="admin" routerLinkActive="active">
-                    <a  data-hover="Admin">Admin</a>
+                <li *ngIf="!isLogged" (click)="isCollapsed = true">
+                    <a href="admin/dashboard" data-hover="Admin">Admin</a>
                 </li>
             </ul>
             <app-search class="navbar-form navbar-right"></app-search>
