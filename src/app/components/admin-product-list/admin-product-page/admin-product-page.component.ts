@@ -107,7 +107,6 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
 
         this.ingredientService.getAllIngredients(0, 20, 'asc')
             .subscribe(ingredients => {
-                // console.log(ingredients);
                 ingredients.forEach(ingredient => {
                     this.ingredientItemList = ingredients;
                 });
@@ -153,7 +152,6 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
             this.updateIngredient(this.editedItemIndex, newIngredient);
         } else {
             var ingridientIdandName = value.ingredientName.split(")");
-            console.log(ingridientIdandName );
             value.ingredientId = ingridientIdandName[0];
             value.ingredientName = ingridientIdandName[1];
             const newIngredient = new IngredientModel(value.ingredientId, value.ingredientName, value.quantity, value.measure);
@@ -167,7 +165,6 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     selectedIngredientItem = null;
     onOptionClick(e)
     {
-        console.log(e);
         this.selectedIngredientItem = e;
     }
 
@@ -229,7 +226,6 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
 
                     product.ingredients.forEach(({ ingredientId, ingredientName, quantity, measure}, index) => {
                         this.productModel.ingredients[index] = { ingredientId, ingredientName, quantity, measure};
-                        console.log();
                     });
                     this.ingredientList = this.productModel.ingredients;
                 }
@@ -260,7 +256,6 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
 
     updateIngredient(index: number, newIngredient: IngredientModel) {
         this.ingredientList[index] = newIngredient;
-        console.log(newIngredient);
         this.ingredientsChanged.next(this.ingredientList.slice());
     }
 
