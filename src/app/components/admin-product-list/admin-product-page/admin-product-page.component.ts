@@ -147,17 +147,28 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
 
     onSubmit2(form: NgForm) {
         const value = form.value;
-        var ingridientIdandName = value.ingredientName.split(")");
-        value.ingredientId = ingridientIdandName[0];
-        value.ingredientName = ingridientIdandName[1];
-        const newIngredient = new IngredientModel(value.ingredientId, value.ingredientName, value.quantity, value.measure);
+
         if (this.editMode) {
+            const newIngredient = new IngredientModel(value.ingredientId, value.ingredientName, value.quantity, value.measure);
             this.updateIngredient(this.editedItemIndex, newIngredient);
         } else {
+            var ingridientIdandName = value.ingredientName.split(")");
+            console.log(ingridientIdandName );
+            value.ingredientId = ingridientIdandName[0];
+            value.ingredientName = ingridientIdandName[1];
+            const newIngredient = new IngredientModel(value.ingredientId, value.ingredientName, value.quantity, value.measure);
+
             this.addIngredient(newIngredient);
         }
         this.editMode = false;
         form.reset();
+    }
+
+    selectedIngredientItem = null;
+    onOptionClick(e)
+    {
+        console.log(e);
+        this.selectedIngredientItem = e;
     }
 
     createProduct(productModel) {
