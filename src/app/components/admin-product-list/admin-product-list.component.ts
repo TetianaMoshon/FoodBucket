@@ -33,6 +33,7 @@ export class AdminProductListComponent implements OnInit {
 
     ngOnInit() {
         this.fetchData();
+        this.random = Date.now();
     }
 
     constructor(
@@ -100,15 +101,16 @@ export class AdminProductListComponent implements OnInit {
 
     search(searchStr) {
         if (searchStr.trim() !== '') {
-            this.productService.getAllProductsWithHttpInfo(0, this.total, 'desc', 'productId', searchStr, this.column)
-                .subscribe(res =>
-                    this.source = res.json()
+            this.productService.getAllProductsWithHttpInfo(0, this.limit.pageSize, 'desc', 'productId', searchStr, this.column)
+                .subscribe(res => {
+                    this.source = res.json();
+                    this.pager = this.pagerService.getPager(this.limit.pageSize, 1); }
                 );
         } else {
             this.source = this.products;
+            this.pager = this.pagerService.getPager(this.total, 1);
         }
 
-        this.pager.currentPage = 1;
     }
 
     toggle(state: boolean) {
