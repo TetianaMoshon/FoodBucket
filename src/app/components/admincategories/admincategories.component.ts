@@ -56,7 +56,6 @@ export class AdmincategoriesComponent implements OnInit {
             .subscribe(
                 response => {
                     this.categories = response.json();
-                    console.log(this.categories);
                     this.total = response.headers.get('x-total-records');
                     this.pager = this.pagerService.getPager(this.total, 1);
                     this.source = this.categories;
@@ -109,12 +108,14 @@ export class AdmincategoriesComponent implements OnInit {
 
     search(searchStr) {
         if (searchStr.trim() !== '') {
-            this.categoryService.getAllCategoriesWithHttpInfo(0, this.total, 'desc', 'category_id', searchStr, this.column)
-                .subscribe(res =>
-                    this.source = res.json()
+            this.categoryService.getAllCategoriesWithHttpInfo(0, this.limit.pageSize, 'desc', 'category_id', searchStr, this.column)
+                .subscribe(res => {
+                    this.source = res.json();
+                    this.pager = this.pagerService.getPager(this.limit.pageSize, 1); }
                 );
         } else {
             this.source = this.categories;
+            this.pager = this.pagerService.getPager(this.total, 1);
         }
 
         this.pager.currentPage = 1;

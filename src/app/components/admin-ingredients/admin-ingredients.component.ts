@@ -21,7 +21,7 @@ export class AdminIngredientsComponent implements OnInit {
     res;
     total;
     offset;
-    limit = this.pagerService.getPager(this.total, 1);
+    limit = this.pagerService.getPager(this.total, 1, 5);
     page;
     value: string;
     state = true;
@@ -43,7 +43,6 @@ export class AdminIngredientsComponent implements OnInit {
         this.ingredientService.getAllIngredientsWithHttpInfo(this.offset, this.limit.pageSize, 'desc', 'ingredient_id' )
             .subscribe(response => {
                 this.ingredients = response.json();
-                console.log(this.ingredients );
                 this.total = response.headers.get('x-total-records');
                 this.pager = this.pagerService.getPager(this.total, 1);
                 this.pagedItems = this.ingredients;
@@ -63,13 +62,15 @@ export class AdminIngredientsComponent implements OnInit {
 
     search(searchStr) {
         if (searchStr.trim() !== '') {
-            this.ingredientService.getAllIngredientsWithHttpInfo(0, this.total, 'desc', 'ingredient_id', searchStr, this.column).subscribe(res =>
-                this.pagedItems = res.json());
+            this.ingredientService.getAllIngredientsWithHttpInfo(0, this.limit.pageSize, 'desc', 'ingredient_id', searchStr, this.column)
+                .subscribe(res => {
+                this.pagedItems = res.json();
+                this.pager = this.pagerService.getPager(this.limit.pageSize, 1); }
+        );
         } else {
             this.pagedItems = this.ingredients;
+            this.pager = this.pagerService.getPager(this.total, 1);
         }
-
-        this.pager.currentPage = 1;
     }
 
     toggle(state: boolean) {
@@ -86,7 +87,8 @@ export class AdminIngredientsComponent implements OnInit {
         this.pagedItems = [];
         this.defineOffset(this.limit.pageSize, page);
         if (this.sorted) {
-            this.ingredientService.getAllIngredients(this.offset, this.limit.pageSize, this.nextSort, this.value ).subscribe(ingredients => {
+            this.ingredientService.getAllIngredients(this.offset, this.limit.pageSize, this.nextSort, this.value )
+                .subscribe(ingredients => {
                 this.pagedItems = ingredients;
             });
         } else  {

@@ -113,7 +113,7 @@ exports.getAllProducts = function(offset,limit, sort, sort_col, search_txt, sear
                             resolve({total: total, body: utils.respondWithCode(200, productsDoc)});
                         }
                         else {
-                            reject(utils.respondWithCode(404, {"code": 404, "message": "Products are not found, please try again."}));
+                            reject(utils.respondWithCode(204));
                         }
                     },
                     error => { console.log('Unable to get products', error); }

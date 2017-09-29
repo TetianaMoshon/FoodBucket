@@ -130,7 +130,7 @@ exports.getAllUsers = function (offset, limit, sort, sort_col, isActive, search_
                             });
                             resolve({total: total, body: utils.respondWithCode(200, usersDoc)});
                         } else {
-                            reject(utils.respondWithCode(404, {"code": 404, "message": "Users are not found, please try again."}));
+                            reject(utils.respondWithCode(204));
                         }
                     },
                     error => { console.log('Unable to get users: ', error); }
