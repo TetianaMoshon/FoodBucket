@@ -81,14 +81,13 @@
                 <div class="col-md-6 col-sm-6 col-xs-6 price-block pull-right">
                     <div class="price-wrapper">
                         <p class="text-right text-font product-price">Price: <span>{{productData.price}}$</span></p>
-                        <p class="text-right text-font product-price">Economy: <span>{{productData.discount}}$</span></p>
-                        <p class="text-right text-font product-price">Discount price: <span>{{productData.price - productData.discount}}$</span></p>
+                    </div>
+                    <div>
+                        <add-to-cart-button class="pull-right" [id]="id"></add-to-cart-button>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <add-to-cart-button class="pull-right" [id]="id"></add-to-cart-button>
-                </div>
+
             </div>
         </div>
     </div>
