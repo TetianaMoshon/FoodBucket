@@ -12,7 +12,7 @@ import {NgForm} from '@angular/forms';
   styleUrls: ['./user-profile.component.css']
 })
 
-export class UserProfileComponent {
+export class UserProfileComponent implements OnInit {
     public user: User;
     public favouritesProduct = [];
     public userData;
@@ -20,10 +20,12 @@ export class UserProfileComponent {
     imageSrc = '';
     imageUpload: string;
 
-    constructor(private findUserByIdAPI: UserService,
-                private productService: ProductService,
-                private imageService: ImageService,
-                private flashMessagesService: FlashMessagesService) {
+    constructor(
+        private findUserByIdAPI: UserService,
+        private productService: ProductService,
+        private imageService: ImageService,
+        private flashMessagesService: FlashMessagesService
+    ) {
         this.user = new User(JSON.parse(sessionStorage.getItem('currentUserId')), '', ' ', ' ', 0, ' ', ' ', false, '');
         this.findUserByIdAPI.findUserById(JSON.parse(sessionStorage.getItem('currentUserId')))
             .subscribe(reg => {
@@ -32,10 +34,10 @@ export class UserProfileComponent {
                 this.user.email = reg.email;
                 this.user.city = reg.city;
                 this.user.address = reg.address;
-                if (this.user.image === '') {
+                if (reg.image == '') {
                     console.log(this.user.image);
                     this.imageSrc = 'image/user/default.jpg';
-                } else {
+                }else {
                     console.log(this.user.image);
                     this.imageSrc = 'image/' + reg.image;
                 }
@@ -44,7 +46,9 @@ export class UserProfileComponent {
                 console.log('error reg' + err);
             });
         this.showFavouriteProducts(JSON.parse(sessionStorage.getItem('currentUserId')));
-    }
+  }
+
+  ngOnInit(){}
 
     showFavouriteProducts(id) {
         this.findUserByIdAPI.findUserById(id)
@@ -65,7 +69,6 @@ export class UserProfileComponent {
                 err => console.log(err)
             );
     }
-
     onFileChange(event) {
         const fileList: FileList = event.target.files;
         if (fileList.length > 0) {
@@ -88,7 +91,6 @@ export class UserProfileComponent {
         const reader = e.target;
         this.imageSrc = reader.result;
     }
-
     onSubmit(form: NgForm) {
         if (this.file === null) {
             this.userData.image = this.imageSrc.replace('image/', '');
@@ -109,7 +111,6 @@ export class UserProfileComponent {
             timeout: 3000,
         });
     }
-
     uploadUserImageById(id, file, method) {
         const entityName = 'user';
         this.imageService.uploadImageByEntityId(id, file, method, entityName);
