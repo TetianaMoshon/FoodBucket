@@ -60,10 +60,6 @@ export class AdminUsersComponent implements OnInit {
 
     }
 
-    onCreateClick(event): void {
-        this.changeRoute('/admin/users/create');
-    }
-
     onEditClick(event, id): void {
         this.changeRoute(`/admin/users/${id}/edit`);
 
@@ -71,7 +67,7 @@ export class AdminUsersComponent implements OnInit {
 
     onDeleteClick(event, id): void {
         this.defineOffset(this.limit.pageSize, this.pager.currentPage);
-        if (confirm('Are you really want to delete ingredient with id: ' + id + ' ?')) {
+        if (confirm('Are you really want to delete user with id: ' + id + ' ?')) {
             this.userService.findUserById(parseInt(id, 10))
                 .subscribe(
                     user => {
@@ -97,7 +93,6 @@ export class AdminUsersComponent implements OnInit {
                     err => console.log(err)
                 );
         }
-
     }
 
     changeRoute(routeValue) {
