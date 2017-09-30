@@ -52,7 +52,7 @@ export class AdminnavbarComponent implements OnInit {
     }
     public getBackToHomePage() {
         this.data.changeIsAdmin(true);
-        /*this.router.navigate(['']);*/
+        this.router.navigate(['']);
     }
 
 }
