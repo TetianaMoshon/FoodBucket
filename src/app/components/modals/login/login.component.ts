@@ -62,9 +62,6 @@ export class LoginComponent implements OnInit {
         this.data.changeMessage(text);
         this.modalService.show(CongratulationComponent);
     }
-    public openForgotPass() {
-        this.modalService.show(ForgotPassComponent);
-    }
     ngOnInit() {
   }
 }
