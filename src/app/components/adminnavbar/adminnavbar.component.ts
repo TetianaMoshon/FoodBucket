@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { DataService } from '../../services/data/data.service';
 import {CartCommunicationService} from '../../services/cart-communication.service';
 import {Router} from '@angular/router';
@@ -8,8 +8,8 @@ import {Router} from '@angular/router';
   templateUrl: './adminnavbar.component.html',
   styleUrls: ['./adminnavbar.component.css']
 })
-export class AdminnavbarComponent implements OnInit {
-
+export class AdminnavbarComponent implements OnInit,OnDestroy {
+funcList: EventListenerOrEventListenerObject;
   constructor(public data: DataService,
               private cartCommunicationService: CartCommunicationService,
               public router: Router) { }
@@ -19,8 +19,7 @@ export class AdminnavbarComponent implements OnInit {
           const body = document.querySelector('body');
           body.style.paddingTop = '50px';
           if (innerWidth >= 768) {body.style.paddingLeft = '200px'; } else {body.style.paddingLeft = '0px'; }
-          window.addEventListener('resize', resizeFunction);
-          function resizeFunction() {
+      this.funcList = function resizeFunction() {
               if (innerWidth >= 768) {
                   sidebarToggle[0].style.left = '200px';
                   body.style.paddingLeft = '200px';
@@ -29,7 +28,8 @@ export class AdminnavbarComponent implements OnInit {
                   body.style.paddingLeft = '0px';
               }
 
-          }
+          };
+      window.addEventListener('resize', this.funcList);
           const toggleButton = document.getElementById('menu-toggle');
           toggleButton.addEventListener('click', function (e) {
               e.preventDefault();
@@ -44,6 +44,10 @@ export class AdminnavbarComponent implements OnInit {
               }
           });
   }
+  ngOnDestroy() {
+      console.log('FuncLIST in ONDESTROY', this.funcList);
+      window.removeEventListener('resize', this.funcList);
+  }
     public logOutFunc() {
         sessionStorage.clear();
         this.data.changeIsLogged(false);
@@ -51,6 +55,10 @@ export class AdminnavbarComponent implements OnInit {
         window.location.reload();
     }
     public getBackToHomePage() {
+        const body = document.querySelector('body');
+        body.style.paddingLeft = '0px';
+        console.log('FuncLIST', this.funcList);
+        window.removeEventListener('resize', this.funcList);
         this.data.changeIsAdmin(true);
         this.router.navigate(['']);
     }
