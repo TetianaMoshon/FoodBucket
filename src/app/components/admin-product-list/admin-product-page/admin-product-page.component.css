@@ -57,15 +57,20 @@ header {
     width: 150px;
 }
 
+/*a {*/
+    /*position: relative;*/
+    /*display: block;*/
+    /*margin: auto;*/
+    /*padding-top: 50px;*/
+    /*text-decoration: none;*/
+    /*color: white;*/
+    /*width: 150px;*/
+    /*height: 150px;*/
+/*}*/
+
 a {
-    position: relative;
-    display: block;
-    margin: auto;
-    padding-top: 50px;
+    color: white!important;
     text-decoration: none;
-    color: white;
-    width: 150px;
-    height: 150px;
 }
 
 a:visited {
@@ -251,7 +256,7 @@ footer {
     100% {
         stroke-dashoffset: 0;
     }
-    cursor: pointer;
+    /*cursor: pointer;*/
 }
 
 .preview {
