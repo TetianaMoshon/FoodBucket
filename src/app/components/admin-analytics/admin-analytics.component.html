@@ -2,7 +2,7 @@
 <div class="analytics">
         <div class="total">
             <div class="row">
-                <div class="order col-sm-6 col-md-3">
+                <div class="order text-center col-sm-6 col-md-6">
                     <h3 class="title">total orders</h3>
                     <div class="content">
                         <div class="icon-wrapper">
@@ -11,7 +11,7 @@
                         <p>{{totalOrders}}</p>
                     </div>
                 </div>
-                <div class="complited-order col-sm-6 col-md-3">
+                <div class="complited-order text-center col-sm-6 col-md-6">
                     <h3 class="title">completed orders</h3>
                     <div class="content">
                         <div class="icon-wrapper">
@@ -20,7 +20,7 @@
                         <p>{{completedOrders}}</p>
                     </div>
                 </div>
-                <div class="cash-per-day col-sm-6 col-md-3">
+                <div class="cash-per-day text-center col-sm-6 col-md-6">
                     <h3 class="title">revenue</h3>
                     <div class="content">
                         <div class="icon-wrapper">
@@ -29,7 +29,7 @@
                         <p>{{revenue}}</p>
                     </div>
                 </div>
-                <div class="users col-sm-6 col-md-3 ">
+                <div class="users text-center col-sm-6 col-md-6 ">
                     <h3 class="title">users</h3>
                     <div class="content">
                         <div class="icon-wrapper">
@@ -40,37 +40,9 @@
                 </div>
             </div>
         </div>
-        <div class="charts">
-            <div class="row">
-                <div class="orders col-sm-12 col-md-6">
-                    <h3 class="title">orders</h3>
-                    <div>
-                        <canvas baseChart
-                                [datasets]="chartOrdersData"
-                                [labels]="chartOrdersLabels"
-                                [options]="chartOrdersOptions"
-                                [colors]="chartOrdersColors"
-                                [legend]="chartOrdersLegend"
-                                [chartType]="chartOrdersType"></canvas>
-                    </div>
-                </div>
-                <div class="cash  col-sm-12 col-md-6">
-                    <h3 class="title">cash</h3>
-                    <div>
-                        <canvas baseChart
-                                [datasets]="chartCashData"
-                                [labels]="chartCashLabels"
-                                [options]="chartCashOptions"
-                                [colors]="chartCashColors"
-                                [legend]="chartCashLegend"
-                                [chartType]="chartCashType"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="additional">
             <div class="row">
-                <div class="doughnut col-sm-12 col-md-6">
+                <div class="doughnut col-sm-12 col-md-12">
                     <div class="row">
                         <div class="gender  col-sm-6 col-md-6">
                             <h3 class="title">Products</h3>
@@ -91,23 +63,6 @@
                                         [labels]="doughnutCategoryLabels"
                                         [chartType]="doughnutType"
                                 [colors]="doughnutColors"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="bar  col-sm-12 col-md-6">
-                    <div class="row">
-                        <div class="promotion col-md-12">
-                            <h3 class="title">promo</h3>
-                            <div>
-                                <canvas baseChart
-                                        [datasets]="barChartData"
-                                        [labels]="barChartLabels"
-                                        [options]="barChartOptions"
-                                        [legend]="barChartLegend"
-                                        [chartType]="barChartType"
-                                        [colors]="barChartColors">
-                                </canvas>
                             </div>
                         </div>
                     </div>

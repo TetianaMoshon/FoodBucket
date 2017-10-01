@@ -20,75 +20,6 @@ export class AdminAnalyticsComponent implements OnInit {
     meatProducts;
     vegeterianProducts;
     doughnutProductsData: number[];
-    // Chart Orders
-    public chartOrdersData: Array<any> = [
-        {data: [65, 59, 80, 81, 56, 55, 40], label: 'Total'},
-        {data: [28, 48, 40, 19, 86, 27, 90], label: 'Completed'},
-        {data: [18, 48, 77, 9, 100, 27, 40], label: 'Canceled'}
-    ];
-    public chartOrdersLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-    public chartOrdersOptions: any = {
-        responsive: true
-    };
-    public chartOrdersColors: Array<any> = [
-        { // Total
-            backgroundColor: 'rgba(27, 231, 255,0.2)',
-            borderColor: '#14a9ba',
-            pointBackgroundColor: '#14a9ba',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: '#14a9ba'
-        },
-        { // Completed
-            backgroundColor: 'rgba(110, 235, 131, 0.2)',
-            borderColor: '#51ab60',
-            pointBackgroundColor: '#51ab60',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: '#51ab60'
-        },
-        { // Canceled
-            backgroundColor: 'rgba(255, 87, 20, 0.2)',
-            borderColor: '#e85013',
-            pointBackgroundColor: '#e85013',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: '#e85013'
-        }
-    ];
-    public chartOrdersLegend = true;
-    public chartOrdersType = 'line';
-
-    // Chart Cash
-    public chartCashData: Array<any> = [
-        {data: [65, 59, 80, 81, 56, 55, 40], label: 'Total'},
-        {data: [28, 48, 40, 19, 86, 27, 90], label: 'Promo'}
-    ];
-    public chartCashLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-    public chartCashOptions: any = {
-        responsive: true
-    };
-    public chartCashColors: Array<any> = [
-        { // Total
-            backgroundColor: 'rgba(27, 231, 255,0.2)',
-            borderColor: '#14a9ba',
-            pointBackgroundColor: '#14a9ba',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: '#14a9ba'
-        },
-        { // Completed
-            backgroundColor: 'rgba(110, 235, 131, 0.2)',
-            borderColor: '#51ab60',
-            pointBackgroundColor: '#51ab60',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: '#51ab60'
-        }
-    ];
-    public chartCashLegend = true;
-    public chartCashType = 'line';
-
     // Doughnut
     public dougnutProductsLabels: string[]= ['Promotion', 'Not promotion'];
     public doughnutType = 'doughnut';
@@ -146,15 +77,12 @@ export class AdminAnalyticsComponent implements OnInit {
         });
         this.statService.getCategoriesStatistics('Fish').subscribe(res => {
             this.fishProducts = res['queryProducts'];
-            console.log(this.fishProducts);
         });
         this.statService.getCategoriesStatistics('Meat').subscribe(res => {
             this.meatProducts = res['queryProducts'];
-            console.log(this.meatProducts);
         });
         this.statService.getCategoriesStatistics('Vegeterian').subscribe(res => {
             this.vegeterianProducts = res['queryProducts'];
-            console.log(this.vegeterianProducts);
         });
     }
 }
