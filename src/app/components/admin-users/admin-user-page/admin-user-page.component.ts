@@ -62,26 +62,7 @@ export class AdminUserPageComponent implements OnInit, OnDestroy {
 
     onSubmit() {
         this.userModel.phone = Number(this.userModel.phone);
-
-        if (this.action.name === 'create') {
-            this.createUser(this.userModel);
-            this.reset();
-        } else {
-            this.updateUser(this.action.id, this.userModel);
-        }
-    }
-
-    createUser(userModel) {
-        this.userService.createUser(userModel)
-            .subscribe(
-                user => {
-                    this.flashMessagesService.show(`User was successfully created!`, {
-                        classes: ['alert', 'alert-success'],
-                        timeout: 3000,
-                    });
-                },
-                err => console.log(err)
-            );
+        this.updateUser(this.action.id, this.userModel);
     }
 
     updateUser(id: number, userModel) {
@@ -111,9 +92,5 @@ export class AdminUserPageComponent implements OnInit, OnDestroy {
                 },
                 err => console.log(err)
             );
-    }
-
-    reset() {
-        this.userModel = new UserModel('', '' , '', '', null, '', '', '', [], true);
     }
 }

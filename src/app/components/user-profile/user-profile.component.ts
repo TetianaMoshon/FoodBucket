@@ -26,26 +26,26 @@ export class UserProfileComponent implements OnInit {
         private imageService: ImageService,
         private flashMessagesService: FlashMessagesService
     ) {
-      this.user = new User(JSON.parse(sessionStorage.getItem('currentUserId')), '', ' ', ' ', 0, ' ', ' ', false, '');
-      this.findUserByIdAPI.findUserById(JSON.parse(sessionStorage.getItem('currentUserId')))
-          .subscribe(reg => {
-              this.user.firstName = reg.firstName;
-              this.user.lastName = reg.lastName;
-              this.user.email = reg.email;
-              this.user.city = reg.city;
-              this.user.address = reg.address;
-              if (this.user.image == '') {
-                  console.log(this.user.image);
-                  this.imageSrc = 'image/user/default.jpg';
-              }else {
-                  console.log(this.user.image);
-                  this.imageSrc = 'image/' + reg.image;
-              }
+        this.user = new User(JSON.parse(sessionStorage.getItem('currentUserId')), '', ' ', ' ', 0, ' ', ' ', false, '');
+        this.findUserByIdAPI.findUserById(JSON.parse(sessionStorage.getItem('currentUserId')))
+            .subscribe(reg => {
+                this.user.firstName = reg.firstName;
+                this.user.lastName = reg.lastName;
+                this.user.email = reg.email;
+                this.user.city = reg.city;
+                this.user.address = reg.address;
+                if (reg.image == '') {
+                    console.log(this.user.image);
+                    this.imageSrc = 'image/user/default.jpg';
+                }else {
+                    console.log(this.user.image);
+                    this.imageSrc = 'image/' + reg.image;
+                }
 
             }, err => {
-              console.log('error reg' + err);
-          });
-      this.showFavouriteProducts(JSON.parse(sessionStorage.getItem('currentUserId')));
+                console.log('error reg' + err);
+            });
+        this.showFavouriteProducts(JSON.parse(sessionStorage.getItem('currentUserId')));
   }
 
   ngOnInit(){}
