@@ -17,7 +17,7 @@ import {AuthService} from '../../client/api/auth.service';
 export class NavbarComponent implements OnInit {
 
     LogBtnText;
-    isCollapsed;
+    isCollapsed = true;
     isLogged;
     isAdmin;
 
