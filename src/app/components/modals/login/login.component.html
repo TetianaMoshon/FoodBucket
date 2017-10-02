@@ -1,0 +1,47 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" (click)="bsModalRef.hide()">&times;</button>
+    <h4 class="modal-title text-center" >{{title}}</h4>
+</div>
+<div class="modal-body">
+    <form >
+        <div class="form-group">
+            <label for="email">Email address</label>
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email"
+                   required
+                   pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                   [(ngModel)]="model.email" name="email"
+                   #email="ngModel">
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+
+            <div [hidden]="email.valid || email.pristine" class="alert-danger">
+               <div [hidden]="!email.hasError('required')">Email is required</div>
+               <div [hidden]="!email.hasError('pattern')">Email format should be <small><b>joe@abc.com</b></small></div>
+            </div>
+
+        </div>
+        <div class="form-group">
+            <label for="password">Password *</label>
+            <input type="password" class="form-control" id="password" placeholder="Password"
+                   required
+                   [(ngModel)]="model.password" name="password"
+                   #password="ngModel" >
+            <div [hidden]="password.valid || password.pristine" class="alert-danger">
+                <div [hidden]="!password.hasError('required')">Password is required</div>
+            </div>
+        </div>
+        <div class="form-check">
+            <label class="form-check-label">
+                <input type="checkbox" class="form-check-input">
+                Remember me
+            </label>
+        </div>
+        <div class="text-center">
+            <button type="button" class="btn btn-primary btn-lg" (click)="logInOperation(); bsModalRef.hide()">Sign In</button><!--openCongratulation()-->
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <div class="text-center" (click)="openForgotPass();"><a>Forgot your password?</a></div>
+    <div class="text-center" (click)="openNewAccount(); bsModalRef.hide()"><a>Don't have an account? Sign up now!</a></div>
+</div>
+

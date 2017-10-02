@@ -1,0 +1,19 @@
+.container-max-width {
+    max-width: 500px;
+    padding-bottom: 50px;
+}
+
+h2 {
+    font-family: Oswald, sans-serif;
+}
+
+hr {
+    margin-top: 0;
+    margin-bottom: 40px;
+    border-color: black;
+}
+
+.preview {
+    max-width: 200px;
+    height: auto;
+}

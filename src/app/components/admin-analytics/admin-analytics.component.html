@@ -1,0 +1,73 @@
+<app-adminnavbar></app-adminnavbar>
+<div class="analytics">
+        <div class="total">
+            <div class="row">
+                <div class="order text-center col-sm-6 col-md-6">
+                    <h3 class="title">total orders</h3>
+                    <div class="content">
+                        <div class="icon-wrapper">
+                            <img src="/assets/icons/total_order.svg" alt="" class="icon">
+                        </div>
+                        <p>{{totalOrders}}</p>
+                    </div>
+                </div>
+                <div class="complited-order text-center col-sm-6 col-md-6">
+                    <h3 class="title">completed orders</h3>
+                    <div class="content">
+                        <div class="icon-wrapper">
+                            <img src="/assets/icons/complited_order.svg" alt="" class="icon">
+                        </div>
+                        <p>{{completedOrders}}</p>
+                    </div>
+                </div>
+                <div class="cash-per-day text-center col-sm-6 col-md-6">
+                    <h3 class="title">revenue</h3>
+                    <div class="content">
+                        <div class="icon-wrapper">
+                            <img src="/assets/icons/cash.svg" alt="" class="icon">
+                        </div>
+                        <p>{{revenue}}</p>
+                    </div>
+                </div>
+                <div class="users text-center col-sm-6 col-md-6 ">
+                    <h3 class="title">users</h3>
+                    <div class="content">
+                        <div class="icon-wrapper">
+                            <img src="/assets/icons/users.svg" alt="" class="icon">
+                        </div>
+                        <p>{{totalUsers}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="additional">
+            <div class="row">
+                <div class="doughnut col-sm-12 col-md-12">
+                    <div class="row">
+                        <div class="gender  col-sm-6 col-md-6">
+                            <h3 class="title">Products</h3>
+                            <div>
+                                <canvas baseChart
+                                        [data]=[promotionalProducts,nonpromotionalProducts]
+                                        [labels]="doughnutProductsLabels"
+                                        [chartType]="doughnutType"
+                                        [colors]="doughnutColors">
+                                </canvas>
+                            </div>
+                        </div>
+                        <div class="category col-sm-6 col-md-6">
+                            <h3 class="title">Products by categories</h3>
+                            <div>
+                                <canvas baseChart
+                                        [data]=[fishProducts,meatProducts,vegeterianProducts]
+                                        [labels]="doughnutCategoryLabels"
+                                        [chartType]="doughnutType"
+                                [colors]="doughnutColors"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+

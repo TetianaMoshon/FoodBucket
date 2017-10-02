@@ -1,0 +1,263 @@
+.container-fluid{
+    border: groove;
+    max-width: 960px;
+}
+hr{
+    margin-top: 0;
+}
+.action-buttons{
+    margin-top: 25px;
+    margin-bottom: 10px;
+}
+h2{
+    font-family: Oswald;
+}
+tabset{
+    font-family: Roboto;
+}
+tab{
+    margin-top: 20px;
+}
+.form-group{
+    margin-top: 20px;
+}
+.table-wrap{
+    margin-bottom: 10px;
+}
+
+.ingredients th, td {
+    text-align: center;
+    cursor: pointer;
+}
+
+header {
+    background: #e3da74;
+    width: 100%;
+    height: 300px;
+}
+
+.shop-sign {
+    position: absolute;
+    left: 50%;
+    margin-left: -190px;
+    margin-top: 50px;
+    width: 380px;
+}
+
+.demo {
+    position: relative;
+    font-family: 'Nunito', sans-serif;
+    color: white;
+    width: 100%;
+    height: 650px;
+}
+
+.contain-all {
+    margin: auto;
+    width: 150px;
+}
+
+a {
+    position: relative;
+    display: block;
+    margin: auto;
+    padding-top: 50px;
+    text-decoration: none;
+    color: white;
+    width: 150px;
+    height: 150px;
+}
+
+a:visited {
+    text-decoration: none;
+    color: inherit;
+}
+
+a:active {
+    text-decoration: none;
+    color: inherit;
+}
+
+.icon-hook {
+    position: relative;
+}
+
+.icon-hook:after {
+    content: "";
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.icon-hook > svg {
+    pointer-events: none;
+}
+
+.contain-card {
+    padding-top: 75px;
+    height: 350px;
+}
+
+.demo-1 {
+    background: #e3da74;
+}
+
+.demo-2 {
+    background: #b2c460;
+}
+
+.demo-3 {
+    background: #f69159;
+}
+
+.demo-4 {
+    background: #fcab54;
+}
+
+.demo-5 {
+    background: #e3da74;
+}
+
+svg {
+    position: absolute;
+    z-index: 5;
+}
+
+.text {
+    position: absolute;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.save-text {
+    top: 140px;
+}
+
+.gift-text {
+    top: 150px;
+    left: 2px;
+}
+
+.favorite-text {
+    top: 160px;
+    left: -15px;
+    width: 180px;
+}
+
+.truck-text {
+    top: 170px;
+    left: -20px;
+    width: 180px;
+}
+
+footer {
+    position: relative;
+    background: #e3da74;
+    height: 250px;
+    font-family: 'Nunito', sans-serif;
+    color: white;
+    font-size: 18px;
+}
+
+.by-heart {
+    position: absolute;
+    top: -2px;
+}
+
+.by {
+    margin-left: 55px;
+}
+
+.byline {
+    position: absolute;
+    top: 35px;
+    left: 120px;
+    padding: 0;
+    margin: 0;
+    height: 20px;
+}
+
+.byline:hover {
+    color: #fcab54;
+}
+
+.contain-footer-info {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    margin-left: -200px;
+    text-align: center;
+    width: 400px;
+    height: 50px;
+}
+
+.cart-2 {
+    padding-top: 50px;
+}
+
+.lime-1 {
+    position: absolute;
+    top: 96px;
+    left: 37px;
+    -webkit-transform: rotate(-20deg);
+    opacity: 0;
+    width: 55px;
+}
+
+.center-line {
+    stroke-dasharray: 50;
+}
+
+.check-2 {
+    opacity: 0;
+}
+
+.active .center-line {
+    -webkit-animation: draw-cart 3s forwards;
+}
+
+.active .lime-1 {
+    -webkit-animation: lime-appear 1s 1s forwards;
+}
+
+.active .cart-plus-2 {
+    stroke: #7aa23f;
+}
+
+@-webkit-keyframes lime-appear {
+    50% {
+        opacity: 1;
+        -webkit-transform: scale(.5);
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes draw-cart {
+    0% {
+        stroke-dashoffset: 0;
+    }
+    25% {
+        stroke-dashoffset: 50;
+    }
+    50% {
+        stroke-dashoffset: 50;
+    }
+    75% {
+        stroke-dashoffset: 50;
+    }
+    100% {
+        stroke-dashoffset: 0;
+    }
+    cursor: pointer;
+}
+
+.preview {
+    max-width: 200px;
+    height: auto;
+}
+.ingredientId{
+    display: none;
+}

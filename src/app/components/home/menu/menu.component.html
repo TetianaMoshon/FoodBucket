@@ -1,0 +1,14 @@
+<div class="our-menu container ">
+    <h2 class="h2">OUR MENU</h2>
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" *ngFor="let product of RandProducts">
+            <div class="dishes-group__item">
+                <a routerLink="/product/{{product.productId}}"><img src="image/{{product.image}}" alt="{{product.title}}"></a>
+                <div class="info">
+                    <h3>{{product.title}}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    <button class="btn btn-info btn-lg center-block" routerLink="/category" routerLinkActive="active">SEE ALL</button>
+</div>

@@ -1,0 +1,27 @@
+<br>
+<div class="container">
+    <div class="row top-rated">
+        <div class="col-md-6 top-rated-desc">
+            <h3>order the best meals from our top-rated menu</h3>
+            <h4> What will you cook today? Let us recommend you these delicious dishes. With inspiring tips and tricks from our chefs, cook up your favorite meals with confidence.</h4>
+            <h4>Search, discover and enjoy as you cook our recipes. FoodBucket delivers everything you need to bring more delicious meals and moments to the table.</h4>
+            <h4>You will see that low-temperature cooking offers a universe of possibilities with surprising and delicious results.</h4>
+            <button class="btn btn-primary top-rated-details center-block" routerLink="category">Check out details</button>
+        </div>
+        <div class="col-md-6 top-rated-slider">
+
+            <carousel activeSlide="0">
+                <slide *ngFor="let toprated of topratedList">
+                    <a [routerLink]="['product/', toprated.productId]"><img src="image/{{toprated.image}}"></a>
+
+                    <div class="carousel-caption">
+                        <h3>{{toprated.title}}</h3>
+                    </div>
+                </slide>
+            </carousel>
+
+        </div>
+    </div>
+</div>
+
+<br>

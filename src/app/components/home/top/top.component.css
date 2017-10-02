@@ -1,0 +1,27 @@
+.top-rated{
+    margin:0 auto;
+}
+.top-rated-desc h3{
+    font-family: Oswald;
+    font-size: 32px;
+    margin-bottom: 30px;
+    text-align: center;
+    text-transform: capitalize;
+}
+.top-rated-desc h4{
+    font-family: Roboto;
+    font-size: 16px;
+    line-height: 1.4;
+    text-align: center;
+}
+.top-rated-details{
+    font-family: Roboto;
+    padding: 10px;
+    font-weight: bold;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+.top-rated-slider img{
+    width: 100%;
+}

@@ -1,0 +1,78 @@
+# See http://help.github.com/ignore-files/ for more about ignoring files.
+
+# compiled output
+/dist
+/public/image
+/tmp
+/out-tsc
+
+# dependencies
+/node_modules
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+testem.log
+/typings
+
+# e2e
+/e2e/*.js
+/e2e/*.map
+
+# System Files
+.DS_Store
+Thumbs.db
+package-lock.json
+src/app/services/dist/
+
+# Swagger stuff
+api/swagger-codegen-cli.jar
+download.vbs
+
+
+api/controllers
+api/utils/writer.js
+/api/.swagger-codegen/VERSION
+/src/app/client/.swagger-codegen/VERSION
+/src/app/client/api.module.ts
+/src/app/client/index.ts
+/src/app/client/configuration.ts
+/src/app/client/variables.ts
+/src/app/client/rxjs-operators.ts
+/src/app/client/api/
+/src/app/client/model/
+/src/app/client/encoder.ts
+/src/app/client/.gitignore
+/src/app/client/git_push.sh
+
+!/api/controllers/Category.js
+!/api/controllers/Ingredient.js
+!/api/controllers/Order.js
+!/api/controllers/Product.js
+!/api/controllers/User.js
+!/api/controllers/Promotion.js
+
+
+
+
+
+

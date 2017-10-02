@@ -1,0 +1,54 @@
+<!--Product list begins-->
+<div class="container product-list">
+
+    <!--Product list header begins-->
+    <div class="product-list-header">
+
+        <div class="row">
+            <div class="col-xs-6">
+                <h1>{{categoryTitle}}</h1>
+            </div>
+        </div>
+
+    </div>
+    <!--Product list header ends-->
+
+    <!--Product list block starts-->
+    <div class="product-list-blocks">
+
+        <div class="row text-center">
+
+            <ng-container *ngFor="let product of pagedItems">
+                <div class="col-md-4 col-sm-6 product">
+                    <div class="thumbnail">
+                        <a (click)="onShowProductClick($event, product['productId'])"><img src="image/{{product.image}}"></a>
+                        <div class="caption product-desc">
+                            <h3>{{product.title}}</h3>
+                            <p class="description">{{product.description}}</p>
+                            <p>
+                                <add-to-cart-button [id]="product.productId"></add-to-cart-button>
+                                <a (click)="onShowProductClick($event, product['productId'])" class="btn btn-default">More Info</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+        </div>
+        <div class="row text-center">
+            <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+                <li [ngClass]="{disabled:pager.currentPage === 1}">
+                    <a class="cursor-pointer" (click)="setPage(1)">«</a>
+                </li>
+                <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                    <a class="cursor-pointer" (click)="setPage(page)">{{page}}</a>
+                </li>
+                <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                    <a class="cursor-pointer" (click)="setPage(pager.totalPages)">»</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--Product list block ends-->
+
+</div>
+<!--Product list ends-->

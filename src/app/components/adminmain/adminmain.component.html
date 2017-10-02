@@ -1,0 +1,73 @@
+<app-adminnavbar></app-adminnavbar>
+<router-outlet></router-outlet>
+
+<div class="wrap">
+    <h2>Dashboard</h2>
+    <hr/>
+    <div class="row text-center main-wrap">
+        <div class="col-xs-12 col-sm-12">
+            <div class="wrap-border row orders">
+                <div class="col-xs-12 col-sm-3 wrap_icon">
+                    <span class="glyphicon glyphicon-shopping-cart"></span>
+                </div>
+                <div class="number col-xs-12 col-sm-9">
+                    <h3>Orders</h3>
+                    {{orders}}</div>
+            </div>
+            <div class="wrap-border row comments">
+                <div class="col-xs-12 col-sm-3 wrap_icon">
+                    <span class="glyphicon glyphicon-usd"></span>
+                </div>
+                <div class="number  col-xs-12 col-sm-9">
+                    <h3>Revenue</h3>
+                    {{revenue}}</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6">
+            <div class="wrap-charts">
+                <h3>Top categories</h3>
+                <div style="display: block;">
+                    <canvas baseChart
+                            [data]=[fishProducts,meatProducts,vegeterianProducts]
+                            [labels]="doughnutChartLabels"
+                            [chartType]="doughnutChartType"
+                            [colors]="doughnutColors"
+                            ></canvas>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+            <div class="wrap-charts">
+                <h3>Users to orders made</h3>
+                <div style="display: block">
+                    <canvas baseChart
+                            [data]=[totalUsers,orders]
+                            [labels]="pieChartLabels"
+                            [colors]="pieChartColors"
+                            [chartType]="pieChartType"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row text-center">
+        <div class="col-xs-12 col-sm-12">
+            <h3>Products we will need soon</h3>
+            <table class="table products-table">
+                <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Quantity in stock</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let ingredient of ingredientsForStats">
+                    <td>{{ingredient.title}}</td>
+                    <td>{{ingredient.quantity}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
