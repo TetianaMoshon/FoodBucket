@@ -70,13 +70,7 @@ export class ProductlistComponent implements OnInit {
             return;
         }
         // this.pager.currentPage = page;
-        console.log(`products is ${this.products}`);
         this.pager = this.pagerService.getPager(this.productList.length, page, 6);
-        console.log(`currentPage is ${this.pager.currentPage}`);
-        console.log(`startIndex is ${this.pager.startIndex}`);
-        console.log(`endIndex is ${this.pager.endIndex}`);
-        console.log(`productList length is ${this.productList.length}`);
-
         this.pagedItems = this.productList.slice(this.pager.startIndex, this.pager.endIndex + 1);
     }
 }
