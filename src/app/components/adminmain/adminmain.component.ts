@@ -3,6 +3,7 @@ import {Color} from 'ng2-charts';
 import {Router} from '@angular/router';
 import {StatisticsService} from '../../client/api/statistics.service';
 import {ProductService} from '../../client/api/product.service';
+import {IngredientService} from "../../client/api/ingredient.service";
 
 @Component({
   selector: 'app-adminmain',
@@ -11,36 +12,42 @@ import {ProductService} from '../../client/api/product.service';
 })
 export class AdminMainComponent implements OnInit {
     public revenue;
+    meatProducts;
+    fishProducts;
+    vegeterianProducts;
+    totalUsers;
     public orders;
     public allProducts;
     public location = '';
+    public ingredientsForStats;
     public barChartOptions: any = {
         scaleShowVerticalLines: false,
         responsive: true
     };
-    public doughnutChartLabels: string[] = ['Tiramisu', 'Carbonara', 'Ratatouille'];
+    public doughnutColors: any[] = [
+        {
+            backgroundColor: ['#19D2E8', '#64D678', '#E85013'],
+            borderColor: '#fff',
+            hoverBackgroundColor: ['#1be7ff', '#6eeb83', '#ff5714'],
+            hoverBorderColor: '#fff'
+        }];
+    public pieChartLabels: string[] = ['Users', 'Orders'];
+    public pieChartType = 'pie';
+    public pieChartColors: any[] = [
+        {
+            backgroundColor: ['#19D2E8', '#64D678'],
+            borderColor: '#fff',
+            hoverBackgroundColor: ['#1be7ff', '#6eeb83'],
+            hoverBorderColor: '#fff',
+        }
+    ];
+    public doughnutChartLabels: string[] = ['Fish', 'Meat', 'Vegeterian'];
     public doughnutChartDataCategory: Array<number> = [10, 5, 10];
-    public doughnutChartLabelsCategory: string[] = ['Bakery', 'Vegetarian', 'Seafood'];
-    public doughnutChartData: Array<number> = [35, 45, 10];
     public doughnutChartType = 'doughnut';
     public colorsEmptyObject: Array<Color> = [{}];
     public datasetsCategory: any[] = [
         {
             data: this.doughnutChartDataCategory,
-            backgroundColor: [
-                '#E85013',
-                '#64D678',
-                '#19D2E8'
-            ],
-            hoverBackgroundColor: [
-                '#BA400F',
-                '#A6BA13',
-                '#14A9BA'
-            ]
-        }];
-    public datasets: any[] = [
-        {
-            data: this.doughnutChartData,
             backgroundColor: [
                 '#E85013',
                 '#64D678',
@@ -78,17 +85,32 @@ export class AdminMainComponent implements OnInit {
         }];
     constructor(private  _router: Router,
                 private statService: StatisticsService,
-                private productService: ProductService) {
+                private ingrService: IngredientService) {
         this.location = _router.url;
-        console.log('Location of this', this.location);
     }
 
     ngOnInit() {
         this.statService.getRevenue().subscribe(res => {
             this.revenue = res['revenue'];
         });
+        this.statService.getUsersStatistics().subscribe(res => {
+            this.totalUsers = res.totalUsers;
+        });
         this.statService.getOrderStatistics().subscribe(res => {
             this.orders = res.totalOrders;
+        });
+        this.statService.getCategoriesStatistics('Fish').subscribe(res => {
+            this.fishProducts = res['queryProducts'];
+        });
+        this.statService.getCategoriesStatistics('Meat').subscribe(res => {
+            this.meatProducts = res['queryProducts'];
+        });
+        this.statService.getCategoriesStatistics('Vegeterian').subscribe(res => {
+            this.vegeterianProducts = res['queryProducts'];
+        });
+        this.ingrService.getAllIngredients(0, 5, 'asc', 'quantity').subscribe(res => {
+            this.ingredientsForStats = res;
+            console.log(res);
         });
   }
 
