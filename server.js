@@ -60,19 +60,19 @@ initScript.initFolders();
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api/users', (req,res, next) => jwt.JWTBlock(req, res, next));
-app.put('/api/user/{id}', (req,res, next) => jwt.JWTBlock(req, res, next));
-
-app.put('/api/category/{id}', (req,res, next) => jwt.JWTBlock(req, res, next));
-app.post('/api/category', (req,res, next) => jwt.JWTBlock(req, res, next));
-
-app.use('/api/contacts', (req,res, next) => jwt.JWTBlock(req, res, next));
-
-app.post('/api/order/{id}', (req,res, next) => jwt.JWTBlock(req, res, next));
-app.put('/api/order/{id}', (req,res, next) => jwt.JWTBlock(req, res, next));
-
-app.put('/api/product/{id}', (req,res, next) => jwt.JWTBlock(req, res, next));
-app.post('/api/product', (req,res, next) => jwt.JWTBlock(req, res, next));
+// app.use('/api/users', (req,res, next) => jwt.JWTBlock(req, res, next));
+// app.put('/api/user/{id}', (req,res, next) => jwt.JWTBlock(req, res, next));
+//
+// app.put('/api/category/{id}', (req,res, next) => jwt.JWTBlock(req, res, next));
+// app.post('/api/category', (req,res, next) => jwt.JWTBlock(req, res, next));
+//
+// app.use('/api/contacts', (req,res, next) => jwt.JWTBlock(req, res, next));
+//
+// app.post('/api/order/{id}', (req,res, next) => jwt.JWTBlock(req, res, next));
+// app.put('/api/order/{id}', (req,res, next) => jwt.JWTBlock(req, res, next));
+//
+// app.put('/api/product/{id}', (req,res, next) => jwt.JWTBlock(req, res, next));
+// app.post('/api/product', (req,res, next) => jwt.JWTBlock(req, res, next));
 
 // Initialize the Swagger middleware
 swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
