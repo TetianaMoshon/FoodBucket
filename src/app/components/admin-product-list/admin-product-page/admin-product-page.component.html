@@ -29,10 +29,12 @@
                         </div>
                         <div class="form-group">
                             <label for="category">Category:</label>
-                            <!--<input [(ngModel)]="productModel.category" name="category" type="text" class="form-control" id="category">-->
                             <select [(ngModel)]="productModel.category" name="category" type="text" class="form-control" id="category">
-                                <option>{{productModel.category}}</option>
-                                <option *ngFor="let category of categoryList">{{category.title}}</option>
+                                <option *ngIf="productModel.category != ''">{{productModel.category}}</option>
+
+                                <ng-container *ngFor="let category of categoryList">
+                                    <option *ngIf="productModel.category != category.title">{{ category.title }}</option>
+                                </ng-container>
                             </select>
                         </div>
                         <div class="form-group">
