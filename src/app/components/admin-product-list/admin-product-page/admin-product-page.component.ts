@@ -7,8 +7,8 @@ import { NgForm } from '@angular/forms';
 import { ProductModel } from './productModel';
 import { IngredientModel } from './ingredientModel';
 import { Subject } from 'rxjs/Subject';
-import {ImageService} from '../../../services/image/image.service';
-import {CategoryService} from '../../../client/api/category.service';
+import { ImageService } from '../../../services/image/image.service';
+import { CategoryService } from '../../../client/api/category.service';
 import { IngredientService } from '../../../client/api/ingredient.service';
 
 @Component({
