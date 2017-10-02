@@ -7,6 +7,7 @@ import 'rxjs/add/operator/debounceTime';
 import {Subscription} from 'rxjs/Subscription';
 
 @Component({
+  // tslint:disable-next-line
   selector: 'add-to-cart-button',
   templateUrl: './add-to-cart-button.component.html',
   styleUrls: ['./add-to-cart-button.component.css']
@@ -53,7 +54,7 @@ export class AddToCartButtonComponent implements OnInit, OnDestroy {
                 if (data === undefined) {
                     // let's create cartOrder
                     const newCartOrder = {
-                        productId: parseInt(id),
+                        productId: parseInt(id, 10),
                         // when cart is first created quantity is 1
                         quantity: 1
                     };
@@ -92,14 +93,14 @@ export class AddToCartButtonComponent implements OnInit, OnDestroy {
                 // retrieve array of cartOrders of logged in user
                 const {orderedProducts} = cartData;
                  // let's check whether id is already in this.arrayOfCartOrders
-                if (orderedProducts.find(curElement => curElement.productId === parseInt(id))) {
+                if (orderedProducts.find(curElement => curElement.productId === parseInt(id, 10))) {
                      this.flashMessagesService.show(`You have already added this product to cart!`, {
                         classes: ['alert', 'alert-danger'],
                         timeout: 3000,
                     });
                 } else {
                     // let's push new CartOrder into arrayOfCartOrders
-                    orderedProducts.push({productId: parseInt(id), quantity: 1});
+                    orderedProducts.push({productId: parseInt(id, 10), quantity: 1});
                     // let's created updatedCartOrder
                     const updatedCart = {
                         orderedProducts: orderedProducts,
@@ -107,7 +108,8 @@ export class AddToCartButtonComponent implements OnInit, OnDestroy {
                         totalPriceOfAllDishes: 0
                     };
 
-                    this.cartService.updateCartContentById(this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage(), updatedCart)
+                    this.cartService.updateCartContentById(
+                        this.cartCommunicationService.getIdOfLoggedInUserFromSessionStorage(), updatedCart)
                         .subscribe(updatedData => {
                         console.log('updatedCart returned from backend ', updatedData);
                     });

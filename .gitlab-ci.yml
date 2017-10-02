@@ -17,6 +17,7 @@
 
 stages:
   - lint
+  - api
   - test
   - build
   - package
@@ -35,18 +36,10 @@ run_tslint:
     - npm install
     - npm run lint
 
-unit_test:
-  tags:
-    - ita
-  stage: test
-  <<: *dev-cache-pull
-  script:
-    - npm run test-ci
-
 generate_api:
   tags:
     - ita
-  stage: build
+  stage: api
   before_script:
     - chmod u+x ./get_codegen.sh
   script:
@@ -57,7 +50,15 @@ generate_api:
     paths:
       - api/controllers/
       - api/utils/
-  <<: *release-only
+      - src/app/client/
+
+unit_test:
+  tags:
+    - ita
+  stage: test
+  <<: *dev-cache-pull
+  script:
+    - npm run test-ci
 
 build_angular:
   tags:

@@ -39,23 +39,15 @@ export class AdminUsersComponent implements OnInit {
         private router: Router,
         private pagerService: PagerService,
     ) {
-        const headers = new Headers();
-        const token = sessionStorage.getItem('JWT');
-        console.log(token);
-        headers.append('x-my-jwt', token);
-        /*this.userService.getAllUsers(1, 2, true, {headers: headers})
-            .subscribe(
-                user => {
-                    this.data =  user;
-                },
-                err => console.log(err)
-            );*/
     }
 
 
     fetchData() {
         this.defineOffset(this.limit.pageSize, 1);
-        this.userService.getAllUsersWithHttpInfo(this.offset, this.limit.pageSize, 'desc', 'userId')
+        const headers = new Headers();
+        const token = sessionStorage.getItem('JWT');
+        headers.append('x-my-jwt', token);
+        this.userService.getAllUsersWithHttpInfo(this.offset, this.limit.pageSize, 'desc', 'userId', {headers: headers})
             .subscribe(
                 response => {
                     this.users = response.json();

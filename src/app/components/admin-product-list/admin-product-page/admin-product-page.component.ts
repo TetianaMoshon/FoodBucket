@@ -162,7 +162,7 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
         this.editMode = false;
         form.reset();
     }
-
+    // tslint:disable-next-line
     selectedIngredientItem = null;
     onOptionClick(e) {
         this.selectedIngredientItem = e;
