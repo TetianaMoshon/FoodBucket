@@ -6,7 +6,7 @@ services:
     cpu_shares: 100
     mem_limit: 524288000
     volumes:
-      - ${PATH}/persistence/mongo:/bitnami
+      - ${DB_PATH}/persistence/mongo:/bitnami
     ports:
       - "27017"
     environment:
