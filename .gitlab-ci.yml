@@ -105,7 +105,7 @@ deploy_to_aws:
     - chmod +x /usr/local/bin/ecs-cli
     - chmod +x generate_config.sh
   script:
-    - sh generate_config.sh $USERNAME $PASSWORD $DATABASE "$AWS_LINK/api"
+    - sh generate_config.sh $USERNAME $PASSWORD $DATABASE "$AWS_LINK/api" $PERSIST
     - ecs-cli configure --region $AWS_DEFAULT_REGION --access-key $AWS_ACCESS_KEY_ID --secret-key $AWS_SECRET_ACCESS_KEY --cluster foodbucket
     - ecs-cli compose --project-name food-bucket --file docker-compose.yml service down
     - ecs-cli compose --project-name food-bucket --file docker-compose.yml service up --target-group-arn $AWS_TARGET_GROUP_ARN --container-name foodbucket --container-port 80 --role ecsServiceRole
