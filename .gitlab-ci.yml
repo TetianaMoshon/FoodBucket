@@ -97,7 +97,6 @@ pack_container:
 deploy_to_aws:
   tags:
     - docker
-    - container
   stage: deploy
   image: python:3-alpine
   before_script:
