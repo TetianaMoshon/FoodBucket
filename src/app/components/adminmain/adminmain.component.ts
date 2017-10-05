@@ -3,7 +3,7 @@ import {Color} from 'ng2-charts';
 import {Router} from '@angular/router';
 import {StatisticsService} from '../../client/api/statistics.service';
 import {ProductService} from '../../client/api/product.service';
-import {IngredientService} from "../../client/api/ingredient.service";
+import {IngredientService} from '../../client/api/ingredient.service';
 
 @Component({
   selector: 'app-adminmain',

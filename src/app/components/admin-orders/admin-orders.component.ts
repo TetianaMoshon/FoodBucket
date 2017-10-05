@@ -40,7 +40,9 @@ quantityArray;
 
     ngOnInit() {
         this.defineOffset(this.limit.pageSize, 1);
-        this.ApiService.getAllOrdersWithHttpInfo(this.offset, this.limit.pageSize, 'desc', 'orderId', undefined, undefined, this.getJwtHeader()).subscribe(response => {
+        this.ApiService
+            .getAllOrdersWithHttpInfo(this.offset, this.limit.pageSize, 'desc', 'orderId', undefined, undefined, this.getJwtHeader())
+            .subscribe(response => {
             this.orders = response.json();
             this.total = response.headers.get('x-total-records');
             this.pager = this.pagerService.getPager(this.total, 1);
@@ -59,7 +61,8 @@ quantityArray;
 
     search(searchStr) {
         if (searchStr.trim() !== '') {
-            this.ApiService.getAllOrdersWithHttpInfo(0, this.limit.pageSize, 'desc', 'orderId', searchStr, this.column, this.getJwtHeader()).subscribe(res =>
+            this.ApiService.getAllOrdersWithHttpInfo(0, this.limit.pageSize, 'desc', 'orderId', searchStr, this.column, this.getJwtHeader())
+                .subscribe(res =>
                 this.pagedItems = res.json());
                 this.pager = this.pagerService.getPager(this.limit.pageSize, 1);
         } else {
@@ -108,11 +111,14 @@ quantityArray;
       this.pagedItems = [];
       this.defineOffset(this.limit.pageSize, page);
           if (this.sorted) {
-              this.ApiService.getAllOrders(this.offset, this.limit.pageSize, this.nextSort, this.value, undefined, undefined, this.getJwtHeader()).subscribe(orders => {
+              this.ApiService
+                  .getAllOrders(this.offset, this.limit.pageSize, this.nextSort, this.value, undefined, undefined, this.getJwtHeader())
+                  .subscribe(orders => {
                   this.pagedItems = orders;
               });
           } else  {
-              this.ApiService.getAllOrders( this.offset, this.limit.pageSize, 'desc', 'orderId', undefined, undefined, this.getJwtHeader()).subscribe(orders => {
+              this.ApiService.getAllOrders( this.offset, this.limit.pageSize, 'desc', 'orderId', undefined, undefined, this.getJwtHeader())
+                  .subscribe(orders => {
                   this.pagedItems = orders;
               });
       }
@@ -123,7 +129,8 @@ quantityArray;
     onSortClick(value: string): void {
         this.toggle(!this.state);
         this.defineOffset(this.limit.pageSize, this.pager.currentPage);
-        this.ApiService.getAllOrders(this.offset, this.limit.pageSize, this.sort, value, undefined, undefined, this.getJwtHeader()).subscribe(orders => {
+        this.ApiService.getAllOrders(this.offset, this.limit.pageSize, this.sort, value, undefined, undefined, this.getJwtHeader())
+            .subscribe(orders => {
             this.value = value;
             this.pagedItems = orders;
         });

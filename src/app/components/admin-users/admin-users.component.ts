@@ -44,7 +44,9 @@ export class AdminUsersComponent implements OnInit {
 
     fetchData() {
         this.defineOffset(this.limit.pageSize, 1);
-        this.userService.getAllUsersWithHttpInfo(this.offset, this.limit.pageSize, 'desc', 'userId', undefined, undefined, undefined, this.getJwtHeader())
+        this.userService
+            .getAllUsersWithHttpInfo(this.offset, this.limit.pageSize, 'desc', 'userId',
+                undefined, undefined, undefined, this.getJwtHeader())
             .subscribe(
                 response => {
                     this.users = response.json();
@@ -85,7 +87,9 @@ export class AdminUsersComponent implements OnInit {
                         this.userService.updateUserById(this.newUser.userId, this.newUser, this.getJwtHeader())
                             .subscribe(
                                 updateUser => {
-                                    this.userService.getAllUsersWithHttpInfo(0, this.limit.pageSize,  'desc', 'userId', undefined, undefined, undefined, this.getJwtHeader())
+                                    this.userService
+                                        .getAllUsersWithHttpInfo(0, this.limit.pageSize,  'desc', 'userId',
+                                            undefined, undefined, undefined, this.getJwtHeader())
                                         .subscribe(
                                             addUser => {
                                                 this.source =  addUser;
@@ -119,7 +123,8 @@ export class AdminUsersComponent implements OnInit {
 
     search(searchStr) {
         if (searchStr.trim() !== '') {
-            this.userService.getAllUsersWithHttpInfo(0, this.limit.pageSize, 'desc', 'userId', true, searchStr, this.column, this.getJwtHeader())
+            this.userService
+                .getAllUsersWithHttpInfo(0, this.limit.pageSize, 'desc', 'userId', true, searchStr, this.column, this.getJwtHeader())
                 .subscribe(res => {
                     this.source = res.json();
                     this.pager = this.pagerService.getPager(this.limit.pageSize, 1); }
@@ -143,12 +148,15 @@ export class AdminUsersComponent implements OnInit {
         this.source = [];
         this.defineOffset(this.limit.pageSize, page);
         if (this.sorted) {
-            this.userService.getAllUsers(this.offset, this.limit.pageSize, this.nextSort, this.value, undefined, undefined, undefined, this.getJwtHeader())
+            this.userService
+                .getAllUsers(this.offset, this.limit.pageSize, this.nextSort, this.value,
+                    undefined, undefined, undefined, this.getJwtHeader())
                 .subscribe(users => {
                     this.source = users;
                 });
         } else  {
-            this.userService.getAllUsers( this.offset, this.limit.pageSize, 'desc', 'userId', undefined, undefined, undefined, this.getJwtHeader())
+            this.userService
+                .getAllUsers( this.offset, this.limit.pageSize, 'desc', 'userId', undefined, undefined, undefined, this.getJwtHeader())
                 .subscribe(users => {
                     this.source = users;
                 });
@@ -160,7 +168,9 @@ export class AdminUsersComponent implements OnInit {
     onSortClick(value: string): void {
         this.toggle(!this.state);
         this.defineOffset(this.limit.pageSize, this.pager.currentPage);
-        this.userService.getAllUsers(this.offset, this.limit.pageSize, this.sort, value, undefined, undefined, undefined, this.getJwtHeader()).subscribe(users => {
+        this.userService
+            .getAllUsers(this.offset, this.limit.pageSize, this.sort, value, undefined, undefined, undefined, this.getJwtHeader())
+            .subscribe(users => {
             this.value = value;
             this.source = users;
         });

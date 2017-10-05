@@ -34,7 +34,7 @@ export class UserProfileComponent implements OnInit {
                 this.user.email = reg.email;
                 this.user.city = reg.city;
                 this.user.address = reg.address;
-                if (reg.image == '') {
+                if (reg.image === '') {
                     console.log(this.user.image);
                     this.imageSrc = 'image/user/default.jpg';
                 }else {
@@ -48,7 +48,7 @@ export class UserProfileComponent implements OnInit {
         this.showFavouriteProducts(JSON.parse(sessionStorage.getItem('currentUserId')));
   }
 
-  ngOnInit(){}
+  ngOnInit() {}
 
     showFavouriteProducts(id) {
         this.findUserByIdAPI.findUserById(id)

@@ -8,7 +8,7 @@ import {Router} from '@angular/router';
   templateUrl: './adminnavbar.component.html',
   styleUrls: ['./adminnavbar.component.css']
 })
-export class AdminnavbarComponent implements OnInit,OnDestroy {
+export class AdminnavbarComponent implements OnInit, OnDestroy {
 funcList: EventListenerOrEventListenerObject;
   constructor(public data: DataService,
               private cartCommunicationService: CartCommunicationService,
