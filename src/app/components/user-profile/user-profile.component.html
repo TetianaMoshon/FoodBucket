@@ -1,0 +1,52 @@
+<div class="user-profile container">
+    <div class="row">
+        <div>
+            <div class="profile  container">
+                <h2 class="title">{{user.firstName}} {{user.lastName}}</h2>
+                <div class="row">
+                    <div class="col-sm-4">
+                        <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+                            <img class="preview" [src]="imageSrc" />
+                            <div class="form-group">
+                                <input type="file" (change)="onFileChange($event)" name="imageUpload" [(ngModel)]="imageUpload" placeholder="Upload file" accept=".jpg,.png" id="image">
+                            </div>
+                            <div class="btn-group">
+                                <button (Click)="onSubmit()" type="submit" class="btn btn-success">Update image</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="personal">
+                            <address>
+                                <div class="email">
+                                    <span>Email</span>
+                                    <p>{{user.email}}</p>
+                                </div>
+                                <div class="city">
+                                    <span>City</span>
+                                    <p>{{user.city}}</p>
+                                </div>
+                                <div class="street">
+                                    <span>Street</span>
+                                    <p>{{user.address}}</p>
+                                </div>
+                            </address>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="favorite container">
+                <h3 class="title">Favorites</h3>
+                <div class="row center-block">
+                    <div class="col-md-3" *ngFor="let favourite of favouritesProduct">
+                        <div class="favorite-item thumbnail">
+                            <img src="image/{{favourite.image}}" alt="{{favourite.title}}" class="dish-image">
+                            <a routerLink="/product/{{favourite.productId}}" routerLinkActive="active" class="dish-name">go to {{favourite.title}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,30 @@
+a{
+	color: white;
+}
+
+h2, h3{
+    font-family: Oswald;
+}
+
+.row {
+    margin-right: 0;
+    margin-left: 0;
+    border: 2px solid #14A9BA;
+    font-family: Roboto;
+    padding-top: 0;
+}
+
+.our_office{
+	background-color: #14A9BA;
+	color: white;
+	padding-top: 20px;
+    padding-bottom: 30px;
+}
+
+agm-map {
+  height: 300px;
+}
+
+.contact{
+    padding-top: 15px;
+}

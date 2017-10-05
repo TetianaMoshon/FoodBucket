@@ -1,0 +1,253 @@
+.user-profile th {
+    font-family: Oswald;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.user-profile tr {
+    border-bottom-color: #333;
+}
+
+.user-profile > div  > div {
+    margin-top: 50px;
+}
+
+img {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    height: 66%;
+}
+
+.profile-img {
+    width: 200px;
+    height: 200px;
+}
+
+.personal div {
+    width: auto;
+}
+
+.personal p {
+    display: inline-block;
+    font-family: Roboto;
+}
+
+.personal span {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.personal p span {
+    margin-left: 5px;
+    font-size: 10px;
+    transition: color ease-in .35s;
+}
+
+.personal p span:hover {
+    cursor: pointer;
+    color: #51AB60;
+}
+
+.profile__achievements  {
+    position: relative;
+    margin-top: 30px;
+}
+
+.profile__achievements img {
+    display: inline-block;
+    margin-right: 7px;
+    box-sizing: border-box;
+    width: 35px;
+    height: 35px;
+    vertical-align: middle;
+    transition: padding 0.3s ease-in;
+}
+
+.profile__achievements img.active {
+    padding: 5px;
+    box-sizing: border-box;
+    background-color: rgba(228, 255, 26, 0.35);
+}
+
+.profile__achievements > img:hover {
+    padding: 5px;
+    background-color: rgba(228, 255, 26, 0.6);
+    cursor: pointer;
+}
+
+.profile__achievements > img:hover ~ p {
+    border-bottom: 2px solid #6eeb83;
+}
+
+
+.achievements {
+    display: inline-block;
+    transition: all linear 0.2s;
+    transform-origin: 5% 0%;
+}
+
+.achievements-title {
+    position: absolute;
+    top: 30%;
+    left: 20%;
+    font-family: Oswald;
+    text-transform: uppercase;
+}
+
+.achievements-title .hide {
+    width: 0px;
+}
+
+.is-show {
+    transform: translateX(5);
+    transform-origin: 5% 0% ;
+    transition: all ease-in-out 0.5s;
+}
+
+.achievements div {
+    display: inline-block;
+    width: 0px;
+    height: 0px;
+    border-radius: 50%;
+    transition: all ease-in-out 0.5s;
+}
+
+.achievements div {
+    display: inline-block;
+    margin-right: 5px;
+    width: 0px;
+    height: 0px;
+    border-radius: 50%;
+    transition: width ease-in-out 0.4s, margin-right linear .35s;
+    background-color: rgba(27, 231, 255, .7);
+}
+
+.achievements :nth-child(2n) {
+    background-color: rgba(110, 235, 131, .7);
+}
+
+.achievements :nth-child(3n) {
+    background-color: rgba(255, 87, 20, .7);
+}
+
+.is-show div {
+    display: inline-block;
+    width: 33px;
+    height: 33px;
+    border-radius: 50%;
+    transition: width ease-in-out 0.3s, background-color ease-in-out 0.4s, transform ease-in-out 0.5s;
+}
+
+.is-show div:hover {
+    cursor: pointer;
+    transform: rotateY(180deg);
+}
+
+.achievements div img {
+    opacity: 0;
+    height: 30px;
+    width: 30px;
+}
+
+.is-show div img {
+    opacity: 1;
+}
+
+.orders {
+    margin-top: 30px;
+}
+
+.orders .order-number {
+    width: 5%;
+    font-family: Roboto;
+    text-align: center;
+}
+
+.orders .order-name {
+    width: 40%;
+    font-family: Roboto;
+    font-weight: bold;
+}
+
+.orders .order-date {
+    width: 15%;
+}
+
+.orders .order-address {
+    width: 40%;
+}
+
+.content {
+    margin: 0 auto;
+    width: 70%;
+}
+
+.title {
+    margin-bottom: 30px;
+    text-align: left;
+    font-family: Oswald;
+    text-transform: uppercase;
+}
+
+.user-profile .order td {
+    font-family: Roboto;
+}
+
+.favorite {
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+.dish-image {
+    margin: 0 auto;
+    box-sizing: border-box;
+    transition: opacity .3s ease-in-out;
+}
+
+.favorite-item {
+    position: relative;
+    z-index: 0;
+    box-sizing: border-box;
+}
+
+.dish-name {
+    position: absolute;
+    display: block;
+    top: 60%;
+    right: 10%;
+    z-index: 2;
+    box-sizing: border-box;
+    font-family: Oswald;
+    font-size: 18px;
+    text-align: center;
+    border-radius: 2%;
+    font-weight: bold;
+    text-shadow: -1px 0px 2px #555659;
+    text-decoration: none;
+    opacity: 0;
+    color: #51AB60;
+    transition: opacity .4s ease-in-out, color .25s ease-in-out;
+}
+
+.favorite-item:hover .dish-image{
+    opacity: 0.4;
+}
+
+.favorite-item:hover .dish-name{
+    opacity: 1;
+    cursor: pointer;
+}
+
+.favorite-item .dish-name:hover {
+    color: #E85013;
+    text-shadow: none;
+}
+
+.form-group {
+    margin: 15px;
+}
+
+img{
+    border: 1px solid gray;
+}

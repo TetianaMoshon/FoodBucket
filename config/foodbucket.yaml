@@ -1,0 +1,12 @@
+foodbucket:
+  sequenceIds:
+    - orderId
+    - categoryId
+    - productId
+    - userId
+    - ingredientId
+  folders:
+    - category
+    - ingredient
+    - product
+    - user

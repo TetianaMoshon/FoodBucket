@@ -1,0 +1,119 @@
+<app-adminnavbar></app-adminnavbar>
+<div class="table-wrap"><div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <h1>Orders</h1>
+        </div>
+    </div>
+    <hr/>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th class="text-center">
+                <div class="form-group">
+                <input  class="form-control id-form-control" type="number" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('orderId')"   placeholder="ID">
+                    <a class="sort_icon" (click)="onSortClick('orderId')" [ngClass]="{
+                        'sort_asc': ((sort == 'asc' || nextSort == 'asc') && value == 'orderId'), 'sort_desc': ((sort == 'desc' || nextSort == 'desc') && value == 'orderId')}"></a>
+                </div>
+            </th>
+            <th>
+                <div class="form-group">
+                <input class="form-control"  type="text" name="name" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('username')" placeholder="Username">
+                    <a class="sort_icon" (click)="onSortClick('username')" [ngClass]="{
+                        'sort_asc': ((sort == 'asc' || nextSort == 'asc') && value == 'username'), 'sort_desc': ((sort == 'desc' || nextSort == 'desc') && value == 'username')}"></a>
+                </div>
+            </th>
+            <th class="text-center">
+                <div class="form-group">
+                <input  class="form-control" type="text" name="city" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('city')" placeholder="City">
+                    <a class="sort_icon" (click)="onSortClick('city')" [ngClass]="{
+                        'sort_asc': ((sort == 'asc' || nextSort == 'asc') && value == 'city'), 'sort_desc': ((sort == 'desc' || nextSort == 'desc') && value == 'city')}"></a>
+                </div>
+            </th>
+            <th class="text-center">
+                <div class="form-group">
+                <input  class="form-control" type="number" name="price" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('price')" placeholder="Price">
+                    <a class="sort_icon" (click)="onSortClick('price')" [ngClass]="{
+                        'sort_asc': ((sort == 'asc' || nextSort == 'asc') && value == 'price'), 'sort_desc': ((sort == 'desc' || nextSort == 'desc') && value == 'price')}"></a>
+                </div>
+            </th>
+            <th class="text-center">Products</th>
+            <th class="text-center">
+                <div class="form-group">
+                <input  class="form-control" type="text" name="name" autocomplete="off" (input)="searchInput$.next($event.target.value)" (click)="defineCol('status')" placeholder="Status">
+                </div>
+            </th>
+            <th class="text-center">More info</th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-container *ngFor="let order of pagedItems| ordersfilter: filter;">
+        <tr>
+            <!--<td class="gray-border  text-center">{{orderid}}</td>-->
+            <td class="gray-border text-center">{{order.orderId}}</td>
+            <td class="gray-border text-center">{{order.username}}</td>
+            <td class="gray-border text-center">{{order.city}}</td>
+            <td class="gray-border text-center">{{order.price}}</td>
+            <td class="gray-border text-center">{{order.products}}</td>
+            <td class="gray-border text-center">
+                <select #s (change)="updateOrder(s.value,order.orderId)" class="form-control">
+                    <option>{{order.status}}</option>
+                    <option *ngIf="order.status != 'Delivered'">Delivered</option>
+                    <option *ngIf="order.status != 'Cancelled'">Cancelled</option>
+                </select>
+            </td>
+            <td class="gray-border text-center">
+                <button class="btn btn-primary" *ngIf="order.expanded" (click)="order.expanded = false">Close</button>
+                <button class="btn btn-primary" *ngIf="!order.expanded" (click)="order.expanded = true;getProductTitles(order.orderId)">Details</button>
+            </td>
+        </tr>
+        <tr *ngIf="order.expanded">
+            <td class="gray-border nohover" colspan="8">
+                <div class="container-fluid">
+                    <div class="col-md-2 text-center">
+                        <h4>Date of order</h4>
+                        <p>{{order.date}}</p>
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <h4>Phone number</h4>
+                        <p>{{order.phone}}</p>
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <h4 class="text-center">Name and surname</h4>
+                        <p>{{order.username}}</p>
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <h4 class="text-center">Delivery address</h4>
+                        <p>{{order.city}} <br>{{order.address}}</p>
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <h4>Price of order</h4>
+                        <p>{{order.price}}</p>
+                    </div>
+                    <div class="col-md-2 text-center">
+                        <h4 class="text-center">Order contents</h4>
+                        <ul *ngFor="let product of orderTitles; let i = index" class="list-group">
+                            <li class="list-group-item">{{product}}<span class="badge badge-default badge-pill">{{quantityArray[i]}}</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </ng-container>
+        </tbody>
+    </table>
+    <div class="row text-left">
+        <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+            <li [ngClass]="{disabled:pager.currentPage === 1}">
+                <a class="cursor-pointer" (click)="setPage(1)">«</a>
+            </li>
+            <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+                <a class="cursor-pointer" (click)="setPage(page)">{{page}}</a>
+            </li>
+            <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+                <a class="cursor-pointer" (click)="setPage(pager.totalPages)">»</a>
+            </li>
+        </ul>
+    </div>
+
+</div></div>

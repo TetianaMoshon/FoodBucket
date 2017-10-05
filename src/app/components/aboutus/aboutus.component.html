@@ -1,0 +1,27 @@
+<div class="container">
+    <h2>About us</h2>
+
+    <div class="row">
+        <div class="col-xs-12 our_office">
+            <agm-map [latitude]="lat" [longitude]="lng" [fullscreenControl]="true" [zoom]="12">
+              <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+            </agm-map>
+            <div class="row contact">
+                <div class="col-xs-12 col-sm-6">
+                    <p><span class="glyphicon glyphicon glyphicon-envelope"></span> {{our_email}}</p>
+                    <p><span class="glyphicon glyphicon-phone-alt"></span> {{phone}}</p>
+                    <p><span class="glyphicon glyphicon-time"></span> {{time}}</p>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <span class="glyphicon glyphicon glyphicon-map-marker"></span> Address
+                    <p>
+                        {{address}}<br>
+                        {{city}}<br>
+                        {{index}}
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,21 @@
+<section class="categories">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-7">
+                <h2 class="categories__title">Categories</h2>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div *ngFor="let category of source" class="col-xxs-12 col-xs-6 col-sm-4">
+                <div class="category-item">
+                    <a [routerLink]="[category.category_id]" routerLinkActive="active" (click)="isCollapsed = true">
+                        <img class="img-rounded" src="image/{{ category.image }}" alt="There is no image">
+                        <span class="lead">{{ category.title }}</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
