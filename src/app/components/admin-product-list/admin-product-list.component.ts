@@ -74,7 +74,7 @@ export class AdminProductListComponent implements OnInit {
     onDeleteClick(event, productId): void {
         this.defineOffset(this.limit.pageSize, this.pager.currentPage);
         if (confirm('Are you really want to delete category with id: ' + productId + ' ?')) {
-            this.productService.deleteProductById(parseInt(productId, 10)).subscribe(
+            this.productService.deleteProductById(parseInt(productId, 10), this.getJwtHeader()).subscribe(
                 product => {
                     this.productService.getAllProductsWithHttpInfo(0, this.limit.pageSize, 'desc', 'productId')
                         .subscribe(
@@ -150,6 +150,13 @@ export class AdminProductListComponent implements OnInit {
             });
         this.sorted = true;
         this.nextSort = this.sort;
+    }
+
+    private getJwtHeader() {
+        const headers = new Headers();
+        const token = sessionStorage.getItem('JWT');
+        headers.append('x-my-jwt', token);
+        return {headers: headers};
     }
 
 }

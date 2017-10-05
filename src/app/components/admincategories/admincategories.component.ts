@@ -43,14 +43,6 @@ export class AdmincategoriesComponent implements OnInit {
     ) { }
 
     fetchData() {
-        // this.categoryService.getAllCategories(1, 2, 'desc')
-        //     .subscribe(
-        //         categories => {
-        //             this.source = categories;
-        //         },
-        //         err => console.log(err)
-        //     );
-
         this.defineOffset(this.limit.pageSize, 1);
         this.categoryService.getAllCategoriesWithHttpInfo(this.offset, this.limit.pageSize, 'desc', 'category_id')
             .subscribe(
@@ -82,7 +74,7 @@ export class AdmincategoriesComponent implements OnInit {
     onDeleteClick(event, id): void {
         this.defineOffset(this.limit.pageSize, this.pager.currentPage);
         if (confirm('Are you really want to delete category with id: ' + id + ' ?')) {
-            this.categoryService.deleteCategoryById(parseInt(id, 10)).subscribe(
+            this.categoryService.deleteCategoryById(parseInt(id, 10), this.getJwtHeader()).subscribe(
                 category => {
                     this.categoryService.getAllCategoriesWithHttpInfo(0, this.limit.pageSize, 'desc', 'category_id').subscribe(
                         categories => {
@@ -158,6 +150,13 @@ export class AdmincategoriesComponent implements OnInit {
         });
         this.sorted = true;
         this.nextSort = this.sort;
+    }
+
+    private getJwtHeader() {
+        const headers = new Headers();
+        const token = sessionStorage.getItem('JWT');
+        headers.append('x-my-jwt', token);
+        return {headers: headers};
     }
 
 

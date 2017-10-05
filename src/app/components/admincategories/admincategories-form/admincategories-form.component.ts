@@ -120,7 +120,7 @@ export class AdmincategoriesFormComponent implements OnInit, OnDestroy {
     }
 
     updateCategory(id: number, categoryObject) {
-        this.categoryService.updateCategoryById(id, categoryObject)
+        this.categoryService.updateCategoryById(id, categoryObject, this.getJwtHeader())
             .subscribe(
                 category => {
                     if (this.file !== null) {
@@ -158,6 +158,13 @@ export class AdmincategoriesFormComponent implements OnInit, OnDestroy {
         this.imageUpload = '';
         this.description = '';
         this.imageSrc = '';
+    }
+
+    private getJwtHeader() {
+        const headers = new Headers();
+        const token = sessionStorage.getItem('JWT');
+        headers.append('x-my-jwt', token);
+        return {headers: headers};
     }
 
 

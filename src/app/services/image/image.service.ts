@@ -14,6 +14,8 @@ export class ImageService {
         const headers = new Headers();
         /** No need to include Content-Type in Angular 4 */
         // headers.append('Content-Type', 'multipart/form-data');
+        const token = sessionStorage.getItem('JWT');
+        headers.append('x-my-jwt', token);
         headers.append('Accept', 'application/json');
         const options = new RequestOptions({ headers: headers });
         const request = (methodName.toLowerCase() === 'put') ?

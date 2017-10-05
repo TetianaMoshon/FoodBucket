@@ -169,7 +169,7 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     }
 
     createProduct(productModel) {
-        this.productService.createProduct(productModel)
+        this.productService.createProduct(productModel, this.getJwtHeader())
             .subscribe(
                 product => {
                     if (this.file !== null) {
@@ -192,7 +192,7 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     }
 
     updateProduct(id: number, productModel) {
-        this.productService.updateProductById(id, productModel)
+        this.productService.updateProductById(id, productModel, this.getJwtHeader())
             .subscribe(
                 product => {
                     if (this.file !== null) {
@@ -302,5 +302,12 @@ export class AdminProductPageComponent implements OnInit, OnDestroy {
     private onReaderLoaded(e) {
         const reader = e.target;
         this.imageSrc = reader.result;
+    }
+
+    private getJwtHeader() {
+        const headers = new Headers();
+        const token = sessionStorage.getItem('JWT');
+        headers.append('x-my-jwt', token);
+        return {headers: headers};
     }
 }
